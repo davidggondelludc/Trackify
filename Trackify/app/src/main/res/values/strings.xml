@@ -3,4 +3,15 @@
     <string name="title_home">Home</string>
     <string name="title_dashboard">Dashboard</string>
     <string name="title_notifications">Notifications</string>
+    <string name="save_button">Save</string>
+    <string name="return_button" >Return</string>
+    <string name="form_duration">Desired playlist duration:</string>
+    <string name="form_add_songs">Add some songs to your playlist</string>
+    <string name="form_title">Playlist Title</string>
+    <string name="form_artist">Artist</string>
+    <string name="form_selected_songs">Current selected songs</string>
+    <string name="form_song_title">Song Title</string>
+    <string name="form_min">min</string>
+    <string name="form_min_input">30</string>
+    <string name="form_search_button">Search song button</string>
 </resources>
