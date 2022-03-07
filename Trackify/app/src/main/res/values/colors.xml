@@ -7,4 +7,7 @@
     <color name="teal_700">#FF018786</color>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
+
+    <color name="placeholder_image_tint">#262626</color>
+    <color name="placeholder_background">@android:color/system_notification_accent_color</color>
 </resources>
