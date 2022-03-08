@@ -10,7 +10,7 @@
         android:id="@+id/mapView"
         android:layout_width="320dp"
         android:layout_height="265dp"
-        android:layout_marginTop="68dp"
+        android:layout_marginTop="44dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.494"
         app:layout_constraintStart_toStartOf="parent"
@@ -18,26 +18,29 @@
 
     <TextView
         android:id="@+id/textView9"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="128dp"
+        android:layout_height="23dp"
         android:background="#BCC9D5"
+        android:backgroundTint="#8BC34A"
         android:text="Available Playlists"
         android:textColor="@color/black"
-        tools:layout_editor_absoluteX="149dp"
-        tools:layout_editor_absoluteY="356dp" />
+        tools:layout_editor_absoluteX="141dp"
+        tools:layout_editor_absoluteY="369dp" />
 
     <Button
         android:id="@+id/button2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="+ Add Playlist to Route"
+        android:text="+   Add Playlist to Route"
         tools:layout_editor_absoluteX="87dp"
         tools:layout_editor_absoluteY="635dp" />
 
     <androidx.recyclerview.widget.RecyclerView
-        android:layout_width="409dp"
-        android:layout_height="258dp"
-        tools:layout_editor_absoluteX="1dp"
-        tools:layout_editor_absoluteY="376dp" />
+        android:layout_width="414dp"
+        android:layout_height="210dp"
+        android:background="#2D2929"
+        tools:itemCount="12"
+        tools:layout_editor_absoluteX="-2dp"
+        tools:layout_editor_absoluteY="406dp" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
