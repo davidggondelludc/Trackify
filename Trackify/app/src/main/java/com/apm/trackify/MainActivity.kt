@@ -12,7 +12,7 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        setContentView(R.layout.activity_main)
+        setContentView(R.layout.fragment_playlist)
 
         val recyclerView = findViewById<RecyclerView>(R.id.playlist)
         recyclerView.layoutManager = LinearLayoutManager(this)

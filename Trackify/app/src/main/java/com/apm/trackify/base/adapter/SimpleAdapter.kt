@@ -1,10 +1,10 @@
-package com.apm.trackify.playlist
+package com.apm.trackify.base.adapter
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 
-abstract class SimpleAdapter<T>(private val dataSet: MutableList<T>) :
+abstract class SimpleAdapter<T : BaseModel>(private val dataSet: MutableList<T>) :
     RecyclerView.Adapter<DataBoundViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): DataBoundViewHolder {
@@ -14,7 +14,7 @@ abstract class SimpleAdapter<T>(private val dataSet: MutableList<T>) :
         return DataBoundViewHolder(view)
     }
 
-    abstract override fun getItemViewType(position: Int): Int
+    override fun getItemViewType(position: Int): Int = dataSet[position].type
 
     override fun onBindViewHolder(holder: DataBoundViewHolder, position: Int) {
         val item = dataSet[position]

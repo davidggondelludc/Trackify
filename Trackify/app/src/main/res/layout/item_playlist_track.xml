@@ -13,7 +13,7 @@
         android:paddingStart="@dimen/margin_horizontal"
         android:paddingEnd="@dimen/margin_horizontal">
 
-        <ImageView
+        <com.google.android.material.imageview.ShapeableImageView
             android:id="@+id/cover"
             android:layout_width="@dimen/item_track_cover_size"
             android:layout_height="@dimen/item_track_cover_size"
@@ -22,6 +22,7 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
+            app:shapeAppearanceOverlay="@style/RoundedCorners"
             app:srcCompat="@drawable/placeholder_musical_note" />
 
         <TextView
@@ -31,11 +32,11 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
             android:layout_marginEnd="4dp"
+            android:text="@tools:sample/lorem"
             app:layout_constraintBottom_toTopOf="@+id/subtitle"
             app:layout_constraintEnd_toStartOf="@+id/dragHandle"
             app:layout_constraintStart_toEndOf="@+id/cover"
-            app:layout_constraintTop_toTopOf="@+id/cover"
-            android:text="@tools:sample/lorem" />
+            app:layout_constraintTop_toTopOf="@+id/cover" />
 
         <ImageView
             android:id="@+id/explicit"
@@ -44,7 +45,8 @@
             app:layout_constraintBottom_toBottomOf="@id/subtitle"
             app:layout_constraintStart_toStartOf="@+id/title"
             app:layout_constraintTop_toTopOf="@+id/subtitle"
-            app:srcCompat="@drawable/ic_explicit" />
+            app:srcCompat="@drawable/ic_explicit"
+            tools:ignore="ContentDescription" />
 
         <TextView
             android:id="@+id/subtitle"
@@ -53,12 +55,12 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="4dp"
             android:layout_marginEnd="4dp"
+            android:text="@tools:sample/lorem"
             app:layout_constraintBottom_toBottomOf="@+id/cover"
             app:layout_constraintEnd_toStartOf="@+id/dragHandle"
             app:layout_constraintStart_toEndOf="@+id/explicit"
             app:layout_constraintTop_toBottomOf="@+id/title"
-            app:layout_goneMarginStart="0dp"
-            android:text="@tools:sample/lorem" />
+            app:layout_goneMarginStart="0dp" />
 
         <ImageButton
             android:id="@+id/dragHandle"
@@ -71,7 +73,9 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:srcCompat="@drawable/ic_drag_handle" />
+            app:srcCompat="@drawable/ic_drag_handle"
+            tools:ignore="ContentDescription" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
+
 </FrameLayout>

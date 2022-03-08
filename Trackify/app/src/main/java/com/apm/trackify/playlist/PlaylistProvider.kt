@@ -1,26 +1,30 @@
 package com.apm.trackify.playlist
 
-import com.apm.trackify.model.Track
+import com.apm.trackify.playlist.model.DisplayableFooter
+import com.apm.trackify.playlist.model.DisplayableHeader
+import com.apm.trackify.playlist.model.DisplayableTrack
 
 class PlaylistProvider {
     companion object {
-        val playlist = listOf<Track>(
-            Track("title1", "subtitle", true),
-            Track("title2", "subtitle", true),
-            Track("title3", "subtitle", false),
-            Track("title4", "subtitle", true),
-            Track("title5", "subtitle", true),
-            Track("title6", "subtitle", true),
-            Track("title7", "subtitle", true),
-            Track("title8", "subtitle", true),
-            Track("title9", "subtitle", true),
-            Track("title10", "subtitle", true),
-            Track("title11", "subtitle", true),
-            Track("title12", "subtitle", true),
-            Track("title13", "subtitle", false),
-            Track("title14", "subtitle", true),
-            Track("title15", "subtitle", true),
-            Track("title16", "subtitle", true)
+        val playlist = listOf(
+            DisplayableHeader(title="album"),
+            DisplayableTrack(title = "track", subtitle = "artists", explicit = true),
+            DisplayableTrack(title = "track", subtitle = "artists", explicit = false),
+            DisplayableTrack(title = "track", subtitle = "artists", explicit = true),
+            DisplayableTrack(title = "track", subtitle = "artists", explicit = true),
+            DisplayableTrack(title = "track", subtitle = "artists", explicit = true),
+            DisplayableTrack(title = "track", subtitle = "artists", explicit = true),
+            DisplayableTrack(title = "track", subtitle = "artists", explicit = true),
+            DisplayableTrack(title = "track", subtitle = "artists", explicit = true),
+            DisplayableTrack(title = "track", subtitle = "artists", explicit = true),
+            DisplayableTrack(title = "track", subtitle = "artists", explicit = true),
+            DisplayableTrack(title = "track", subtitle = "artists", explicit = true),
+            DisplayableTrack(title = "track", subtitle = "artists", explicit = true),
+            DisplayableTrack(title = "track", subtitle = "artists", explicit = true),
+            DisplayableTrack(title = "track", subtitle = "artists", explicit = true),
+            DisplayableTrack(title = "track", subtitle = "artists", explicit = true),
+            DisplayableTrack(title = "track", subtitle = "artists", explicit = true),
+            DisplayableFooter(title = "3 Tracks · 9 Minutes")
         )
     }
 }

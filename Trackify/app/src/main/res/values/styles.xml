@@ -1,6 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
+    <attr name="colorSwipeBackground" format="reference|color" />
+
+    <style name="RoundedCorners">
+        <item name="cornerSize">10%</item>
+    </style>
+
     <style name="Track" parent="@android:style/TextAppearance">
         <item name="android:maxLines">1</item>
         <item name="android:ellipsize">end</item>
