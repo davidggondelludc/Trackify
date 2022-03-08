@@ -4,7 +4,7 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 
-abstract class SimpleAdapter<T : BaseModel>(private val dataSet: MutableList<T>) :
+abstract class SimpleAdapter<T : BaseModel>(val dataSet: MutableList<T>) :
     RecyclerView.Adapter<DataBoundViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): DataBoundViewHolder {
