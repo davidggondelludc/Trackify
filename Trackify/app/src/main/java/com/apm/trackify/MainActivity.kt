@@ -1,16 +1,13 @@
 package com.apm.trackify
 
 import android.os.Bundle
-import android.widget.LinearLayout
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.findNavController
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
-import androidx.recyclerview.widget.LinearLayoutManager
 import com.apm.trackify.databinding.ActivityMainBinding
-import kotlinx.android.synthetic.main.playlist_creator.*
 
 class MainActivity : AppCompatActivity() {
 
@@ -21,7 +18,7 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
 
         binding = ActivityMainBinding.inflate(layoutInflater)
-        setContentView(R.layout.playlist_creator)
+        setContentView(binding.root)
 
         val navView: BottomNavigationView = binding.navView
 
@@ -35,10 +32,5 @@ class MainActivity : AppCompatActivity() {
         )
         setupActionBarWithNavController(navController, appBarConfiguration)
         navView.setupWithNavController(navController)
-
-        selectSongAdapter = SelectSongAdapter(mutableListOf())
-
-        rvSelectedSongs.adapter = selectSongAdapter
-        rvSelectedSongs.layoutManager = LinearLayoutManager(this)
     }
 }
