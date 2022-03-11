@@ -1,8 +1,8 @@
 <resources>
     <string name="app_name">Trackify</string>
-    <string name="title_home">Home</string>
-    <string name="title_dashboard">Dashboard</string>
-    <string name="title_notifications">Notifications</string>
+    <string name="title_playlists">Playlists</string>
+    <string name="title_routes">Routes</string>
+    <string name="title_profile">Profile</string>
     <string name="save_button">Save</string>
     <string name="return_button" >Return</string>
     <string name="form_duration">Desired playlist duration:</string>
@@ -22,4 +22,9 @@
     <string name="playlist_to_share_title">Playlist to be shared</string>
     <string name="start_hint">Start hint</string>
     <string name="end_hint">End hint</string>
+    <string name="user">User</string>
+    <string name="followers">Followers</string>
+    <string name="shared_routes">Shared Routes</string>
+    <string name="following">Following</string>
+
 </resources>

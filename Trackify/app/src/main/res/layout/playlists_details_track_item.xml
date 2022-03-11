@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
 
-    <include layout="@layout/layout_swipeable" />
+    <include layout="@layout/common_swipeable_layout" />
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/content"

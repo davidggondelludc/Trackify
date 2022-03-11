@@ -1,8 +1,8 @@
-package com.apm.trackify.playlist
+package com.apm.trackify.ui.playlist.details
 
-import com.apm.trackify.playlist.model.DisplayableFooter
-import com.apm.trackify.playlist.model.DisplayableHeader
-import com.apm.trackify.playlist.model.DisplayableTrack
+import com.apm.trackify.ui.playlist.details.model.DisplayableFooter
+import com.apm.trackify.ui.playlist.details.model.DisplayableHeader
+import com.apm.trackify.ui.playlist.details.model.DisplayableTrack
 
 class PlaylistProvider {
     // TODO: replace this class with real data
