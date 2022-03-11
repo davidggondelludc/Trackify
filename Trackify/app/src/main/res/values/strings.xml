@@ -20,4 +20,6 @@
     <string name="start">Start</string>
     <string name="end">End</string>
     <string name="playlist_to_share_title">Playlist to be shared</string>
+    <string name="start_hint">Start hint</string>
+    <string name="end_hint">End hint</string>
 </resources>
