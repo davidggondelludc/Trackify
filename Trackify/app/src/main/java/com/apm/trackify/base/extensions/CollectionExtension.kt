@@ -3,9 +3,10 @@ package com.apm.trackify.base.extensions
 import java.util.*
 
 fun <T> List<T>.swap(i: Int, j: Int): List<T> {
-    if (isInBounds(i) && isInBounds(j)){
+    if (isInBounds(i) && isInBounds(j)) {
         Collections.swap(this, i, j)
     }
+
     return this
 }
 

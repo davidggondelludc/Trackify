@@ -7,5 +7,5 @@ data class DisplayableTrack(
     override val type: Int = R.layout.item_playlist_track,
     val title: String,
     val subtitle: String,
-    val explicit: Boolean
+    val explicit: Boolean,
 ) : BaseModel

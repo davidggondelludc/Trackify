@@ -6,9 +6,9 @@ import com.apm.trackify.R
 import com.apm.trackify.base.adapter.BaseModel
 import com.apm.trackify.base.adapter.DataBoundViewHolder
 import com.apm.trackify.base.adapter.SimpleAdapter
-import com.apm.trackify.base.drag.IDragListener
-import com.apm.trackify.base.drag.TouchableAdapter
-import com.apm.trackify.base.extensions.setOnDragListener
+import com.apm.trackify.base.drag.ITouchListener
+import com.apm.trackify.base.drag.TouchAdapter
+import com.apm.trackify.base.extensions.setOnTouchListener
 import com.apm.trackify.base.extensions.swap
 import com.apm.trackify.base.extensions.toggleVisibility
 import com.apm.trackify.databinding.ItemPlaylistFooterBinding
@@ -18,13 +18,12 @@ import com.apm.trackify.playlist.model.DisplayableFooter
 import com.apm.trackify.playlist.model.DisplayableHeader
 import com.apm.trackify.playlist.model.DisplayableTrack
 
-class PlaylistAdapter(dataSet: MutableList<BaseModel>, private val dragListener: IDragListener) : SimpleAdapter<BaseModel>(dataSet), TouchableAdapter{
-
-    private val headers by lazy { dataSet.indexOfFirst { it is DisplayableTrack } }
+class PlaylistAdapter(dataSet: MutableList<BaseModel>, private val touchListener: ITouchListener) :
+    SimpleAdapter<BaseModel>(dataSet), TouchAdapter {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): DataBoundViewHolder {
         val viewHolder = super.onCreateViewHolder(parent, viewType)
-        viewHolder.setOnDragListener(R.id.dragHandle, dragListener)
+        viewHolder.setOnTouchListener(R.id.dragHandle, touchListener)
 
         return viewHolder
     }
@@ -45,7 +44,7 @@ class PlaylistAdapter(dataSet: MutableList<BaseModel>, private val dragListener:
                 holder.itemView.apply {
                     binding.title.text = item.title
                     binding.subtitle.text = item.subtitle
-                    binding.explicit.toggleVisibility(visible = item.explicit, gone = true)
+                    binding.explicit.toggleVisibility(item.explicit, true)
                 }
             }
             is DisplayableFooter -> {
@@ -58,31 +57,19 @@ class PlaylistAdapter(dataSet: MutableList<BaseModel>, private val dragListener:
         }
     }
 
-    override fun canInteractWithViewHolder(viewType: Int): Boolean {
-        return viewType == R.layout.item_playlist_track
+    override fun canInteractWithViewHolder(viewHolder: RecyclerView.ViewHolder): Boolean {
+        return dataSet[viewHolder.adapterPosition].type == R.layout.item_playlist_track
     }
 
-    override fun onMoved(from: Int, to: Int) {
+    override fun onMove(from: Int, to: Int) {
         dataSet.swap(from, to)
+        notifyItemMoved(from, to)
     }
 
-    override fun onSwipedLeft(viewHolder: RecyclerView.ViewHolder) {
-
+    override fun onSwipeRight(position: Int) {
+        dataSet.removeAt(position)
+        notifyItemRemoved(position)
     }
 
-    override fun afterSwipeLeft(viewHolder: RecyclerView.ViewHolder) {
-
-    }
-
-    override fun onSwipedRight(viewHolder: RecyclerView.ViewHolder) {
-
-    }
-
-    override fun afterSwipeRight(viewHolder: RecyclerView.ViewHolder) {
-
-    }
-
-    override fun onClearView() {
-
-    }
+    override fun onSwipeLeft(position: Int) {}
 }

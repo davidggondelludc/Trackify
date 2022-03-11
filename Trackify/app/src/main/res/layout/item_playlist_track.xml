@@ -15,8 +15,6 @@
         android:paddingStart="@dimen/margin_horizontal"
         android:paddingEnd="@dimen/margin_horizontal">
 
-
-
         <com.google.android.material.imageview.ShapeableImageView
             android:id="@+id/cover"
             android:layout_width="@dimen/item_track_cover_size"

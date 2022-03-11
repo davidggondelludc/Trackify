@@ -10,6 +10,4 @@
 
     <color name="placeholder_image_tint">#262626</color>
     <color name="placeholder_background">@android:color/system_notification_accent_color</color>
-
-    <color name="colorControlNormal">#606367</color>
 </resources>

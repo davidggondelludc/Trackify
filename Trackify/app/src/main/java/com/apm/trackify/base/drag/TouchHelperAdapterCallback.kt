@@ -5,23 +5,13 @@ import android.view.View
 import androidx.core.view.ViewCompat
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.RecyclerView
-import com.apm.trackify.R
 import com.apm.trackify.databinding.ItemPlaylistTrackBinding
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.MainScope
-import kotlinx.coroutines.delay
-import kotlinx.coroutines.launch
 import kotlin.math.abs
 
-class TouchHelperAdapterCallback(private val adapter: TouchableAdapter, swipeDirs: Int) :
+class TouchHelperAdapterCallback(private val adapter: TouchAdapter) :
     ItemTouchHelper.SimpleCallback(
-        ItemTouchHelper.UP or ItemTouchHelper.DOWN,
-        swipeDirs
-    ), CoroutineScope by MainScope() {
-
-    companion object {
-        private const val SWIPE_DURATION = DEFAULT_SWIPE_ANIMATION_DURATION.toLong() - 50
-    }
+        ItemTouchHelper.UP or ItemTouchHelper.DOWN, ItemTouchHelper.LEFT or ItemTouchHelper.RIGHT
+    ) {
 
     private val animationsController = TouchHelperAnimationController()
 
@@ -30,42 +20,22 @@ class TouchHelperAdapterCallback(private val adapter: TouchableAdapter, swipeDir
         viewHolder: RecyclerView.ViewHolder,
         target: RecyclerView.ViewHolder
     ): Boolean {
-        if (adapter.canInteractWithViewHolder(viewHolder.itemViewType) &&
-            adapter.canInteractWithViewHolder(target.itemViewType)
+        return if (adapter.canInteractWithViewHolder(viewHolder) &&
+            adapter.canInteractWithViewHolder(target)
         ) {
-            adapter.onMoved(viewHolder.adapterPosition, target.adapterPosition)
-            return true
-        }
-        return false
-    }
+            adapter.onMove(viewHolder.adapterPosition, target.adapterPosition)
 
-    override fun getSwipeDirs(
-        recyclerView: RecyclerView,
-        viewHolder: RecyclerView.ViewHolder
-    ): Int {
-        if (adapter.canInteractWithViewHolder(viewHolder.itemViewType)) {
-            return super.getSwipeDirs(recyclerView, viewHolder)
+            true
+        } else {
+            false
         }
-        return 0
     }
 
     override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
-        if (adapter.canInteractWithViewHolder(viewHolder.itemViewType)) {
+        if (adapter.canInteractWithViewHolder(viewHolder)) {
             when (direction) {
-                ItemTouchHelper.RIGHT -> {
-                    launch {
-                        adapter.onSwipedRight(viewHolder)
-                        delay(SWIPE_DURATION)
-                        adapter.afterSwipeRight(viewHolder)
-                    }
-                }
-                ItemTouchHelper.LEFT -> {
-                    launch {
-                        adapter.onSwipedLeft(viewHolder)
-                        delay(SWIPE_DURATION)
-                        adapter.afterSwipeLeft(viewHolder)
-                    }
-                }
+                ItemTouchHelper.RIGHT -> adapter.onSwipeRight(viewHolder.adapterPosition)
+                ItemTouchHelper.LEFT -> adapter.onSwipeLeft(viewHolder.adapterPosition)
             }
         }
     }
@@ -105,31 +75,14 @@ class TouchHelperAdapterCallback(private val adapter: TouchableAdapter, swipeDir
                     isCurrentlyActive
                 )
             }
-            ItemTouchHelper.ACTION_STATE_DRAG -> drawOnMove(
-                recyclerView,
-                viewHolder.itemView,
-                isCurrentlyActive,
-                dY
-            )
-        }
-    }
-
-    private fun drawOnMove(
-        recyclerView: RecyclerView,
-        view: View,
-        isCurrentlyActive: Boolean,
-        dY: Float
-    ) {
-        if (isCurrentlyActive) {
-            var originalElevation: Any? = view.getTag(androidx.recyclerview.R.id.item_touch_helper_previous_elevation)
-            if (originalElevation == null) {
-                originalElevation = ViewCompat.getElevation(view)
-                val newElevation = 5f + findMaxElevation(recyclerView, view)
-                ViewCompat.setElevation(view, newElevation)
-                view.setTag(androidx.recyclerview.R.id.item_touch_helper_previous_elevation, originalElevation)
+            ItemTouchHelper.ACTION_STATE_DRAG -> {
+                if (isCurrentlyActive) {
+                    val newElevation = 5f + findMaxElevation(recyclerView, viewHolder.itemView)
+                    ViewCompat.setElevation(viewHolder.itemView, newElevation)
+                }
+                viewHolder.itemView.translationY = dY
             }
         }
-        view.translationY = dY
     }
 
     private fun findMaxElevation(recyclerView: RecyclerView, itemView: View): Float {
@@ -145,13 +98,8 @@ class TouchHelperAdapterCallback(private val adapter: TouchableAdapter, swipeDir
                 max = elevation
             }
         }
-        return max
-    }
 
-    override fun clearView(recyclerView: RecyclerView, viewHolder: RecyclerView.ViewHolder) {
-        getDefaultUIUtil().clearView(viewHolder.itemView.findViewById(R.id.content))
-        getDefaultUIUtil().clearView(viewHolder.itemView)
-        adapter.onClearView()
+        return max
     }
 
     override fun isLongPressDragEnabled(): Boolean = false
