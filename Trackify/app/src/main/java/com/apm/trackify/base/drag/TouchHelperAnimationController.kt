@@ -21,7 +21,7 @@ internal class TouchHelperAnimationController {
 
     private var state = State.IDLE
 
-    fun setAnimationIdle() {
+    fun setAnimationIdle(viewHolder: RecyclerView.ViewHolder) {
         state = State.IDLE
     }
 

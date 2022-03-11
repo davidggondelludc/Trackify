@@ -58,7 +58,7 @@ class PlaylistAdapter(dataSet: MutableList<BaseModel>, private val touchListener
     }
 
     override fun canInteractWithViewHolder(viewHolder: RecyclerView.ViewHolder): Boolean {
-        return dataSet[viewHolder.adapterPosition].type == R.layout.item_playlist_track
+        return getItem(viewHolder.adapterPosition)?.type == R.layout.item_playlist_track
     }
 
     override fun onMove(from: Int, to: Int) {

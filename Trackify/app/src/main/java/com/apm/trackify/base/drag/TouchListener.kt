@@ -4,7 +4,6 @@ import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.RecyclerView
 
 interface ITouchListener {
-
     fun setupListener(view: RecyclerView)
 
     fun onStartDrag(viewHolder: RecyclerView.ViewHolder)
