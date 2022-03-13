@@ -10,37 +10,40 @@
         android:id="@+id/mapView"
         android:layout_width="320dp"
         android:layout_height="265dp"
-        android:layout_marginTop="44dp"
+        android:layout_margin="24dp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.494"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/textView9"
-        android:layout_width="128dp"
-        android:layout_height="23dp"
-        android:background="#BCC9D5"
-        android:backgroundTint="#8BC34A"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:text="Available Playlists"
-        android:textColor="@color/black"
-        tools:layout_editor_absoluteX="141dp"
-        tools:layout_editor_absoluteY="369dp" />
+        android:layout_marginTop="8dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/mapView" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recyclerView3"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginBottom="8dp"
+        app:layout_constraintBottom_toTopOf="@+id/button2"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView9"
+        tools:itemCount="12" />
 
     <Button
         android:id="@+id/button2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
         android:text="+   Add Playlist to Route"
-        tools:layout_editor_absoluteX="87dp"
-        tools:layout_editor_absoluteY="635dp" />
-
-    <androidx.recyclerview.widget.RecyclerView
-        android:layout_width="414dp"
-        android:layout_height="210dp"
-        android:background="#2D2929"
-        tools:itemCount="12"
-        tools:layout_editor_absoluteX="-2dp"
-        tools:layout_editor_absoluteY="406dp" />
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
