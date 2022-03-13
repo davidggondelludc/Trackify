@@ -7,16 +7,17 @@
 
     <fragment
         android:id="@+id/navigation_playlist"
-        android:name="com.apm.trackify.ui.playlist.PlaylistFragment"
-        tools:layout="@layout/playlists_landing_fragment" />
+        android:name="com.apm.trackify.ui.playlist.NavigationFragment"
+        tools:layout="@layout/playlists_navigation_fragment" >
+    </fragment>
 
     <fragment
         android:id="@+id/navigation_routes"
-        android:name="com.apm.trackify.ui.routes.RoutesFragment"
-        tools:layout="@layout/routes_search_fragment" />
+        android:name="com.apm.trackify.ui.routes.NavigationFragment"
+        tools:layout="@layout/routes_navigation_fragment" />
 
     <fragment
-        android:id="@+id/navigation_profile"
-        android:name="com.apm.trackify.ui.profile.ProfileFragment"
-        tools:layout="@layout/user_profile_fragment" />
+        android:id="@+id/navigation_user"
+        android:name="com.apm.trackify.ui.user.NavigationFragment"
+        tools:layout="@layout/user_navigation_fragment" />
 </navigation>

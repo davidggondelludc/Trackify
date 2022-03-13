@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/playlist_navigation"
+    app:startDestination="@+id/navigation_landing">
+
+    <fragment
+        android:id="@+id/navigation_landing"
+        android:name="com.apm.trackify.ui.playlist.landing.LandingFragment"
+        tools:layout="@layout/playlists_landing_fragment" >
+        <action
+            android:id="@+id/action_navigation_landing_to_navigation_details"
+            app:destination="@id/navigation_details" />
+        <action
+            android:id="@+id/action_navigation_landing_to_navigation_create"
+            app:destination="@id/navigation_create" />
+    </fragment>
+    <fragment
+        android:id="@+id/navigation_create"
+        android:name="com.apm.trackify.ui.playlist.create.CreateFragment"
+        tools:layout="@layout/playlists_create_fragment" >
+    </fragment>
+    <fragment
+        android:id="@+id/navigation_details"
+        android:name="com.apm.trackify.ui.playlist.details.PlaylistFragment"
+        tools:layout="@layout/playlists_details_fragment" >
+    </fragment>
+</navigation>

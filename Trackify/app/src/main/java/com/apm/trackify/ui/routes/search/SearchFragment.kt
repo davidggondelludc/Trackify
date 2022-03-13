@@ -1,15 +1,15 @@
-package com.apm.trackify.ui.playlist
+package com.apm.trackify.ui.routes.search
 
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import com.apm.trackify.databinding.PlaylistsLandingFragmentBinding
+import com.apm.trackify.databinding.RoutesSearchFragmentBinding
 
-class PlaylistFragment : Fragment() {
+class SearchFragment : Fragment() {
 
-    private var _binding: PlaylistsLandingFragmentBinding? = null
+    private var _binding: RoutesSearchFragmentBinding? = null
 
     // This property is only valid between onCreateView and
     // onDestroyView.
@@ -21,7 +21,7 @@ class PlaylistFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
 
-        _binding = PlaylistsLandingFragmentBinding.inflate(inflater, container, false)
+        _binding = RoutesSearchFragmentBinding.inflate(inflater, container, false)
         val root: View = binding.root
         return root
     }

@@ -1,15 +1,15 @@
-package com.apm.trackify.ui.routes
+package com.apm.trackify.ui.user.profile
 
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import com.apm.trackify.databinding.RoutesSearchFragmentBinding
+import com.apm.trackify.databinding.UserProfileFragmentBinding
 
-class RoutesFragment : Fragment() {
+class ProfileFragment : Fragment() {
 
-    private var _binding: RoutesSearchFragmentBinding? = null
+    private var _binding: UserProfileFragmentBinding? = null
 
     // This property is only valid between onCreateView and
     // onDestroyView.
@@ -21,7 +21,7 @@ class RoutesFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
 
-        _binding = RoutesSearchFragmentBinding.inflate(inflater, container, false)
+        _binding = UserProfileFragmentBinding.inflate(inflater, container, false)
         val root: View = binding.root
         return root
     }
