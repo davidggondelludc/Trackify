@@ -1,36 +1,34 @@
 package com.apm.trackify.base.adapter
 
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.apm.trackify.base.extensions.isInBounds
 
-abstract class SimpleAdapter<T : BaseModel>(protected val dataSet: MutableList<T>) :
-    RecyclerView.Adapter<DataBoundViewHolder>() {
+abstract class SimpleAdapter<T : BaseModel>(
+    protected val dataSet: MutableList<T>
+) : RecyclerView.Adapter<SimpleAdapter.ViewHolder>() {
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): DataBoundViewHolder {
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val inflater = LayoutInflater.from(parent.context)
         val view = inflater.inflate(viewType, parent, false)
+        val viewHolder = ViewHolder(view)
+        initViewHolderListeners(viewHolder)
 
-        return DataBoundViewHolder(view)
+        return viewHolder
     }
+
+    protected abstract fun initViewHolderListeners(viewHolder: ViewHolder)
 
     override fun getItemViewType(position: Int): Int = dataSet[position].type
 
-    fun getItem(position: Int): T? {
-        return if (dataSet.isInBounds(position)) {
-            dataSet[position]
-        } else {
-            null
-        }
-    }
-    
-    override fun onBindViewHolder(holder: DataBoundViewHolder, position: Int) {
+    override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val item = dataSet[position]
-        bind(holder, item, position)
+        item.bind(holder.itemView, position)
     }
-
-    protected abstract fun bind(holder: DataBoundViewHolder, item: T, position: Int)
 
     override fun getItemCount(): Int = dataSet.size
+
+    class ViewHolder(view: View) : RecyclerView.ViewHolder(view)
 }
+

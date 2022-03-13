@@ -34,11 +34,11 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
             android:layout_marginEnd="4dp"
-            android:text="@tools:sample/lorem"
             app:layout_constraintBottom_toTopOf="@+id/subtitle"
             app:layout_constraintEnd_toStartOf="@+id/dragHandle"
             app:layout_constraintStart_toEndOf="@+id/cover"
-            app:layout_constraintTop_toTopOf="@+id/cover" />
+            app:layout_constraintTop_toTopOf="@+id/cover"
+            tools:text="@tools:sample/lorem" />
 
         <ImageView
             android:id="@+id/explicit"
@@ -57,12 +57,12 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="4dp"
             android:layout_marginEnd="4dp"
-            android:text="@tools:sample/lorem"
             app:layout_constraintBottom_toBottomOf="@+id/cover"
             app:layout_constraintEnd_toStartOf="@+id/dragHandle"
             app:layout_constraintStart_toEndOf="@+id/explicit"
             app:layout_constraintTop_toBottomOf="@+id/title"
-            app:layout_goneMarginStart="0dp" />
+            app:layout_goneMarginStart="0dp"
+            tools:text="@tools:sample/lorem" />
 
         <ImageButton
             android:id="@+id/dragHandle"

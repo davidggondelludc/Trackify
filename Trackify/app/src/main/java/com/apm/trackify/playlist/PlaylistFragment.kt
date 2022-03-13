@@ -5,31 +5,25 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
-import com.apm.trackify.R
-import com.apm.trackify.base.drag.TouchListener
-import com.apm.trackify.base.drag.ITouchListener
-import com.apm.trackify.base.drag.TouchAdapter
-import com.apm.trackify.base.drag.TouchHelperAdapterCallback
+import com.apm.trackify.databinding.FragmentPlaylistBinding
 
-class PlaylistFragment : Fragment(), ITouchListener by TouchListener() {
+class PlaylistFragment : Fragment() {
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        val view = inflater.inflate(R.layout.fragment_playlist, container, false)
+        val binding = FragmentPlaylistBinding.inflate(inflater, container, false)
 
-        val recyclerView = view.findViewById<RecyclerView>(R.id.playlist)
-        recyclerView.layoutManager = LinearLayoutManager(view.context)
-        recyclerView.adapter = PlaylistAdapter(
-            PlaylistProvider.playlist.toMutableList(), this
-        )
-        setupListener(recyclerView)
+        val adapter = PlaylistAdapter(PlaylistProvider.playlist.toMutableList())
+        adapter.canSwipeRight = true
 
-        return view
+        val recyclerView = binding.playlist
+        recyclerView.layoutManager = LinearLayoutManager(binding.playlist.context)
+        recyclerView.adapter = adapter
+
+        return binding.root
     }
 }

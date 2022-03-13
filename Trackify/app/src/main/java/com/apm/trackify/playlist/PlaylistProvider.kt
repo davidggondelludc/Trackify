@@ -8,7 +8,7 @@ class PlaylistProvider {
     // TODO: replace this class with real data
     companion object {
         val playlist = listOf(
-            DisplayableHeader(title="album"),
+            DisplayableHeader(title = "album"),
             DisplayableTrack(title = "track 1", subtitle = "artists", explicit = true),
             DisplayableTrack(title = "track 2", subtitle = "artists", explicit = false),
             DisplayableTrack(title = "track 3", subtitle = "artists", explicit = true),

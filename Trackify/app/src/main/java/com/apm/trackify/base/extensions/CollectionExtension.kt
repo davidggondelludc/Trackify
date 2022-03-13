@@ -6,7 +6,6 @@ fun <T> List<T>.swap(i: Int, j: Int): List<T> {
     if (isInBounds(i) && isInBounds(j)) {
         Collections.swap(this, i, j)
     }
-
     return this
 }
 
