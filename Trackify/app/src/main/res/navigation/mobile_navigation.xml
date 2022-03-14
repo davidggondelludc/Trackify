@@ -3,23 +3,21 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/mobile_navigation"
-    app:startDestination="@+id/navigation_home">
+    app:startDestination="@+id/navigation_playlist">
 
     <fragment
-        android:id="@+id/navigation_home"
-        android:name="com.apm.trackify.ui.home.HomeFragment"
-        android:label="@string/title_home"
-        tools:layout="@layout/fragment_home" />
+        android:id="@+id/navigation_playlist"
+        android:name="com.apm.trackify.ui.playlist.NavigationFragment"
+        tools:layout="@layout/playlists_navigation_fragment" />
 
     <fragment
-        android:id="@+id/navigation_dashboard"
-        android:name="com.apm.trackify.ui.dashboard.DashboardFragment"
-        android:label="@string/title_dashboard"
-        tools:layout="@layout/fragment_dashboard" />
+        android:id="@+id/navigation_routes"
+        android:name="com.apm.trackify.ui.routes.NavigationFragment"
+        tools:layout="@layout/routes_navigation_fragment" />
 
     <fragment
-        android:id="@+id/navigation_notifications"
-        android:name="com.apm.trackify.ui.notifications.NotificationsFragment"
-        android:label="@string/title_notifications"
-        tools:layout="@layout/fragment_notifications" />
+        android:id="@+id/navigation_user"
+        android:name="com.apm.trackify.ui.user.NavigationFragment"
+        tools:layout="@layout/user_navigation_fragment" />
+
 </navigation>
