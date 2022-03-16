@@ -9,20 +9,14 @@ import com.apm.trackify.R
 import com.apm.trackify.base.drag.TouchHelperCallback
 
 abstract class TouchAdapter<T : BaseModel>(
-    dataSet: MutableList<T>
+    dataSet: MutableList<T>,
+    private val swipeDirs: Int = 0
 ) : SimpleAdapter<T>(dataSet) {
-
-    var canSwipeRight = false
-    var canSwipeLeft = false
 
     private lateinit var itemTouchHelper: ItemTouchHelper
 
     override fun onAttachedToRecyclerView(recyclerView: RecyclerView) {
         super.onAttachedToRecyclerView(recyclerView)
-
-        var swipeDirs = 0
-        if (canSwipeRight) swipeDirs = ItemTouchHelper.RIGHT
-        if (canSwipeLeft) swipeDirs = swipeDirs or ItemTouchHelper.LEFT
 
         val callback = TouchHelperCallback(this, swipeDirs)
         itemTouchHelper = ItemTouchHelper(callback)

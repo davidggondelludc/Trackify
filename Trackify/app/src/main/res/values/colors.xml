@@ -4,12 +4,10 @@
     <color name="sunglow">#FED33C</color>
     <color name="green_blue_crayola">#2886D7</color>
     <color name="tufts_blue">#3C91DB</color>
-    <color name="rich_black">#101116</color>
     <color name="raisin_black">#262833</color>
-    <color name="independence">#3C3F50</color>
     <color name="black">#000000</color>
     <color name="white">#FFFFFFFF</color>
 
-    <color name="placeholder_image_tint">#262626</color>
+    <color name="placeholder_tint">#262626</color>
     <color name="placeholder_background">@android:color/system_notification_accent_color</color>
 </resources>

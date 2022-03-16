@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.apm.trackify.databinding.PlaylistsDetailsFragmentBinding
 
@@ -18,8 +19,6 @@ class PlaylistFragment : Fragment() {
         val binding = PlaylistsDetailsFragmentBinding.inflate(inflater, container, false)
 
         val adapter = PlaylistAdapter(PlaylistProvider.playlist.toMutableList())
-        adapter.canSwipeRight = true
-
         val recyclerView = binding.playlist
         recyclerView.layoutManager = LinearLayoutManager(binding.playlist.context)
         recyclerView.adapter = adapter

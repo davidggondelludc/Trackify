@@ -44,9 +44,9 @@ internal class TouchHelperAnimator(
         }
 
         background.setBackgroundColor(0xff_bdbdbd.toInt())
-        leftIcon.setColorFilter(0xff_606367.toInt())
+        leftIcon.setColorFilter(0xff_60_63_67.toInt())
         leftIcon.toggleVisibility(dX > 0, false)
-        rightIcon.setColorFilter(0xff_606367.toInt())
+        rightIcon.setColorFilter(0xff_60_63_67.toInt())
         rightIcon.toggleVisibility(dX < 0, false)
     }
 
@@ -57,7 +57,7 @@ internal class TouchHelperAnimator(
         state = State.CIRCULAR_REVEAL
 
         background.isVisible = true
-        background.setBackgroundColor(if (dx > 0) 0xff_cf1721.toInt() else 0xff_364854.toInt())
+        background.setBackgroundColor(if (dx > 0) 0xff_cf_17_21.toInt() else 0xff_36_48_54.toInt())
 
         val mainIcon = if (dx > 0f) leftIcon else rightIcon
         mainIcon.setColorFilter(Color.WHITE)

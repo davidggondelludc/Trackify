@@ -18,8 +18,6 @@ abstract class SimpleAdapter<T : BaseModel>(
         return viewHolder
     }
 
-    protected abstract fun initViewHolderListeners(viewHolder: ViewHolder)
-
     override fun getItemViewType(position: Int): Int = dataSet[position].type
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
@@ -28,6 +26,8 @@ abstract class SimpleAdapter<T : BaseModel>(
     }
 
     override fun getItemCount(): Int = dataSet.size
+
+    protected abstract fun initViewHolderListeners(viewHolder: ViewHolder)
 
     class ViewHolder(view: View) : RecyclerView.ViewHolder(view)
 }

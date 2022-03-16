@@ -1,5 +1,6 @@
 package com.apm.trackify.ui.playlist.details
 
+import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.RecyclerView
 import com.apm.trackify.R
 import com.apm.trackify.base.adapter.BaseModel
@@ -8,7 +9,7 @@ import com.apm.trackify.base.extensions.swap
 
 class PlaylistAdapter(
     dataSet: MutableList<BaseModel>
-) : TouchAdapter<BaseModel>(dataSet) {
+) : TouchAdapter<BaseModel>(dataSet, ItemTouchHelper.RIGHT) {
 
     override fun canInteractWithViewHolder(viewHolder: RecyclerView.ViewHolder): Boolean =
         viewHolder.itemViewType == R.layout.playlists_details_track_item

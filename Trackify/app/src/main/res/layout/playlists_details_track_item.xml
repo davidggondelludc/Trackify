@@ -28,13 +28,13 @@
             app:srcCompat="@drawable/placeholder_musical_note" />
 
         <TextView
-            android:id="@+id/title"
+            android:id="@+id/name"
             style="@style/Track.MainText"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
             android:layout_marginEnd="4dp"
-            app:layout_constraintBottom_toTopOf="@+id/subtitle"
+            app:layout_constraintBottom_toTopOf="@+id/artists"
             app:layout_constraintEnd_toStartOf="@+id/dragHandle"
             app:layout_constraintStart_toEndOf="@+id/cover"
             app:layout_constraintTop_toTopOf="@+id/cover"
@@ -44,14 +44,14 @@
             android:id="@+id/explicit"
             android:layout_width="16dp"
             android:layout_height="16dp"
-            app:layout_constraintBottom_toBottomOf="@id/subtitle"
-            app:layout_constraintStart_toStartOf="@+id/title"
-            app:layout_constraintTop_toTopOf="@+id/subtitle"
+            app:layout_constraintBottom_toBottomOf="@id/artists"
+            app:layout_constraintStart_toStartOf="@+id/name"
+            app:layout_constraintTop_toTopOf="@+id/artists"
             app:srcCompat="@drawable/ic_explicit"
             tools:ignore="ContentDescription" />
 
         <TextView
-            android:id="@+id/subtitle"
+            android:id="@+id/artists"
             style="@style/Track.SecondaryText"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
@@ -60,7 +60,7 @@
             app:layout_constraintBottom_toBottomOf="@+id/cover"
             app:layout_constraintEnd_toStartOf="@+id/dragHandle"
             app:layout_constraintStart_toEndOf="@+id/explicit"
-            app:layout_constraintTop_toBottomOf="@+id/title"
+            app:layout_constraintTop_toBottomOf="@+id/name"
             app:layout_goneMarginStart="0dp"
             tools:text="@tools:sample/lorem" />
 
