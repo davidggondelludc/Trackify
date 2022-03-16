@@ -3,6 +3,7 @@ package com.apm.trackify.ui.playlist.details
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.RecyclerView
 import com.apm.trackify.R
+import com.apm.trackify.base.animator.ScaleInOnTouch
 import com.apm.trackify.base.adapter.BaseModel
 import com.apm.trackify.base.adapter.TouchAdapter
 import com.apm.trackify.base.extensions.swap

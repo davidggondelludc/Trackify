@@ -4,6 +4,7 @@ import android.view.View
 import com.apm.trackify.R
 import com.apm.trackify.base.adapter.BaseModel
 import com.apm.trackify.base.extensions.loadFromURI
+import com.apm.trackify.base.extensions.toast
 import com.apm.trackify.databinding.PlaylistsDetailsHeaderItemBinding
 
 data class DisplayableHeader(
@@ -13,11 +14,13 @@ data class DisplayableHeader(
 ) : BaseModel {
 
     override fun bind(view: View, position: Int) {
-        view.apply {
-            val binding = PlaylistsDetailsHeaderItemBinding.bind(view)
+        val binding = PlaylistsDetailsHeaderItemBinding.bind(view)
 
-            binding.cover.loadFromURI(imageURI, R.drawable.placeholder_album)
-            binding.title.text = title
-        }
+        binding.cover.loadFromURI(imageURI, R.drawable.placeholder_album)
+        binding.title.text = title
+
+        // TODO: replace toasts with correct interaction
+        binding.spotify.setOnClickListener { it.context.toast("GO TO SPOTIFY") }
+        binding.unfollow.setOnClickListener { it.context.toast("UNFOLLOW USER") }
     }
 }

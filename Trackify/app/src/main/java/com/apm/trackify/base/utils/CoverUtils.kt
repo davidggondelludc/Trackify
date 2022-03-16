@@ -4,6 +4,7 @@ import android.content.Context
 import android.graphics.drawable.Drawable
 import android.graphics.drawable.GradientDrawable
 import android.graphics.drawable.LayerDrawable
+import androidx.annotation.DrawableRes
 import androidx.core.content.ContextCompat
 import kotlin.math.abs
 
@@ -36,7 +37,7 @@ object CoverUtils {
         intArrayOf(0xFF_f7_9f_32.toInt(), 0xFF_fc_ca_1c.toInt())
     )
 
-    fun getDrawable(context: Context, id: Int, position: Int): Drawable {
+    fun getDrawable(context: Context, @DrawableRes id: Int, position: Int): Drawable {
         val drawable = ContextCompat.getDrawable(context, id)!!.mutate() as LayerDrawable
         val gradient = drawable.getDrawable(0) as GradientDrawable
         gradient.colors = COLORS[abs(position % COLORS.size)]

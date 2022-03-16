@@ -12,10 +12,8 @@ abstract class SimpleAdapter<T : BaseModel>(
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val inflater = LayoutInflater.from(parent.context)
         val view = inflater.inflate(viewType, parent, false)
-        val viewHolder = ViewHolder(view)
-        initViewHolderListeners(viewHolder)
 
-        return viewHolder
+        return ViewHolder(view)
     }
 
     override fun getItemViewType(position: Int): Int = dataSet[position].type
@@ -26,8 +24,6 @@ abstract class SimpleAdapter<T : BaseModel>(
     }
 
     override fun getItemCount(): Int = dataSet.size
-
-    protected abstract fun initViewHolderListeners(viewHolder: ViewHolder)
 
     class ViewHolder(view: View) : RecyclerView.ViewHolder(view)
 }

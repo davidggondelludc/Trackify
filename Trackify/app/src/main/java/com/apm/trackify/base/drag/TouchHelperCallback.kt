@@ -8,6 +8,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.apm.trackify.R
 import com.apm.trackify.base.adapter.BaseModel
 import com.apm.trackify.base.adapter.TouchAdapter
+import com.apm.trackify.base.extensions.getOrDefaultSet
 import kotlin.math.abs
 
 internal class TouchHelperCallback<T : BaseModel>(
@@ -53,7 +54,7 @@ internal class TouchHelperCallback<T : BaseModel>(
     }
 
     override fun onChildDraw(
-        c: Canvas,
+        canvas: Canvas,
         recyclerView: RecyclerView,
         viewHolder: RecyclerView.ViewHolder,
         dX: Float,
@@ -63,21 +64,18 @@ internal class TouchHelperCallback<T : BaseModel>(
     ) {
         when (actionState) {
             ItemTouchHelper.ACTION_STATE_SWIPE -> {
-                var animation = animations[viewHolder.hashCode()]
-                if (animation == null) {
-                    animation = TouchHelperAnimator(viewHolder.itemView)
-                    animations[viewHolder.hashCode()] = animation
-                }
-
-                val viewWidth = viewHolder.itemView.width
+                val animation = animations.getOrDefaultSet(
+                    viewHolder.hashCode(),
+                    TouchHelperAnimator(viewHolder.itemView)
+                )
                 when {
-                    abs(dX) > (viewWidth * 0.35f) -> animation.drawCircularReveal(dX)
-                    abs(dX) < (viewWidth * 0.05f) -> animation.setAnimationIdle()
-                    abs(dX) < (viewWidth * 0.35f) -> animation.initializeSwipe(dX)
+                    abs(dX) > (viewHolder.itemView.width * 0.35f) -> animation.drawCircularReveal(dX)
+                    abs(dX) < (viewHolder.itemView.width * 0.05f) -> animation.setAnimationIdle()
+                    abs(dX) < (viewHolder.itemView.width * 0.35f) -> animation.initializeSwipe(dX)
                 }
 
                 getDefaultUIUtil().onDraw(
-                    c,
+                    canvas,
                     recyclerView,
                     viewHolder.itemView.findViewById(R.id.content),
                     dX,

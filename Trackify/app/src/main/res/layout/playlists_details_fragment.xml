@@ -8,6 +8,7 @@
         android:id="@+id/playlist"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:background="?android:colorBackground"
         tools:itemCount="5"
         tools:listitem="@layout/playlists_details_track_item" />
 

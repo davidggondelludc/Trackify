@@ -44,10 +44,14 @@ internal class TouchHelperAnimator(
         }
 
         background.setBackgroundColor(0xff_bdbdbd.toInt())
-        leftIcon.setColorFilter(0xff_60_63_67.toInt())
-        leftIcon.toggleVisibility(dX > 0, false)
-        rightIcon.setColorFilter(0xff_60_63_67.toInt())
-        rightIcon.toggleVisibility(dX < 0, false)
+        leftIcon.apply {
+            setColorFilter(0xff_60_63_67.toInt())
+            toggleVisibility(dX > 0, false)
+        }
+        rightIcon.apply {
+            setColorFilter(0xff_60_63_67.toInt())
+            toggleVisibility(dX < 0, false)
+        }
     }
 
     fun drawCircularReveal(dx: Float) {
@@ -60,34 +64,38 @@ internal class TouchHelperAnimator(
         background.setBackgroundColor(if (dx > 0) 0xff_cf_17_21.toInt() else 0xff_36_48_54.toInt())
 
         val mainIcon = if (dx > 0f) leftIcon else rightIcon
-        mainIcon.setColorFilter(Color.WHITE)
+        mainIcon.apply {
+            setColorFilter(Color.WHITE)
+            animate().apply {
+                duration = 200
+                interpolator = DecelerateInterpolator()
+                scaleX(1.2f)
+                scaleY(1.2f)
+                withEndAction {
+                    mainIcon.animate().apply {
+                        duration = 200
+                        interpolator = BounceInterpolator()
+                        scaleX(1f)
+                        scaleY(1f)
+                    }
+                }
+            }
+        }
 
         val cx = mainIcon.x + mainIcon.width / 2
         val cy = mainIcon.y + mainIcon.height / 2
         val endRadius = hypot(background.width.toDouble(), background.height.toDouble()).toFloat()
 
-        val anim = ViewAnimationUtils.createCircularReveal(
+        ViewAnimationUtils.createCircularReveal(
             background,
             cx.toInt(),
             cy.toInt(),
             0f,
             endRadius
-        )
-        anim.duration = 400
-        anim.interpolator = AccelerateInterpolator()
-        anim.start()
-
-        var animator = mainIcon.animate()
-        animator.duration = 200
-        animator.interpolator = DecelerateInterpolator()
-        animator.scaleX(1.2f)
-        animator.scaleY(1.2f)
-        animator.withEndAction {
-            animator = mainIcon.animate()
-            animator.duration = 200
-            animator.interpolator = BounceInterpolator()
-            animator.scaleX(1f)
-            animator.scaleY(1f)
+        ).apply {
+            duration = 400
+            interpolator = AccelerateInterpolator()
+            start()
         }
     }
 }

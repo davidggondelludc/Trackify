@@ -3,7 +3,9 @@ package com.apm.trackify.ui.playlist.details.model
 import android.view.View
 import com.apm.trackify.R
 import com.apm.trackify.base.adapter.BaseModel
+import com.apm.trackify.base.animator.ScaleInOnTouch
 import com.apm.trackify.base.extensions.loadFromURI
+import com.apm.trackify.base.extensions.toast
 import com.apm.trackify.base.extensions.toggleVisibility
 import com.apm.trackify.databinding.PlaylistsDetailsTrackItemBinding
 
@@ -17,13 +19,15 @@ data class DisplayableTrack(
 ) : BaseModel {
 
     override fun bind(view: View, position: Int) {
-        view.apply {
-            val binding = PlaylistsDetailsTrackItemBinding.bind(view)
+        view.setOnTouchListener(ScaleInOnTouch())
+        // TODO: replace toast with track playback
+        view.setOnClickListener { it.context.toast("PLAYBACK $name") }
 
-            binding.cover.loadFromURI(imageURI, R.drawable.placeholder_musical_note)
-            binding.name.text = name
-            binding.artists.text = artists
-            binding.explicit.toggleVisibility(explicit, true)
-        }
+        val binding = PlaylistsDetailsTrackItemBinding.bind(view)
+
+        binding.cover.loadFromURI(imageURI, R.drawable.placeholder_musical_note)
+        binding.name.text = name
+        binding.artists.text = artists
+        binding.explicit.toggleVisibility(explicit, true)
     }
 }

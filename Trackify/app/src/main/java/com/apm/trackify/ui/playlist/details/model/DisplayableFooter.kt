@@ -11,10 +11,8 @@ data class DisplayableFooter(
 ) : BaseModel {
 
     override fun bind(view: View, position: Int) {
-        view.apply {
-            val binding = PlaylistsDetailsFooterItemBinding.bind(view)
+        val binding = PlaylistsDetailsFooterItemBinding.bind(view)
 
-            binding.title.text = title
-        }
+        binding.title.text = title
     }
 }

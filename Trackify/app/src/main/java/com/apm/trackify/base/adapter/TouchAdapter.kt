@@ -3,6 +3,7 @@ package com.apm.trackify.base.adapter
 import android.annotation.SuppressLint
 import android.view.MotionEvent
 import android.view.View
+import android.view.ViewGroup
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.RecyclerView
 import com.apm.trackify.R
@@ -24,7 +25,9 @@ abstract class TouchAdapter<T : BaseModel>(
     }
 
     @SuppressLint("ClickableViewAccessibility")
-    override fun initViewHolderListeners(viewHolder: ViewHolder) {
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
+        val viewHolder = super.onCreateViewHolder(parent, viewType)
+
         viewHolder.itemView.findViewById<View>(R.id.dragHandle)
             ?.setOnTouchListener { _, motionEvent ->
                 when (motionEvent.actionMasked) {
@@ -35,6 +38,8 @@ abstract class TouchAdapter<T : BaseModel>(
                     else -> false
                 }
             }
+
+        return viewHolder
     }
 
     abstract fun canInteractWithViewHolder(viewHolder: RecyclerView.ViewHolder): Boolean
