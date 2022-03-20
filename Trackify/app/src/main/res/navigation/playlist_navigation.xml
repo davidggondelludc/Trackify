@@ -20,7 +20,11 @@
     <fragment
         android:id="@+id/navigation_create"
         android:name="com.apm.trackify.ui.playlist.create.CreateFragment"
-        tools:layout="@layout/playlists_create_fragment" />
+        tools:layout="@layout/playlists_create_fragment">
+        <action
+            android:id="@+id/action_navigation_create_to_navigation_landing"
+            app:destination="@id/navigation_landing" />
+    </fragment>
 
     <fragment
         android:id="@+id/navigation_details"
