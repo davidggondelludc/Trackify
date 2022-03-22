@@ -1,4 +1,4 @@
-package com.apm.trackify.base.utils
+package com.apm.trackify.utils
 
 import android.content.Context
 import android.graphics.drawable.Drawable

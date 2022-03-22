@@ -1,7 +1,7 @@
-package com.apm.trackify.base.extensions
+package com.apm.trackify.extensions
 
 import android.widget.ImageView
-import com.apm.trackify.base.utils.CoverUtils
+import com.apm.trackify.utils.CoverUtils
 import com.bumptech.glide.Glide
 import com.bumptech.glide.Priority
 

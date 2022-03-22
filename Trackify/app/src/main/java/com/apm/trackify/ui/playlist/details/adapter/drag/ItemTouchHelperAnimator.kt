@@ -1,4 +1,4 @@
-package com.apm.trackify.base.drag
+package com.apm.trackify.ui.playlist.details.adapter.drag
 
 import android.graphics.Color
 import android.view.View
@@ -6,24 +6,32 @@ import android.view.ViewAnimationUtils
 import android.view.animation.AccelerateInterpolator
 import android.view.animation.BounceInterpolator
 import android.view.animation.DecelerateInterpolator
-import android.widget.ImageView
+import android.widget.ImageButton
 import androidx.core.view.isVisible
-import com.apm.trackify.R
-import com.apm.trackify.base.extensions.toggleVisibility
+import com.apm.trackify.extensions.toggleVisibility
+import com.apm.trackify.databinding.SwipeableLayoutBinding
 import kotlin.math.hypot
 
 internal enum class State {
     IDLE, SWIPE_LEFT, SWIPE_RIGHT, CIRCULAR_REVEAL
 }
 
-internal class TouchHelperAnimator(
+class TouchHelperAnimator(
     view: View
 ) {
 
     private var state = State.IDLE
-    private val background: View = view.findViewById(R.id.background)
-    private val leftIcon: ImageView = view.findViewById(R.id.leftIcon)
-    private val rightIcon: ImageView = view.findViewById(R.id.rightIcon)
+    private val background: View
+    private val leftIcon: ImageButton
+    private val rightIcon: ImageButton
+
+    init {
+        val binding = SwipeableLayoutBinding.bind(view)
+
+        background = binding.background
+        leftIcon = binding.leftIcon
+        rightIcon = binding.rightIcon
+    }
 
     fun setAnimationIdle() {
         state = State.IDLE

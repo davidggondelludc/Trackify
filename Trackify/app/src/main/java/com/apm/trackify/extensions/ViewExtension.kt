@@ -1,4 +1,4 @@
-package com.apm.trackify.base.extensions
+package com.apm.trackify.extensions
 
 import android.view.View
 

@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
 
-    <include layout="@layout/common_swipeable_layout" />
+    <include layout="@layout/swipeable_layout" />
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/content"
@@ -35,7 +35,7 @@
             android:layout_marginStart="16dp"
             android:layout_marginEnd="4dp"
             app:layout_constraintBottom_toTopOf="@+id/artists"
-            app:layout_constraintEnd_toStartOf="@+id/dragHandle"
+            app:layout_constraintEnd_toStartOf="@+id/drag"
             app:layout_constraintStart_toEndOf="@+id/cover"
             app:layout_constraintTop_toTopOf="@+id/cover"
             tools:text="@tools:sample/lorem" />
@@ -58,14 +58,14 @@
             android:layout_marginStart="4dp"
             android:layout_marginEnd="4dp"
             app:layout_constraintBottom_toBottomOf="@+id/cover"
-            app:layout_constraintEnd_toStartOf="@+id/dragHandle"
+            app:layout_constraintEnd_toStartOf="@+id/drag"
             app:layout_constraintStart_toEndOf="@+id/explicit"
             app:layout_constraintTop_toBottomOf="@+id/name"
             app:layout_goneMarginStart="0dp"
             tools:text="@tools:sample/lorem" />
 
         <ImageButton
-            android:id="@+id/dragHandle"
+            android:id="@+id/drag"
             android:layout_width="wrap_content"
             android:layout_height="0dp"
             android:background="?attr/selectableItemBackgroundBorderless"

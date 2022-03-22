@@ -29,7 +29,7 @@
         app:layout_constraintTop_toBottomOf="@+id/cover" />
 
     <TextView
-        android:id="@+id/title"
+        android:id="@+id/name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:lineSpacingMultiplier="0.9"
@@ -46,7 +46,7 @@
         android:text="@tools:sample/lorem"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/unfollow"
-        app:layout_constraintStart_toEndOf="@+id/title"
+        app:layout_constraintStart_toEndOf="@+id/name"
         app:layout_constraintTop_toBottomOf="@+id/spotify" />
 
     <Button
