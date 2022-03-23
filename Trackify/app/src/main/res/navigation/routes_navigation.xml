@@ -8,7 +8,20 @@
     <fragment
         android:id="@+id/routesFragment"
         android:name="com.apm.trackify.ui.routes.search.SearchFragment"
+        tools:layout="@layout/routes_search_fragment">
+        <action
+            android:id="@+id/action_routes_search_to_route_share"
+            app:destination="@+id/routesShareFragment"
+        />
         android:label="routes_search_fragment"
-        tools:layout="@layout/routes_search_fragment" />
+        tools:layout="@layout/routes_search_fragment"
+    </fragment>
+
+    <fragment
+        android:id="@+id/routesShareFragment"
+        android:name="com.apm.trackify.ui.routes.share.ShareFragment"
+        android:label="routes_share_fragment"
+        tools:layout="@layout/routes_share_fragment"
+    />
 
 </navigation>
