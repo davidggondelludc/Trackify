@@ -29,7 +29,7 @@ class LandingFragment : Fragment() {
         binding = PlaylistsLandingFragmentBinding.inflate(inflater, container, false)
         val recyclerview = binding.rvPlaylistCover
 
-        recyclerview.layoutManager = GridLayoutManager(context,2,RecyclerView.HORIZONTAL,false)
+        recyclerview.layoutManager = GridLayoutManager(context,2,RecyclerView.VERTICAL,false)
 
         val data = ArrayList<PlaylistCoverItemsViewModel>()
 
