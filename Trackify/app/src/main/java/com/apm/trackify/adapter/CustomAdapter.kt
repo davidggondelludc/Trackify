@@ -4,6 +4,8 @@ import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
 import androidx.annotation.NonNull
+import androidx.navigation.NavController
+import androidx.navigation.Navigation
 import androidx.recyclerview.widget.RecyclerView
 import com.apm.trackify.R
 import com.apm.trackify.databinding.PlaylistCoverItemBinding
@@ -40,10 +42,12 @@ class CustomAdapter(private val mList: List<PlaylistCoverItemsViewModel>) : Recy
         val imageView: ImageView = itemView.findViewById(R.id.imageCover)
         val textView: TextView = itemView.findViewById(R.id.textCoverItem)
 
+        private lateinit var navc: NavController
+
         init {
             binding.root.setOnClickListener {
-                val toast = Toast.makeText(binding.root.context, "This will be sharing soon!", Toast.LENGTH_SHORT)
-                toast.show()
+                navc = Navigation.findNavController(binding.root)
+                navc.navigate(R.id.action_navigation_landing_to_navigation_details)
             }
         }
 

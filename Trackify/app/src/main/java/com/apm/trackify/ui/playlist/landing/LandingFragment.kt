@@ -51,7 +51,6 @@ class LandingFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         navc = Navigation.findNavController(view)
-        binding.playlistBtn.setOnClickListener { navc.navigate(R.id.action_navigation_landing_to_navigation_details) }
         binding.button.setOnClickListener { navc.navigate(R.id.action_navigation_landing_to_navigation_create) }
     }
 }
