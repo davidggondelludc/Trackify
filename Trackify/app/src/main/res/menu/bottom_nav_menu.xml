@@ -3,12 +3,12 @@
 
     <item
         android:id="@+id/navigation_playlist"
-        android:icon="@drawable/ic_headset"
+        android:icon="@drawable/ic_music_note"
         android:title="@string/title_playlists" />
 
     <item
         android:id="@+id/navigation_routes"
-        android:icon="@drawable/ic_travel_explore"
+        android:icon="@drawable/ic_compass_outlined"
         android:title="@string/title_routes" />
 
     <item
