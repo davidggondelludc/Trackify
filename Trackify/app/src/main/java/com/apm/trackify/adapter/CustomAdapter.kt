@@ -1,23 +1,19 @@
-package com.apm.trackify.base.adapter
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
+import android.widget.Toast
+import androidx.annotation.NonNull
 import androidx.recyclerview.widget.RecyclerView
 import com.apm.trackify.R
+import com.apm.trackify.databinding.PlaylistCoverItemBinding
 import com.apm.trackify.ui.playlist.details.model.PlaylistCoverItemsViewModel
 
 class CustomAdapter(private val mList: List<PlaylistCoverItemsViewModel>) : RecyclerView.Adapter<CustomAdapter.ViewHolder>() {
 
-    // create new views
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        // inflates the card_view_design view
-        // that is used to hold list item
-        val view = LayoutInflater.from(parent.context)
-            .inflate(R.layout.playlist_cover_item, parent, false)
 
-        return ViewHolder(view)
+        return ViewHolder(PlaylistCoverItemBinding.inflate(LayoutInflater.from(parent.context), parent, false))
     }
 
     // binds the list items to a view
@@ -39,8 +35,17 @@ class CustomAdapter(private val mList: List<PlaylistCoverItemsViewModel>) : Recy
     }
 
     // Holds the views for adding it to image and text
-    class ViewHolder(ItemView: View) : RecyclerView.ViewHolder(ItemView) {
+    class ViewHolder(binding: PlaylistCoverItemBinding) : RecyclerView.ViewHolder(binding.root) {
+
         val imageView: ImageView = itemView.findViewById(R.id.imageCover)
         val textView: TextView = itemView.findViewById(R.id.textCoverItem)
+
+        init {
+            binding.root.setOnClickListener {
+                val toast = Toast.makeText(binding.root.context, "This will be sharing soon!", Toast.LENGTH_SHORT)
+                toast.show()
+            }
+        }
+
     }
 }
