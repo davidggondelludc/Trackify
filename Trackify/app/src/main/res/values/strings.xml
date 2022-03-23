@@ -44,5 +44,6 @@
     <string name="playlist_x">Playlist X</string>
     <string name="playlist_cover" />
     <string name="playlist_covers">Playlist</string>
+    <string name="playlist">Playlist</string>
 
 </resources>

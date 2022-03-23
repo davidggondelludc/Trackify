@@ -5,7 +5,6 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.core.view.get
 import androidx.fragment.app.Fragment
 import androidx.navigation.NavController
 import androidx.navigation.Navigation
@@ -19,9 +18,7 @@ import com.apm.trackify.ui.playlist.details.model.PlaylistCoverItemsViewModel
 class LandingFragment : Fragment() {
 
     private lateinit var binding: PlaylistsLandingFragmentBinding
-
     private lateinit var navc: NavController
-
     private lateinit var linearLayoutManager: LinearLayoutManager
 
     override fun onCreateView(
@@ -41,9 +38,7 @@ class LandingFragment : Fragment() {
         }
 
         val adapter = CustomAdapter(data)
-
         recyclerview.adapter = adapter
-
         return binding.root
     }
 

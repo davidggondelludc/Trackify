@@ -1,5 +1,6 @@
 package com.apm.trackify.ui.routes.search
 
+import PlaylistRoutesAdapter
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -7,9 +8,14 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.navigation.NavController
 import androidx.navigation.Navigation
+import androidx.recyclerview.widget.GridLayoutManager
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.apm.trackify.R
 import com.apm.trackify.databinding.PlaylistsLandingFragmentBinding
 import com.apm.trackify.databinding.RoutesSearchFragmentBinding
+import com.apm.trackify.ui.playlist.details.model.PlaylistCoverItemsViewModel
+import com.apm.trackify.ui.playlist.details.model.PlaylistRoutesItemsViewModel
 
 class SearchFragment : Fragment() {
 
@@ -25,10 +31,20 @@ class SearchFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-
         _binding = RoutesSearchFragmentBinding.inflate(inflater, container, false)
-        val root: View = binding.root
-        return root
+        val recyclerview = binding.rvPlaylistRoutes
+
+        recyclerview.layoutManager = LinearLayoutManager(context)
+
+        val data = ArrayList<PlaylistRoutesItemsViewModel>()
+
+        for (i in 1..20) {
+            data.add(PlaylistRoutesItemsViewModel("Playlist " + i, "User " + i))
+        }
+
+        val adapter = PlaylistRoutesAdapter(data)
+        recyclerview.adapter = adapter
+        return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
