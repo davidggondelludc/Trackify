@@ -13,9 +13,10 @@ class HeaderViewHolder(private val binding: PlaylistsDetailsHeaderItemBinding) :
     fun bind(playlist: Playlist) {
         binding.cover.loadFromURI(playlist.imageUri, R.drawable.placeholder_album)
         binding.name.text = playlist.name
+        binding.user.text = "user"
 
         // TODO: replace toasts with correct interaction
         binding.spotify.setOnClickListener { it.context.toast("GO TO SPOTIFY") }
-        binding.unfollow.setOnClickListener { it.context.toast("UNFOLLOW USER") }
+        binding.unfollow.setOnClickListener { it.context.toast("UNFOLLOW") }
     }
 }

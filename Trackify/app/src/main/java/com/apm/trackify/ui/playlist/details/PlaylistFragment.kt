@@ -6,10 +6,12 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.navigation.Navigation
 import androidx.recyclerview.widget.ConcatAdapter
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.apm.trackify.R
 import com.apm.trackify.ui.playlist.details.adapter.drag.ItemTouchHelperCallback
 import com.apm.trackify.databinding.PlaylistsDetailsFragmentBinding
 import com.apm.trackify.ui.playlist.details.adapter.FooterAdapter
@@ -32,6 +34,15 @@ class PlaylistFragment : Fragment() {
         return binding.root
     }
 
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        val binding = PlaylistsDetailsFragmentBinding.bind(view)
+
+        val navController = Navigation.findNavController(view)
+        binding.back.setOnClickListener { navController.navigate(R.id.back_navigation_landing) }
+    }
+
     private fun setUpRecyclerView(recyclerView: RecyclerView) {
         val callback = ItemTouchHelperCallback(viewModel)
         val itemTouchHelper = ItemTouchHelper(callback)
@@ -46,7 +57,7 @@ class PlaylistFragment : Fragment() {
         }
         viewModel.getTracks().observe(viewLifecycleOwner) {
             trackAdapter.submitList(it)
-            footerAdapter.submit(it.size.toString())
+            footerAdapter.submit(it.size, it.sumOf { track -> track.duration })
         }
 
         val concatAdapter = ConcatAdapter()

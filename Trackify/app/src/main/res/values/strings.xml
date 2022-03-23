@@ -18,6 +18,16 @@
     <string name="followers">Followers</string>
     <string name="shared_routes">Shared Routes</string>
     <string name="following">Following</string>
-    <!-- TODO: Remove or change this placeholder text -->
-
+    <plurals name="minutes">
+        <item quantity="one">%d minute</item>
+        <item quantity="other">%d minutes</item>
+    </plurals>
+    <plurals name="hours">
+        <item quantity="one">%d hour</item>
+        <item quantity="other">%d hours</item>
+    </plurals>
+    <plurals name="tracks">
+        <item quantity="one">%d track</item>
+        <item quantity="other">%d tracks</item>
+    </plurals>
 </resources>

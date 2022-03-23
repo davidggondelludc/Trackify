@@ -5,9 +5,10 @@ import android.view.View
 import androidx.core.view.ViewCompat
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.RecyclerView
-import com.apm.trackify.R
+import com.apm.trackify.databinding.PlaylistsDetailsTrackItemBinding
 import com.apm.trackify.extensions.getOrDefaultSet
 import com.apm.trackify.ui.playlist.details.PlaylistViewModel
+import com.apm.trackify.ui.playlist.details.view.TrackViewHolder
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.MainScope
 import kotlinx.coroutines.delay
@@ -28,9 +29,19 @@ class ItemTouchHelperCallback(
         viewHolder: RecyclerView.ViewHolder,
         target: RecyclerView.ViewHolder
     ): Boolean {
-        viewModel.move(viewHolder.bindingAdapterPosition, target.bindingAdapterPosition)
+        return if (viewHolder is TrackViewHolder) {
+            viewModel.move(viewHolder.bindingAdapterPosition, target.bindingAdapterPosition)
+            true
+        } else false
+    }
 
-        return true
+    override fun getSwipeDirs(
+        recyclerView: RecyclerView,
+        viewHolder: RecyclerView.ViewHolder
+    ): Int {
+        return if (viewHolder is TrackViewHolder) {
+            super.getSwipeDirs(recyclerView, viewHolder)
+        } else 0
     }
 
     override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
@@ -61,10 +72,11 @@ class ItemTouchHelperCallback(
                     abs(dX) < (viewHolder.itemView.width * 0.35f) -> animation.initializeSwipe(dX)
                 }
 
+                val binding = PlaylistsDetailsTrackItemBinding.bind(viewHolder.itemView)
                 getDefaultUIUtil().onDraw(
                     canvas,
                     recyclerView,
-                    viewHolder.itemView.findViewById(R.id.content),
+                    binding.content,
                     dX,
                     dY,
                     actionState,
@@ -97,7 +109,8 @@ class ItemTouchHelperCallback(
     }
 
     override fun clearView(recyclerView: RecyclerView, viewHolder: RecyclerView.ViewHolder) {
-        getDefaultUIUtil().clearView(viewHolder.itemView.findViewById(R.id.content))
+        val binding = PlaylistsDetailsTrackItemBinding.bind(viewHolder.itemView)
+        getDefaultUIUtil().clearView(binding.content)
         animations.remove(viewHolder.hashCode())
     }
 
