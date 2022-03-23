@@ -42,11 +42,8 @@ class PlaylistRoutesAdapter(private val mList: List<PlaylistRoutesItemsViewModel
 
         init {
             binding.imgBtnSeePlayList.setOnClickListener {
-                //navc = Navigation.findNavController(binding.root)
-                //navc.navigate(R.id.action_navigation_landing_to_navigation_details)
-
-                val toast = Toast.makeText(binding.root.context, "To see the Playlist", Toast.LENGTH_SHORT)
-                toast.show()
+                navc = Navigation.findNavController(binding.root)
+                navc.navigate(R.id.action_routes_search_to_playlist_details)
             }
         }
 
