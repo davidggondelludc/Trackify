@@ -7,6 +7,7 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.apm.trackify.databinding.UserSharedRouteItemBinding
+import com.apm.trackify.extensions.toast
 
 
 class SharedRouteAdapter():
@@ -25,7 +26,13 @@ class SharedRouteAdapter():
     inner class SharedRouteViewHolder(binding: UserSharedRouteItemBinding): RecyclerView.ViewHolder(binding.root) {
         val titleTextView: TextView = binding.userPlaylist
         val playlistFollowersTextView: TextView = binding.twPlaylistFollowers
+
+        init {
+            binding.sharedRouteItemShare.setOnClickListener{ it.context.toast("Share playlist") }
+            binding.sharedRouteItemDelete.setOnClickListener{ it.context.toast("Delete shared playlist") }
+        }
     }
+
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): SharedRouteViewHolder {
         return SharedRouteViewHolder(
