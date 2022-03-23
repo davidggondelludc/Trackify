@@ -8,6 +8,7 @@ import androidx.core.view.get
 import androidx.fragment.app.Fragment
 import androidx.navigation.NavController
 import androidx.navigation.Navigation
+import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.apm.trackify.databinding.PlaylistsLandingFragmentBinding
@@ -31,7 +32,7 @@ class LandingFragment : Fragment() {
         binding = PlaylistsLandingFragmentBinding.inflate(inflater, container, false)
         val recyclerview = binding.rvPlaylistCover
 
-        recyclerview.layoutManager = LinearLayoutManager(context)
+        recyclerview.layoutManager = GridLayoutManager(context,2,RecyclerView.HORIZONTAL,false)
 
         val data = ArrayList<PlaylistCoverItemsViewModel>()
 
