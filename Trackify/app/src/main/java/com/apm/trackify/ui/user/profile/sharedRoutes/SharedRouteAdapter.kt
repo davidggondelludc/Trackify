@@ -28,6 +28,7 @@ class SharedRouteAdapter():
         val playlistFollowersTextView: TextView = binding.twPlaylistFollowers
 
         init {
+            binding.root.setOnClickListener { it.context.toast("Show map of the route") }
             binding.sharedRouteItemShare.setOnClickListener{ it.context.toast("Share playlist") }
             binding.sharedRouteItemDelete.setOnClickListener{ it.context.toast("Delete shared playlist") }
         }
