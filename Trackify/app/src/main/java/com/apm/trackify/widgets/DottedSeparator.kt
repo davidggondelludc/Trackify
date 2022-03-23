@@ -17,7 +17,7 @@ class DottedSeparator @JvmOverloads constructor(
     init {
         setLayerType(LAYER_TYPE_SOFTWARE, null)
         setBackgroundResource(R.drawable.dotted_line)
-        backgroundTintList = ColorStateList.valueOf(Color.BLACK)
+        backgroundTintList = ColorStateList.valueOf(Color.WHITE)
         alpha = 0.1f
     }
 }
