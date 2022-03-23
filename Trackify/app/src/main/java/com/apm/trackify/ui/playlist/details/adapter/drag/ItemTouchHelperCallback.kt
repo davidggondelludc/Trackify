@@ -1,22 +1,26 @@
-package com.apm.trackify.base.drag
+package com.apm.trackify.ui.playlist.details.adapter.drag
 
 import android.graphics.Canvas
 import android.view.View
 import androidx.core.view.ViewCompat
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.RecyclerView
-import com.apm.trackify.R
-import com.apm.trackify.base.adapter.BaseModel
-import com.apm.trackify.base.adapter.TouchAdapter
+import com.apm.trackify.databinding.PlaylistsDetailsTrackItemBinding
+import com.apm.trackify.extensions.getOrDefaultSet
+import com.apm.trackify.ui.playlist.details.PlaylistViewModel
+import com.apm.trackify.ui.playlist.details.view.TrackViewHolder
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.MainScope
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
 import kotlin.math.abs
 
-internal class TouchHelperCallback<T : BaseModel>(
-    private val adapter: TouchAdapter<T>,
-    swipeDirs: Int = 0
+class ItemTouchHelperCallback(
+    private val viewModel: PlaylistViewModel
 ) : ItemTouchHelper.SimpleCallback(
     ItemTouchHelper.UP or ItemTouchHelper.DOWN,
-    swipeDirs
-) {
+    ItemTouchHelper.RIGHT
+), CoroutineScope by MainScope() {
 
     private val animations = HashMap<Int, TouchHelperAnimator>()
 
@@ -25,10 +29,8 @@ internal class TouchHelperCallback<T : BaseModel>(
         viewHolder: RecyclerView.ViewHolder,
         target: RecyclerView.ViewHolder
     ): Boolean {
-        return if (adapter.canInteractWithViewHolder(viewHolder) &&
-            adapter.canInteractWithViewHolder(target)
-        ) {
-            adapter.onMove(viewHolder.adapterPosition, target.adapterPosition)
+        return if (viewHolder is TrackViewHolder) {
+            viewModel.move(viewHolder.bindingAdapterPosition, target.bindingAdapterPosition)
             true
         } else false
     }
@@ -37,23 +39,20 @@ internal class TouchHelperCallback<T : BaseModel>(
         recyclerView: RecyclerView,
         viewHolder: RecyclerView.ViewHolder
     ): Int {
-        return if (adapter.canInteractWithViewHolder(viewHolder)) super.getSwipeDirs(
-            recyclerView,
-            viewHolder
-        ) else 0
+        return if (viewHolder is TrackViewHolder) {
+            super.getSwipeDirs(recyclerView, viewHolder)
+        } else 0
     }
 
     override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
-        if (adapter.canInteractWithViewHolder(viewHolder)) {
-            when (direction) {
-                ItemTouchHelper.RIGHT -> adapter.onSwipeRight(viewHolder.adapterPosition)
-                ItemTouchHelper.LEFT -> adapter.onSwipeLeft(viewHolder.adapterPosition)
-            }
+        launch {
+            delay(200)
+            viewModel.remove(viewHolder.bindingAdapterPosition)
         }
     }
 
     override fun onChildDraw(
-        c: Canvas,
+        canvas: Canvas,
         recyclerView: RecyclerView,
         viewHolder: RecyclerView.ViewHolder,
         dX: Float,
@@ -63,23 +62,21 @@ internal class TouchHelperCallback<T : BaseModel>(
     ) {
         when (actionState) {
             ItemTouchHelper.ACTION_STATE_SWIPE -> {
-                var animation = animations[viewHolder.hashCode()]
-                if (animation == null) {
-                    animation = TouchHelperAnimator(viewHolder.itemView)
-                    animations[viewHolder.hashCode()] = animation
-                }
-
-                val viewWidth = viewHolder.itemView.width
+                val animation = animations.getOrDefaultSet(
+                    viewHolder.hashCode(),
+                    TouchHelperAnimator(viewHolder.itemView)
+                )
                 when {
-                    abs(dX) > (viewWidth * 0.35f) -> animation.drawCircularReveal(dX)
-                    abs(dX) < (viewWidth * 0.05f) -> animation.setAnimationIdle()
-                    abs(dX) < (viewWidth * 0.35f) -> animation.initializeSwipe(dX)
+                    abs(dX) > (viewHolder.itemView.width * 0.35f) -> animation.drawCircularReveal(dX)
+                    abs(dX) < (viewHolder.itemView.width * 0.05f) -> animation.setAnimationIdle()
+                    abs(dX) < (viewHolder.itemView.width * 0.35f) -> animation.initializeSwipe(dX)
                 }
 
+                val binding = PlaylistsDetailsTrackItemBinding.bind(viewHolder.itemView)
                 getDefaultUIUtil().onDraw(
-                    c,
+                    canvas,
                     recyclerView,
-                    viewHolder.itemView.findViewById(R.id.content),
+                    binding.content,
                     dX,
                     dY,
                     actionState,
@@ -112,7 +109,8 @@ internal class TouchHelperCallback<T : BaseModel>(
     }
 
     override fun clearView(recyclerView: RecyclerView, viewHolder: RecyclerView.ViewHolder) {
-        getDefaultUIUtil().clearView(viewHolder.itemView.findViewById(R.id.content))
+        val binding = PlaylistsDetailsTrackItemBinding.bind(viewHolder.itemView)
+        getDefaultUIUtil().clearView(binding.content)
         animations.remove(viewHolder.hashCode())
     }
 

@@ -14,8 +14,6 @@ class LandingFragment : Fragment() {
 
     private lateinit var binding: PlaylistsLandingFragmentBinding
 
-    private lateinit var navc: NavController
-
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -28,8 +26,8 @@ class LandingFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        navc = Navigation.findNavController(view)
-        binding.playlistBtn.setOnClickListener { navc.navigate(R.id.action_navigation_landing_to_navigation_details) }
-        binding.btnCreateNewPlaylist.setOnClickListener { navc.navigate(R.id.action_navigation_landing_to_navigation_create) }
+        val navController = Navigation.findNavController(view)
+        binding.playlistBtn.setOnClickListener { navController.navigate(R.id.action_navigation_landing_to_navigation_details) }
+        binding.btnCreateNewPlaylist.setOnClickListener { navController.navigate(R.id.action_navigation_landing_to_navigation_create) }
     }
 }

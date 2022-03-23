@@ -3,7 +3,8 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+    android:layout_height="wrap_content"
+    android:background="?android:colorBackground">
 
     <ImageView
         android:id="@+id/cover"
@@ -28,11 +29,12 @@
         app:layout_constraintTop_toBottomOf="@+id/cover" />
 
     <TextView
-        android:id="@+id/title"
+        android:id="@+id/name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:lineSpacingMultiplier="0.9"
         android:text="@tools:sample/lorem"
+        android:textColor="?android:attr/textColorPrimary"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/spotify" />
@@ -43,9 +45,10 @@
         android:layout_height="wrap_content"
         android:lineSpacingMultiplier="0.9"
         android:text="@tools:sample/lorem"
+        android:textColor="?android:attr/textColorPrimary"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/unfollow"
-        app:layout_constraintStart_toEndOf="@+id/title"
+        app:layout_constraintStart_toEndOf="@+id/name"
         app:layout_constraintTop_toBottomOf="@+id/spotify" />
 
     <Button
@@ -56,6 +59,5 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/spotify" />
-
 
 </androidx.constraintlayout.widget.ConstraintLayout>
