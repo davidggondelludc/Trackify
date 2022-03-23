@@ -8,42 +8,45 @@
     android:paddingEnd="8dp">
 
     <TextView
-        android:id="@+id/twPlaylistFollowers"
+        android:id="@+id/userPlaylist"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:text="Followers"
-        app:layout_constraintBottom_toTopOf="@+id/userPlaylist"
-        app:layout_constraintEnd_toStartOf="@+id/iconShare"
+        android:text="PLaylist"
+        app:layout_constraintBottom_toTopOf="@+id/twPlaylistFollowers"
+        app:layout_constraintEnd_toStartOf="@+id/sharedRouteItemShare"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:id="@+id/userPlaylist"
+        android:id="@+id/twPlaylistFollowers"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginBottom="8dp"
-        android:text="Playlist"
+        android:text="Followers"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/iconShare"
+        app:layout_constraintEnd_toStartOf="@+id/sharedRouteItemShare"
         app:layout_constraintStart_toStartOf="parent" />
 
-    <ImageView
-        android:id="@+id/iconShare"
+    <ImageButton
+        android:id="@+id/sharedRouteItemShare"
         android:layout_width="30dp"
         android:layout_height="30dp"
-        android:layout_marginRight="10dp"
+        android:background="?attr/selectableItemBackgroundBorderless"
+        android:layout_marginRight="8dp"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/iconDelete"
+        app:layout_constraintEnd_toStartOf="@+id/sharedRouteItemDelete"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="?attr/actionModeShareDrawable" />
+        app:srcCompat="@drawable/ic_share" />
 
-    <ImageView
-        android:id="@+id/iconDelete"
+    <ImageButton
+        android:id="@+id/sharedRouteItemDelete"
         android:layout_width="30dp"
         android:layout_height="30dp"
+        android:background="?attr/selectableItemBackgroundBorderless"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@android:drawable/ic_menu_delete" />
+        app:srcCompat="@drawable/ic_delete" />
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>
