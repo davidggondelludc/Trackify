@@ -1,10 +1,11 @@
 package com.apm.trackify.ui.user.profile
 
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.FragmentActivity
 import androidx.viewpager2.adapter.FragmentStateAdapter
+import com.apm.trackify.ui.user.profile.following.UserFollowingFragment
+import com.apm.trackify.ui.user.profile.sharedRoutes.UserSharedRoutesFragment
 
-class TabLayoutPagerAdapter(activity: FragmentActivity, private val tabCount: Int) : FragmentStateAdapter(activity) {
+class TabLayoutPagerAdapter(fragment: Fragment, private val tabCount: Int) : FragmentStateAdapter(fragment) {
 
     override fun getItemCount(): Int = tabCount
 
