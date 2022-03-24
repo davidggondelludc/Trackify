@@ -3,139 +3,30 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="?android:colorBackground">
+    android:layout_height="match_parent">
 
-    <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/playlistBtn"
-        android:layout_width="75dp"
-        android:layout_height="60dp"
-        android:clickable="true"
-        android:focusable="true"
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rvPlaylistCover"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_margin="8dp"
+        app:layout_constraintBottom_toTopOf="@+id/button"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.38"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/ic_musical_note"
-        tools:ignore="ContentDescription" />
+        app:layout_constraintTop_toTopOf="parent" />
 
-    <!--<TextView
-        android:id="@+id/textView8"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:drawableTint="@color/white"
-        android:text="Playlist 6"
-        android:textColor="@color/white"
-        tools:layout_editor_absoluteX="269dp"
-        tools:layout_editor_absoluteY="573dp" />
-
-    <TextView
-        android:id="@+id/textView6"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:drawableTint="@color/white"
-        android:text="Playlist 4"
-        android:textColor="@color/white"
-        tools:layout_editor_absoluteX="269dp"
-        tools:layout_editor_absoluteY="382dp" />
-
-    <TextView
-        android:id="@+id/textView5"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:drawableTint="@color/white"
-        android:text="Playlist 3"
-        android:textColor="@color/white"
-        tools:layout_editor_absoluteX="90dp"
-        tools:layout_editor_absoluteY="382dp" />
-
-    <TextView
-        android:id="@+id/textView7"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:drawableTint="@color/white"
-        android:text="Playlist 5"
-        android:textColor="@color/white"
-        tools:layout_editor_absoluteX="90dp"
-        tools:layout_editor_absoluteY="573dp" />
-
-    <ImageView
-        android:id="@+id/imageView6"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        tools:layout_editor_absoluteX="238dp"
-        tools:layout_editor_absoluteY="433dp"
-        tools:srcCompat="@tools:sample/avatars" />
-
-    <ImageView
-        android:id="@+id/imageView5"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        tools:layout_editor_absoluteX="56dp"
-        tools:layout_editor_absoluteY="433dp"
-        tools:srcCompat="@tools:sample/avatars" />
-
-    <ImageView
-        android:id="@+id/imageView4"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        tools:layout_editor_absoluteX="238dp"
-        tools:layout_editor_absoluteY="241dp"
-        tools:srcCompat="@tools:sample/avatars" />
-
-    <ImageView
-        android:id="@+id/imageView2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        tools:layout_editor_absoluteX="238dp"
-        tools:layout_editor_absoluteY="35dp"
-        tools:srcCompat="@tools:sample/avatars" />
-
-    <ImageView
-        android:id="@+id/imageView3"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        tools:layout_editor_absoluteX="56dp"
-        tools:layout_editor_absoluteY="241dp"
-        tools:srcCompat="@tools:sample/avatars" />
-
-
-
-    <ImageView
-        android:id="@+id/imageView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        tools:layout_editor_absoluteX="56dp"
-        tools:layout_editor_absoluteY="35dp"
-        tools:srcCompat="@tools:sample/avatars" />
-
-    <TextView
-        android:id="@+id/textView3"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:drawableTint="@color/white"
-        android:text="Playlist 1"
-        android:textColor="@color/white"
-        tools:layout_editor_absoluteX="78dp"
-        tools:layout_editor_absoluteY="202dp" />
-
-    <TextView
-        android:id="@+id/textView4"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Playlist 2"
-        android:textColor="@color/white"
-        tools:layout_editor_absoluteX="269dp"
-        tools:layout_editor_absoluteY="172dp" />
-    -->
     <Button
-        android:id="@+id/btnCreateNewPlaylist"
+        android:id="@+id/button"
         android:layout_width="246dp"
         android:layout_height="43dp"
         android:text="Create New Playlist"
         app:cornerRadius="10dp"
+        android:layout_marginBottom="8dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintStart_toStartOf="parent" />
+
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

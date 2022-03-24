@@ -40,7 +40,6 @@ class PlaylistDetailsFragment : Fragment() {
         val binding = PlaylistsDetailsFragmentBinding.bind(view)
 
         val navController = Navigation.findNavController(view)
-        binding.back.setOnClickListener { navController.navigate(R.id.back_navigation_landing) }
     }
 
     private fun setUpRecyclerView(recyclerView: RecyclerView) {

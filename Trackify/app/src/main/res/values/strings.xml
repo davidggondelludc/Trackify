@@ -28,10 +28,14 @@
     <string name="shared_routes">Shared Routes</string>
     <string name="following">Following</string>
 
-    <string name="playlistFollowers">followers: </string>
-
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="playlist_x">Playlist X</string>
+    <string name="playlist_cover" />
+    <string name="playlist_covers">Playlist</string>
+    <string name="playlist">Playlist</string>
+
+    <string name="playlistFollowers">followers: </string>
 
     <!-- playlists create -->
     <string name="save_button">Save</string>

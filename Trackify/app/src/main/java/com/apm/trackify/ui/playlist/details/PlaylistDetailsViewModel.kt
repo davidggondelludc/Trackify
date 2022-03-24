@@ -21,7 +21,7 @@ class PlaylistDetailsViewModel : ViewModel() {
 
     private val playlist = MutableLiveData<Playlist>()
     private val tracks = MutableLiveData<List<Track>>()
-    private val dataset: MutableList<Track> = MockProvider.tracks.toMutableList()
+    private val dataset: MutableList<Track> = MockProvider.playlist.tracks.toMutableList()
 
     init {
         playlist.value = MockProvider.playlist

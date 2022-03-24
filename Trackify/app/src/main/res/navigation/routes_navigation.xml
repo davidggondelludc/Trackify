@@ -7,21 +7,25 @@
 
     <fragment
         android:id="@+id/routesFragment"
-        android:name="com.apm.trackify.ui.routes.search.SearchFragment"
-        tools:layout="@layout/routes_search_fragment">
+        android:name="com.apm.trackify.ui.routes.RoutesLandingFragment"
+        tools:layout="@layout/routes_landing_fragment">
         <action
             android:id="@+id/action_routes_search_to_route_share"
-            app:destination="@+id/routesShareFragment"
-        />
-        android:label="routes_search_fragment"
-        tools:layout="@layout/routes_search_fragment"
+            app:destination="@+id/routesShareFragment" />
+        <action
+            android:id="@+id/action_routes_search_to_playlist_details"
+            app:destination="@+id/navigation_details" />
     </fragment>
 
     <fragment
         android:id="@+id/routesShareFragment"
         android:name="com.apm.trackify.ui.routes.share.ShareFragment"
         android:label="routes_share_fragment"
-        tools:layout="@layout/routes_share_fragment"
-    />
+        tools:layout="@layout/routes_share_fragment" />
+
+    <fragment
+        android:id="@+id/navigation_details"
+        android:name="com.apm.trackify.ui.playlist.details.PlaylistDetailsFragment"
+        tools:layout="@layout/playlists_details_fragment" />
 
 </navigation>
