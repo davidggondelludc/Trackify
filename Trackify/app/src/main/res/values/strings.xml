@@ -1,6 +1,49 @@
 <resources>
-    <string name="app_name">trackify</string>
-    <string name="title_home">Home</string>
-    <string name="title_dashboard">Dashboard</string>
-    <string name="title_notifications">Notifications</string>
+    <string name="app_name">Trackify</string>
+    <string name="title_playlists">Playlists</string>
+    <string name="title_routes">Routes</string>
+    <string name="title_profile">Profile</string>
+    <string name="save_button">Save</string>
+    <string name="return_button">Return</string>
+    <string name="form_duration">Desired playlist duration:</string>
+    <string name="form_add_songs">Add some songs to your playlist</string>
+    <string name="form_title">Playlist Title</string>
+    <string name="form_artist">Artist</string>
+    <string name="form_selected_songs">Current selected songs</string>
+    <string name="form_song_title">Song Title</string>
+    <string name="form_min">min</string>
+    <string name="form_min_input">30</string>
+    <string name="form_search_button">Search song button</string>
+    <string name="add_playlist_to_route">Add Playlist To Route</string>
+    <string name="share_button">Share</string>
+    <string name="back_button">Back</string>
+    <string name="start">Start</string>
+    <string name="end">End</string>
+    <string name="playlist_to_share_title">Playlist to be shared</string>
+    <string name="start_hint">Start hint</string>
+    <string name="end_hint">End hint</string>
+    <string name="user">User</string>
+    <string name="followers">Followers</string>
+    <string name="shared_routes">Shared Routes</string>
+    <string name="following">Following</string>
+    <plurals name="minutes">
+        <item quantity="one">%d minute</item>
+        <item quantity="other">%d minutes</item>
+    </plurals>
+    <plurals name="hours">
+        <item quantity="one">%d hour</item>
+        <item quantity="other">%d hours</item>
+    </plurals>
+    <plurals name="tracks">
+        <item quantity="one">%d track</item>
+        <item quantity="other">%d tracks</item>
+    </plurals>
+    <string name="playlistFollowers">followers: </string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="playlist_x">Playlist X</string>
+    <string name="playlist_cover" />
+    <string name="playlist_covers">Playlist</string>
+    <string name="playlist">Playlist</string>
+
 </resources>
