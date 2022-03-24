@@ -5,13 +5,16 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
 
-    <include layout="@layout/swipeable_layout" />
+    <include
+        android:id="@+id/swipe"
+        layout="@layout/swipeable_layout"
+        tools:visibility="invisible" />
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/content"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="?android:colorBackground"
+        android:background="?android:attr/colorBackground"
         android:paddingStart="@dimen/margin_horizontal"
         android:paddingEnd="@dimen/margin_horizontal">
 
@@ -24,7 +27,7 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:shapeAppearanceOverlay="@style/RoundedCorners"
+            app:shapeAppearanceOverlay="@style/ShapeAppearanceOverlay.App.CornerSize10Percent"
             app:srcCompat="@drawable/placeholder_musical_note" />
 
         <TextView
@@ -69,14 +72,11 @@
             android:layout_width="wrap_content"
             android:layout_height="0dp"
             android:background="?attr/selectableItemBackgroundBorderless"
-            android:clickable="true"
-            android:focusable="true"
             android:padding="12dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:srcCompat="@drawable/ic_drag_handle"
-            tools:ignore="ContentDescription" />
+            app:srcCompat="@drawable/ic_drag_handle" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

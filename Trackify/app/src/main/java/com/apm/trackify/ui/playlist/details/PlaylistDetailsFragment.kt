@@ -12,15 +12,15 @@ import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.apm.trackify.R
-import com.apm.trackify.ui.playlist.details.adapter.drag.ItemTouchHelperCallback
 import com.apm.trackify.databinding.PlaylistsDetailsFragmentBinding
 import com.apm.trackify.ui.playlist.details.adapter.FooterAdapter
 import com.apm.trackify.ui.playlist.details.adapter.HeaderAdapter
 import com.apm.trackify.ui.playlist.details.adapter.TrackAdapter
+import com.apm.trackify.ui.playlist.details.adapter.drag.ItemTouchHelperCallback
 
-class PlaylistFragment : Fragment() {
+class PlaylistDetailsFragment : Fragment() {
 
-    private val viewModel: PlaylistViewModel by viewModels()
+    private val viewModel: PlaylistDetailsViewModel by viewModels()
 
     override fun onCreateView(
         inflater: LayoutInflater,

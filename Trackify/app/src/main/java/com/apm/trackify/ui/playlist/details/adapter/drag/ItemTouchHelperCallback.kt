@@ -2,35 +2,35 @@ package com.apm.trackify.ui.playlist.details.adapter.drag
 
 import android.graphics.Canvas
 import android.view.View
-import androidx.core.view.ViewCompat
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.RecyclerView
 import com.apm.trackify.databinding.PlaylistsDetailsTrackItemBinding
-import com.apm.trackify.extensions.getOrDefaultSet
-import com.apm.trackify.ui.playlist.details.PlaylistViewModel
+import com.apm.trackify.ui.playlist.details.PlaylistDetailsViewModel
 import com.apm.trackify.ui.playlist.details.view.TrackViewHolder
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.MainScope
-import kotlinx.coroutines.delay
-import kotlinx.coroutines.launch
-import kotlin.math.abs
+import com.apm.trackify.utils.animation.SwipeAnimator
 
 class ItemTouchHelperCallback(
-    private val viewModel: PlaylistViewModel
+    private val viewModel: PlaylistDetailsViewModel
 ) : ItemTouchHelper.SimpleCallback(
     ItemTouchHelper.UP or ItemTouchHelper.DOWN,
     ItemTouchHelper.RIGHT
-), CoroutineScope by MainScope() {
+) {
 
-    private val animations = HashMap<Int, TouchHelperAnimator>()
+    // Variable to prevent dsynchronize the view when the user swipe too fast
+    private var canSwipe = true
+
+    private val animator = SwipeAnimator()
 
     override fun onMove(
         recyclerView: RecyclerView,
         viewHolder: RecyclerView.ViewHolder,
         target: RecyclerView.ViewHolder
     ): Boolean {
-        return if (viewHolder is TrackViewHolder) {
-            viewModel.move(viewHolder.bindingAdapterPosition, target.bindingAdapterPosition)
+        val initialPosition = viewHolder.bindingAdapterPosition
+        val finalPosition = target.bindingAdapterPosition
+
+        return if (initialPosition != finalPosition && viewHolder is TrackViewHolder) {
+            viewModel.move(initialPosition, finalPosition)
             true
         } else false
     }
@@ -39,16 +39,14 @@ class ItemTouchHelperCallback(
         recyclerView: RecyclerView,
         viewHolder: RecyclerView.ViewHolder
     ): Int {
-        return if (viewHolder is TrackViewHolder) {
+        return if (canSwipe && viewHolder is TrackViewHolder) {
             super.getSwipeDirs(recyclerView, viewHolder)
         } else 0
     }
 
     override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
-        launch {
-            delay(200)
-            viewModel.remove(viewHolder.bindingAdapterPosition)
-        }
+        canSwipe = false
+        viewModel.remove(viewHolder.bindingAdapterPosition)
     }
 
     override fun onChildDraw(
@@ -60,59 +58,59 @@ class ItemTouchHelperCallback(
         actionState: Int,
         isCurrentlyActive: Boolean
     ) {
-        when (actionState) {
-            ItemTouchHelper.ACTION_STATE_SWIPE -> {
-                val animation = animations.getOrDefaultSet(
-                    viewHolder.hashCode(),
-                    TouchHelperAnimator(viewHolder.itemView)
-                )
-                when {
-                    abs(dX) > (viewHolder.itemView.width * 0.35f) -> animation.drawCircularReveal(dX)
-                    abs(dX) < (viewHolder.itemView.width * 0.05f) -> animation.setAnimationIdle()
-                    abs(dX) < (viewHolder.itemView.width * 0.35f) -> animation.initializeSwipe(dX)
-                }
+        super.onChildDraw(canvas, recyclerView, viewHolder, dX, dY, actionState, isCurrentlyActive)
 
-                val binding = PlaylistsDetailsTrackItemBinding.bind(viewHolder.itemView)
-                getDefaultUIUtil().onDraw(
-                    canvas,
-                    recyclerView,
-                    binding.content,
-                    dX,
-                    dY,
-                    actionState,
-                    isCurrentlyActive
+        if (actionState == ItemTouchHelper.ACTION_STATE_SWIPE) {
+            canvas.save()
+
+            // Apply a clip rectangle with the calculated area to draw inside it
+            val left = viewHolder.itemView.left
+            val top = viewHolder.itemView.top + viewHolder.itemView.translationY.toInt()
+            val right = viewHolder.itemView.right
+            val bottom = viewHolder.itemView.bottom + viewHolder.itemView.translationY.toInt()
+
+            canvas.clipRect(left, top, right, bottom)
+
+            // Animate the behind layout
+            val binding = PlaylistsDetailsTrackItemBinding.bind(viewHolder.itemView)
+            val behindLayout = binding.swipe.root
+
+            when {
+                dX < viewHolder.itemView.width * 0.05 -> animator.setIdle(behindLayout)
+                dX < viewHolder.itemView.width * 0.35f -> animator.initSwipe(behindLayout)
+                else -> animator.drawCircularReveal(behindLayout)
+            }
+
+            // Draw the custom layout behind the item
+            val width = right - left
+            val height = bottom - top
+
+            if (behindLayout.measuredWidth != width || behindLayout.measuredHeight != height) {
+                behindLayout.measure(
+                    View.MeasureSpec.makeMeasureSpec(
+                        width,
+                        View.MeasureSpec.EXACTLY
+                    ),
+                    View.MeasureSpec.makeMeasureSpec(
+                        height,
+                        View.MeasureSpec.EXACTLY
+                    )
                 )
             }
-            ItemTouchHelper.ACTION_STATE_DRAG -> {
-                if (isCurrentlyActive) {
-                    val newElevation = 5f + findMaxElevation(recyclerView, viewHolder.itemView)
-                    ViewCompat.setElevation(viewHolder.itemView, newElevation)
-                }
-                viewHolder.itemView.translationY = dY
-            }
-        }
-    }
 
-    private fun findMaxElevation(recyclerView: RecyclerView, view: View): Float {
-        var max = 0f
-        for (i in 0 until recyclerView.childCount) {
-            val child = recyclerView.getChildAt(i)
-            if (child === view) {
-                continue
-            }
-            val elevation = ViewCompat.getElevation(child)
-            if (elevation > max) {
-                max = elevation
-            }
+            behindLayout.layout(left, top, right, bottom)
+            canvas.save()
+            canvas.translate(left.toFloat(), top.toFloat())
+            behindLayout.draw(canvas)
         }
-        return max
     }
 
     override fun clearView(recyclerView: RecyclerView, viewHolder: RecyclerView.ViewHolder) {
-        val binding = PlaylistsDetailsTrackItemBinding.bind(viewHolder.itemView)
-        getDefaultUIUtil().clearView(binding.content)
-        animations.remove(viewHolder.hashCode())
+        super.clearView(recyclerView, viewHolder)
+
+        canSwipe = true
     }
 
+    // Disable the option of drag the view holder, this is done a custom button
     override fun isLongPressDragEnabled(): Boolean = false
 }

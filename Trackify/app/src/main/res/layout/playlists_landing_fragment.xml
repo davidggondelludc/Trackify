@@ -3,18 +3,20 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="?android:colorBackground">
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/playlistBtn"
         android:layout_width="75dp"
         android:layout_height="60dp"
         android:clickable="true"
-        app:layout_constraintBottom_toTopOf="@+id/btnReadUserQr"
+        android:focusable="true"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/ic_musical_note" />
+        app:srcCompat="@drawable/ic_musical_note"
+        tools:ignore="ContentDescription" />
 
     <!--<TextView
         android:id="@+id/textView8"

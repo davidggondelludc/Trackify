@@ -30,7 +30,7 @@ class CreateFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         navc = Navigation.findNavController(view)
-        binding.returnButton.setOnClickListener { navc.navigate(R.id.action_navigation_create_to_navigation_landing) }
+        binding.back.setOnClickListener { navc.navigate(R.id.action_navigation_create_to_navigation_landing) }
         binding.saveButton.setOnClickListener {
             Toast.makeText(activity, "Saved!", Toast.LENGTH_LONG).show()
             navc.navigate(R.id.action_navigation_create_to_navigation_landing)
