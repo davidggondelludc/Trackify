@@ -16,7 +16,8 @@
         app:layout_constraintBottom_toBottomOf="@+id/start_coordinates"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/shareButton" />
+        app:layout_constraintTop_toTopOf="@+id/shareButton"
+        android:background="@color/green_blue_crayola"/>
 
     <Button
         android:id="@+id/shareButton"
@@ -27,16 +28,6 @@
         android:text="@string/share_button"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
-
-    <ImageButton
-        android:id="@+id/backButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="8dp"
-        android:contentDescription="@string/back_button"
-        app:layout_constraintBottom_toTopOf="@+id/mapView"
-        app:layout_constraintStart_toStartOf="@+id/mapView"
-        app:srcCompat="?attr/actionModeCloseDrawable" />
 
     <View
         android:id="@+id/divider2"
@@ -73,29 +64,25 @@
 
     <ImageButton
         android:id="@+id/pin_button"
-        android:layout_width="0dp"
-        android:layout_height="43dp"
-        android:layout_marginTop="14dp"
-        android:layout_marginBottom="14dp"
+        android:layout_width="wrap_content"
+        android:layout_height="0dp"
         android:contentDescription="@string/back_button"
-        app:layout_constraintBottom_toTopOf="@+id/backButton3"
-        app:layout_constraintEnd_toEndOf="@+id/backButton3"
-        app:layout_constraintStart_toStartOf="@+id/backButton3"
-        app:layout_constraintTop_toBottomOf="@+id/mapView"
-        app:srcCompat="@android:drawable/ic_menu_mylocation" />
+        app:layout_constraintBottom_toBottomOf="@+id/start_coordinates"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/start_coordinates"
+        app:layout_constraintTop_toTopOf="@+id/start_coordinates"
+        app:srcCompat="@drawable/ic_my_location" />
 
     <ImageButton
-        android:id="@+id/backButton3"
-        android:layout_width="45dp"
+        android:id="@+id/imgBtnEndRoute"
+        android:layout_width="wrap_content"
         android:layout_height="0dp"
-        android:layout_marginStart="48dp"
-        android:layout_marginEnd="49dp"
         android:contentDescription="@string/back_button"
         app:layout_constraintBottom_toBottomOf="@+id/end_coordinates"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/playlist_to_share_title"
+        app:layout_constraintStart_toEndOf="@+id/end_coordinates"
         app:layout_constraintTop_toTopOf="@+id/end_coordinates"
-        tools:srcCompat="@android:drawable/ic_menu_myplaces" />
+        app:srcCompat="@drawable/ic_finish" />
 
     <EditText
         android:id="@+id/end_coordinates"
@@ -134,8 +121,10 @@
         android:layout_marginTop="11dp"
         android:layout_marginEnd="30dp"
         android:choiceMode="singleChoice"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/playlist_to_share_title" />
+        app:layout_constraintTop_toBottomOf="@+id/playlist_to_share_title"
+        android:background="@color/black"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

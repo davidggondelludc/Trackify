@@ -1,3 +1,5 @@
+package com.apm.trackify.ui.playlist.adapter
+
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import android.widget.ImageView
@@ -7,9 +9,9 @@ import androidx.navigation.Navigation
 import androidx.recyclerview.widget.RecyclerView
 import com.apm.trackify.R
 import com.apm.trackify.databinding.PlaylistCoverItemBinding
-import com.apm.trackify.ui.playlist.details.model.PlaylistCoverItemsViewModel
+import com.apm.trackify.ui.playlist.model.PlaylistCoverItems
 
-class CustomAdapter(private val mList: List<PlaylistCoverItemsViewModel>) : RecyclerView.Adapter<CustomAdapter.ViewHolder>() {
+class CustomAdapter(private val mList: List<PlaylistCoverItems>) : RecyclerView.Adapter<CustomAdapter.ViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
 

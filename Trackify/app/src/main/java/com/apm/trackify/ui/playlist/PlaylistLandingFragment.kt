@@ -1,6 +1,6 @@
-package com.apm.trackify.ui.playlist.landing
+package com.apm.trackify.ui.playlist
 
-import CustomAdapter
+import com.apm.trackify.ui.playlist.adapter.CustomAdapter
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -13,9 +13,9 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.apm.trackify.databinding.PlaylistsLandingFragmentBinding
 import com.apm.trackify.R
-import com.apm.trackify.ui.playlist.details.model.PlaylistCoverItemsViewModel
+import com.apm.trackify.ui.playlist.model.PlaylistCoverItems
 
-class LandingFragment : Fragment() {
+class PlaylistLandingFragment : Fragment() {
 
     private lateinit var binding: PlaylistsLandingFragmentBinding
     private lateinit var navc: NavController
@@ -31,14 +31,15 @@ class LandingFragment : Fragment() {
 
         recyclerview.layoutManager = GridLayoutManager(context,2,RecyclerView.VERTICAL,false)
 
-        val data = ArrayList<PlaylistCoverItemsViewModel>()
+        val data = ArrayList<PlaylistCoverItems>()
 
         for (i in 1..20) {
-            data.add(PlaylistCoverItemsViewModel(R.drawable.ic_album, "Playlist " + i))
+            data.add(PlaylistCoverItems(R.drawable.ic_album, "Playlist " + i))
         }
 
         val adapter = CustomAdapter(data)
         recyclerview.adapter = adapter
+
         return binding.root
     }
 
@@ -46,6 +47,8 @@ class LandingFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         navc = Navigation.findNavController(view)
-        binding.button.setOnClickListener { navc.navigate(R.id.action_navigation_landing_to_navigation_create) }
+        binding.button.setOnClickListener {
+            navc.navigate(R.id.action_navigation_landing_to_navigation_create)
+        }
     }
 }

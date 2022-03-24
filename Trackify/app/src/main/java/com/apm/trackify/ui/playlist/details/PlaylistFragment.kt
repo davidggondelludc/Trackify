@@ -12,11 +12,11 @@ import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.apm.trackify.R
-import com.apm.trackify.ui.playlist.details.adapter.drag.ItemTouchHelperCallback
 import com.apm.trackify.databinding.PlaylistsDetailsFragmentBinding
 import com.apm.trackify.ui.playlist.details.adapter.FooterAdapter
 import com.apm.trackify.ui.playlist.details.adapter.HeaderAdapter
 import com.apm.trackify.ui.playlist.details.adapter.TrackAdapter
+import com.apm.trackify.ui.playlist.details.adapter.drag.ItemTouchHelperCallback
 
 class PlaylistFragment : Fragment() {
 
@@ -40,7 +40,6 @@ class PlaylistFragment : Fragment() {
         val binding = PlaylistsDetailsFragmentBinding.bind(view)
 
         val navController = Navigation.findNavController(view)
-        binding.back.setOnClickListener { navController.navigate(R.id.back_navigation_landing) }
     }
 
     private fun setUpRecyclerView(recyclerView: RecyclerView) {

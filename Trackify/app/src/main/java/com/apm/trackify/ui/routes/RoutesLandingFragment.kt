@@ -1,6 +1,6 @@
-package com.apm.trackify.ui.routes.search
+package com.apm.trackify.ui.routes
 
-import PlaylistRoutesAdapter
+import com.apm.trackify.ui.routes.adapter.PlaylistRoutesAdapter
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -8,19 +8,15 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.navigation.NavController
 import androidx.navigation.Navigation
-import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
 import com.apm.trackify.R
-import com.apm.trackify.databinding.PlaylistsLandingFragmentBinding
-import com.apm.trackify.databinding.RoutesSearchFragmentBinding
-import com.apm.trackify.ui.playlist.details.model.PlaylistCoverItemsViewModel
-import com.apm.trackify.ui.playlist.details.model.PlaylistRoutesItemsViewModel
+import com.apm.trackify.databinding.RoutesLandingFragmentBinding
+import com.apm.trackify.ui.routes.model.PlaylistRoutesItemsViewModel
 
-class SearchFragment : Fragment() {
+class RoutesLandingFragment : Fragment() {
 
     private lateinit var navc: NavController
-    private var _binding: RoutesSearchFragmentBinding? = null
+    private var _binding: RoutesLandingFragmentBinding? = null
 
     // This property is only valid between onCreateView and
     // onDestroyView.
@@ -31,7 +27,7 @@ class SearchFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        _binding = RoutesSearchFragmentBinding.inflate(inflater, container, false)
+        _binding = RoutesLandingFragmentBinding.inflate(inflater, container, false)
         val recyclerview = binding.rvPlaylistRoutes
 
         recyclerview.layoutManager = LinearLayoutManager(context)

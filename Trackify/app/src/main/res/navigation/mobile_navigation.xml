@@ -1,23 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/mobile_navigation"
-    app:startDestination="@+id/navigation_playlist">
+    app:startDestination="@+id/playlist_navigation">
 
-    <fragment
-        android:id="@+id/navigation_playlist"
-        android:name="com.apm.trackify.ui.playlist.NavigationFragment"
-        tools:layout="@layout/playlists_navigation_fragment" />
-
-    <fragment
-        android:id="@+id/navigation_routes"
-        android:name="com.apm.trackify.ui.routes.NavigationFragment"
-        tools:layout="@layout/routes_navigation_fragment" />
-
-    <fragment
-        android:id="@+id/navigation_user"
-        android:name="com.apm.trackify.ui.user.NavigationFragment"
-        tools:layout="@layout/user_navigation_fragment" />
-
+    <include app:graph="@navigation/playlist_navigation" />
+    <include app:graph="@navigation/routes_navigation" />
+    <include app:graph="@navigation/user_navigation" />
 </navigation>

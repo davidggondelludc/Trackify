@@ -1,13 +1,14 @@
+package com.apm.trackify.ui.routes.adapter
+
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import android.widget.TextView
-import android.widget.Toast
 import androidx.navigation.NavController
 import androidx.navigation.Navigation
 import androidx.recyclerview.widget.RecyclerView
 import com.apm.trackify.R
 import com.apm.trackify.databinding.RoutesPlaylistsItemBinding
-import com.apm.trackify.ui.playlist.details.model.PlaylistRoutesItemsViewModel
+import com.apm.trackify.ui.routes.model.PlaylistRoutesItemsViewModel
 
 class PlaylistRoutesAdapter(private val mList: List<PlaylistRoutesItemsViewModel>) : RecyclerView.Adapter<PlaylistRoutesAdapter.ViewHolder>() {
 

@@ -10,8 +10,9 @@ import androidx.navigation.NavController
 import androidx.navigation.Navigation
 import com.apm.trackify.R
 import com.apm.trackify.databinding.PlaylistsLandingFragmentBinding
-import com.apm.trackify.databinding.RoutesSearchFragmentBinding
+import com.apm.trackify.databinding.RoutesLandingFragmentBinding
 import com.apm.trackify.databinding.RoutesShareFragmentBinding
+import com.apm.trackify.extensions.toast
 
 class ShareFragment : Fragment() {
 
@@ -35,11 +36,12 @@ class ShareFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        //navc = Navigation.findNavController(view)
         binding.shareButton.setOnClickListener{
             val toast = Toast.makeText(context, "This will be sharing soon!", Toast.LENGTH_SHORT)
             toast.show()
         }
+        binding.pinButton.setOnClickListener { it.context.toast("Set starting coordinates") }
+        binding.imgBtnEndRoute.setOnClickListener { it.context.toast("Set ending coordinates") }
     }
 
     override fun onDestroyView() {
