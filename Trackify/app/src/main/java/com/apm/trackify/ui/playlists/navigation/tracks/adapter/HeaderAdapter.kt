@@ -1,10 +1,10 @@
-package com.apm.trackify.ui.playlists.details.adapter
+package com.apm.trackify.ui.playlists.navigation.tracks.adapter
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.apm.trackify.databinding.PlaylistsDetailsHeaderItemBinding
-import com.apm.trackify.ui.playlists.details.view.HeaderViewHolder
+import com.apm.trackify.databinding.PlaylistTrackHeaderItemBinding
+import com.apm.trackify.ui.playlists.navigation.tracks.view.HeaderViewHolder
 import com.apm.trackify.ui.playlists.model.Playlist
 
 class HeaderAdapter : RecyclerView.Adapter<HeaderViewHolder>() {
@@ -13,7 +13,7 @@ class HeaderAdapter : RecyclerView.Adapter<HeaderViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): HeaderViewHolder {
         val inflater = LayoutInflater.from(parent.context)
-        val binding = PlaylistsDetailsHeaderItemBinding.inflate(inflater, parent, false)
+        val binding = PlaylistTrackHeaderItemBinding.inflate(inflater, parent, false)
 
         return HeaderViewHolder(binding)
     }

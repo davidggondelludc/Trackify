@@ -8,7 +8,7 @@ import com.apm.trackify.ui.playlists.model.Playlist
 import com.apm.trackify.ui.playlists.model.diff.PlaylistDiffUtil
 import com.apm.trackify.ui.playlists.view.PlaylistViewHolder
 
-class PlaylistsAdapter() : ListAdapter<Playlist, PlaylistViewHolder>(PlaylistDiffUtil()) {
+class PlaylistAdapter() : ListAdapter<Playlist, PlaylistViewHolder>(PlaylistDiffUtil()) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PlaylistViewHolder {
         val inflater = LayoutInflater.from(parent.context)

@@ -7,4 +7,5 @@
     <include app:graph="@navigation/playlists_navigation" />
     <include app:graph="@navigation/routes_navigation" />
     <include app:graph="@navigation/user_navigation" />
+
 </navigation>

@@ -1,4 +1,4 @@
-package com.apm.trackify.ui.playlists.details
+package com.apm.trackify.ui.playlists.navigation.tracks
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -11,14 +11,14 @@ import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.apm.trackify.databinding.PlaylistsDetailsFragmentBinding
-import com.apm.trackify.ui.playlists.details.adapter.FooterAdapter
-import com.apm.trackify.ui.playlists.details.adapter.HeaderAdapter
-import com.apm.trackify.ui.playlists.details.adapter.TrackAdapter
-import com.apm.trackify.ui.playlists.details.adapter.drag.ItemTouchHelperCallback
+import com.apm.trackify.ui.playlists.navigation.tracks.adapter.FooterAdapter
+import com.apm.trackify.ui.playlists.navigation.tracks.adapter.HeaderAdapter
+import com.apm.trackify.ui.playlists.navigation.tracks.adapter.TrackAdapter
+import com.apm.trackify.ui.playlists.navigation.tracks.adapter.drag.ItemTouchHelperCallback
 
-class PlaylistDetailsFragment : Fragment() {
+class PlaylistTracksFragment : Fragment() {
 
-    private val viewModel: PlaylistDetailsViewModel by viewModels()
+    private val viewModel: PlaylistTracksViewModel by viewModels()
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -38,12 +38,13 @@ class PlaylistDetailsFragment : Fragment() {
         itemTouchHelper.attachToRecyclerView(recyclerView)
 
         val headerAdapter = HeaderAdapter()
-        val trackAdapter = TrackAdapter(itemTouchHelper)
-        val footerAdapter = FooterAdapter()
-
         viewModel.getPlaylist().observe(viewLifecycleOwner) {
             headerAdapter.submit(it)
         }
+
+        val trackAdapter = TrackAdapter(itemTouchHelper)
+
+        val footerAdapter = FooterAdapter()
         viewModel.getTracks().observe(viewLifecycleOwner) {
             trackAdapter.submitList(it)
             footerAdapter.submit(it.size, it.sumOf { track -> track.duration })
@@ -53,6 +54,7 @@ class PlaylistDetailsFragment : Fragment() {
         concatAdapter.addAdapter(headerAdapter)
         concatAdapter.addAdapter(trackAdapter)
         concatAdapter.addAdapter(footerAdapter)
+
         recyclerView.adapter = concatAdapter
         recyclerView.layoutManager = LinearLayoutManager(context)
     }

@@ -1,13 +1,13 @@
-package com.apm.trackify.ui.playlists.details.view
+package com.apm.trackify.ui.playlists.navigation.tracks.view
 
 import androidx.recyclerview.widget.RecyclerView
 import com.apm.trackify.R
-import com.apm.trackify.databinding.PlaylistsDetailsHeaderItemBinding
+import com.apm.trackify.databinding.PlaylistTrackHeaderItemBinding
 import com.apm.trackify.extensions.loadFromURI
 import com.apm.trackify.extensions.toast
 import com.apm.trackify.ui.playlists.model.Playlist
 
-class HeaderViewHolder(private val binding: PlaylistsDetailsHeaderItemBinding) :
+class HeaderViewHolder(private val binding: PlaylistTrackHeaderItemBinding) :
     RecyclerView.ViewHolder(binding.root) {
 
     fun bind(playlist: Playlist) {

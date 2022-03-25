@@ -11,7 +11,7 @@ import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.apm.trackify.R
 import com.apm.trackify.databinding.PlaylistsLandingFragmentBinding
-import com.apm.trackify.ui.playlists.adapter.PlaylistsAdapter
+import com.apm.trackify.ui.playlists.adapter.PlaylistAdapter
 
 class PlaylistsLandingFragment : Fragment() {
 
@@ -33,21 +33,21 @@ class PlaylistsLandingFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         val binding = PlaylistsLandingFragmentBinding.bind(view)
-        val navController = Navigation.findNavController(view)
-
-        binding.button.setOnClickListener {
+        binding.create.setOnClickListener {
+            val navController = Navigation.findNavController(view)
             navController.navigate(R.id.action_navigation_landing_to_navigation_create)
         }
     }
 
     private fun setUpRecyclerView(recyclerView: RecyclerView) {
-        val playlistsAdapter = PlaylistsAdapter()
-
+        val playlistsAdapter = PlaylistAdapter()
         viewModel.getPlaylists().observe(viewLifecycleOwner) {
             playlistsAdapter.submitList(it)
         }
 
         recyclerView.adapter = playlistsAdapter
-        recyclerView.layoutManager = GridLayoutManager(context, 2, RecyclerView.VERTICAL, false)
+        recyclerView.layoutManager = GridLayoutManager(
+            context, 2, RecyclerView.VERTICAL, false
+        )
     }
 }

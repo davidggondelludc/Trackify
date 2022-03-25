@@ -1,6 +1,6 @@
 package com.apm.trackify.utils
 
-import com.apm.trackify.ui.playlists.details.model.Track
+import com.apm.trackify.ui.playlists.navigation.tracks.model.Track
 import com.apm.trackify.ui.playlists.model.Playlist
 
 // TODO: change placeholders for retrieved data

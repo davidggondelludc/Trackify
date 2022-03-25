@@ -17,7 +17,6 @@
     <string name="form_search_button">Search song button</string>
     <string name="add_playlist_to_route">Add Playlist To Route</string>
     <string name="share_button">Share</string>
-    <string name="back_button">Back</string>
     <string name="start">Start</string>
     <string name="end">End</string>
     <string name="playlist_to_share_title">Playlist to be shared</string>

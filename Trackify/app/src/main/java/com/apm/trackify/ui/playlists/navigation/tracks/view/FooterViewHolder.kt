@@ -1,13 +1,13 @@
-package com.apm.trackify.ui.playlists.details.view
+package com.apm.trackify.ui.playlists.navigation.tracks.view
 
 import android.annotation.SuppressLint
 import androidx.recyclerview.widget.RecyclerView
 import com.apm.trackify.R
-import com.apm.trackify.databinding.PlaylistsDetailsFooterItemBinding
+import com.apm.trackify.databinding.PlaylistTrackFooterItemBinding
 import com.apm.trackify.extensions.getQuantityString
 import java.util.concurrent.TimeUnit
 
-class FooterViewHolder(private val binding: PlaylistsDetailsFooterItemBinding) :
+class FooterViewHolder(private val binding: PlaylistTrackFooterItemBinding) :
     RecyclerView.ViewHolder(binding.root) {
 
     @SuppressLint("SetTextI18n")

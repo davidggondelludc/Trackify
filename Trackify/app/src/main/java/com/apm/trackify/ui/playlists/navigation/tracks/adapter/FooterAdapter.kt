@@ -1,10 +1,10 @@
-package com.apm.trackify.ui.playlists.details.adapter
+package com.apm.trackify.ui.playlists.navigation.tracks.adapter
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.apm.trackify.databinding.PlaylistsDetailsFooterItemBinding
-import com.apm.trackify.ui.playlists.details.view.FooterViewHolder
+import com.apm.trackify.databinding.PlaylistTrackFooterItemBinding
+import com.apm.trackify.ui.playlists.navigation.tracks.view.FooterViewHolder
 
 class FooterAdapter : RecyclerView.Adapter<FooterViewHolder>() {
 
@@ -13,7 +13,7 @@ class FooterAdapter : RecyclerView.Adapter<FooterViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): FooterViewHolder {
         val inflater = LayoutInflater.from(parent.context)
-        val binding = PlaylistsDetailsFooterItemBinding.inflate(inflater, parent, false)
+        val binding = PlaylistTrackFooterItemBinding.inflate(inflater, parent, false)
 
         return FooterViewHolder(binding)
     }

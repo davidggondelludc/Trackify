@@ -1,16 +1,16 @@
-package com.apm.trackify.ui.playlists.details.adapter.drag
+package com.apm.trackify.ui.playlists.navigation.tracks.adapter.drag
 
 import android.graphics.Canvas
 import android.view.View
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.RecyclerView
-import com.apm.trackify.databinding.TrackDragItemBinding
-import com.apm.trackify.ui.playlists.details.PlaylistDetailsViewModel
-import com.apm.trackify.ui.playlists.details.view.TrackViewHolder
+import com.apm.trackify.databinding.PlaylistTrackDragItemBinding
+import com.apm.trackify.ui.playlists.navigation.tracks.PlaylistTracksViewModel
+import com.apm.trackify.ui.playlists.navigation.tracks.view.TrackViewHolder
 import com.apm.trackify.utils.animation.SwipeAnimator
 
 class ItemTouchHelperCallback(
-    private val viewModel: PlaylistDetailsViewModel
+    private val viewModel: PlaylistTracksViewModel
 ) : ItemTouchHelper.SimpleCallback(
     ItemTouchHelper.UP or ItemTouchHelper.DOWN,
     ItemTouchHelper.RIGHT
@@ -72,7 +72,7 @@ class ItemTouchHelperCallback(
             canvas.clipRect(left, top, right, bottom)
 
             // Animation for the behind layout
-            val binding = TrackDragItemBinding.bind(viewHolder.itemView)
+            val binding = PlaylistTrackDragItemBinding.bind(viewHolder.itemView)
             val behindLayout = binding.swipe.root
 
             when {

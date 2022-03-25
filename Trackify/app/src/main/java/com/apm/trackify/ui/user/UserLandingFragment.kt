@@ -12,49 +12,38 @@ import com.google.android.material.tabs.TabLayout
 
 class UserLandingFragment : Fragment() {
 
-    private var _binding: UserLandingFragmentBinding? = null
-
-    // This property is only valid between onCreateView and
-    // onDestroyView.
-    private val binding get() = _binding!!
-
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
+        val binding = UserLandingFragmentBinding.inflate(inflater, container, false)
 
-        _binding = UserLandingFragmentBinding.inflate(inflater, container, false)
-        val root: View = binding.root
-        setupTabLayout()
+        setUpViewPager(binding)
 
-        return root
+        return binding.root
     }
 
-    private fun setupTabLayout() {
+    private fun setUpViewPager(binding: UserLandingFragmentBinding) {
         val adapter = TabLayoutPagerAdapter(this, binding.tabLayout.tabCount)
+
         binding.viewPager2.adapter = adapter
-        binding.viewPager2.registerOnPageChangeCallback(object: ViewPager2.OnPageChangeCallback() {
+        binding.viewPager2.registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback() {
+
             override fun onPageSelected(position: Int) {
                 binding.tabLayout.selectTab(binding.tabLayout.getTabAt(position))
             }
         })
 
-        binding.tabLayout.addOnTabSelectedListener(object: TabLayout.OnTabSelectedListener {
+        binding.tabLayout.addOnTabSelectedListener(object : TabLayout.OnTabSelectedListener {
+
             override fun onTabSelected(tab: TabLayout.Tab) {
                 binding.viewPager2.currentItem = tab.position
             }
 
-            override fun onTabUnselected(tab: TabLayout.Tab?) {
-            }
+            override fun onTabUnselected(tab: TabLayout.Tab) {}
 
-            override fun onTabReselected(tab: TabLayout.Tab?) {
-            }
+            override fun onTabReselected(tab: TabLayout.Tab) {}
         })
-    }
-
-    override fun onDestroyView() {
-        super.onDestroyView()
-        _binding = null
     }
 }

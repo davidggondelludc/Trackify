@@ -1,7 +1,7 @@
-package com.apm.trackify.ui.playlists.details.model.diff
+package com.apm.trackify.ui.playlists.navigation.tracks.model.diff
 
 import androidx.recyclerview.widget.DiffUtil
-import com.apm.trackify.ui.playlists.details.model.Track
+import com.apm.trackify.ui.playlists.navigation.tracks.model.Track
 
 class TrackDiffUtil : DiffUtil.ItemCallback<Track>() {
 

@@ -1,11 +1,11 @@
-package com.apm.trackify.ui.playlists.details
+package com.apm.trackify.ui.playlists.navigation.tracks
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.apm.trackify.extensions.isInBounds
 import com.apm.trackify.extensions.swap
-import com.apm.trackify.ui.playlists.details.model.Track
+import com.apm.trackify.ui.playlists.navigation.tracks.model.Track
 import com.apm.trackify.ui.playlists.model.Playlist
 import com.apm.trackify.utils.MockProvider
 
@@ -17,7 +17,7 @@ import com.apm.trackify.utils.MockProvider
  * gets updated, so just calling submitList on it will work, and for sloppy developers, it
  * prevents doing the calculations twice if the same list is called
  */
-class PlaylistDetailsViewModel : ViewModel() {
+class PlaylistTracksViewModel : ViewModel() {
 
     private val playlist = MutableLiveData<Playlist>()
     private val tracks = MutableLiveData<List<Track>>()

@@ -1,20 +1,20 @@
-package com.apm.trackify.ui.playlists.details.adapter
+package com.apm.trackify.ui.playlists.navigation.tracks.adapter
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.ListAdapter
-import com.apm.trackify.databinding.TrackDragItemBinding
-import com.apm.trackify.ui.playlists.details.model.Track
-import com.apm.trackify.ui.playlists.details.model.diff.TrackDiffUtil
-import com.apm.trackify.ui.playlists.details.view.TrackViewHolder
+import com.apm.trackify.databinding.PlaylistTrackDragItemBinding
+import com.apm.trackify.ui.playlists.navigation.tracks.model.Track
+import com.apm.trackify.ui.playlists.navigation.tracks.model.diff.TrackDiffUtil
+import com.apm.trackify.ui.playlists.navigation.tracks.view.TrackViewHolder
 
 class TrackAdapter(private val itemTouchHelper: ItemTouchHelper) :
     ListAdapter<Track, TrackViewHolder>(TrackDiffUtil()) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): TrackViewHolder {
         val inflater = LayoutInflater.from(parent.context)
-        val binding = TrackDragItemBinding.inflate(inflater, parent, false)
+        val binding = PlaylistTrackDragItemBinding.inflate(inflater, parent, false)
 
         return TrackViewHolder(binding, itemTouchHelper)
     }

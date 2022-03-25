@@ -1,4 +1,4 @@
-package com.apm.trackify.ui.playlists.details.model
+package com.apm.trackify.ui.playlists.navigation.tracks.model
 
 data class Track(
     val id: Any,
