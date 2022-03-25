@@ -23,7 +23,10 @@ class SwipeAnimator() {
         state = State.IDLE
 
         val background = view.findViewById<View>(R.id.background)
+        val icon = view.findViewById<ImageView>(R.id.icon)
+
         background.isVisible = false
+        icon.isVisible = false
     }
 
     fun initSwipe(view: View) {
@@ -38,6 +41,7 @@ class SwipeAnimator() {
 
         background.isVisible = true
         foreground.isVisible = false
+        icon.isVisible = true
         icon.setColorFilter(0xff_60_63_67.toInt())
     }
 

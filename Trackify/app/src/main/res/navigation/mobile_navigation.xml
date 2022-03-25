@@ -4,7 +4,7 @@
     android:id="@+id/mobile_navigation"
     app:startDestination="@+id/playlist_navigation">
 
-    <include app:graph="@navigation/playlist_navigation" />
+    <include app:graph="@navigation/playlists_navigation" />
     <include app:graph="@navigation/routes_navigation" />
     <include app:graph="@navigation/user_navigation" />
 </navigation>

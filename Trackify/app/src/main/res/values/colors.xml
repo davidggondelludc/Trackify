@@ -13,5 +13,4 @@
 
     <!-- placeholders -->
     <color name="placeholder_tint">#262626</color>
-    <color name="placeholder_background">@android:color/system_notification_accent_color</color>
 </resources>

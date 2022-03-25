@@ -32,14 +32,15 @@
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="playlist_x">Playlist X</string>
     <string name="playlist_cover" />
-    <string name="playlist_covers">Playlist</string>
     <string name="playlist">Playlist</string>
 
     <string name="playlistFollowers">followers: </string>
 
-    <!-- playlists create -->
+    <!-- create playlist -->
     <string name="save_button">Save</string>
     <string name="save_button_description">Save playlist button</string>
+
+    <!-- swipe layout -->
 
     <!-- plurals -->
     <plurals name="tracks">
