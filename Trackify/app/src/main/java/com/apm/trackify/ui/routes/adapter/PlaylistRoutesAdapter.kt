@@ -2,51 +2,23 @@ package com.apm.trackify.ui.routes.adapter
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import android.widget.TextView
-import androidx.navigation.NavController
-import androidx.navigation.Navigation
-import androidx.recyclerview.widget.RecyclerView
-import com.apm.trackify.R
+import androidx.recyclerview.widget.ListAdapter
 import com.apm.trackify.databinding.RoutesPlaylistsItemBinding
-import com.apm.trackify.ui.routes.model.PlaylistRoutesItemsViewModel
+import com.apm.trackify.ui.playlists.model.Playlist
+import com.apm.trackify.ui.playlists.model.diff.PlaylistDiffUtil
+import com.apm.trackify.ui.routes.view.PlaylistRouteViewHolder
 
-class PlaylistRoutesAdapter(private val mList: List<PlaylistRoutesItemsViewModel>) : RecyclerView.Adapter<PlaylistRoutesAdapter.ViewHolder>() {
+class PlaylistRoutesAdapter() : ListAdapter<Playlist, PlaylistRouteViewHolder>(PlaylistDiffUtil()) {
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PlaylistRouteViewHolder {
+        val inflater = LayoutInflater.from(parent.context)
+        val binding = RoutesPlaylistsItemBinding.inflate(inflater, parent, false)
 
-        return ViewHolder(
-            RoutesPlaylistsItemBinding.inflate(LayoutInflater.from(parent.context), parent, false))
+        return PlaylistRouteViewHolder(binding)
     }
 
-    override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-
-        val itemsViewModel = mList[position]
-
-        // sets the text to the textview from our itemHolder class
-        holder.playlist.text = itemsViewModel.playlist
-
-        // sets the text to the textview from our itemHolder class
-        holder.user.text = itemsViewModel.user
-
-    }
-
-    override fun getItemCount(): Int {
-        return mList.size
-    }
-
-    class ViewHolder(binding: RoutesPlaylistsItemBinding) : RecyclerView.ViewHolder(binding.root) {
-
-        val playlist: TextView = binding.tvPlaylistInRoute
-        val user: TextView = binding.tvUserPlaylistsInRoute
-
-        private lateinit var navc: NavController
-
-        init {
-            binding.imgBtnSeePlayList.setOnClickListener {
-                navc = Navigation.findNavController(binding.root)
-                navc.navigate(R.id.action_routes_search_to_playlist_details)
-            }
-        }
-
+    override fun onBindViewHolder(holder: PlaylistRouteViewHolder, position: Int) {
+        val item = getItem(position)
+        holder.bind(item)
     }
 }
