@@ -29,7 +29,7 @@
     <fragment
         android:id="@+id/navigation_details"
         android:name="com.apm.trackify.ui.playlists.navigation.tracks.PlaylistTracksFragment"
-        tools:layout="@layout/playlists_details_fragment">
+        tools:layout="@layout/playlist_tracks_fragment">
         <action
             android:id="@+id/back_navigation_landing"
             app:popUpTo="@+id/navigation_landing" />

@@ -10,7 +10,7 @@ import androidx.recyclerview.widget.ConcatAdapter
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.apm.trackify.databinding.PlaylistsDetailsFragmentBinding
+import com.apm.trackify.databinding.PlaylistTracksFragmentBinding
 import com.apm.trackify.ui.playlists.navigation.tracks.adapter.FooterAdapter
 import com.apm.trackify.ui.playlists.navigation.tracks.adapter.HeaderAdapter
 import com.apm.trackify.ui.playlists.navigation.tracks.adapter.TrackAdapter
@@ -25,7 +25,7 @@ class PlaylistTracksFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        val binding = PlaylistsDetailsFragmentBinding.inflate(inflater, container, false)
+        val binding = PlaylistTracksFragmentBinding.inflate(inflater, container, false)
 
         setUpRecyclerView(binding.playlist)
 

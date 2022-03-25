@@ -26,6 +26,6 @@
     <fragment
         android:id="@+id/navigation_details"
         android:name="com.apm.trackify.ui.playlists.navigation.tracks.PlaylistTracksFragment"
-        tools:layout="@layout/playlists_details_fragment" />
+        tools:layout="@layout/playlist_tracks_fragment" />
 
 </navigation>
