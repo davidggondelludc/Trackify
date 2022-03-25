@@ -42,7 +42,7 @@ class SwipeAnimator() {
         background.isVisible = true
         foreground.isVisible = false
         icon.isVisible = true
-        icon.setColorFilter(0xff_60_63_67.toInt())
+        icon.setColorFilter(0xFF_60_63_67.toInt())
     }
 
 
