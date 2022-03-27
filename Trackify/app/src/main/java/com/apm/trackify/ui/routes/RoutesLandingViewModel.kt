@@ -3,8 +3,8 @@ package com.apm.trackify.ui.routes
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.apm.trackify.ui.playlists.model.Playlist
-import com.apm.trackify.utils.MockProvider
+import com.apm.trackify.model.MockProvider
+import com.apm.trackify.model.domain.Playlist
 
 class RoutesLandingViewModel : ViewModel() {
 

@@ -3,9 +3,9 @@ package com.apm.trackify.ui.playlists.navigation.tracks.view
 import androidx.recyclerview.widget.RecyclerView
 import com.apm.trackify.R
 import com.apm.trackify.databinding.PlaylistTrackHeaderItemBinding
-import com.apm.trackify.extensions.loadFromURI
-import com.apm.trackify.extensions.toast
-import com.apm.trackify.ui.playlists.model.Playlist
+import com.apm.trackify.model.domain.Playlist
+import com.apm.trackify.util.extension.loadFromURI
+import com.apm.trackify.util.extension.toast
 
 class HeaderViewHolder(private val binding: PlaylistTrackHeaderItemBinding) :
     RecyclerView.ViewHolder(binding.root) {

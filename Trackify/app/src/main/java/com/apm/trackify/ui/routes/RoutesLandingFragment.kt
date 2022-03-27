@@ -11,7 +11,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.apm.trackify.R
 import com.apm.trackify.databinding.RoutesLandingFragmentBinding
-import com.apm.trackify.ui.routes.adapter.PlaylistRoutesAdapter
+import com.apm.trackify.ui.routes.adapter.PlaylistRouteAdapter
 
 class RoutesLandingFragment : Fragment() {
 
@@ -41,7 +41,7 @@ class RoutesLandingFragment : Fragment() {
     }
 
     private fun setUpRecyclerView(recyclerView: RecyclerView) {
-        val playlistRoutesAdapter = PlaylistRoutesAdapter()
+        val playlistRoutesAdapter = PlaylistRouteAdapter()
         viewModel.getPlaylists().observe(viewLifecycleOwner) {
             playlistRoutesAdapter.submitList(it)
         }

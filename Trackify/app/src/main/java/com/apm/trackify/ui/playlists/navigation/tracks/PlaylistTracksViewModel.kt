@@ -3,11 +3,11 @@ package com.apm.trackify.ui.playlists.navigation.tracks
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.apm.trackify.extensions.isInBounds
-import com.apm.trackify.extensions.swap
-import com.apm.trackify.ui.playlists.navigation.tracks.model.Track
-import com.apm.trackify.ui.playlists.model.Playlist
-import com.apm.trackify.utils.MockProvider
+import com.apm.trackify.model.MockProvider
+import com.apm.trackify.model.domain.Playlist
+import com.apm.trackify.model.domain.Track
+import com.apm.trackify.util.extension.isInBounds
+import com.apm.trackify.util.extension.swap
 
 /**
  * Weird logic: dataset.toList()

@@ -5,14 +5,15 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.apm.trackify.R
 import com.apm.trackify.databinding.UserSharedRoutesFragmentBinding
+import com.apm.trackify.ui.user.profile.sharedRoutes.adapter.SharedRouteAdapter
 
-class UserSharedRoutesFragment: Fragment() {
+class UserSharedRoutesFragment : Fragment() {
 
-    private lateinit var sharedRouteAdapter: SharedRouteAdapter
+    private val viewModel: UserSharedRoutesViewModel by viewModels()
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -21,15 +22,18 @@ class UserSharedRoutesFragment: Fragment() {
     ): View {
         val binding = UserSharedRoutesFragmentBinding.inflate(inflater, container, false)
 
-        val sharedRouteList = mutableListOf(SharedRoute("Playlist 1", 3), SharedRoute("Playlist 2", 4))
-        sharedRouteAdapter = SharedRouteAdapter().apply { submitList(sharedRouteList) }
-
-        val sharedRoutes = binding.rvSharedRouteItems
-        sharedRoutes.adapter = sharedRouteAdapter
-        sharedRoutes.layoutManager = LinearLayoutManager(sharedRoutes.context)
+        setUpRecyclerView(binding.rvSharedRouteItems)
 
         return binding.root
     }
 
+    fun setUpRecyclerView(recyclerView: RecyclerView) {
+        val routeAdapter = SharedRouteAdapter()
+        viewModel.getRoutes().observe(viewLifecycleOwner) {
+            routeAdapter.submitList(it)
+        }
 
+        recyclerView.adapter = routeAdapter
+        recyclerView.layoutManager = LinearLayoutManager(context)
+    }
 }

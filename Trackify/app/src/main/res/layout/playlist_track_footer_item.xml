@@ -10,7 +10,7 @@
     android:paddingEnd="16dp"
     android:paddingBottom="8dp">
 
-    <com.apm.trackify.widgets.DottedDivider
+    <com.apm.trackify.util.widget.DottedDivider
         android:layout_width="match_parent"
         android:layout_height="2dp" />
 

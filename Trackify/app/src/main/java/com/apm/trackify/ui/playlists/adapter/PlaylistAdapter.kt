@@ -4,8 +4,8 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.ListAdapter
 import com.apm.trackify.databinding.PlaylistItemBinding
-import com.apm.trackify.ui.playlists.model.Playlist
-import com.apm.trackify.ui.playlists.model.diff.PlaylistDiffUtil
+import com.apm.trackify.model.diff.PlaylistDiffUtil
+import com.apm.trackify.model.domain.Playlist
 import com.apm.trackify.ui.playlists.view.PlaylistViewHolder
 
 class PlaylistAdapter() : ListAdapter<Playlist, PlaylistViewHolder>(PlaylistDiffUtil()) {

@@ -19,7 +19,7 @@
 
     <fragment
         android:id="@+id/routesShareFragment"
-        android:name="com.apm.trackify.ui.routes.share.ShareFragment"
+        android:name="com.apm.trackify.ui.routes.navigation.share.ShareFragment"
         android:label="routes_share_fragment"
         tools:layout="@layout/routes_share_fragment" />
 

@@ -8,7 +8,7 @@ import androidx.fragment.app.Fragment
 import androidx.navigation.Navigation
 import com.apm.trackify.R
 import com.apm.trackify.databinding.PlaylistCreateFragmentBinding
-import com.apm.trackify.extensions.toast
+import com.apm.trackify.util.extension.toast
 
 class PlaylistCreateFragment : Fragment() {
 
@@ -19,7 +19,7 @@ class PlaylistCreateFragment : Fragment() {
     ): View {
         val binding = PlaylistCreateFragmentBinding.inflate(inflater, container, false)
 
-        binding.search.setOnClickListener { context?.toast("Showing results") }
+        binding.search.setOnClickListener { it.context.toast("Showing results") }
 
         return binding.root
     }

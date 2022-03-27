@@ -4,10 +4,10 @@ import androidx.navigation.Navigation
 import androidx.recyclerview.widget.RecyclerView
 import com.apm.trackify.R
 import com.apm.trackify.databinding.PlaylistItemBinding
-import com.apm.trackify.extensions.getQuantityString
-import com.apm.trackify.extensions.loadFromURI
-import com.apm.trackify.extensions.scaleOnTouch
-import com.apm.trackify.ui.playlists.model.Playlist
+import com.apm.trackify.model.domain.Playlist
+import com.apm.trackify.util.extension.getQuantityString
+import com.apm.trackify.util.extension.loadFromURI
+import com.apm.trackify.util.extension.scaleOnTouch
 
 class PlaylistViewHolder(val binding: PlaylistItemBinding) :
     RecyclerView.ViewHolder(binding.root) {

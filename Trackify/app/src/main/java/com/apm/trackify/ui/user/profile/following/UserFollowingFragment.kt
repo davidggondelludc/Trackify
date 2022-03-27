@@ -5,14 +5,16 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.apm.trackify.R
+import androidx.recyclerview.widget.RecyclerView
 import com.apm.trackify.databinding.UserFollowingFragmentBinding
-import com.apm.trackify.extensions.toast
+import com.apm.trackify.ui.user.profile.following.adapter.UserFollowingAdapter
+import com.apm.trackify.util.extension.toast
 
-class UserFollowingFragment: Fragment() {
+class UserFollowingFragment : Fragment() {
 
-    private lateinit var userFollowingAdapter: UserFollowingAdapter
+    private val viewModel: UserFollowingViewModel by viewModels()
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -23,16 +25,19 @@ class UserFollowingFragment: Fragment() {
 
         binding.btnReadUserQr.setOnClickListener { it.context.toast("Read user QR") }
 
-        val userFollowingList = mutableListOf<UserFollowing>(
-            UserFollowing("Usuario1", 7),
-            UserFollowing("Usuario2", 5)
-        )
-        userFollowingAdapter = UserFollowingAdapter().apply { submitList(userFollowingList) }
-
-        val userFollowingView = binding.rvUsersFollowing
-        userFollowingView.adapter = userFollowingAdapter
-        userFollowingView.layoutManager = LinearLayoutManager(userFollowingView.context)
+        setUpRecyclerView(binding.rvUsersFollowing)
 
         return binding.root
+    }
+
+    fun setUpRecyclerView(recyclerView: RecyclerView) {
+        val userFollowingAdapter = UserFollowingAdapter()
+
+        viewModel.getUsers().observe(viewLifecycleOwner) {
+            userFollowingAdapter.submitList(it)
+        }
+
+        recyclerView.adapter = userFollowingAdapter
+        recyclerView.layoutManager = LinearLayoutManager(context)
     }
 }

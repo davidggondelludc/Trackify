@@ -4,7 +4,7 @@ import androidx.navigation.Navigation
 import androidx.recyclerview.widget.RecyclerView
 import com.apm.trackify.R
 import com.apm.trackify.databinding.RoutesPlaylistsItemBinding
-import com.apm.trackify.ui.playlists.model.Playlist
+import com.apm.trackify.model.domain.Playlist
 
 class PlaylistRouteViewHolder(val binding: RoutesPlaylistsItemBinding) :
     RecyclerView.ViewHolder(binding.root) {

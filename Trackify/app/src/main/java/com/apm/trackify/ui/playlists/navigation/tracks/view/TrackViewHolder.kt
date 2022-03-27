@@ -4,8 +4,8 @@ import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.RecyclerView
 import com.apm.trackify.R
 import com.apm.trackify.databinding.PlaylistTrackDragItemBinding
-import com.apm.trackify.extensions.*
-import com.apm.trackify.ui.playlists.navigation.tracks.model.Track
+import com.apm.trackify.model.domain.Track
+import com.apm.trackify.util.extension.*
 
 class TrackViewHolder(
     private val binding: PlaylistTrackDragItemBinding,

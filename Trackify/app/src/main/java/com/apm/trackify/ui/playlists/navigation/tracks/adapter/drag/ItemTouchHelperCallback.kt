@@ -7,7 +7,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.apm.trackify.databinding.PlaylistTrackDragItemBinding
 import com.apm.trackify.ui.playlists.navigation.tracks.PlaylistTracksViewModel
 import com.apm.trackify.ui.playlists.navigation.tracks.view.TrackViewHolder
-import com.apm.trackify.utils.animation.SwipeAnimator
+import com.apm.trackify.util.animation.SwipeAnimator
 
 class ItemTouchHelperCallback(
     private val viewModel: PlaylistTracksViewModel
@@ -16,7 +16,7 @@ class ItemTouchHelperCallback(
     ItemTouchHelper.RIGHT
 ) {
 
-    /** Variable to prevent view desynchronization when user swipes a view holder too fast **/
+    /** Variable to prevent view desynchronization when user swipes a view holder too fast. **/
     private var canSwipe = true
 
     private val animator = SwipeAnimator()
@@ -63,7 +63,7 @@ class ItemTouchHelperCallback(
         if (actionState == ItemTouchHelper.ACTION_STATE_SWIPE) {
             canvas.save()
 
-            // Apply a clip rectangle with the calculated area to draw inside it
+            // Apply a clip rectangle with the calculated area to draw inside it.
             val left = viewHolder.itemView.left
             val top = viewHolder.itemView.top + viewHolder.itemView.translationY.toInt()
             val right = viewHolder.itemView.right
@@ -71,7 +71,7 @@ class ItemTouchHelperCallback(
 
             canvas.clipRect(left, top, right, bottom)
 
-            // Animation for the behind layout
+            // Animation for the behind layout.
             val binding = PlaylistTrackDragItemBinding.bind(viewHolder.itemView)
             val behindLayout = binding.swipe.root
 
@@ -81,7 +81,7 @@ class ItemTouchHelperCallback(
                 else -> animator.drawCircularReveal(behindLayout)
             }
 
-            // Draw the custom layout behind the item
+            // Draw the custom layout behind the item.
             val width = right - left
             val height = bottom - top
 
@@ -111,6 +111,6 @@ class ItemTouchHelperCallback(
         canSwipe = true
     }
 
-    /** Disables the option to drag the view holder. By code it's assigned to an ImageButton **/
+    /** Disables the option to drag the view holder. By code it's assigned to an ImageButton. */
     override fun isLongPressDragEnabled(): Boolean = false
 }
