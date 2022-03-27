@@ -35,11 +35,7 @@ class CreateFragment : Fragment() {
             navc.navigate(R.id.action_navigation_create_to_navigation_landing)
         }
         binding.formSearchButton.setOnClickListener {
-            Toast.makeText(
-                activity,
-                "Showing results",
-                Toast.LENGTH_SHORT
-            ).show()
+            navc.navigate(R.id.action_navigation_create_to_navigation_create_search)
         }
     }
 }

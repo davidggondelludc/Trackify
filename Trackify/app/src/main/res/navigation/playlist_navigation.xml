@@ -24,6 +24,18 @@
         <action
             android:id="@+id/action_navigation_create_to_navigation_landing"
             app:destination="@id/navigation_landing" />
+        <action
+            android:id="@+id/action_navigation_create_to_navigation_create_search"
+            app:destination="@id/navigation_create_search" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/navigation_create_search"
+        android:name="com.apm.trackify.ui.playlist.create.CreateSearchFragment"
+        tools:layout="@layout/playlists_create_search_fragment">
+        <action
+            android:id="@+id/action_navigation_create_search_to_navigation_create"
+            app:destination="@id/navigation_create" />
     </fragment>
 
     <fragment
