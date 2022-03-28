@@ -29,6 +29,6 @@
         android:background="?attr/selectableItemBackgroundBorderless"
         android:visibility="invisible"
         app:srcCompat="@drawable/ic_delete"
+        tools:ignore="ContentDescription,SpeakableTextPresentCheck"
         tools:visibility="visible" />
-
 </FrameLayout>

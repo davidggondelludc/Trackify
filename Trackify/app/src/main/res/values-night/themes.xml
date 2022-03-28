@@ -3,6 +3,9 @@
     <style name="Theme.Trackify" parent="Theme.MaterialComponents.DayNight.DarkActionBar">
         <!-- Primary brand color. -->
         <item name="colorPrimary">@color/golden_poppy</item>
+        <item name="colorPrimaryDark">@color/sunglow</item>
+        <item name="colorAccent">@color/green_blue_crayola</item>
+
         <item name="colorPrimaryVariant">@color/sunglow</item>
         <item name="colorOnPrimary">@color/black</item>
 

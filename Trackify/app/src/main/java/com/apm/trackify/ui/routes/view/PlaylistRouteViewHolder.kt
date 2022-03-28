@@ -1,6 +1,6 @@
 package com.apm.trackify.ui.routes.view
 
-import androidx.navigation.Navigation
+import androidx.navigation.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import com.apm.trackify.R
 import com.apm.trackify.databinding.RoutesPlaylistsItemBinding
@@ -11,8 +11,8 @@ class PlaylistRouteViewHolder(val binding: RoutesPlaylistsItemBinding) :
 
     init {
         binding.imgBtnSeePlayList.setOnClickListener {
-            val navController = Navigation.findNavController(binding.root)
-            navController.navigate(R.id.action_routes_search_to_playlist_details)
+            val navController = it.findNavController()
+            navController.navigate(R.id.routes_fragment_to_playlist_track_fragment)
         }
     }
 

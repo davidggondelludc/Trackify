@@ -7,7 +7,7 @@
 
     <include
         android:id="@+id/swipe"
-        layout="@layout/swipe_left_layout"
+        layout="@layout/swipe_right_layout"
         tools:visibility="invisible" />
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -77,7 +77,5 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:srcCompat="@drawable/ic_drag_handle" />
-
     </androidx.constraintlayout.widget.ConstraintLayout>
-
 </FrameLayout>

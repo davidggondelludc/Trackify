@@ -1,10 +1,10 @@
 <resources>
     <string name="app_name">Trackify</string>
 
-    <!-- bottom navigation -->
-    <string name="title_playlists">Playlists</string>
-    <string name="title_routes">Routes</string>
-    <string name="title_profile">Profile</string>
+    <!-- bottom menu -->
+    <string name="playlists_menu">Playlists</string>
+    <string name="routes_menu">Routes</string>
+    <string name="profile_menu">Profile</string>
 
     <string name="form_duration">Desired playlist duration:</string>
     <string name="form_add_songs">Add some songs to your playlist</string>
@@ -38,8 +38,6 @@
     <!-- create playlist -->
     <string name="save_button">Save</string>
     <string name="save_button_description">Save playlist button</string>
-
-    <!-- swipe layout -->
 
     <!-- plurals -->
     <plurals name="tracks">

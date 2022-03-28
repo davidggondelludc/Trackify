@@ -3,29 +3,37 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/routes_navigation"
-    app:startDestination="@id/routesFragment">
+    app:startDestination="@+id/routes_fragment">
 
     <fragment
-        android:id="@+id/routesFragment"
+        android:id="@+id/routes_fragment"
         android:name="com.apm.trackify.ui.routes.RoutesLandingFragment"
         tools:layout="@layout/routes_landing_fragment">
+
         <action
-            android:id="@+id/action_routes_search_to_route_share"
-            app:destination="@+id/routesShareFragment" />
+            android:id="@+id/routes_fragment_to_route_create_fragment"
+            app:destination="@+id/route_create_fragment"
+            app:enterAnim="@anim/fade_in"
+            app:exitAnim="@anim/fade_out"
+            app:popEnterAnim="@anim/fade_in"
+            app:popExitAnim="@anim/fade_out" />
+
         <action
-            android:id="@+id/action_routes_search_to_playlist_details"
-            app:destination="@+id/navigation_details" />
+            android:id="@+id/routes_fragment_to_playlist_track_fragment"
+            app:destination="@+id/playlist_tracks_fragment"
+            app:enterAnim="@anim/fade_in"
+            app:exitAnim="@anim/fade_out"
+            app:popEnterAnim="@anim/fade_in"
+            app:popExitAnim="@anim/fade_out" />
     </fragment>
 
     <fragment
-        android:id="@+id/routesShareFragment"
-        android:name="com.apm.trackify.ui.routes.navigation.share.ShareFragment"
-        android:label="routes_share_fragment"
-        tools:layout="@layout/routes_share_fragment" />
+        android:id="@+id/route_create_fragment"
+        android:name="com.apm.trackify.ui.routes.navigation.create.RouteCreateFragment"
+        tools:layout="@layout/route_create_fragment" />
 
     <fragment
-        android:id="@+id/navigation_details"
+        android:id="@+id/playlist_tracks_fragment"
         android:name="com.apm.trackify.ui.playlists.navigation.tracks.PlaylistTracksFragment"
         tools:layout="@layout/playlist_tracks_fragment" />
-
 </navigation>

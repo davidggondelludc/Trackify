@@ -2,37 +2,38 @@
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/playlist_navigation"
-    app:startDestination="@+id/navigation_landing">
+    android:id="@+id/playlists_navigation"
+    app:startDestination="@+id/playlists_fragment">
 
     <fragment
-        android:id="@+id/navigation_landing"
+        android:id="@+id/playlists_fragment"
         android:name="com.apm.trackify.ui.playlists.PlaylistsLandingFragment"
         tools:layout="@layout/playlists_landing_fragment">
+
         <action
-            android:id="@+id/action_navigation_landing_to_navigation_details"
-            app:destination="@id/navigation_details" />
+            android:id="@+id/playlists_fragment_to_playlist_create_fragment"
+            app:destination="@+id/playlist_create_fragment"
+            app:enterAnim="@anim/fade_in"
+            app:exitAnim="@anim/fade_out"
+            app:popEnterAnim="@anim/fade_in"
+            app:popExitAnim="@anim/fade_out" />
+
         <action
-            android:id="@+id/action_navigation_landing_to_navigation_create"
-            app:destination="@id/navigation_create" />
+            android:id="@+id/playlists_fragment_to_playlist_track_fragment"
+            app:destination="@+id/playlist_tracks_fragment"
+            app:enterAnim="@anim/fade_in"
+            app:exitAnim="@anim/fade_out"
+            app:popEnterAnim="@anim/fade_in"
+            app:popExitAnim="@anim/fade_out" />
     </fragment>
 
     <fragment
-        android:id="@+id/navigation_create"
+        android:id="@+id/playlist_create_fragment"
         android:name="com.apm.trackify.ui.playlists.navigation.create.PlaylistCreateFragment"
-        tools:layout="@layout/playlist_create_fragment">
-        <action
-            android:id="@+id/action_navigation_create_to_navigation_landing"
-            app:destination="@id/navigation_landing" />
-    </fragment>
+        tools:layout="@layout/playlist_create_fragment" />
 
     <fragment
-        android:id="@+id/navigation_details"
+        android:id="@+id/playlist_tracks_fragment"
         android:name="com.apm.trackify.ui.playlists.navigation.tracks.PlaylistTracksFragment"
-        tools:layout="@layout/playlist_tracks_fragment">
-        <action
-            android:id="@+id/back_navigation_landing"
-            app:popUpTo="@+id/navigation_landing" />
-    </fragment>
-
+        tools:layout="@layout/playlist_tracks_fragment" />
 </navigation>

@@ -25,5 +25,4 @@
         android:textSize="14sp"
         app:fontFamily="sans-serif-black"
         tools:text="3 Tracks · 9 Minutes" />
-
 </LinearLayout>

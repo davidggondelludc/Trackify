@@ -1,6 +1,6 @@
 package com.apm.trackify.ui.playlists.view
 
-import androidx.navigation.Navigation
+import androidx.navigation.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import com.apm.trackify.R
 import com.apm.trackify.databinding.PlaylistItemBinding
@@ -16,14 +16,15 @@ class PlaylistViewHolder(val binding: PlaylistItemBinding) :
         scaleOnTouch()
 
         binding.root.setOnClickListener {
-            val navController = Navigation.findNavController(binding.root)
-            navController.navigate(R.id.action_navigation_landing_to_navigation_details)
+            val navController = it.findNavController()
+            navController.navigate(R.id.playlists_fragment_to_playlist_track_fragment)
         }
     }
 
     fun bind(playlist: Playlist) {
         binding.cover.loadFromURI(playlist.imageUri, R.drawable.placeholder_playlist)
         binding.name.text = playlist.name
-        binding.totalTracks.text = getQuantityString(R.plurals.tracks, playlist.totalTracks, playlist.totalTracks)
+        binding.totalTracks.text =
+            getQuantityString(R.plurals.tracks, playlist.totalTracks, playlist.totalTracks)
     }
 }

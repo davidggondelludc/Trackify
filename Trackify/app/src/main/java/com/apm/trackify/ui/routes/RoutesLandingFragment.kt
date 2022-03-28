@@ -6,7 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
-import androidx.navigation.Navigation
+import androidx.navigation.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.apm.trackify.R
@@ -35,8 +35,8 @@ class RoutesLandingFragment : Fragment() {
         val binding = RoutesLandingFragmentBinding.bind(view)
 
         binding.btnAddPlaylist2route.setOnClickListener {
-            val navController = Navigation.findNavController(view)
-            navController.navigate(R.id.action_routes_search_to_route_share)
+            val navController = it.findNavController()
+            navController.navigate(R.id.routes_fragment_to_route_create_fragment)
         }
     }
 
