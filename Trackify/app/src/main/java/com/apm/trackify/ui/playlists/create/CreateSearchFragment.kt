@@ -6,35 +6,31 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.widget.Toolbar
 import androidx.fragment.app.Fragment
-import androidx.navigation.findNavController
+import androidx.navigation.NavController
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.setupWithNavController
 import com.apm.trackify.R
-import com.apm.trackify.databinding.PlaylistsCreateFragmentBinding
-import com.apm.trackify.util.extension.toast
+import com.apm.trackify.databinding.PlaylistsCreateSearchFragmentBinding
 
-class PlaylistCreateFragment : Fragment() {
+class CreateSearchFragment : Fragment() {
+    private lateinit var binding: PlaylistsCreateSearchFragmentBinding
+
+    private lateinit var navc: NavController
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View = PlaylistsCreateFragmentBinding.inflate(inflater, container, false).root
+    ): View? {
+        binding = PlaylistsCreateSearchFragmentBinding.inflate(inflater, container, false)
+        return binding.root
+    }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        val binding = PlaylistsCreateFragmentBinding.bind(view)
+        val binding = PlaylistsCreateSearchFragmentBinding.bind(view)
 
         setupToolbar(binding.toolbar)
-
-        binding.saveButton.setOnClickListener {
-            val navController = it.findNavController()
-            navController.navigateUp()
-        }
-        binding.formSearchButton.setOnClickListener {
-            val navController = it.findNavController()
-            navController.navigate(R.id.action_playlist_create_fragment_to_navigation_create_search)
-        }
     }
 
     private fun setupToolbar(toolbar: Toolbar) {

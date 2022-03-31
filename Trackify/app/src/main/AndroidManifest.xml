@@ -18,7 +18,8 @@
             android:exported="true"
             android:screenOrientation="portrait"
             android:theme="@style/Theme.App.Starting"
-            tools:ignore="LockedOrientationActivity">
+            tools:ignore="LockedOrientationActivity"
+            android:windowSoftInputMode="adjustPan">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />

@@ -15,7 +15,7 @@
     <dimen name="item_playlist_title">14dp</dimen>
     <dimen name="item_playlist_subtitle">12dp</dimen>
     <dimen name="item_playlist_margin">5dp</dimen>
-    <dimen name="item_playlist_width">150dp</dimen>
+    <dimen name="item_playlist_width">180dp</dimen>
 
     <!-- item track -->
     <dimen name="item_track_title">13dp</dimen>
