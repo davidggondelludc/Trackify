@@ -1,10 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">Trackify</string>
 
-    <!-- bottom navigation -->
-    <string name="title_playlists">Playlists</string>
-    <string name="title_routes">Routes</string>
-    <string name="title_profile">Profile</string>
+    <!-- bottom menu -->
+    <string name="playlists_menu">Playlists</string>
+    <string name="routes_menu">Explore</string>
+    <string name="profile_menu">Profile</string>
 
     <string name="form_duration">Desired playlist duration:</string>
     <string name="form_add_songs">Add some songs to your playlist</string>
@@ -16,7 +17,6 @@
     <string name="form_search_button">Search song button</string>
     <string name="add_playlist_to_route">Add Playlist To Route</string>
     <string name="share_button">Share</string>
-    <string name="back_button">Back</string>
     <string name="start">Start</string>
     <string name="end">End</string>
     <string name="playlist_to_share_title">Playlist to be shared</string>
@@ -31,14 +31,19 @@
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="playlist_x">Playlist X</string>
     <string name="playlist_cover" />
-    <string name="playlist_covers">Playlist</string>
     <string name="playlist">Playlist</string>
 
     <string name="playlistFollowers">followers: </string>
 
-    <!-- playlists create -->
+    <!-- playlists landing -->
+    <string name="create_playlist_menu">Create playlist</string>
+
+    <!-- create playlist landing -->
     <string name="save_button">Save</string>
     <string name="save_button_description">Save playlist button</string>
+
+    <!-- routes landing -->
+    <string name="create_route_menu">Create route</string>
 
     <!-- plurals -->
     <plurals name="tracks">

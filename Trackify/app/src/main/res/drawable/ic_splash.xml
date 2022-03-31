@@ -1,0 +1,139 @@
+<?xml version="1.0" encoding="utf-8"?>
+<animated-vector xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:aapt="http://schemas.android.com/aapt">
+    <aapt:attr name="android:drawable">
+        <vector
+            android:width="108dp"
+            android:height="108dp"
+            android:viewportWidth="108"
+            android:viewportHeight="108">
+            <group
+                android:name="icon"
+                android:pivotX="54"
+                android:pivotY="54"
+                android:scaleX="0.7"
+                android:scaleY="0.7">
+                <group
+                    android:scaleX="0.54785156"
+                    android:scaleY="0.54785156"
+                    android:translateX="20.34"
+                    android:translateY="20.34">
+                    <path
+                        android:fillColor="#00000000"
+                        android:pathData="M81.591,36.315C71.37,25.58 55.543,20.999 40.488,25.849C19.536,32.596 8.022,55.047 14.769,76C21.516,96.947 43.968,108.463 64.919,101.716C73.073,99.092 79.797,94.086 84.572,87.717"
+                        android:strokeWidth="4.2261243"
+                        android:strokeLineCap="round"
+                        android:strokeLineJoin="round">
+                        <aapt:attr name="android:strokeColor">
+                            <gradient
+                                android:endX="84.572"
+                                android:endY="20.999"
+                                android:startX="8.022"
+                                android:startY="20.999"
+                                android:tileMode="clamp"
+                                android:type="linear">
+                                <item
+                                    android:color="#FFFBB040"
+                                    android:offset="0" />
+                                <item
+                                    android:color="#FFF9ED32"
+                                    android:offset="1" />
+                            </gradient>
+                        </aapt:attr>
+                    </path>
+                    <path
+                        android:fillColor="#00000000"
+                        android:pathData="M43.63,35.605C28.069,40.617 19.515,57.293 24.527,72.854"
+                        android:strokeWidth="4.2261243"
+                        android:strokeLineCap="round"
+                        android:strokeLineJoin="round">
+                        <aapt:attr name="android:strokeColor">
+                            <gradient
+                                android:endX="43.63"
+                                android:endY="35.605"
+                                android:startX="19.515"
+                                android:startY="35.605"
+                                android:tileMode="clamp"
+                                android:type="linear">
+                                <item
+                                    android:color="#FFFBB040"
+                                    android:offset="0" />
+                                <item
+                                    android:color="#FFF9ED32"
+                                    android:offset="1" />
+                            </gradient>
+                        </aapt:attr>
+                    </path>
+                    <path
+                        android:fillColor="#00000000"
+                        android:pathData="M52.703,63.783m-9.53,0a9.53,9.53 0,1 1,19.06 0a9.53,9.53 0,1 1,-19.06 0"
+                        android:strokeWidth="4.2261243"
+                        android:strokeLineCap="round"
+                        android:strokeLineJoin="round">
+                        <aapt:attr name="android:strokeColor">
+                            <gradient
+                                android:endX="62.239376"
+                                android:endY="54.066814"
+                                android:startX="43.166626"
+                                android:startY="54.066814"
+                                android:tileMode="clamp"
+                                android:type="linear">
+                                <item
+                                    android:color="#FFFBB040"
+                                    android:offset="0" />
+                                <item
+                                    android:color="#FFF9ED32"
+                                    android:offset="1" />
+                            </gradient>
+                        </aapt:attr>
+                    </path>
+                    <path
+                        android:fillColor="#00000000"
+                        android:pathData="M85.483,66.811C80.175,59.502 94.669,56.302 99.888,58.318C106.326,60.805 115.958,73.602 105.208,82.967C99.615,87.833 94.846,88.362 89.191,88.011C83.059,87.622 80.008,87.833 74.884,83.859C66.966,77.714 65.654,68.374 72.581,59.666C75.492,56.004 78.909,52.742 81.236,48.731C84.116,43.77 87.19,38.667 89.194,33.426C90.278,30.591 91.974,24.099 89.644,21.052C86.411,16.828 81.764,20.828 81.236,24.323C79.355,36.792 85.699,49.75 89.458,61.171C91.44,67.191 92.329,73.008 92.904,79.377C93.333,84.108 94.567,90.608 91.311,94.663C89.149,97.357 85.667,98.849 82.305,98.961"
+                        android:strokeWidth="4.2261243"
+                        android:strokeLineCap="round"
+                        android:strokeLineJoin="round">
+                        <aapt:attr name="android:strokeColor">
+                            <gradient
+                                android:endX="115.958"
+                                android:endY="16.828"
+                                android:startX="65.654"
+                                android:startY="16.828"
+                                android:tileMode="clamp"
+                                android:type="linear">
+                                <item
+                                    android:color="#FFFBB040"
+                                    android:offset="0" />
+                                <item
+                                    android:color="#FFF9ED32"
+                                    android:offset="1" />
+                            </gradient>
+                        </aapt:attr>
+                    </path>
+                </group>
+            </group>
+        </vector>
+    </aapt:attr>
+    <target android:name="icon">
+        <aapt:attr name="android:animation">
+            <set>
+                <objectAnimator
+                    android:duration="500"
+                    android:interpolator="@android:interpolator/linear_out_slow_in"
+                    android:propertyName="scaleX"
+                    android:startOffset="200"
+                    android:valueFrom="0"
+                    android:valueTo="1"
+                    android:valueType="floatType" />
+                <objectAnimator
+                    android:duration="500"
+                    android:interpolator="@android:interpolator/linear_out_slow_in"
+                    android:propertyName="scaleY"
+                    android:startOffset="200"
+                    android:valueFrom="0"
+                    android:valueTo="1"
+                    android:valueType="floatType" />
+            </set>
+        </aapt:attr>
+    </target>
+</animated-vector>
