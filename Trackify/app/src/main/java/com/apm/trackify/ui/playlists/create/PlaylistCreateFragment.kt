@@ -12,7 +12,6 @@ import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.setupWithNavController
 import com.apm.trackify.R
 import com.apm.trackify.databinding.PlaylistsCreateFragmentBinding
-import com.apm.trackify.util.extension.toast
 
 class PlaylistCreateFragment : Fragment() {
 
@@ -33,7 +32,7 @@ class PlaylistCreateFragment : Fragment() {
         }
         binding.formSearchButton.setOnClickListener {
             val navController = it.findNavController()
-            navController.navigate(R.id.action_playlist_create_fragment_to_navigation_create_search)
+            navController.navigate(R.id.playlist_create_fragment_to_playlist_create_search_fragment)
         }
     }
 
@@ -43,7 +42,7 @@ class PlaylistCreateFragment : Fragment() {
             setOf(
                 R.id.playlists_fragment,
                 R.id.routes_fragment,
-                R.id.profile_fragment
+                R.id.user_fragment
             )
         )
 

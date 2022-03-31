@@ -30,7 +30,7 @@
     <fragment
         android:id="@+id/route_create_fragment"
         android:name="com.apm.trackify.ui.routes.create.RouteCreateFragment"
-        tools:layout="@layout/route_create_fragment" />
+        tools:layout="@layout/routes_create_fragment" />
 
     <fragment
         android:id="@+id/playlist_tracks_fragment"

@@ -30,7 +30,7 @@
         android:id="@+id/sharedRouteItemShare"
         android:layout_width="30dp"
         android:layout_height="30dp"
-        android:layout_marginRight="8dp"
+        android:layout_marginEnd="8dp"
         android:background="?attr/selectableItemBackgroundBorderless"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/sharedRouteItemDelete"
@@ -46,6 +46,4 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/ic_delete" />
-
-
 </androidx.constraintlayout.widget.ConstraintLayout>

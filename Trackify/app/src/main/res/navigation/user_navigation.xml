@@ -2,11 +2,11 @@
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/profile_navigation"
-    app:startDestination="@+id/profile_fragment">
+    android:id="@+id/user_navigation"
+    app:startDestination="@+id/user_fragment">
 
     <fragment
-        android:id="@+id/profile_fragment"
+        android:id="@+id/user_fragment"
         android:name="com.apm.trackify.ui.user.UserLandingFragment"
         tools:layout="@layout/user_landing_fragment" />
 </navigation>
