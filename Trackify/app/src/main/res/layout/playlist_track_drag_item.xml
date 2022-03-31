@@ -15,13 +15,13 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="?android:attr/colorBackground"
-        android:paddingStart="@dimen/margin_horizontal"
-        android:paddingEnd="@dimen/margin_horizontal">
+        android:paddingStart="@dimen/screen_margin_horizontal"
+        android:paddingEnd="@dimen/screen_margin_horizontal">
 
         <com.google.android.material.imageview.ShapeableImageView
             android:id="@+id/cover"
-            android:layout_width="@dimen/icon_size"
-            android:layout_height="@dimen/icon_size"
+            android:layout_width="@dimen/common_icon_size"
+            android:layout_height="@dimen/common_icon_size"
             android:layout_marginTop="@dimen/item_track_cover_margin"
             android:layout_marginBottom="@dimen/item_track_cover_margin"
             app:layout_constraintBottom_toBottomOf="parent"

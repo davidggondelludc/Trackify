@@ -20,19 +20,18 @@ class UserFollowingFragment : Fragment() {
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View {
-        val binding = UserFollowingFragmentBinding.inflate(inflater, container, false)
+    ): View = UserFollowingFragmentBinding.inflate(inflater, container, false).root
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        val binding = UserFollowingFragmentBinding.bind(view)
 
         binding.btnReadUserQr.setOnClickListener { it.context.toast("Read user QR") }
 
-        setUpRecyclerView(binding.rvUsersFollowing)
-
-        return binding.root
+        setupRecyclerView(binding.rvUsersFollowing)
     }
 
-    fun setUpRecyclerView(recyclerView: RecyclerView) {
+    private fun setupRecyclerView(recyclerView: RecyclerView) {
         val userFollowingAdapter = UserFollowingAdapter()
-
         viewModel.getUsers().observe(viewLifecycleOwner) {
             userFollowingAdapter.submitList(it)
         }

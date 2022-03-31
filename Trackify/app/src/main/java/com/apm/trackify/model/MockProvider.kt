@@ -11,7 +11,7 @@ object MockProvider {
     val routes = List(20) {
         Route(
             1,
-            "Playlist 1",
+            "Playlist $it",
             3
         )
     }
@@ -19,7 +19,7 @@ object MockProvider {
     val users = List(20) {
         User(
             it,
-            "user $it",
+            "User $it",
             5
         )
     }
@@ -28,16 +28,16 @@ object MockProvider {
         Playlist(
             it,
             "$it",
-            "playlist $it",
+            "Playlist $it",
             it,
-            "user $it"
+            "User $it"
         )
     }
 
     val playlist = Playlist(
         1,
         "1",
-        "playlist",
+        "Playlist",
         20,
         "User"
     )
@@ -46,8 +46,8 @@ object MockProvider {
         Track(
             it,
             "$it",
-            "track $it",
-            "artists",
+            "Track $it",
+            "Artists",
             true,
             60000,
             ""

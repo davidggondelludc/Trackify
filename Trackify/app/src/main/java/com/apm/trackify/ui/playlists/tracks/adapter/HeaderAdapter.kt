@@ -1,11 +1,11 @@
-package com.apm.trackify.ui.playlists.navigation.tracks.adapter
+package com.apm.trackify.ui.playlists.tracks.adapter
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.apm.trackify.databinding.PlaylistTrackHeaderItemBinding
 import com.apm.trackify.model.domain.Playlist
-import com.apm.trackify.ui.playlists.navigation.tracks.view.HeaderViewHolder
+import com.apm.trackify.ui.playlists.tracks.view.HeaderViewHolder
 
 class HeaderAdapter : RecyclerView.Adapter<HeaderViewHolder>() {
 

@@ -1,11 +1,16 @@
 package com.apm.trackify.util
 
 import android.content.Context
+import android.graphics.Color
 import android.graphics.drawable.Drawable
 import android.graphics.drawable.GradientDrawable
 import android.graphics.drawable.LayerDrawable
+import androidx.annotation.ColorInt
 import androidx.annotation.DrawableRes
 import androidx.core.content.ContextCompat
+import androidx.core.graphics.ColorUtils
+import androidx.core.math.MathUtils
+import com.apm.trackify.util.extension.isDarkMode
 import kotlin.math.abs
 
 object CoverUtil {
@@ -37,11 +42,35 @@ object CoverUtil {
         intArrayOf(0xFF_F7_9F_32.toInt(), 0xFF_FC_CA_1C.toInt())
     )
 
+    private val DESATURATED_COLORS = COLORS.map {
+        val colors = it.copyOf()
+        colors[0] = desaturate(colors[0])
+        colors[1] = desaturate(colors[1])
+        colors
+    }
+
     fun getDrawable(context: Context, @DrawableRes id: Int, position: Int): Drawable {
         val drawable = ContextCompat.getDrawable(context, id)!!.mutate() as LayerDrawable
         val gradient = drawable.getDrawable(0) as GradientDrawable
-        gradient.colors = COLORS[abs(position % COLORS.size)]
+
+        if (context.isDarkMode()) {
+            gradient.colors = DESATURATED_COLORS[abs(position % DESATURATED_COLORS.size)]
+        } else {
+            gradient.colors = COLORS[abs(position % COLORS.size)]
+        }
 
         return drawable
+    }
+
+    private fun desaturate(@ColorInt color: Int): Int {
+        val alpha = Color.alpha(color)
+        val colorWithFullAlpha = ColorUtils.setAlphaComponent(color, 255)
+
+        val hsl = FloatArray(3)
+        ColorUtils.colorToHSL(colorWithFullAlpha, hsl)
+        if (hsl[1] > 0.75f) hsl[1] = MathUtils.clamp(hsl[1] - 0.25f, 0.75f, 1f)
+        val desaturatedColorWithFullAlpha = ColorUtils.HSLToColor(hsl)
+
+        return ColorUtils.setAlphaComponent(desaturatedColorWithFullAlpha, alpha)
     }
 }

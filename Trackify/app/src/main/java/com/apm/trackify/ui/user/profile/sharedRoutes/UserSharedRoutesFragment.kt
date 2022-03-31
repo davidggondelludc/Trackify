@@ -19,15 +19,15 @@ class UserSharedRoutesFragment : Fragment() {
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View {
-        val binding = UserSharedRoutesFragmentBinding.inflate(inflater, container, false)
+    ): View = UserSharedRoutesFragmentBinding.inflate(inflater, container, false).root
 
-        setUpRecyclerView(binding.rvSharedRouteItems)
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        val binding = UserSharedRoutesFragmentBinding.bind(view)
 
-        return binding.root
+        setupRecyclerView(binding.rvSharedRouteItems)
     }
 
-    fun setUpRecyclerView(recyclerView: RecyclerView) {
+    private fun setupRecyclerView(recyclerView: RecyclerView) {
         val routeAdapter = SharedRouteAdapter()
         viewModel.getRoutes().observe(viewLifecycleOwner) {
             routeAdapter.submitList(it)

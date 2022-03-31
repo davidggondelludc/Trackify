@@ -1,4 +1,4 @@
-package com.apm.trackify.ui.playlists.navigation.tracks
+package com.apm.trackify.ui.playlists.tracks
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData

@@ -4,8 +4,13 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.appcompat.widget.Toolbar
 import androidx.fragment.app.Fragment
+import androidx.navigation.fragment.findNavController
+import androidx.navigation.ui.AppBarConfiguration
+import androidx.navigation.ui.setupWithNavController
 import androidx.viewpager2.widget.ViewPager2
+import com.apm.trackify.R
 import com.apm.trackify.databinding.UserLandingFragmentBinding
 import com.apm.trackify.ui.user.profile.TabLayoutPagerAdapter
 import com.google.android.material.tabs.TabLayout
@@ -16,15 +21,29 @@ class UserLandingFragment : Fragment() {
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View {
-        val binding = UserLandingFragmentBinding.inflate(inflater, container, false)
+    ): View = UserLandingFragmentBinding.inflate(inflater, container, false).root
 
-        setUpViewPager(binding)
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        val binding = UserLandingFragmentBinding.bind(view)
 
-        return binding.root
+        setupToolbar(binding.toolbar)
+        setupViewPager(binding)
     }
 
-    private fun setUpViewPager(binding: UserLandingFragmentBinding) {
+    private fun setupToolbar(toolbar: Toolbar) {
+        val navController = findNavController()
+        val appBarConfiguration = AppBarConfiguration(
+            setOf(
+                R.id.playlists_fragment,
+                R.id.routes_fragment,
+                R.id.profile_fragment
+            )
+        )
+
+        toolbar.setupWithNavController(navController, appBarConfiguration)
+    }
+
+    private fun setupViewPager(binding: UserLandingFragmentBinding) {
         val adapter = TabLayoutPagerAdapter(this, binding.tabLayout.tabCount)
 
         binding.viewPager2.adapter = adapter

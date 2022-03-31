@@ -23,9 +23,11 @@ class SwipeAnimator {
         state = State.IDLE
 
         val background = view.findViewById<View>(R.id.background)
+        val foreground = view.findViewById<View>(R.id.foreground)
         val icon = view.findViewById<ImageView>(R.id.icon)
 
         background.isVisible = false
+        foreground.isVisible = false
         icon.isVisible = false
     }
 
@@ -58,30 +60,25 @@ class SwipeAnimator {
 
         background.isVisible = false
         foreground.isVisible = true
-        icon.apply {
-            setColorFilter(Color.WHITE)
-            animate().apply {
-                duration = 200
-                interpolator = DecelerateInterpolator()
-                scaleX(1.2f)
-                scaleY(1.2f)
-                withEndAction {
-                    icon.animate().apply {
-                        duration = 200
-                        interpolator = BounceInterpolator()
-                        scaleX(1f)
-                        scaleY(1f)
-                    }
+        icon.setColorFilter(Color.WHITE)
+        icon.animate().apply {
+            duration = 200
+            interpolator = DecelerateInterpolator()
+            scaleX(1.2f)
+            scaleY(1.2f)
+            withEndAction {
+                icon.animate().apply {
+                    duration = 200
+                    interpolator = BounceInterpolator()
+                    scaleX(1f)
+                    scaleY(1f)
                 }
             }
         }
 
         val cx = icon.x + icon.width / 2
         val cy = icon.y + icon.height / 2
-        val endRadius = hypot(
-            foreground.width.toDouble(),
-            foreground.height.toDouble()
-        ).toFloat()
+        val endRadius = hypot(foreground.width.toDouble(), foreground.height.toDouble()).toFloat()
 
         ViewAnimationUtils.createCircularReveal(
             foreground,

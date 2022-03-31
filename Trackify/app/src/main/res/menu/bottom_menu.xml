@@ -1,15 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
-<menu xmlns:android="http://schemas.android.com/apk/res/android">
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
     <item
         android:id="@+id/playlists_navigation"
         android:icon="@drawable/ic_music_note"
-        android:title="@string/playlists_menu" />
+        android:title="@string/playlists_menu"
+        app:showAsAction="ifRoom" />
     <item
         android:id="@+id/routes_navigation"
         android:icon="@drawable/ic_compass_outlined"
-        android:title="@string/routes_menu" />
+        android:title="@string/routes_menu"
+        app:showAsAction="ifRoom" />
     <item
         android:id="@+id/profile_navigation"
         android:icon="@drawable/ic_people_alt"
-        android:title="@string/profile_menu" />
+        android:title="@string/profile_menu"
+        app:showAsAction="ifRoom" />
 </menu>

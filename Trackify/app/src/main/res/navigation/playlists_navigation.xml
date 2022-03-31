@@ -29,11 +29,11 @@
 
     <fragment
         android:id="@+id/playlist_create_fragment"
-        android:name="com.apm.trackify.ui.playlists.navigation.create.PlaylistCreateFragment"
+        android:name="com.apm.trackify.ui.playlists.create.PlaylistCreateFragment"
         tools:layout="@layout/playlist_create_fragment" />
 
     <fragment
         android:id="@+id/playlist_tracks_fragment"
-        android:name="com.apm.trackify.ui.playlists.navigation.tracks.PlaylistTracksFragment"
+        android:name="com.apm.trackify.ui.playlists.tracks.PlaylistTracksFragment"
         tools:layout="@layout/playlist_tracks_fragment" />
 </navigation>

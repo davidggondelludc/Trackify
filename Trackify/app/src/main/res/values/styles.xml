@@ -9,10 +9,6 @@
         <item name="cornerSize">10%</item>
     </style>
 
-    <style name="SplashTheme" parent="Theme.Trackify">
-        <item name="android:windowBackground">@drawable/ic_logo</item>
-    </style>
-
     <!-- item playlist -->
     <style name="Playlist">
         <item name="android:ellipsize">end</item>
@@ -33,7 +29,7 @@
     </style>
 
     <!-- item track -->
-    <style name="Track" parent="@android:style/TextAppearance">
+    <style name="Track">
         <item name="android:maxLines">1</item>
         <item name="android:ellipsize">end</item>
         <item name="android:gravity">center_vertical</item>

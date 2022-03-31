@@ -1,10 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <dimen name="icon_size">48dp</dimen>
-    <dimen name="margin_horizontal">16dp</dimen>
+    <!-- general purpose -->
+    <dimen name="common_icon_size">48dp</dimen>
+    <dimen name="screen_margin_horizontal">16dp</dimen>
+
+    <!-- splash layout -->
+    <dimen name="splash_size">200dp</dimen>
 
     <!-- placeholders -->
     <dimen name="placeholder_track_padding">22dp</dimen>
-    <dimen name="placeholder_album_padding">90dp</dimen>
+    <dimen name="placeholder_playlist_padding">90dp</dimen>
 
     <!-- item playlist -->
     <dimen name="item_playlist_title">14dp</dimen>
