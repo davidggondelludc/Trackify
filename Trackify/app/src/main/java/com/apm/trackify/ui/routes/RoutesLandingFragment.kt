@@ -39,7 +39,7 @@ class RoutesLandingFragment : Fragment() {
             setOf(
                 R.id.playlists_fragment,
                 R.id.routes_fragment,
-                R.id.profile_fragment
+                R.id.user_fragment
             )
         )
 

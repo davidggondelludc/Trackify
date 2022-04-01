@@ -30,24 +30,24 @@
     <fragment
         android:id="@+id/playlist_create_fragment"
         android:name="com.apm.trackify.ui.playlists.create.PlaylistCreateFragment"
-        tools:layout="@layout/playlists_create_fragment" >
+        tools:layout="@layout/playlists_create_fragment">
+
         <action
-            android:id="@+id/action_playlist_create_fragment_to_navigation_create_search"
-            app:destination="@id/navigation_create_search"
+            android:id="@+id/playlist_create_fragment_to_playlist_create_search_fragment"
+            app:destination="@id/playlist_create_search_fragment"
             app:enterAnim="@anim/fade_in"
             app:exitAnim="@anim/fade_out"
             app:popEnterAnim="@anim/fade_in"
-            app:popExitAnim="@anim/fade_out"/>
+            app:popExitAnim="@anim/fade_out" />
     </fragment>
+
+    <fragment
+        android:id="@+id/playlist_create_search_fragment"
+        android:name="com.apm.trackify.ui.playlists.create.search.PlaylistCreateSearchFragment"
+        tools:layout="@layout/playlists_create_search_fragment" />
 
     <fragment
         android:id="@+id/playlist_tracks_fragment"
         android:name="com.apm.trackify.ui.playlists.tracks.PlaylistTracksFragment"
         tools:layout="@layout/playlists_tracks_fragment" />
-
-    <fragment
-        android:id="@+id/navigation_create_search"
-        android:name="com.apm.trackify.ui.playlists.create.CreateSearchFragment"
-        tools:layout="@layout/playlists_create_search_fragment">
-    </fragment>
 </navigation>

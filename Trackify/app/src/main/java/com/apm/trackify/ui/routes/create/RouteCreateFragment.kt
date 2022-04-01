@@ -10,7 +10,7 @@ import androidx.navigation.fragment.findNavController
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.setupWithNavController
 import com.apm.trackify.R
-import com.apm.trackify.databinding.RouteCreateFragmentBinding
+import com.apm.trackify.databinding.RoutesCreateFragmentBinding
 import com.apm.trackify.util.extension.toast
 
 class RouteCreateFragment : Fragment() {
@@ -19,10 +19,10 @@ class RouteCreateFragment : Fragment() {
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View = RouteCreateFragmentBinding.inflate(inflater, container, false).root
+    ): View = RoutesCreateFragmentBinding.inflate(inflater, container, false).root
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        val binding = RouteCreateFragmentBinding.bind(view)
+        val binding = RoutesCreateFragmentBinding.bind(view)
 
         setupToolbar(binding.toolbar)
 
@@ -37,7 +37,7 @@ class RouteCreateFragment : Fragment() {
             setOf(
                 R.id.playlists_fragment,
                 R.id.routes_fragment,
-                R.id.profile_fragment
+                R.id.user_fragment
             )
         )
 
