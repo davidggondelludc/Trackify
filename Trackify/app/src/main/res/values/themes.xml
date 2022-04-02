@@ -2,28 +2,32 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
 
     <style name="Theme.Trackify" parent="Theme.MaterialComponents.DayNight.NoActionBar">
-        <!-- primary brand color -->
+        <!-- primary color -->
         <item name="colorPrimary">@color/golden_poppy</item>
         <item name="colorPrimaryVariant">@color/sunglow</item>
         <item name="colorOnPrimary">@color/black</item>
 
-        <!-- secondary brand color -->
+        <!-- secondary color -->
         <item name="colorSecondary">@color/green_blue_crayola</item>
         <item name="colorSecondaryVariant">@color/tufts_blue</item>
         <item name="colorOnSecondary">@color/white</item>
 
-        <!-- surface brand color -->
+        <!-- surface color -->
         <!--        <item name="colorSurface">@color/md_theme_light_surface</item>-->
         <!--        <item name="colorOnSurface">@color/md_theme_light_onSurface</item>-->
 
-        <!-- error brand color -->
+        <!-- error color -->
         <!--        <item name="colorError">@color/md_theme_light_error</item>-->
         <!--        <item name="colorOnError">@color/md_theme_light_onError</item>-->
 
-        <!-- background brand color -->
+        <!-- background color -->
         <!--        <item name="android:colorBackground">@color/md_theme_light_background</item>-->
         <!--        <item name="colorOnBackground">@color/md_theme_light_onBackground</item>-->
 
+        <!-- -->
+        <item name="android:windowTranslucentStatus">true</item>
+
+        <!-- -->
         <item name="toolbarStyle">@style/Widget.App.Toolbar</item>
         <item name="bottomNavigationStyle">@style/Widget.App.BottomNavigationView</item>
     </style>

@@ -8,8 +8,7 @@ import com.apm.trackify.model.diff.UserDiffUtil
 import com.apm.trackify.model.domain.User
 import com.apm.trackify.ui.user.profile.following.view.UserFollowingViewHolder
 
-class UserFollowingAdapter() :
-    ListAdapter<User, UserFollowingViewHolder>(UserDiffUtil()) {
+class UserFollowingAdapter() : ListAdapter<User, UserFollowingViewHolder>(UserDiffUtil()) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): UserFollowingViewHolder {
         val inflater = LayoutInflater.from(parent.context)

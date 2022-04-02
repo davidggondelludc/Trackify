@@ -10,7 +10,6 @@ class UserFollowingViewHolder(val binding: UserFollowingItemBinding) :
 
     init {
         binding.imgBtnSeeUserFollowing.setOnClickListener { it.context.toast("Go to user profile") }
-        //binding.sharedRouteItemDelete.setOnClickListener{ it.context.toast("Delete shared playlist") }
     }
 
     fun bind(user: User) {

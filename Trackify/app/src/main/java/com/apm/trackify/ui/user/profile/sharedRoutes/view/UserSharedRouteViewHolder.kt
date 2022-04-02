@@ -5,7 +5,7 @@ import com.apm.trackify.databinding.UserSharedRouteItemBinding
 import com.apm.trackify.model.domain.Route
 import com.apm.trackify.util.extension.toast
 
-class SharedRouteViewHolder(val binding: UserSharedRouteItemBinding) :
+class UserSharedRouteViewHolder(val binding: UserSharedRouteItemBinding) :
     RecyclerView.ViewHolder(binding.root) {
 
     init {

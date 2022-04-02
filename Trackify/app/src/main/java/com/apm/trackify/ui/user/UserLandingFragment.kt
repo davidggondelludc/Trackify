@@ -4,15 +4,11 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.appcompat.widget.Toolbar
 import androidx.fragment.app.Fragment
-import androidx.navigation.fragment.findNavController
-import androidx.navigation.ui.AppBarConfiguration
-import androidx.navigation.ui.setupWithNavController
 import androidx.viewpager2.widget.ViewPager2
-import com.apm.trackify.R
 import com.apm.trackify.databinding.UserLandingFragmentBinding
 import com.apm.trackify.ui.user.profile.TabLayoutPagerAdapter
+import com.apm.trackify.util.extension.setupToolbar
 import com.google.android.material.tabs.TabLayout
 
 class UserLandingFragment : Fragment() {
@@ -28,19 +24,6 @@ class UserLandingFragment : Fragment() {
 
         setupToolbar(binding.toolbar)
         setupViewPager(binding)
-    }
-
-    private fun setupToolbar(toolbar: Toolbar) {
-        val navController = findNavController()
-        val appBarConfiguration = AppBarConfiguration(
-            setOf(
-                R.id.playlists_fragment,
-                R.id.routes_fragment,
-                R.id.user_fragment
-            )
-        )
-
-        toolbar.setupWithNavController(navController, appBarConfiguration)
     }
 
     private fun setupViewPager(binding: UserLandingFragmentBinding) {

@@ -9,7 +9,7 @@ import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.apm.trackify.databinding.UserSharedRoutesFragmentBinding
-import com.apm.trackify.ui.user.profile.sharedRoutes.adapter.SharedRouteAdapter
+import com.apm.trackify.ui.user.profile.sharedRoutes.adapter.UserSharedRouteAdapter
 
 class UserSharedRoutesFragment : Fragment() {
 
@@ -28,7 +28,7 @@ class UserSharedRoutesFragment : Fragment() {
     }
 
     private fun setupRecyclerView(recyclerView: RecyclerView) {
-        val routeAdapter = SharedRouteAdapter()
+        val routeAdapter = UserSharedRouteAdapter()
         viewModel.getRoutes().observe(viewLifecycleOwner) {
             routeAdapter.submitList(it)
         }

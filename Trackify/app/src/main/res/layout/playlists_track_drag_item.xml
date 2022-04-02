@@ -24,6 +24,7 @@
             android:layout_height="@dimen/common_icon_size"
             android:layout_marginTop="@dimen/item_track_cover_margin"
             android:layout_marginBottom="@dimen/item_track_cover_margin"
+            android:contentDescription="@string/track_cover_description"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"

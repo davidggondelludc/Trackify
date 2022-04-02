@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <!-- general purpose -->
+    <dimen name="default_corner_radius">16dp</dimen>
     <dimen name="common_icon_size">48dp</dimen>
     <dimen name="screen_margin_horizontal">16dp</dimen>
 

@@ -11,8 +11,10 @@ import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.setupWithNavController
 import com.apm.trackify.R
 import com.apm.trackify.databinding.PlaylistsCreateSearchFragmentBinding
+import com.apm.trackify.util.extension.setupToolbar
 
 class PlaylistCreateSearchFragment : Fragment() {
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -23,18 +25,5 @@ class PlaylistCreateSearchFragment : Fragment() {
         val binding = PlaylistsCreateSearchFragmentBinding.bind(view)
 
         setupToolbar(binding.toolbar)
-    }
-
-    private fun setupToolbar(toolbar: Toolbar) {
-        val navController = findNavController()
-        val appBarConfiguration = AppBarConfiguration(
-            setOf(
-                R.id.playlists_fragment,
-                R.id.routes_fragment,
-                R.id.user_fragment
-            )
-        )
-
-        toolbar.setupWithNavController(navController, appBarConfiguration)
     }
 }
