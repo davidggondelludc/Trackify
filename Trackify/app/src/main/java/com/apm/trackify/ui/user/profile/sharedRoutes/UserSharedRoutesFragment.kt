@@ -10,17 +10,14 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.apm.trackify.databinding.UserSharedRoutesFragmentBinding
 import com.apm.trackify.ui.user.profile.sharedRoutes.adapter.SharedRouteAdapter
+import com.apm.trackify.util.maps.MapsUtil
 import com.google.android.gms.maps.*
 import com.google.android.gms.maps.model.LatLng
-import com.google.android.gms.maps.model.LatLngBounds
-import com.google.android.gms.maps.model.MarkerOptions
-import java.lang.Double.min
-import kotlin.math.max
 
 class UserSharedRoutesFragment : Fragment(), OnMapReadyCallback {
 
     private val viewModel: UserSharedRoutesViewModel by viewModels()
-    private lateinit var map: GoogleMap
+    private lateinit var mapUtil: MapsUtil
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -47,33 +44,15 @@ class UserSharedRoutesFragment : Fragment(), OnMapReadyCallback {
     }
 
     override fun onMapReady(googleMap: GoogleMap) {
-        map = googleMap
-        map.mapType = GoogleMap.MAP_TYPE_NORMAL
-        map.uiSettings.setAllGesturesEnabled(false)
-        map.isTrafficEnabled = true
+        mapUtil = MapsUtil(googleMap, context)
+        mapUtil.setDefaultSettings()
 
-        val latitude = 43.371023
-        val longitude = -8.405215
-        val lat2 = 43.382825
-        val long2 = -8.410223
-        val coordinates = LatLng( latitude, longitude)
-        val coords2 = LatLng(lat2, long2)
-        createMarker(coordinates)
-        createMarker(coords2)
-        val offset = 0.003
-        val myBounds = LatLngBounds(
-            LatLng(min(latitude, lat2), min(longitude, long2)),
-            LatLng(max(latitude, lat2) + offset, max(longitude, long2))
+        val coordinates = listOf<LatLng>(
+            LatLng(43.371023, -8.405215), LatLng(43.382825, -8.410223),
+            LatLng(43.365160, -8.374968), LatLng(43.364100, -8.399088),
+            LatLng(43.358961, -8.401851)
         )
-        map.moveCamera(CameraUpdateFactory.newLatLngBounds(myBounds, 5))
-    }
 
-    private fun midPoint(lat1: Double, long1: Double, lat2: Double, long2: Double): LatLng {
-        return LatLng((lat1 + lat2) / 2, (long1 + long2) / 2)
-    }
-
-    private fun createMarker(coords: LatLng) {
-        val marker: MarkerOptions = MarkerOptions().position(coords)
-        map.addMarker(marker)
+        mapUtil.drawRoute(coordinates)
     }
 }
