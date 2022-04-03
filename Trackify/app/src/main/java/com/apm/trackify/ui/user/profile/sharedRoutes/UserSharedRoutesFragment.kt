@@ -53,6 +53,6 @@ class UserSharedRoutesFragment : Fragment(), OnMapReadyCallback {
             LatLng(43.358961, -8.401851)
         )
 
-        mapUtil.drawRoute(coordinates)
+        mapUtil.drawRouteAndSetOnClick(coordinates)
     }
 }
