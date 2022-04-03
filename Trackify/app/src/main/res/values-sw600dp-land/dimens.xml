@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- playlists create layout -->
+    <dimen name="playlists_create_layout_padding">24dp</dimen>
+    <dimen name="playlists_create_layout_horizontal_padding">32dp</dimen>
+    <dimen name="playlists_create_layout_vertical_padding">24dp</dimen>
+    <dimen name="playlists_create_text_size">24sp</dimen>
+</resources>

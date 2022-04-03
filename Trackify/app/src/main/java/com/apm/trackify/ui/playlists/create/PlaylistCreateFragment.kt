@@ -26,10 +26,6 @@ class PlaylistCreateFragment : Fragment() {
 
         setupToolbar(binding.toolbar)
 
-        binding.saveButton.setOnClickListener {
-            val navController = it.findNavController()
-            navController.navigateUp()
-        }
         binding.formSearchButton.setOnClickListener {
             val navController = it.findNavController()
             navController.navigate(R.id.playlist_create_fragment_to_playlist_create_search_fragment)
@@ -47,5 +43,13 @@ class PlaylistCreateFragment : Fragment() {
         )
 
         toolbar.setupWithNavController(navController, appBarConfiguration)
+        toolbar.setOnMenuItemClickListener{
+            when (it.itemId) {
+                R.id.savePlaylist -> {
+                    navController.navigateUp()
+                }
+            }
+            true
+        }
     }
 }

@@ -109,17 +109,17 @@
                     android:contentDescription="@string/form_search_button"
                     android:elevation="16dp"
                     android:focusable="true"
-                    app:fabSize="mini"
+                    app:fabSize="normal"
                     app:rippleColor="@color/golden_poppy"
                     app:srcCompat="@drawable/ic_music_note_plus" />
             </LinearLayout>
 
             <androidx.recyclerview.widget.RecyclerView
-                android:paddingVertical="@dimen/playlists_create_layout_vertical_padding"
                 android:id="@+id/rvSelectedSongs"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:background="?android:colorBackground"
+                android:paddingVertical="@dimen/playlists_create_layout_vertical_padding"
                 tools:itemCount="20"
                 tools:listitem="@layout/playlists_track_drag_item" />
 
