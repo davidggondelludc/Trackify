@@ -1,4 +1,4 @@
-package com.apm.trackify.ui.playlists.tracks.adapter.listener
+package com.apm.trackify.ui.playlists.tracks.listener
 
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -11,9 +11,8 @@ class ParallaxScrollListener(private val parallax: Float = 0.7f) : RecyclerView.
         val layoutManager = recyclerView.layoutManager as LinearLayoutManager
         if (layoutManager.findFirstVisibleItemPosition() > 0) return
 
-        val holder = recyclerView.findViewHolderForAdapterPosition(0)
-        holder?.let {
-            val binding = PlaylistsTrackHeaderItemBinding.bind(it.itemView)
+        recyclerView.findViewHolderForAdapterPosition(0)?.apply {
+            val binding = PlaylistsTrackHeaderItemBinding.bind(itemView)
             val diff = binding.cover.height - abs(binding.wrapper.height - binding.root.bottom)
 
             binding.cover.translationY = diff.toFloat() * parallax

@@ -1,4 +1,4 @@
-package com.apm.trackify.ui.playlists.tracks.view
+package com.apm.trackify.ui.playlists.tracks.view.holder
 
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.RecyclerView
@@ -20,7 +20,7 @@ class TrackViewHolder(
     fun bind(track: Track) {
         // TODO: replace toast with track playback
         binding.root.setOnClickListener { it.context.toast("PLAYBACK ${track.name}") }
-
+        
         binding.cover.loadFromURI(track.imageUri, R.drawable.placeholder_musical_note)
         binding.name.text = track.name
         binding.artists.text = track.artists

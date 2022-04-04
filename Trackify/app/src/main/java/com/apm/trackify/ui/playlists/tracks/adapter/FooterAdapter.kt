@@ -4,7 +4,7 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.apm.trackify.databinding.PlaylistsTrackFooterItemBinding
-import com.apm.trackify.ui.playlists.tracks.view.FooterViewHolder
+import com.apm.trackify.ui.playlists.tracks.view.holder.FooterViewHolder
 
 class FooterAdapter : RecyclerView.Adapter<FooterViewHolder>() {
 

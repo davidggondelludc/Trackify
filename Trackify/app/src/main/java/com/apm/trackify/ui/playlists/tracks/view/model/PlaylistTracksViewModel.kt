@@ -1,12 +1,15 @@
-package com.apm.trackify.ui.playlists.tracks
+package com.apm.trackify.ui.playlists.tracks.view.model
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.apm.trackify.model.MockProvider
+import com.apm.trackify.model.domain.Playlist
 import com.apm.trackify.model.domain.Track
 import com.apm.trackify.util.extension.isInBounds
 import com.apm.trackify.util.extension.swap
+import dagger.hilt.android.lifecycle.HiltViewModel
+import javax.inject.Inject
 
 /**
  * Weird logic: dataset.toList()
@@ -16,14 +19,19 @@ import com.apm.trackify.util.extension.swap
  * gets updated, so just calling submitList on it will work, and for sloppy developers, it
  * prevents doing the calculations twice if the same list is called
  */
-class PlaylistTracksViewModel : ViewModel() {
+@HiltViewModel
+class PlaylistTracksViewModel @Inject constructor(playlist: Playlist) : ViewModel() {
 
+    private val playlist = MutableLiveData<Playlist>()
     private val tracks = MutableLiveData<List<Track>>()
     private val dataset: MutableList<Track> = MockProvider.tracks.toMutableList()
 
     init {
+        this.playlist.value = playlist
         tracks.value = dataset.toList() // Weird logic
     }
+
+    fun getPlaylist(): LiveData<Playlist> = playlist
 
     fun getTracks(): LiveData<List<Track>> = tracks
 
