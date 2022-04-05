@@ -119,7 +119,6 @@
                 android:id="@+id/rvSelectedSongs"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:background="?android:colorBackground"
                 tools:itemCount="20"
                 tools:listitem="@layout/playlists_track_drag_item" />
 
