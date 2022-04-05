@@ -26,6 +26,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="@dimen/playlists_create_layout_padding"
+            android:paddingBottom="@dimen/playlists_create_search_layout_padding_bottom"
             android:hint="@string/form_song_search"
             android:textColorHint="@color/white"
             app:layout_constraintEnd_toEndOf="parent"
@@ -42,12 +43,10 @@
         </com.google.android.material.textfield.TextInputLayout>
 
         <androidx.recyclerview.widget.RecyclerView
-            android:layout_width="wrap_content"
+            android:id="@+id/rvSearchedSongs"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="@dimen/playlists_create_layout_padding"
-            android:paddingVertical="@dimen/playlists_create_layout_vertical_padding"
-            android:background="?android:colorBackground"
-            app:layout_constraintEnd_toEndOf="parent"
+            android:paddingHorizontal="@dimen/playlists_create_search_layout_padding_horizontal"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/textInputLayout"
             tools:itemCount="5"

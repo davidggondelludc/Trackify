@@ -24,6 +24,8 @@
 
     <!-- playlists create layout -->
     <dimen name="playlists_create_layout_padding">16dp</dimen>
+    <dimen name="playlists_create_search_layout_padding_bottom">16dp</dimen>
+    <dimen name="playlists_create_search_layout_padding_horizontal">2dp</dimen>
     <dimen name="playlists_create_layout_horizontal_padding">24dp</dimen>
     <dimen name="playlists_create_layout_vertical_padding">16dp</dimen>
     <dimen name="playlists_create_text_size">18sp</dimen>
