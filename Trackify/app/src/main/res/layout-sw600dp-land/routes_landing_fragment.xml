@@ -23,8 +23,8 @@
 
         <com.google.android.gms.maps.MapView
             android:id="@+id/mapView"
-            android:layout_width="406dp"
-            android:layout_height="266dp"
+            android:layout_width="1292dp"
+            android:layout_height="375dp"
             android:layout_margin="0dp"
             android:background="@color/green_blue_crayola"
             app:layout_constraintEnd_toEndOf="parent"
@@ -37,6 +37,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
             android:text="Available Playlists"
+            android:textSize="@dimen/item_playlist_title"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/mapView" />
