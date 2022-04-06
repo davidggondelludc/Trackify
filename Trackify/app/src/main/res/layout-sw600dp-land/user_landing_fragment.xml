@@ -40,34 +40,46 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/userName" />
 
-        <com.google.android.material.tabs.TabLayout
-            android:id="@+id/tabLayout"
-            android:layout_width="match_parent"
+        <TextView
+            android:id="@+id/tvUserSharedRoutes"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            android:background="@color/raisin_black"
-            app:layout_constraintEnd_toEndOf="parent"
+            android:text="@string/shared_routes"
+            android:textAlignment="center"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/userFollowers">
+            app:layout_constraintTop_toBottomOf="@+id/userFollowers"
+            app:layout_constraintWidth_percent="0.5"/>
 
-            <com.google.android.material.tabs.TabItem
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/shared_routes" />
+        <TextView
+            android:id="@+id/tvUserFollowing"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="@string/following"
+            android:textAlignment="center"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/userFollowers"
+            app:layout_constraintWidth_percent="0.5" />
 
-            <com.google.android.material.tabs.TabItem
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/following" />
-        </com.google.android.material.tabs.TabLayout>
+        <androidx.fragment.app.FragmentContainerView
+            android:name="com.apm.trackify.ui.user.profile.sharedRoutes.UserSharedRoutesFragment"
+            android:id="@+id/userSharedRoutesFragmentTablet"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tvUserSharedRoutes"
+            app:layout_constraintWidth_percent="0.5"/>
 
-        <androidx.viewpager2.widget.ViewPager2
-            android:id="@+id/viewPager2"
+        <androidx.fragment.app.FragmentContainerView
+            android:name="com.apm.trackify.ui.user.profile.following.UserFollowingFragment"
+            android:id="@+id/userFollowingFragmentTablet"
             android:layout_width="0dp"
             android:layout_height="0dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tabLayout" />
+            app:layout_constraintTop_toBottomOf="@+id/tvUserSharedRoutes"
+            app:layout_constraintWidth_percent="0.5" />
+
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

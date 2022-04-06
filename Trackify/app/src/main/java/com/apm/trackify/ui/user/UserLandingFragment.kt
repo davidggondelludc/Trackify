@@ -27,7 +27,11 @@ class UserLandingFragment : Fragment() {
         val binding = UserLandingFragmentBinding.bind(view)
 
         setupToolbar(binding.toolbar)
-        setupViewPager(binding)
+
+        val widthDp = resources.displayMetrics.widthPixels / resources.displayMetrics.density
+        if (widthDp < 600) {
+            setupViewPager(binding)
+        }
     }
 
     private fun setupToolbar(toolbar: Toolbar) {
@@ -44,20 +48,21 @@ class UserLandingFragment : Fragment() {
     }
 
     private fun setupViewPager(binding: UserLandingFragmentBinding) {
-        val adapter = TabLayoutPagerAdapter(this, binding.tabLayout.tabCount)
+        val adapter = TabLayoutPagerAdapter(this, binding.tabLayout?.tabCount ?: 0)
 
-        binding.viewPager2.adapter = adapter
-        binding.viewPager2.registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback() {
+        binding.viewPager2?.adapter = adapter
+        binding.viewPager2?.registerOnPageChangeCallback(object :
+            ViewPager2.OnPageChangeCallback() {
 
             override fun onPageSelected(position: Int) {
-                binding.tabLayout.selectTab(binding.tabLayout.getTabAt(position))
+                binding.tabLayout?.selectTab(binding.tabLayout.getTabAt(position))
             }
         })
 
-        binding.tabLayout.addOnTabSelectedListener(object : TabLayout.OnTabSelectedListener {
+        binding.tabLayout?.addOnTabSelectedListener(object : TabLayout.OnTabSelectedListener {
 
             override fun onTabSelected(tab: TabLayout.Tab) {
-                binding.viewPager2.currentItem = tab.position
+                binding.viewPager2?.currentItem = tab.position
             }
 
             override fun onTabUnselected(tab: TabLayout.Tab) {}
@@ -65,4 +70,5 @@ class UserLandingFragment : Fragment() {
             override fun onTabReselected(tab: TabLayout.Tab) {}
         })
     }
+
 }
