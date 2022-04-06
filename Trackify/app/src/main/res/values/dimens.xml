@@ -29,4 +29,11 @@
     <dimen name="playlists_create_layout_horizontal_padding">24dp</dimen>
     <dimen name="playlists_create_layout_vertical_padding">16dp</dimen>
     <dimen name="playlists_create_text_size">18sp</dimen>
+
+    <!-- playlists landing layout -->
+    <dimen name="playlists_landing_layout_padding">16dp</dimen>
+    <dimen name="playlists_landing_layout_horizontal_padding">24dp</dimen>
+    <dimen name="playlists_landing_layout_vertical_padding">16dp</dimen>
+    <dimen name="playlists_landing_text_size_title">16sp</dimen>
+    <dimen name="playlists_landing_text_size_subtitle">14sp</dimen>
 </resources>
