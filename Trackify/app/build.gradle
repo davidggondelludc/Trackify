@@ -23,7 +23,7 @@ android {
 
         // A string used as the version number shown to users. The value is a string so that you
         // can describe the app version as a <major>.<minor>.<point> string
-        versionName "0.0.1"
+        versionName "0.0.2"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
