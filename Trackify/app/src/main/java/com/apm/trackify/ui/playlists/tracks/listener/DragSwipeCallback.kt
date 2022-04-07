@@ -9,7 +9,7 @@ import com.apm.trackify.ui.playlists.tracks.view.model.PlaylistTracksViewModel
 import com.apm.trackify.ui.playlists.tracks.view.holder.TrackViewHolder
 import com.apm.trackify.util.animation.SwipeAnimator
 
-class ItemTouchHelperCallback(
+class DragSwipeCallback(
     private val viewModel: PlaylistTracksViewModel
 ) : ItemTouchHelper.SimpleCallback(
     ItemTouchHelper.UP or ItemTouchHelper.DOWN,

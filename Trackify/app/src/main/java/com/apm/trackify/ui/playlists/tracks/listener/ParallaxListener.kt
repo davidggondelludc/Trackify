@@ -5,7 +5,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.apm.trackify.databinding.PlaylistsTrackHeaderItemBinding
 import kotlin.math.abs
 
-class ParallaxScrollListener(private val parallax: Float = 0.7f) : RecyclerView.OnScrollListener() {
+class ParallaxListener(private val parallax: Float = 0.7f) : RecyclerView.OnScrollListener() {
 
     override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
         val layoutManager = recyclerView.layoutManager as LinearLayoutManager

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources>
+<resources xmlns:tools="http://schemas.android.com/tools">
     <!-- general purpose -->
     <style name="ShapeAppearanceOverlay.App.CornerSize5Percent" parent="">
         <item name="cornerSize">5%</item>
@@ -7,6 +7,17 @@
 
     <style name="ShapeAppearanceOverlay.App.CornerSize10Percent" parent="">
         <item name="cornerSize">10%</item>
+    </style>
+
+    <!-- splash screen -->
+    <style name="Theme.App.Starting" parent="Theme.SplashScreen">
+        <item name="windowSplashScreenBackground">@color/raisin_black</item>
+        <item name="windowSplashScreenAnimatedIcon">@drawable/ic_logo</item>
+        <item name="windowSplashScreenAnimationDuration">500</item>
+        <item name="android:windowSplashScreenBrandingImage" tools:ignore="NewApi">
+            @drawable/placeholder_branding
+        </item>
+        <item name="postSplashScreenTheme">@style/Theme.Trackify</item>
     </style>
 
     <!-- item playlist -->

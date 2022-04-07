@@ -26,7 +26,10 @@ class PlaylistViewHolder(val binding: PlaylistsItemBinding) :
 
         binding.cover.loadFromURI(playlist.imageUri, R.drawable.placeholder_playlist)
         binding.name.text = playlist.name
-        binding.totalTracks.text =
-            getQuantityString(R.plurals.tracks, playlist.totalTracks, playlist.totalTracks)
+        binding.totalTracks.getQuantityString(
+            R.plurals.tracks,
+            playlist.totalTracks,
+            playlist.totalTracks
+        )
     }
 }
