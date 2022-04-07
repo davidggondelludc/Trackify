@@ -5,14 +5,15 @@
     android:layout_height="match_parent"
     android:padding="8dp">
 
-    <com.google.android.gms.maps.MapView
-        android:id="@+id/mapView"
+    <androidx.fragment.app.FragmentContainerView
+        android:id="@+id/mapViewFragment"
+        android:name="com.google.android.gms.maps.SupportMapFragment"
         android:layout_width="match_parent"
         android:layout_height="180dp"
+        android:layout_weight="1"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        android:background="@color/green_blue_crayola"/>
+        app:layout_constraintTop_toTopOf="parent" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rvSharedRouteItems"
@@ -23,6 +24,5 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/mapView" />
-
+        app:layout_constraintTop_toBottomOf="@+id/mapViewFragment" />
 </androidx.constraintlayout.widget.ConstraintLayout>

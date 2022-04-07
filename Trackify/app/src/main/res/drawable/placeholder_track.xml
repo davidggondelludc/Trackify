@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:drawable="@drawable/placeholder_gradient" />
+    <item
+        android:bottom="@dimen/track_cover_padding"
+        android:drawable="@drawable/ic_musical_note"
+        android:left="@dimen/track_cover_padding"
+        android:right="@dimen/track_cover_padding"
+        android:top="@dimen/track_cover_padding" />
+</layer-list>

@@ -7,9 +7,6 @@
     <color name="raisin_black">#262833</color>
     <color name="black">#000000</color>
     <color name="white">#FFFFFFFF</color>
-
-    <color name="launcher_background">#262833</color>
-
-    <color name="placeholder_tint">#262626</color>
-    <color name="placeholder_background">@android:color/system_notification_accent_color</color>
+    <color name="success">#38EE1C</color>
+    <color name="cover_tint">#262626</color>
 </resources>

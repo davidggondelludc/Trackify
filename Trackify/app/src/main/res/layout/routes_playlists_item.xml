@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="60dp"
     android:foregroundTint="#332C2C"
@@ -33,10 +32,9 @@
         android:layout_width="30dp"
         android:layout_height="30dp"
         android:background="?attr/selectableItemBackgroundBorderless"
-        android:foreground="@drawable/ic_arrowforward"
+        android:foreground="@drawable/ic_arrow_forward"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/ic_arrowforward" />
-
+        app:srcCompat="@drawable/ic_arrow_forward" />
 </androidx.constraintlayout.widget.ConstraintLayout>

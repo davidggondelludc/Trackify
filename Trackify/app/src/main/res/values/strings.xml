@@ -1,22 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">Trackify</string>
-    <string name="title_playlists">Playlists</string>
-    <string name="title_routes">Routes</string>
-    <string name="title_profile">Profile</string>
-    <string name="save_button">Save</string>
-    <string name="return_button">Return</string>
+
+    <!-- bottom menu -->
+    <string name="playlists_menu">Playlists</string>
+    <string name="routes_menu">Explore</string>
+    <string name="profile_menu">Profile</string>
+
     <string name="form_duration">Desired playlist duration:</string>
-    <string name="form_add_songs">Add some songs to your playlist</string>
     <string name="form_title">Playlist Title</string>
-    <string name="form_artist">Artist</string>
     <string name="form_selected_songs">Current selected songs</string>
-    <string name="form_song_title">Song Title</string>
+    <string name="form_song_search">Search your song</string>
     <string name="form_min">min</string>
     <string name="form_min_input">30</string>
-    <string name="form_search_button">Search song button</string>
+    <string name="form_search_button">Search song</string>
     <string name="add_playlist_to_route">Add Playlist To Route</string>
     <string name="share_button">Share</string>
-    <string name="back_button">Back</string>
     <string name="start">Start</string>
     <string name="end">End</string>
     <string name="playlist_to_share_title">Playlist to be shared</string>
@@ -26,6 +25,38 @@
     <string name="followers">Followers</string>
     <string name="shared_routes">Shared Routes</string>
     <string name="following">Following</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="playlist_x">Playlist X</string>
+    <string name="playlist_cover" />
+    <string name="playlist">Playlist</string>
+
+    <string name="playlistFollowers">followers: </string>
+
+    <!-- playlists landing -->
+    <string name="create_playlist_menu">Create playlist</string>
+    <string name="save_playlist_menu">Save</string>
+
+    <!-- playlist create landing -->
+    <string name="save_button">Save</string>
+    <string name="save_button_description">Save playlist button</string>
+
+    <!-- playlist details landing -->
+    <string name="playlist_cover_description">Playlist cover</string>
+    <string name="spotify_button">Play on Spotify</string>
+    <string name="unfollow_button">Unfollow</string>
+    <string name="track_cover_description">Track cover</string>
+    <string name="track_drag_description">Drag and drop track</string>
+
+    <!-- routes landing -->
+    <string name="create_route_menu">Create route</string>
+
+    <!-- plurals -->
+    <plurals name="tracks">
+        <item quantity="one">%d track</item>
+        <item quantity="other">%d tracks</item>
+    </plurals>
     <plurals name="minutes">
         <item quantity="one">%d minute</item>
         <item quantity="other">%d minutes</item>
@@ -34,16 +65,4 @@
         <item quantity="one">%d hour</item>
         <item quantity="other">%d hours</item>
     </plurals>
-    <plurals name="tracks">
-        <item quantity="one">%d track</item>
-        <item quantity="other">%d tracks</item>
-    </plurals>
-    <string name="playlistFollowers">followers: </string>
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
-    <string name="playlist_x">Playlist X</string>
-    <string name="playlist_cover" />
-    <string name="playlist_covers">Playlist</string>
-    <string name="playlist">Playlist</string>
-
 </resources>
