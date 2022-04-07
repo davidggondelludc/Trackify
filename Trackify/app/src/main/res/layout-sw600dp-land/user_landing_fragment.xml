@@ -6,7 +6,8 @@
 
     <com.google.android.material.appbar.AppBarLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:fitsSystemWindows="true">
 
         <com.google.android.material.appbar.MaterialToolbar
             android:id="@+id/toolbar"
@@ -48,7 +49,7 @@
             android:textAlignment="center"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/userFollowers"
-            app:layout_constraintWidth_percent="0.5"/>
+            app:layout_constraintWidth_percent="0.5" />
 
         <TextView
             android:id="@+id/tvUserFollowing"
@@ -61,18 +62,18 @@
             app:layout_constraintWidth_percent="0.5" />
 
         <androidx.fragment.app.FragmentContainerView
-            android:name="com.apm.trackify.ui.user.profile.sharedRoutes.UserSharedRoutesFragment"
             android:id="@+id/userSharedRoutesFragmentTablet"
+            android:name="com.apm.trackify.ui.user.profile.sharedRoutes.UserSharedRoutesFragment"
             android:layout_width="0dp"
             android:layout_height="0dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/tvUserSharedRoutes"
-            app:layout_constraintWidth_percent="0.5"/>
+            app:layout_constraintWidth_percent="0.5" />
 
         <androidx.fragment.app.FragmentContainerView
-            android:name="com.apm.trackify.ui.user.profile.following.UserFollowingFragment"
             android:id="@+id/userFollowingFragmentTablet"
+            android:name="com.apm.trackify.ui.user.profile.following.UserFollowingFragment"
             android:layout_width="0dp"
             android:layout_height="0dp"
             app:layout_constraintBottom_toBottomOf="parent"

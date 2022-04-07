@@ -14,7 +14,7 @@
             android:id="@+id/toolbar"
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
-            app:menu="@menu/playlists_create_menu"/>
+            app:menu="@menu/playlists_create_menu" />
     </com.google.android.material.appbar.AppBarLayout>
 
     <ScrollView
@@ -38,10 +38,10 @@
                 android:backgroundTint="@color/white"
                 android:backgroundTintMode="src_in"
                 android:hint="@string/form_title"
+                android:importantForAutofill="no"
                 android:inputType="textPersonName"
                 android:textColor="@color/white"
-                android:textSize="@dimen/playlists_create_text_size"
-                android:importantForAutofill="no" />
+                android:textSize="@dimen/playlists_create_text_size" />
 
             <TextView
                 android:id="@+id/playlistDurationText"
@@ -63,12 +63,12 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:hint="@string/form_min_input"
+                    android:importantForAutofill="no"
                     android:inputType="number"
                     android:paddingHorizontal="@dimen/playlists_create_layout_horizontal_padding"
                     android:textAlignment="center"
                     android:textColor="@color/white"
-                    android:textSize="@dimen/playlists_create_text_size"
-                    android:importantForAutofill="no" />
+                    android:textSize="@dimen/playlists_create_text_size" />
 
                 <TextView
                     android:id="@+id/minText"
@@ -116,10 +116,10 @@
             </LinearLayout>
 
             <androidx.recyclerview.widget.RecyclerView
-                android:paddingVertical="@dimen/playlists_create_layout_vertical_padding"
                 android:id="@+id/rvSelectedSongs"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
+                android:paddingVertical="@dimen/playlists_create_layout_vertical_padding"
                 tools:itemCount="20"
                 tools:listitem="@layout/playlists_track_drag_item" />
 
