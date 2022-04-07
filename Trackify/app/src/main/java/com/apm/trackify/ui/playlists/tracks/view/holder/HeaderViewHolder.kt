@@ -1,7 +1,7 @@
 package com.apm.trackify.ui.playlists.tracks.view.holder
 
 import com.apm.trackify.R
-import com.apm.trackify.base.DelegateViewHolder
+import com.apm.trackify.util.base.DelegateViewHolder
 import com.apm.trackify.databinding.PlaylistsTrackHeaderItemBinding
 import com.apm.trackify.model.domain.Playlist
 import com.apm.trackify.util.extension.loadFromURI

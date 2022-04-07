@@ -1,4 +1,4 @@
-package com.apm.trackify.base
+package com.apm.trackify.util.base
 
 import android.view.View
 import androidx.recyclerview.widget.RecyclerView

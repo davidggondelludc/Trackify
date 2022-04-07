@@ -2,7 +2,7 @@ package com.apm.trackify.ui.playlists.tracks.view.adapter
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import com.apm.trackify.base.DelegateAdapter
+import com.apm.trackify.util.base.DelegateAdapter
 import com.apm.trackify.databinding.PlaylistsTrackFooterItemBinding
 import com.apm.trackify.model.diff.StringDiffUtil
 import com.apm.trackify.ui.playlists.tracks.view.holder.FooterViewHolder
