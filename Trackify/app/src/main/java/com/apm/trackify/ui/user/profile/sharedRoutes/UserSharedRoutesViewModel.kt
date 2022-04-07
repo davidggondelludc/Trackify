@@ -7,6 +7,7 @@ import com.apm.trackify.model.MockProvider
 import com.apm.trackify.model.domain.Route
 
 class UserSharedRoutesViewModel : ViewModel() {
+
     private val routes = MutableLiveData<List<Route>>()
 
     init {

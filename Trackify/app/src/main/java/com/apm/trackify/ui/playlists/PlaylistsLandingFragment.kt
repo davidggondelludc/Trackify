@@ -4,17 +4,15 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.appcompat.widget.Toolbar
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
-import androidx.navigation.ui.AppBarConfiguration
-import androidx.navigation.ui.setupWithNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.apm.trackify.R
 import com.apm.trackify.databinding.PlaylistsLandingFragmentBinding
 import com.apm.trackify.ui.playlists.adapter.PlaylistAdapter
+import com.apm.trackify.util.extension.setupToolbar
 
 class PlaylistsLandingFragment : Fragment() {
 
@@ -30,28 +28,18 @@ class PlaylistsLandingFragment : Fragment() {
         val binding = PlaylistsLandingFragmentBinding.bind(view)
 
         setupToolbar(binding.toolbar)
-        setupRecyclerView(binding.playlists)
-    }
-
-    private fun setupToolbar(toolbar: Toolbar) {
-        val navController = findNavController()
-        val appBarConfiguration = AppBarConfiguration(
-            setOf(
-                R.id.playlists_fragment,
-                R.id.routes_fragment,
-                R.id.user_fragment
-            )
-        )
-
-        toolbar.setupWithNavController(navController, appBarConfiguration)
-        toolbar.setOnMenuItemClickListener {
+        binding.toolbar.setOnMenuItemClickListener {
             when (it.itemId) {
                 R.id.add -> {
-                    navController.navigate(R.id.playlists_fragment_to_playlist_create_fragment)
+                    val navController = findNavController()
+                    val action = PlaylistsLandingFragmentDirections.toPlaylistCreateFragment()
+                    navController.navigate(action)
                 }
             }
             true
         }
+
+        setupRecyclerView(binding.playlists)
     }
 
     private fun setupRecyclerView(recyclerView: RecyclerView) {

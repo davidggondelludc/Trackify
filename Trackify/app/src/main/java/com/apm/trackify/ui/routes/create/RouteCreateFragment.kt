@@ -11,6 +11,7 @@ import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.setupWithNavController
 import com.apm.trackify.R
 import com.apm.trackify.databinding.RoutesCreateFragmentBinding
+import com.apm.trackify.util.extension.setupToolbar
 import com.apm.trackify.util.extension.toast
 
 class RouteCreateFragment : Fragment() {
@@ -29,18 +30,5 @@ class RouteCreateFragment : Fragment() {
         binding.shareButton.setOnClickListener { it.context.toast("This will be sharing soon!") }
         binding.pinButton.setOnClickListener { it.context.toast("Set starting coordinates") }
         binding.imgBtnEndRoute.setOnClickListener { it.context.toast("Set ending coordinates") }
-    }
-
-    private fun setupToolbar(toolbar: Toolbar) {
-        val navController = findNavController()
-        val appBarConfiguration = AppBarConfiguration(
-            setOf(
-                R.id.playlists_fragment,
-                R.id.routes_fragment,
-                R.id.user_fragment
-            )
-        )
-
-        toolbar.setupWithNavController(navController, appBarConfiguration)
     }
 }

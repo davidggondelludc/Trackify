@@ -1,4 +1,4 @@
-package com.apm.trackify.ui.playlists.tracks.view
+package com.apm.trackify.ui.playlists.tracks.view.holder
 
 import android.annotation.SuppressLint
 import androidx.recyclerview.widget.RecyclerView

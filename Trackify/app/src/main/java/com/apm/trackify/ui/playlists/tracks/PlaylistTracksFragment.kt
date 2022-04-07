@@ -4,23 +4,23 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.appcompat.widget.Toolbar
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
-import androidx.navigation.fragment.findNavController
-import androidx.navigation.ui.AppBarConfiguration
-import androidx.navigation.ui.setupWithNavController
 import androidx.recyclerview.widget.ConcatAdapter
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.apm.trackify.R
 import com.apm.trackify.databinding.PlaylistsTracksFragmentBinding
 import com.apm.trackify.ui.playlists.tracks.adapter.FooterAdapter
 import com.apm.trackify.ui.playlists.tracks.adapter.HeaderAdapter
 import com.apm.trackify.ui.playlists.tracks.adapter.TrackAdapter
-import com.apm.trackify.ui.playlists.tracks.adapter.drag.ItemTouchHelperCallback
+import com.apm.trackify.ui.playlists.tracks.listener.ItemTouchHelperCallback
+import com.apm.trackify.ui.playlists.tracks.listener.ParallaxScrollListener
+import com.apm.trackify.ui.playlists.tracks.view.model.PlaylistTracksViewModel
+import com.apm.trackify.util.extension.setupToolbar
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class PlaylistTracksFragment : Fragment() {
 
     private val viewModel: PlaylistTracksViewModel by viewModels()
@@ -36,19 +36,6 @@ class PlaylistTracksFragment : Fragment() {
 
         setupToolbar(binding.toolbar)
         setupRecyclerView(binding.playlist)
-    }
-
-    private fun setupToolbar(toolbar: Toolbar) {
-        val navController = findNavController()
-        val appBarConfiguration = AppBarConfiguration(
-            setOf(
-                R.id.playlists_fragment,
-                R.id.routes_fragment,
-                R.id.user_fragment
-            )
-        )
-
-        toolbar.setupWithNavController(navController, appBarConfiguration)
     }
 
     private fun setupRecyclerView(recyclerView: RecyclerView) {
@@ -76,5 +63,6 @@ class PlaylistTracksFragment : Fragment() {
 
         recyclerView.adapter = concatAdapter
         recyclerView.layoutManager = LinearLayoutManager(context)
+        recyclerView.addOnScrollListener(ParallaxScrollListener())
     }
 }

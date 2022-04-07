@@ -4,17 +4,15 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.appcompat.widget.Toolbar
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
-import androidx.navigation.ui.AppBarConfiguration
-import androidx.navigation.ui.setupWithNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.apm.trackify.R
 import com.apm.trackify.databinding.RoutesLandingFragmentBinding
 import com.apm.trackify.ui.routes.adapter.PlaylistRouteAdapter
+import com.apm.trackify.util.extension.setupToolbar
 
 class RoutesLandingFragment : Fragment() {
 
@@ -30,28 +28,18 @@ class RoutesLandingFragment : Fragment() {
         val binding = RoutesLandingFragmentBinding.bind(view)
 
         setupToolbar(binding.toolbar)
-        setupRecyclerView(binding.rvPlaylistRoutes)
-    }
-
-    private fun setupToolbar(toolbar: Toolbar) {
-        val navController = findNavController()
-        val appBarConfiguration = AppBarConfiguration(
-            setOf(
-                R.id.playlists_fragment,
-                R.id.routes_fragment,
-                R.id.user_fragment
-            )
-        )
-
-        toolbar.setupWithNavController(navController, appBarConfiguration)
-        toolbar.setOnMenuItemClickListener {
+        binding.toolbar.setOnMenuItemClickListener {
             when (it.itemId) {
                 R.id.add -> {
-                    navController.navigate(R.id.routes_fragment_to_route_create_fragment)
+                    val navController = findNavController()
+                    val action = RoutesLandingFragmentDirections.toRouteCreateFragment()
+                    navController.navigate(action)
                 }
             }
             true
         }
+
+        setupRecyclerView(binding.rvPlaylistRoutes)
     }
 
     private fun setupRecyclerView(recyclerView: RecyclerView) {

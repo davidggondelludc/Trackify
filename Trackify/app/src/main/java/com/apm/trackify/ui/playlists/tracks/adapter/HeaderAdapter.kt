@@ -5,7 +5,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.apm.trackify.databinding.PlaylistsTrackHeaderItemBinding
 import com.apm.trackify.model.domain.Playlist
-import com.apm.trackify.ui.playlists.tracks.view.HeaderViewHolder
+import com.apm.trackify.ui.playlists.tracks.view.holder.HeaderViewHolder
 
 class HeaderAdapter : RecyclerView.Adapter<HeaderViewHolder>() {
 

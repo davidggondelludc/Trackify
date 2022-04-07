@@ -7,7 +7,7 @@ import androidx.recyclerview.widget.ListAdapter
 import com.apm.trackify.databinding.PlaylistsTrackDragItemBinding
 import com.apm.trackify.model.diff.TrackDiffUtil
 import com.apm.trackify.model.domain.Track
-import com.apm.trackify.ui.playlists.tracks.view.TrackViewHolder
+import com.apm.trackify.ui.playlists.tracks.view.holder.TrackViewHolder
 
 class TrackAdapter(private val itemTouchHelper: ItemTouchHelper) :
     ListAdapter<Track, TrackViewHolder>(TrackDiffUtil()) {

@@ -26,7 +26,7 @@ object MockProvider {
 
     val playlists = List(20) {
         Playlist(
-            it,
+            "$it",
             "$it",
             "Playlist $it",
             it,
@@ -35,7 +35,7 @@ object MockProvider {
     }
 
     val playlist = Playlist(
-        1,
+        "1",
         "1",
         "Playlist",
         20,

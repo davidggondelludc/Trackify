@@ -42,6 +42,12 @@
     <string name="save_button">Save</string>
     <string name="save_button_description">Save playlist button</string>
 
+    <!-- playlist tracks landing -->
+    <string name="playlist_cover_description">Playlist cover</string>
+    <string name="play_on_spotify">Play on Spotify</string>
+    <string name="unfollow_button">Unfollow</string>
+    <string name="track_cover_description">Track cover</string>
+
     <!-- routes landing -->
     <string name="create_route_menu">Create route</string>
 
