@@ -5,9 +5,9 @@
     android:layout_width="@dimen/item_playlist_width"
     android:layout_height="wrap_content"
     android:layout_margin="@dimen/item_playlist_margin"
-    android:paddingVertical="5dp"
+    android:orientation="vertical"
     android:paddingHorizontal="10dp"
-    android:orientation="vertical">
+    android:paddingVertical="5dp">
 
     <com.google.android.material.imageview.ShapeableImageView
         android:id="@+id/cover"

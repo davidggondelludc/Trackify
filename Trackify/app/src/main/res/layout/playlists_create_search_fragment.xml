@@ -7,7 +7,8 @@
 
     <com.google.android.material.appbar.AppBarLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:fitsSystemWindows="true">
 
         <com.google.android.material.appbar.MaterialToolbar
             android:id="@+id/toolbar"
@@ -26,8 +27,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="@dimen/playlists_create_layout_padding"
-            android:paddingBottom="@dimen/playlists_create_search_layout_padding_bottom"
             android:hint="@string/form_song_search"
+            android:paddingBottom="@dimen/playlists_create_search_layout_padding_bottom"
             android:textColorHint="@color/white"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -39,7 +40,7 @@
                 android:imeOptions="actionSearch"
                 android:inputType="text"
                 android:textColor="@color/white"
-                android:textSize="@dimen/playlists_create_text_size"/>
+                android:textSize="@dimen/playlists_create_text_size" />
         </com.google.android.material.textfield.TextInputLayout>
 
         <androidx.recyclerview.widget.RecyclerView
