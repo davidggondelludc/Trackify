@@ -1,4 +1,4 @@
-package com.apm.trackify.ui.user
+package com.apm.trackify.ui.user.landing
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -7,7 +7,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.viewpager2.widget.ViewPager2
 import com.apm.trackify.databinding.UserLandingFragmentBinding
-import com.apm.trackify.ui.user.profile.TabLayoutPagerAdapter
+import com.apm.trackify.ui.user.landing.TabLayoutPagerAdapter
 import com.apm.trackify.util.extension.setupToolbar
 import com.google.android.material.tabs.TabLayout
 

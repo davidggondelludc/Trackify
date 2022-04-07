@@ -1,4 +1,4 @@
-package com.apm.trackify.ui.user.profile.sharedRoutes.view
+package com.apm.trackify.ui.user.landing.sharedRoutes.view.holder
 
 import androidx.recyclerview.widget.RecyclerView
 import com.apm.trackify.databinding.UserSharedRouteItemBinding

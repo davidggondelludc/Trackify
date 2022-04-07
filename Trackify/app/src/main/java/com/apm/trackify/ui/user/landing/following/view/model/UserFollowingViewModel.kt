@@ -1,4 +1,4 @@
-package com.apm.trackify.ui.user.profile.following
+package com.apm.trackify.ui.user.landing.following.view.model
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData

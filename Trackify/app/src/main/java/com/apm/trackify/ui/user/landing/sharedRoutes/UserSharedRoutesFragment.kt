@@ -1,4 +1,4 @@
-package com.apm.trackify.ui.user.profile.sharedRoutes
+package com.apm.trackify.ui.user.landing.sharedRoutes
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -12,7 +12,8 @@ import com.apm.trackify.databinding.UserSharedRoutesFragmentBinding
 import com.apm.trackify.util.maps.MapsUtil
 import com.google.android.gms.maps.*
 import com.google.android.gms.maps.model.LatLng
-import com.apm.trackify.ui.user.profile.sharedRoutes.adapter.UserSharedRouteAdapter
+import com.apm.trackify.ui.user.landing.sharedRoutes.view.adapter.UserSharedRouteAdapter
+import com.apm.trackify.ui.user.landing.sharedRoutes.view.model.UserSharedRoutesViewModel
 
 class UserSharedRoutesFragment : Fragment(), OnMapReadyCallback {
 

@@ -63,7 +63,7 @@
 
         <androidx.fragment.app.FragmentContainerView
             android:id="@+id/userSharedRoutesFragmentTablet"
-            android:name="com.apm.trackify.ui.user.profile.sharedRoutes.UserSharedRoutesFragment"
+            android:name="com.apm.trackify.ui.user.landing.sharedRoutes.UserSharedRoutesFragment"
             android:layout_width="0dp"
             android:layout_height="0dp"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -73,7 +73,7 @@
 
         <androidx.fragment.app.FragmentContainerView
             android:id="@+id/userFollowingFragmentTablet"
-            android:name="com.apm.trackify.ui.user.profile.following.UserFollowingFragment"
+            android:name="com.apm.trackify.ui.user.landing.following.UserFollowingFragment"
             android:layout_width="0dp"
             android:layout_height="0dp"
             app:layout_constraintBottom_toBottomOf="parent"

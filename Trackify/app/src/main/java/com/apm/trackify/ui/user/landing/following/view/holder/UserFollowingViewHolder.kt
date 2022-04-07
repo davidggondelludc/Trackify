@@ -1,4 +1,4 @@
-package com.apm.trackify.ui.user.profile.following.view
+package com.apm.trackify.ui.user.landing.following.view.holder
 
 import androidx.recyclerview.widget.RecyclerView
 import com.apm.trackify.databinding.UserFollowingItemBinding

@@ -1,4 +1,4 @@
-package com.apm.trackify.ui.routes
+package com.apm.trackify.ui.routes.landing.view.model
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData

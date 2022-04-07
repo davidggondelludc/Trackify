@@ -1,4 +1,4 @@
-package com.apm.trackify.ui.user.profile.sharedRoutes
+package com.apm.trackify.ui.user.landing.sharedRoutes.view.model
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData

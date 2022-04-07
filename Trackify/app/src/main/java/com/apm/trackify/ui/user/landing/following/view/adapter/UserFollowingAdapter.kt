@@ -1,4 +1,4 @@
-package com.apm.trackify.ui.user.profile.following.adapter
+package com.apm.trackify.ui.user.landing.following.view.adapter
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
@@ -6,7 +6,7 @@ import androidx.recyclerview.widget.ListAdapter
 import com.apm.trackify.databinding.UserFollowingItemBinding
 import com.apm.trackify.model.diff.UserDiffUtil
 import com.apm.trackify.model.domain.User
-import com.apm.trackify.ui.user.profile.following.view.UserFollowingViewHolder
+import com.apm.trackify.ui.user.landing.following.view.holder.UserFollowingViewHolder
 
 class UserFollowingAdapter() : ListAdapter<User, UserFollowingViewHolder>(UserDiffUtil()) {
 

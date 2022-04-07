@@ -1,4 +1,4 @@
-package com.apm.trackify.ui.user.profile.sharedRoutes.adapter
+package com.apm.trackify.ui.user.landing.sharedRoutes.view.adapter
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
@@ -6,7 +6,7 @@ import androidx.recyclerview.widget.ListAdapter
 import com.apm.trackify.databinding.UserSharedRouteItemBinding
 import com.apm.trackify.model.diff.RouteDiffUtil
 import com.apm.trackify.model.domain.Route
-import com.apm.trackify.ui.user.profile.sharedRoutes.view.UserSharedRouteViewHolder
+import com.apm.trackify.ui.user.landing.sharedRoutes.view.holder.UserSharedRouteViewHolder
 
 class UserSharedRouteAdapter : ListAdapter<Route, UserSharedRouteViewHolder>(RouteDiffUtil()) {
 

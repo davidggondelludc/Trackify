@@ -22,16 +22,15 @@
         android:layout_height="match_parent"
         app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
-        <com.google.android.gms.maps.MapView
+        <androidx.fragment.app.FragmentContainerView
             android:id="@+id/mapView"
-            android:layout_width="406dp"
-            android:layout_height="266dp"
-            android:layout_margin="0dp"
-            android:background="@color/green_blue_crayola"
+            android:name="com.google.android.gms.maps.SupportMapFragment"
+            android:layout_width="match_parent"
+            android:layout_height="300dp"
+            android:layout_weight="1"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
-
         <TextView
             android:id="@+id/textView9"
             android:layout_width="wrap_content"

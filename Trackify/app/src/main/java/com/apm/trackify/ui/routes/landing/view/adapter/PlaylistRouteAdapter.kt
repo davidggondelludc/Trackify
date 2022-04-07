@@ -1,4 +1,4 @@
-package com.apm.trackify.ui.routes.adapter
+package com.apm.trackify.ui.routes.landing.view.adapter
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
@@ -6,7 +6,7 @@ import androidx.recyclerview.widget.ListAdapter
 import com.apm.trackify.databinding.RoutesPlaylistsItemBinding
 import com.apm.trackify.model.diff.PlaylistDiffUtil
 import com.apm.trackify.model.domain.Playlist
-import com.apm.trackify.ui.routes.view.PlaylistRouteViewHolder
+import com.apm.trackify.ui.routes.landing.view.holder.PlaylistRouteViewHolder
 
 class PlaylistRouteAdapter() : ListAdapter<Playlist, PlaylistRouteViewHolder>(PlaylistDiffUtil()) {
 
