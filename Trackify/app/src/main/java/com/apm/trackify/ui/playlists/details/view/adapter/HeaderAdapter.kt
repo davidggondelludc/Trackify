@@ -1,4 +1,4 @@
-package com.apm.trackify.ui.playlists.tracks.view.adapter
+package com.apm.trackify.ui.playlists.details.view.adapter
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
@@ -6,7 +6,7 @@ import com.apm.trackify.base.DelegateAdapter
 import com.apm.trackify.databinding.PlaylistsTrackHeaderItemBinding
 import com.apm.trackify.model.diff.PlaylistDiffUtil
 import com.apm.trackify.model.domain.Playlist
-import com.apm.trackify.ui.playlists.tracks.view.holder.HeaderViewHolder
+import com.apm.trackify.ui.playlists.details.view.holder.HeaderViewHolder
 
 class HeaderAdapter : DelegateAdapter<Playlist, HeaderViewHolder>(PlaylistDiffUtil()) {
 

@@ -1,4 +1,4 @@
-package com.apm.trackify.ui.playlists
+package com.apm.trackify.ui.playlists.landing
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -11,7 +11,8 @@ import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.apm.trackify.R
 import com.apm.trackify.databinding.PlaylistsLandingFragmentBinding
-import com.apm.trackify.ui.playlists.adapter.PlaylistAdapter
+import com.apm.trackify.ui.playlists.landing.view.adapter.PlaylistAdapter
+import com.apm.trackify.ui.playlists.landing.view.model.PlaylistsLandingViewModel
 import com.apm.trackify.util.extension.setupToolbar
 
 class PlaylistsLandingFragment : Fragment() {

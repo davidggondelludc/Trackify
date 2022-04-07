@@ -1,4 +1,4 @@
-package com.apm.trackify.ui.playlists.tracks.view.adapter
+package com.apm.trackify.ui.playlists.details.view.adapter
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
@@ -7,7 +7,7 @@ import com.apm.trackify.base.DelegateAdapter
 import com.apm.trackify.databinding.PlaylistsTrackDragItemBinding
 import com.apm.trackify.model.diff.TrackDiffUtil
 import com.apm.trackify.model.domain.Track
-import com.apm.trackify.ui.playlists.tracks.view.holder.TrackViewHolder
+import com.apm.trackify.ui.playlists.details.view.holder.TrackViewHolder
 
 class TrackAdapter(private val itemTouchHelper: ItemTouchHelper) :
     DelegateAdapter<Track, TrackViewHolder>(TrackDiffUtil()) {

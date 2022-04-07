@@ -1,12 +1,12 @@
-package com.apm.trackify.ui.playlists.tracks.listener
+package com.apm.trackify.ui.playlists.details.listener
 
 import android.graphics.Canvas
 import android.view.View
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.RecyclerView
 import com.apm.trackify.databinding.PlaylistsTrackDragItemBinding
-import com.apm.trackify.ui.playlists.tracks.view.model.PlaylistTracksViewModel
-import com.apm.trackify.ui.playlists.tracks.view.holder.TrackViewHolder
+import com.apm.trackify.ui.playlists.details.view.model.PlaylistTracksViewModel
+import com.apm.trackify.ui.playlists.details.view.holder.TrackViewHolder
 import com.apm.trackify.util.animation.SwipeAnimator
 
 class DragSwipeCallback(

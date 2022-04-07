@@ -1,11 +1,11 @@
-package com.apm.trackify.ui.playlists.tracks.view.adapter
+package com.apm.trackify.ui.playlists.details.view.adapter
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import com.apm.trackify.base.DelegateAdapter
 import com.apm.trackify.databinding.PlaylistsTrackFooterItemBinding
 import com.apm.trackify.model.diff.StringDiffUtil
-import com.apm.trackify.ui.playlists.tracks.view.holder.FooterViewHolder
+import com.apm.trackify.ui.playlists.details.view.holder.FooterViewHolder
 
 class FooterAdapter : DelegateAdapter<String, FooterViewHolder>(StringDiffUtil()) {
 

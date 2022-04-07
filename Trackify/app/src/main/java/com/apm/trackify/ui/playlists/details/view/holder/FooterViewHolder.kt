@@ -1,4 +1,4 @@
-package com.apm.trackify.ui.playlists.tracks.view.holder
+package com.apm.trackify.ui.playlists.details.view.holder
 
 import com.apm.trackify.base.DelegateViewHolder
 import com.apm.trackify.databinding.PlaylistsTrackFooterItemBinding

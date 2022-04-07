@@ -1,4 +1,4 @@
-package com.apm.trackify.ui.playlists.tracks
+package com.apm.trackify.ui.playlists.details
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -12,12 +12,12 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.apm.trackify.R
 import com.apm.trackify.databinding.PlaylistsTracksFragmentBinding
-import com.apm.trackify.ui.playlists.tracks.listener.DragSwipeCallback
-import com.apm.trackify.ui.playlists.tracks.listener.ParallaxListener
-import com.apm.trackify.ui.playlists.tracks.view.adapter.FooterAdapter
-import com.apm.trackify.ui.playlists.tracks.view.adapter.HeaderAdapter
-import com.apm.trackify.ui.playlists.tracks.view.adapter.TrackAdapter
-import com.apm.trackify.ui.playlists.tracks.view.model.PlaylistTracksViewModel
+import com.apm.trackify.ui.playlists.details.listener.DragSwipeCallback
+import com.apm.trackify.ui.playlists.details.listener.ParallaxListener
+import com.apm.trackify.ui.playlists.details.view.adapter.FooterAdapter
+import com.apm.trackify.ui.playlists.details.view.adapter.HeaderAdapter
+import com.apm.trackify.ui.playlists.details.view.adapter.TrackAdapter
+import com.apm.trackify.ui.playlists.details.view.model.PlaylistTracksViewModel
 import com.apm.trackify.util.extension.setupToolbar
 import dagger.hilt.android.AndroidEntryPoint
 import java.util.concurrent.TimeUnit

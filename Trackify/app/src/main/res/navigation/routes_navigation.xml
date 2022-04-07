@@ -34,7 +34,7 @@
 
     <fragment
         android:id="@+id/playlist_tracks_fragment"
-        android:name="com.apm.trackify.ui.playlists.tracks.PlaylistTracksFragment"
+        android:name="com.apm.trackify.ui.playlists.details.PlaylistTracksFragment"
         tools:layout="@layout/playlists_tracks_fragment">
 
         <argument

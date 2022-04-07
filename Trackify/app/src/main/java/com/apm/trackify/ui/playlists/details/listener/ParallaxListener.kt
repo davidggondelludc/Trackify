@@ -1,4 +1,4 @@
-package com.apm.trackify.ui.playlists.tracks.listener
+package com.apm.trackify.ui.playlists.details.listener
 
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView

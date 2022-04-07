@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/playlists_fragment"
-        android:name="com.apm.trackify.ui.playlists.PlaylistsLandingFragment"
+        android:name="com.apm.trackify.ui.playlists.landing.PlaylistsLandingFragment"
         tools:layout="@layout/playlists_landing_fragment">
 
         <action
@@ -48,7 +48,7 @@
 
     <fragment
         android:id="@+id/playlist_tracks_fragment"
-        android:name="com.apm.trackify.ui.playlists.tracks.PlaylistTracksFragment"
+        android:name="com.apm.trackify.ui.playlists.details.PlaylistTracksFragment"
         tools:layout="@layout/playlists_tracks_fragment">
 
         <argument

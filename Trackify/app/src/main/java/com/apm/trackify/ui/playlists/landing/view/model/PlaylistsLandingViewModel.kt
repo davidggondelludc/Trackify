@@ -1,4 +1,4 @@
-package com.apm.trackify.ui.playlists
+package com.apm.trackify.ui.playlists.landing.view.model
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData

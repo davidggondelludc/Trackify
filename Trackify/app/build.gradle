@@ -79,7 +79,6 @@ dependencies {
     //noinspection GradleDependency
     implementation "com.google.android.material:material:$material_version"
     implementation "com.google.dagger:hilt-android:$hilt_version"
-
     kapt "com.google.dagger:hilt-android-compiler:$hilt_version"
 
     testImplementation "junit:junit:$junit_version"

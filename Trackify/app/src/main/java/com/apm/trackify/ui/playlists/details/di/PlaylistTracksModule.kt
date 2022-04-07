@@ -1,8 +1,8 @@
-package com.apm.trackify.ui.playlists.tracks.di
+package com.apm.trackify.ui.playlists.details.di
 
 import androidx.lifecycle.SavedStateHandle
 import com.apm.trackify.model.domain.Playlist
-import com.apm.trackify.ui.playlists.tracks.view.model.PlaylistTracksViewModel
+import com.apm.trackify.ui.playlists.details.view.model.PlaylistTracksViewModel
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
