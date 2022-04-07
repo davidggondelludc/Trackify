@@ -7,10 +7,6 @@ import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.RecyclerView
 import com.apm.trackify.util.animation.ScaleInOnTouch
 
-fun RecyclerView.ViewHolder.getQuantityString(id: Int, quantity: Int, formatArgs: Any): String {
-    return itemView.context.resources.getQuantityString(id, quantity, formatArgs)
-}
-
 fun RecyclerView.ViewHolder.scaleOnTouch() {
     itemView.setOnTouchListener(ScaleInOnTouch())
 }

@@ -15,7 +15,7 @@ object PlaylistTracksModule {
     @Provides
     fun providePlaylist(stateHandle: SavedStateHandle): Playlist =
         stateHandle.get<Playlist>("playlist")
-            ?: throw IllegalStateException("playlist not found in state handle")
+            ?: throw IllegalStateException("Playlist not found in state handle")
 
     @Provides
     fun provideViewModel(playlist: Playlist): PlaylistTracksViewModel =
