@@ -26,7 +26,6 @@ class RouteCreateFragment : Fragment() {
 
         setupToolbar(binding.toolbar)
 
-        binding.shareButton.setOnClickListener { it.context.toast("This will be sharing soon!") }
         binding.pinButton.setOnClickListener { it.context.toast("Set starting coordinates") }
         binding.imgBtnEndRoute.setOnClickListener { it.context.toast("Set ending coordinates") }
     }
@@ -42,5 +41,12 @@ class RouteCreateFragment : Fragment() {
         )
 
         toolbar.setupWithNavController(navController, appBarConfiguration)
-    }
+        toolbar.setOnMenuItemClickListener {
+            when (it.itemId) {
+                R.id.createRoute -> {
+                    navController.navigateUp()
+                }
+            }
+            true
+        }    }
 }
