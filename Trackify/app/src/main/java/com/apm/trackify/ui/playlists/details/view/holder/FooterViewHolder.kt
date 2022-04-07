@@ -1,6 +1,6 @@
 package com.apm.trackify.ui.playlists.details.view.holder
 
-import com.apm.trackify.base.DelegateViewHolder
+import com.apm.trackify.util.base.DelegateViewHolder
 import com.apm.trackify.databinding.PlaylistsTrackFooterItemBinding
 
 class FooterViewHolder(private val binding: PlaylistsTrackFooterItemBinding) :

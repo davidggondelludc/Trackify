@@ -22,8 +22,8 @@
 
     <ImageButton
         android:id="@+id/icon"
-        android:layout_width="@dimen/common_icon_size"
-        android:layout_height="@dimen/common_icon_size"
+        android:layout_width="@dimen/default_icon_size"
+        android:layout_height="@dimen/default_icon_size"
         android:layout_gravity="center_vertical"
         android:layout_marginStart="@dimen/screen_margin_horizontal"
         android:background="?attr/selectableItemBackgroundBorderless"

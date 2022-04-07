@@ -6,7 +6,7 @@ import androidx.recyclerview.widget.ListAdapter
 import com.apm.trackify.databinding.PlaylistsTrackAddItemBinding
 import com.apm.trackify.model.diff.TrackDiffUtil
 import com.apm.trackify.model.domain.Track
-import com.apm.trackify.ui.playlists.create.view.holder.AddTrackViewHolder
+import com.apm.trackify.ui.playlists.tracks.view.AddTrackViewHolder
 
 class AddTrackAdapter() : ListAdapter<Track, AddTrackViewHolder>(TrackDiffUtil()) {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): AddTrackViewHolder {

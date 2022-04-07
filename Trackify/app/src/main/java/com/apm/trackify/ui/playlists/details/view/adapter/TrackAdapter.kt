@@ -3,7 +3,7 @@ package com.apm.trackify.ui.playlists.details.view.adapter
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.ItemTouchHelper
-import com.apm.trackify.base.DelegateAdapter
+import com.apm.trackify.util.base.DelegateAdapter
 import com.apm.trackify.databinding.PlaylistsTrackDragItemBinding
 import com.apm.trackify.model.diff.TrackDiffUtil
 import com.apm.trackify.model.domain.Track

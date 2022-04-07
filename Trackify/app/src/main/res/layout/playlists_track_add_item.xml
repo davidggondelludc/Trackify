@@ -19,19 +19,19 @@
 
         <com.google.android.material.imageview.ShapeableImageView
             android:id="@+id/cover"
-            android:layout_width="@dimen/common_icon_size"
-            android:layout_height="@dimen/common_icon_size"
-            android:layout_marginTop="@dimen/item_track_cover_margin"
-            android:layout_marginBottom="@dimen/item_track_cover_margin"
+            android:layout_width="@dimen/default_icon_size"
+            android:layout_height="@dimen/default_icon_size"
+            android:layout_marginTop="@dimen/track_cover_margin"
+            android:layout_marginBottom="@dimen/track_cover_margin"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:shapeAppearanceOverlay="@style/ShapeAppearanceOverlay.App.CornerSize10Percent"
-            app:srcCompat="@drawable/placeholder_musical_note" />
+            app:srcCompat="@drawable/placeholder_track" />
 
         <TextView
             android:id="@+id/name"
-            style="@style/Track.MainText"
+            style="@style/Track.TextPrimary"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
@@ -54,7 +54,7 @@
 
         <TextView
             android:id="@+id/artists"
-            style="@style/Track.SecondaryText"
+            style="@style/Track.TextSecondary"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="4dp"

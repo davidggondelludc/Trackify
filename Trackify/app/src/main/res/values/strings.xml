@@ -38,15 +38,16 @@
     <string name="create_playlist_menu">Create playlist</string>
     <string name="save_playlist_menu">Save</string>
 
-    <!-- create playlist landing -->
+    <!-- playlist create landing -->
     <string name="save_button">Save</string>
     <string name="save_button_description">Save playlist button</string>
 
-    <!-- playlist tracks landing -->
+    <!-- playlist details landing -->
     <string name="playlist_cover_description">Playlist cover</string>
-    <string name="play_on_spotify">Play on Spotify</string>
+    <string name="spotify_button">Play on Spotify</string>
     <string name="unfollow_button">Unfollow</string>
     <string name="track_cover_description">Track cover</string>
+    <string name="track_drag_description">Drag and drop track</string>
 
     <!-- routes landing -->
     <string name="create_route_menu">Create route</string>

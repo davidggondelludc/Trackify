@@ -9,53 +9,6 @@
         <item name="cornerSize">10%</item>
     </style>
 
-    <!-- splash screen -->
-    <style name="Theme.App.Starting" parent="Theme.SplashScreen">
-        <item name="windowSplashScreenBackground">@color/raisin_black</item>
-        <item name="windowSplashScreenAnimatedIcon">@drawable/ic_logo</item>
-        <item name="windowSplashScreenAnimationDuration">500</item>
-        <item name="android:windowSplashScreenBrandingImage" tools:ignore="NewApi">
-            @drawable/placeholder_branding
-        </item>
-        <item name="postSplashScreenTheme">@style/Theme.Trackify</item>
-    </style>
-
-    <!-- item playlist -->
-    <style name="Playlist">
-        <item name="android:ellipsize">end</item>
-        <item name="android:gravity">center</item>
-    </style>
-
-    <style name="Playlist.MainText">
-        <item name="android:maxLines">2</item>
-        <item name="android:textStyle">bold</item>
-        <item name="android:textColor">?android:attr/textColorPrimary</item>
-        <item name="android:textSize">@dimen/item_playlist_title</item>
-    </style>
-
-    <style name="Playlist.SecondaryText">
-        <item name="android:maxLines">1</item>
-        <item name="android:textColor">?android:attr/textColorSecondary</item>
-        <item name="android:textSize">@dimen/item_playlist_subtitle</item>
-    </style>
-
-    <!-- item track -->
-    <style name="Track">
-        <item name="android:maxLines">1</item>
-        <item name="android:ellipsize">end</item>
-        <item name="android:gravity">center_vertical</item>
-    </style>
-
-    <style name="Track.MainText">
-        <item name="android:textColor">?android:attr/textColorPrimary</item>
-        <item name="android:textSize">@dimen/item_track_title</item>
-    </style>
-
-    <style name="Track.SecondaryText">
-        <item name="android:textColor">?android:attr/textColorSecondary</item>
-        <item name="android:textSize">@dimen/item_track_subtitle</item>
-    </style>
-
     <!-- bottom navigation view -->
     <style name="Widget.App.BottomNavigationView" parent="Widget.MaterialComponents.BottomNavigationView.Colored">
         <item name="materialThemeOverlay">@style/ThemeOverlay.App.BottomNavigationView</item>
@@ -74,5 +27,52 @@
     <style name="ThemeOverlay.App.Toolbar" parent="">
         <item name="colorPrimary">@color/raisin_black</item>
         <item name="colorPrimaryVariant">@color/black</item>
+    </style>
+
+    <!-- splash screen -->
+    <style name="Theme.App.Starting" parent="Theme.SplashScreen">
+        <item name="windowSplashScreenBackground">@color/raisin_black</item>
+        <item name="windowSplashScreenAnimatedIcon">@drawable/ic_logo</item>
+        <item name="windowSplashScreenAnimationDuration">500</item>
+        <item name="android:windowSplashScreenBrandingImage" tools:ignore="NewApi">
+            @drawable/placeholder_branding
+        </item>
+        <item name="postSplashScreenTheme">@style/Theme.Trackify</item>
+    </style>
+
+    <!-- item playlist -->
+    <style name="Playlist">
+        <item name="android:ellipsize">end</item>
+        <item name="android:gravity">center</item>
+    </style>
+
+    <style name="Playlist.TextPrimary">
+        <item name="android:maxLines">2</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:textColor">?android:attr/textColorPrimary</item>
+        <item name="android:textSize">@dimen/playlist_text_size_primary</item>
+    </style>
+
+    <style name="Playlist.TextSecondary">
+        <item name="android:maxLines">1</item>
+        <item name="android:textColor">?android:attr/textColorSecondary</item>
+        <item name="android:textSize">@dimen/playlist_text_size_secondary</item>
+    </style>
+
+    <!-- item track -->
+    <style name="Track">
+        <item name="android:maxLines">1</item>
+        <item name="android:ellipsize">end</item>
+        <item name="android:gravity">center_vertical</item>
+    </style>
+
+    <style name="Track.TextPrimary">
+        <item name="android:textColor">?android:attr/textColorPrimary</item>
+        <item name="android:textSize">@dimen/track_text_size_primary</item>
+    </style>
+
+    <style name="Track.TextSecondary">
+        <item name="android:textColor">?android:attr/textColorSecondary</item>
+        <item name="android:textSize">@dimen/track_text_size_secondary</item>
     </style>
 </resources>
