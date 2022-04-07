@@ -8,13 +8,12 @@
     <string name="profile_menu">Profile</string>
 
     <string name="form_duration">Desired playlist duration:</string>
-    <string name="form_add_songs">Add some songs to your playlist</string>
     <string name="form_title">Playlist Title</string>
     <string name="form_selected_songs">Current selected songs</string>
     <string name="form_song_search">Search your song</string>
     <string name="form_min">min</string>
     <string name="form_min_input">30</string>
-    <string name="form_search_button">Search song button</string>
+    <string name="form_search_button">Search song</string>
     <string name="add_playlist_to_route">Add Playlist To Route</string>
     <string name="share_button">Share</string>
     <string name="start">Start</string>
@@ -37,6 +36,7 @@
 
     <!-- playlists landing -->
     <string name="create_playlist_menu">Create playlist</string>
+    <string name="save_playlist_menu">Save</string>
 
     <!-- create playlist landing -->
     <string name="save_button">Save</string>
