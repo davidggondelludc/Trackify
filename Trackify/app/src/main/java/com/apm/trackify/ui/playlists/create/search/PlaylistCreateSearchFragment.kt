@@ -28,7 +28,6 @@ class PlaylistCreateSearchFragment : Fragment() {
         val binding = PlaylistsCreateSearchFragmentBinding.bind(view)
 
         setupToolbar(binding.toolbar)
-
         setupRecyclerView(binding.rvSearchedSongs)
     }
 

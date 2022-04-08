@@ -16,7 +16,10 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.apm.trackify.R
 import com.apm.trackify.databinding.PlaylistsCreateFragmentBinding
+import com.apm.trackify.model.MockProvider
+import com.apm.trackify.model.domain.Playlist
 import com.apm.trackify.ui.playlists.create.view.adapter.AddTrackAdapter
+import com.apm.trackify.ui.playlists.create.view.adapter.HeaderAdapter
 import com.apm.trackify.ui.playlists.create.view.model.PlaylistCreateViewModel
 
 class PlaylistCreateFragment : Fragment() {
@@ -32,13 +35,6 @@ class PlaylistCreateFragment : Fragment() {
         val binding = PlaylistsCreateFragmentBinding.bind(view)
 
         setupToolbar(binding.toolbar)
-
-        binding.formSearchButton.setOnClickListener {
-            val navController = it.findNavController()
-            val action = PlaylistCreateFragmentDirections.toPlaylistCreateSearchFragment()
-            navController.navigate(action)
-        }
-
         setupRecyclerView(binding.rvSelectedSongs)
     }
 
@@ -69,16 +65,15 @@ class PlaylistCreateFragment : Fragment() {
         itemTouchHelper.attachToRecyclerView(recyclerView)
 */
 
+        val headerAdapter = HeaderAdapter()
+        headerAdapter.submitList(listOf(MockProvider.playlist))
         val trackAdapter = AddTrackAdapter()
 
         viewModel.getTracks().observe(viewLifecycleOwner) {
             trackAdapter.submitList(it)
         }
 
-        val concatAdapter = ConcatAdapter()
-        concatAdapter.addAdapter(trackAdapter)
-
-        recyclerView.adapter = concatAdapter
+        recyclerView.adapter = ConcatAdapter(headerAdapter, trackAdapter)
         recyclerView.layoutManager = LinearLayoutManager(context)
     }
 }
