@@ -1,7 +1,7 @@
-package com.apm.trackify.ui.playlists.details.view.holder
+package com.apm.trackify.ui.playlists.create.search.view.holder
 
 import com.apm.trackify.R
-import com.apm.trackify.databinding.PlaylistsTrackItemBinding
+import com.apm.trackify.databinding.PlaylistsTrackAddItemBinding
 import com.apm.trackify.model.domain.Track
 import com.apm.trackify.util.base.DelegateViewHolder
 import com.apm.trackify.util.extension.loadFromURI
@@ -9,7 +9,7 @@ import com.apm.trackify.util.extension.scaleOnTouch
 import com.apm.trackify.util.extension.toast
 import com.apm.trackify.util.extension.toggleVisibility
 
-class TrackViewHolder(private val binding: PlaylistsTrackItemBinding) :
+class TrackAddViewHolder(private val binding: PlaylistsTrackAddItemBinding) :
     DelegateViewHolder<Track>(binding) {
 
     init {

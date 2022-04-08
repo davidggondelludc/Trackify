@@ -1,14 +1,14 @@
 package com.apm.trackify.ui.playlists.details.view.holder
 
 import com.apm.trackify.R
-import com.apm.trackify.util.base.DelegateViewHolder
 import com.apm.trackify.databinding.PlaylistsTrackHeaderItemBinding
 import com.apm.trackify.model.domain.Playlist
+import com.apm.trackify.util.base.DelegateViewHolder
 import com.apm.trackify.util.extension.loadFromURI
 import com.apm.trackify.util.extension.toast
 
 class HeaderViewHolder(private val binding: PlaylistsTrackHeaderItemBinding) :
-    DelegateViewHolder<Playlist>(binding.root) {
+    DelegateViewHolder<Playlist>(binding) {
 
     override fun bind(item: Playlist) {
         binding.cover.loadFromURI(item.imageUri, R.drawable.placeholder_playlist)

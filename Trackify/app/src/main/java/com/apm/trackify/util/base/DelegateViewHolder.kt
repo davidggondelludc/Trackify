@@ -1,9 +1,9 @@
 package com.apm.trackify.util.base
 
-import android.view.View
 import androidx.recyclerview.widget.RecyclerView
+import androidx.viewbinding.ViewBinding
 
-abstract class DelegateViewHolder<T>(view: View) : RecyclerView.ViewHolder(view) {
+abstract class DelegateViewHolder<T>(binding: ViewBinding) : RecyclerView.ViewHolder(binding.root) {
 
     abstract fun bind(item: T)
 }

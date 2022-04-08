@@ -7,12 +7,10 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.ConcatAdapter
-import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.apm.trackify.R
 import com.apm.trackify.databinding.PlaylistsTracksFragmentBinding
-import com.apm.trackify.ui.playlists.details.listener.DragSwipeCallback
 import com.apm.trackify.ui.playlists.details.listener.ParallaxListener
 import com.apm.trackify.ui.playlists.details.view.adapter.FooterAdapter
 import com.apm.trackify.ui.playlists.details.view.adapter.HeaderAdapter
@@ -41,26 +39,20 @@ class PlaylistTracksFragment : Fragment() {
     }
 
     private fun setupRecyclerView(recyclerView: RecyclerView) {
-        val callback = DragSwipeCallback(viewModel)
-        val itemTouchHelper = ItemTouchHelper(callback)
-        itemTouchHelper.attachToRecyclerView(recyclerView)
-
         val headerAdapter = HeaderAdapter()
         viewModel.getPlaylist().observe(viewLifecycleOwner) {
-            headerAdapter.submitList(listOf(it))
+            headerAdapter.submit(it)
         }
 
-        val trackAdapter = TrackAdapter(itemTouchHelper)
+        val trackAdapter = TrackAdapter()
 
         val footerAdapter = FooterAdapter()
         viewModel.getTracks().observe(viewLifecycleOwner) {
             trackAdapter.submitList(it)
-            footerAdapter.submitList(
-                listOf(
-                    generateFooter(
-                        it.size,
-                        it.sumOf { track -> track.duration }.toLong()
-                    )
+            footerAdapter.submit(
+                generateFooter(
+                    it.size,
+                    it.sumOf { track -> track.duration }.toLong()
                 )
             )
         }

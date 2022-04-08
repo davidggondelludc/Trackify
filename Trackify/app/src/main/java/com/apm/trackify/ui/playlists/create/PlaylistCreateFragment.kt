@@ -4,25 +4,23 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.appcompat.widget.Toolbar
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
-import androidx.navigation.findNavController
 import androidx.navigation.fragment.findNavController
-import androidx.navigation.ui.AppBarConfiguration
-import androidx.navigation.ui.setupWithNavController
 import androidx.recyclerview.widget.ConcatAdapter
+import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.apm.trackify.R
 import com.apm.trackify.databinding.PlaylistsCreateFragmentBinding
-import com.apm.trackify.model.MockProvider
-import com.apm.trackify.model.domain.Playlist
-import com.apm.trackify.ui.playlists.create.view.adapter.AddTrackAdapter
+import com.apm.trackify.ui.playlists.create.listener.DragSwipeCallback
 import com.apm.trackify.ui.playlists.create.view.adapter.HeaderAdapter
+import com.apm.trackify.ui.playlists.create.view.adapter.TrackDragAdapter
 import com.apm.trackify.ui.playlists.create.view.model.PlaylistCreateViewModel
+import com.apm.trackify.util.extension.setupToolbar
 
 class PlaylistCreateFragment : Fragment() {
+
     private val viewModel: PlaylistCreateViewModel by viewModels()
 
     override fun onCreateView(
@@ -35,45 +33,34 @@ class PlaylistCreateFragment : Fragment() {
         val binding = PlaylistsCreateFragmentBinding.bind(view)
 
         setupToolbar(binding.toolbar)
-        setupRecyclerView(binding.rvSelectedSongs)
-    }
-
-    private fun setupToolbar(toolbar: Toolbar) {
-        val navController = findNavController()
-        val appBarConfiguration = AppBarConfiguration(
-            setOf(
-                R.id.playlists_fragment,
-                R.id.routes_fragment,
-                R.id.user_fragment
-            )
-        )
-
-        toolbar.setupWithNavController(navController, appBarConfiguration)
-        toolbar.setOnMenuItemClickListener{
+        binding.toolbar.setOnMenuItemClickListener {
             when (it.itemId) {
                 R.id.savePlaylist -> {
+                    val navController = findNavController()
                     navController.navigateUp()
                 }
             }
             true
         }
+        setupRecyclerView(binding.rvSelectedSongs)
     }
 
     private fun setupRecyclerView(recyclerView: RecyclerView) {
-        /*val callback = ItemTouchHelperCallback(viewModel)
+        val callback = DragSwipeCallback(viewModel)
         val itemTouchHelper = ItemTouchHelper(callback)
         itemTouchHelper.attachToRecyclerView(recyclerView)
-*/
 
         val headerAdapter = HeaderAdapter()
-        headerAdapter.submitList(listOf(MockProvider.playlist))
-        val trackAdapter = AddTrackAdapter()
-
-        viewModel.getTracks().observe(viewLifecycleOwner) {
-            trackAdapter.submitList(it)
+        viewModel.getPlaylist().observe(viewLifecycleOwner) {
+            headerAdapter.submit(it)
         }
 
-        recyclerView.adapter = ConcatAdapter(headerAdapter, trackAdapter)
+        val trackDragAdapter = TrackDragAdapter(itemTouchHelper)
+        viewModel.getTracks().observe(viewLifecycleOwner) {
+            trackDragAdapter.submitList(it)
+        }
+
+        recyclerView.adapter = ConcatAdapter(headerAdapter, trackDragAdapter)
         recyclerView.layoutManager = LinearLayoutManager(context)
     }
 }

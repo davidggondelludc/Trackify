@@ -47,7 +47,10 @@
     <string name="spotify_button">Play on Spotify</string>
     <string name="unfollow_button">Unfollow</string>
     <string name="track_cover_description">Track cover</string>
+    <string name="track_more_description">Show track details</string>
     <string name="track_drag_description">Drag and drop track</string>
+
+    <string name="track_add_description">Add track to playlist</string>
 
     <!-- routes landing -->
     <string name="create_route_menu">Create route</string>

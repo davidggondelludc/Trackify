@@ -1,16 +1,16 @@
-package com.apm.trackify.ui.playlists.details.listener
+package com.apm.trackify.ui.playlists.create.listener
 
 import android.graphics.Canvas
 import android.view.View
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.RecyclerView
 import com.apm.trackify.databinding.PlaylistsTrackDragItemBinding
-import com.apm.trackify.ui.playlists.details.view.model.PlaylistTracksViewModel
-import com.apm.trackify.ui.playlists.details.view.holder.TrackViewHolder
+import com.apm.trackify.ui.playlists.create.view.holder.TrackDragViewHolder
+import com.apm.trackify.ui.playlists.create.view.model.PlaylistCreateViewModel
 import com.apm.trackify.util.animation.SwipeAnimator
 
 class DragSwipeCallback(
-    private val viewModel: PlaylistTracksViewModel
+    private val viewModel: PlaylistCreateViewModel
 ) : ItemTouchHelper.SimpleCallback(
     ItemTouchHelper.UP or ItemTouchHelper.DOWN,
     ItemTouchHelper.RIGHT
@@ -28,7 +28,7 @@ class DragSwipeCallback(
         val initialPosition = viewHolder.bindingAdapterPosition
         val finalPosition = target.bindingAdapterPosition
 
-        return if (initialPosition != finalPosition && viewHolder is TrackViewHolder) {
+        return if (initialPosition != finalPosition && viewHolder is TrackDragViewHolder) {
             viewModel.move(initialPosition, finalPosition)
             true
         } else false
@@ -37,11 +37,9 @@ class DragSwipeCallback(
     override fun getSwipeDirs(
         recyclerView: RecyclerView,
         viewHolder: RecyclerView.ViewHolder
-    ): Int {
-        return if (canSwipe && viewHolder is TrackViewHolder) {
-            super.getSwipeDirs(recyclerView, viewHolder)
-        } else 0
-    }
+    ): Int = if (canSwipe && viewHolder is TrackDragViewHolder) {
+        super.getSwipeDirs(recyclerView, viewHolder)
+    } else 0
 
     override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
         canSwipe = false

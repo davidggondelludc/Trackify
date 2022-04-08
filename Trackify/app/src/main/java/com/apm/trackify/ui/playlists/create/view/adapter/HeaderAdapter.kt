@@ -10,10 +10,7 @@ import com.apm.trackify.util.base.DelegateAdapter
 
 class HeaderAdapter : DelegateAdapter<Playlist, HeaderViewHolder>(PlaylistDiffUtil()) {
 
-    override fun onCreateViewHolder(
-        parent: ViewGroup,
-        viewType: Int
-    ): HeaderViewHolder {
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): HeaderViewHolder {
         val inflater = LayoutInflater.from(parent.context)
         val binding = PlaylistsCreateHeaderBinding.inflate(inflater, parent, false)
 

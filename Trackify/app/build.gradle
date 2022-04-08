@@ -6,7 +6,6 @@ plugins {
     id "androidx.navigation.safeargs.kotlin"
     id "dagger.hilt.android.plugin"
     id "com.google.android.libraries.mapsplatform.secrets-gradle-plugin"
-
 }
 
 android {
@@ -14,7 +13,7 @@ android {
 
     defaultConfig {
         applicationId "com.apm.trackify"
-        minSdk 24
+        minSdk 21
         targetSdk 32
 
         // This number is used only to determine whether one version is more recent than another,
@@ -29,6 +28,9 @@ android {
     }
 
     buildTypes {
+        debug {
+            applicationIdSuffix ".debug"
+        }
         release {
             // Enables code shrinking, obfuscation and optimization for release build type
             minifyEnabled true
@@ -47,15 +49,12 @@ android {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
     }
-
     kotlinOptions {
         jvmTarget = "1.8"
     }
-
     buildFeatures {
         viewBinding true
     }
-
     viewBinding {
         enabled = true
     }
@@ -79,6 +78,7 @@ dependencies {
     //noinspection GradleDependency
     implementation "com.google.android.material:material:$material_version"
     implementation "com.google.dagger:hilt-android:$hilt_version"
+
     kapt "com.google.dagger:hilt-android-compiler:$hilt_version"
 
     testImplementation "junit:junit:$junit_version"
