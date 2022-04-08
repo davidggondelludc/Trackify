@@ -1,6 +1,5 @@
 package com.apm.trackify.ui.playlists.details.view.model
 
-import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.apm.trackify.model.MockProvider
@@ -12,15 +11,11 @@ import javax.inject.Inject
 @HiltViewModel
 class PlaylistTracksViewModel @Inject constructor(playlist: Playlist) : ViewModel() {
 
-    private val playlist = MutableLiveData<Playlist>()
-    private val tracks = MutableLiveData<List<Track>>()
+    val playlist = MutableLiveData<Playlist>()
+    val tracks = MutableLiveData<List<Track>>()
 
     init {
         this.playlist.value = playlist
         tracks.value = MockProvider.tracks.toMutableList()
     }
-
-    fun getPlaylist(): LiveData<Playlist> = playlist
-
-    fun getTracks(): LiveData<List<Track>> = tracks
 }

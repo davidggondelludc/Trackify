@@ -29,7 +29,7 @@
             android:layout_margin="@dimen/playlists_create_layout_padding"
             android:hint="@string/form_song_search"
             android:paddingBottom="@dimen/playlists_create_search_layout_padding_bottom"
-            android:textColorHint="@color/white"
+            android:textColorHint="@android:color/white"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent">
@@ -39,7 +39,7 @@
                 android:layout_height="wrap_content"
                 android:imeOptions="actionSearch"
                 android:inputType="text"
-                android:textColor="@color/white"
+                android:textColor="@android:color/white"
                 android:textSize="@dimen/playlists_create_text_size" />
         </com.google.android.material.textfield.TextInputLayout>
 

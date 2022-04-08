@@ -9,7 +9,6 @@
         android:id="@+id/playlists_fragment"
         android:name="com.apm.trackify.ui.playlists.landing.PlaylistsLandingFragment"
         tools:layout="@layout/playlists_landing_fragment">
-
         <action
             android:id="@+id/to_playlist_create_fragment"
             app:destination="@+id/playlist_create_fragment"
@@ -17,7 +16,6 @@
             app:exitAnim="@anim/fade_out"
             app:popEnterAnim="@anim/fade_in"
             app:popExitAnim="@anim/fade_out" />
-
         <action
             android:id="@+id/to_playlist_track_fragment"
             app:destination="@+id/playlist_tracks_fragment"
@@ -31,7 +29,6 @@
         android:id="@+id/playlist_create_fragment"
         android:name="com.apm.trackify.ui.playlists.create.PlaylistCreateFragment"
         tools:layout="@layout/playlists_create_fragment">
-
         <action
             android:id="@+id/to_playlist_create_search_fragment"
             app:destination="@id/playlist_create_search_fragment"
@@ -50,7 +47,6 @@
         android:id="@+id/playlist_tracks_fragment"
         android:name="com.apm.trackify.ui.playlists.details.PlaylistTracksFragment"
         tools:layout="@layout/playlists_tracks_fragment">
-
         <argument
             android:name="playlist"
             app:argType="com.apm.trackify.model.domain.Playlist" />

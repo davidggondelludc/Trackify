@@ -7,7 +7,6 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.viewpager2.widget.ViewPager2
 import com.apm.trackify.databinding.UserLandingFragmentBinding
-import com.apm.trackify.ui.user.landing.TabLayoutPagerAdapter
 import com.apm.trackify.util.extension.setupToolbar
 import com.google.android.material.tabs.TabLayout
 
@@ -53,5 +52,4 @@ class UserLandingFragment : Fragment() {
             override fun onTabReselected(tab: TabLayout.Tab) {}
         })
     }
-
 }

@@ -46,17 +46,17 @@ class PlaylistCreateFragment : Fragment() {
     }
 
     private fun setupRecyclerView(recyclerView: RecyclerView) {
+        val headerAdapter = HeaderAdapter()
+        viewModel.playlist.observe(viewLifecycleOwner) {
+            headerAdapter.submit(it)
+        }
+
         val callback = DragSwipeCallback(viewModel)
         val itemTouchHelper = ItemTouchHelper(callback)
         itemTouchHelper.attachToRecyclerView(recyclerView)
 
-        val headerAdapter = HeaderAdapter()
-        viewModel.getPlaylist().observe(viewLifecycleOwner) {
-            headerAdapter.submit(it)
-        }
-
         val trackDragAdapter = TrackDragAdapter(itemTouchHelper)
-        viewModel.getTracks().observe(viewLifecycleOwner) {
+        viewModel.tracks.observe(viewLifecycleOwner) {
             trackDragAdapter.submitList(it)
         }
 

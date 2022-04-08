@@ -22,7 +22,7 @@ class TrackAddViewHolder(private val binding: PlaylistsTrackAddItemBinding) :
 
         binding.cover.loadFromURI(item.imageUri, R.drawable.placeholder_track)
         binding.name.text = item.name
-        binding.artists.text = item.artists
         binding.explicit.toggleVisibility(item.explicit, true)
+        binding.artists.text = item.artists
     }
 }

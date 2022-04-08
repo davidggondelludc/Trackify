@@ -1,21 +1,21 @@
 package com.apm.trackify.ui.routes.landing.view.holder
 
 import androidx.navigation.findNavController
-import androidx.recyclerview.widget.RecyclerView
 import com.apm.trackify.databinding.RoutesPlaylistsItemBinding
 import com.apm.trackify.model.domain.Playlist
 import com.apm.trackify.ui.routes.landing.RoutesLandingFragmentDirections
+import com.apm.trackify.util.base.DelegateViewHolder
 
-class PlaylistRouteViewHolder(val binding: RoutesPlaylistsItemBinding) :
-    RecyclerView.ViewHolder(binding.root) {
+class PlaylistRouteViewHolder(private val binding: RoutesPlaylistsItemBinding) :
+    DelegateViewHolder<Playlist>(binding) {
 
-    fun bind(playlist: Playlist) {
+    override fun bind(item: Playlist) {
         binding.imgBtnSeePlayList.setOnClickListener {
             val navController = it.findNavController()
-            val action = RoutesLandingFragmentDirections.toPlaylistTrackFragment(playlist)
+            val action = RoutesLandingFragmentDirections.toPlaylistTrackFragment(item)
             navController.navigate(action)
         }
-        binding.tvPlaylistInRoute.text = playlist.name
-        binding.tvUserPlaylistsInRoute.text = playlist.owner
+        binding.tvPlaylistInRoute.text = item.name
+        binding.tvUserPlaylistsInRoute.text = item.owner
     }
 }

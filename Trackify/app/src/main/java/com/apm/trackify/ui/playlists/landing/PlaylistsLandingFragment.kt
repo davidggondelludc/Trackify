@@ -39,19 +39,16 @@ class PlaylistsLandingFragment : Fragment() {
             }
             true
         }
-
         setupRecyclerView(binding.playlists)
     }
 
     private fun setupRecyclerView(recyclerView: RecyclerView) {
         val playlistsAdapter = PlaylistAdapter()
-        viewModel.getPlaylists().observe(viewLifecycleOwner) {
+        viewModel.playlists.observe(viewLifecycleOwner) {
             playlistsAdapter.submitList(it)
         }
 
         recyclerView.adapter = playlistsAdapter
-        recyclerView.layoutManager = GridLayoutManager(
-            context, 2, RecyclerView.VERTICAL, false
-        )
+        recyclerView.layoutManager = GridLayoutManager(context, 2, RecyclerView.VERTICAL, false)
     }
 }

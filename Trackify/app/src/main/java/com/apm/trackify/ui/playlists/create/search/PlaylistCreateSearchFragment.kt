@@ -32,7 +32,7 @@ class PlaylistCreateSearchFragment : Fragment() {
 
     private fun setupRecyclerView(recyclerView: RecyclerView) {
         val addTrackAdapter = TrackAddAdapter()
-        viewModel.getTracks().observe(viewLifecycleOwner) {
+        viewModel.tracks.observe(viewLifecycleOwner) {
             addTrackAdapter.submitList(it)
         }
 

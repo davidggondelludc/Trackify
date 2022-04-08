@@ -33,7 +33,7 @@ class UserFollowingFragment : Fragment() {
 
     private fun setupRecyclerView(recyclerView: RecyclerView) {
         val userFollowingAdapter = UserFollowingAdapter()
-        viewModel.getUsers().observe(viewLifecycleOwner) {
+        viewModel.users.observe(viewLifecycleOwner) {
             userFollowingAdapter.submitList(it)
         }
 

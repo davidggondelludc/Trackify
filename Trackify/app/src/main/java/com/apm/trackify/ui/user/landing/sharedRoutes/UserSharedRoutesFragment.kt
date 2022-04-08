@@ -9,11 +9,13 @@ import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.apm.trackify.databinding.UserSharedRoutesFragmentBinding
-import com.apm.trackify.util.maps.MapsUtil
-import com.google.android.gms.maps.*
-import com.google.android.gms.maps.model.LatLng
 import com.apm.trackify.ui.user.landing.sharedRoutes.view.adapter.UserSharedRouteAdapter
 import com.apm.trackify.ui.user.landing.sharedRoutes.view.model.UserSharedRoutesViewModel
+import com.apm.trackify.util.maps.MapsUtil
+import com.google.android.gms.maps.GoogleMap
+import com.google.android.gms.maps.OnMapReadyCallback
+import com.google.android.gms.maps.SupportMapFragment
+import com.google.android.gms.maps.model.LatLng
 
 class UserSharedRoutesFragment : Fragment(), OnMapReadyCallback {
 
@@ -36,7 +38,7 @@ class UserSharedRoutesFragment : Fragment(), OnMapReadyCallback {
 
     private fun setupRecyclerView(recyclerView: RecyclerView) {
         val routeAdapter = UserSharedRouteAdapter()
-        viewModel.getRoutes().observe(viewLifecycleOwner) {
+        viewModel.routes.observe(viewLifecycleOwner) {
             routeAdapter.submitList(it)
         }
 
@@ -48,7 +50,7 @@ class UserSharedRoutesFragment : Fragment(), OnMapReadyCallback {
         mapUtil = MapsUtil(googleMap, context)
         mapUtil.setDefaultSettings()
 
-        val coordinates = listOf<LatLng>(
+        val coordinates = listOf(
             LatLng(43.371023, -8.405215), LatLng(43.382825, -8.410223),
             LatLng(43.365160, -8.374968), LatLng(43.364100, -8.399088),
             LatLng(43.358961, -8.401851)

@@ -40,14 +40,14 @@ class PlaylistTracksFragment : Fragment() {
 
     private fun setupRecyclerView(recyclerView: RecyclerView) {
         val headerAdapter = HeaderAdapter()
-        viewModel.getPlaylist().observe(viewLifecycleOwner) {
+        viewModel.playlist.observe(viewLifecycleOwner) {
             headerAdapter.submit(it)
         }
 
         val trackAdapter = TrackAdapter()
 
         val footerAdapter = FooterAdapter()
-        viewModel.getTracks().observe(viewLifecycleOwner) {
+        viewModel.tracks.observe(viewLifecycleOwner) {
             trackAdapter.submitList(it)
             footerAdapter.submit(
                 generateFooter(

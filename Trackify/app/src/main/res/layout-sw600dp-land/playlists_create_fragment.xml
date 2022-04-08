@@ -35,12 +35,12 @@
                 style="@style/Widget.AppCompat.AutoCompleteTextView"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:backgroundTint="@color/white"
+                android:backgroundTint="@android:color/white"
                 android:backgroundTintMode="src_in"
                 android:hint="@string/form_title"
                 android:importantForAutofill="no"
                 android:inputType="textPersonName"
-                android:textColor="@color/white"
+                android:textColor="@android:color/white"
                 android:textSize="@dimen/playlists_create_text_size" />
 
             <TextView
@@ -49,7 +49,7 @@
                 android:layout_height="wrap_content"
                 android:paddingVertical="@dimen/playlists_create_layout_vertical_padding"
                 android:text="@string/form_duration"
-                android:textColor="@color/white"
+                android:textColor="@android:color/white"
                 android:textSize="@dimen/playlists_create_text_size" />
 
             <LinearLayout
@@ -67,7 +67,7 @@
                     android:inputType="number"
                     android:paddingHorizontal="@dimen/playlists_create_layout_horizontal_padding"
                     android:textAlignment="center"
-                    android:textColor="@color/white"
+                    android:textColor="@android:color/white"
                     android:textSize="@dimen/playlists_create_text_size" />
 
                 <TextView
@@ -75,7 +75,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/form_min"
-                    android:textColor="@color/white"
+                    android:textColor="@android:color/white"
                     android:textSize="@dimen/playlists_create_text_size" />
             </LinearLayout>
 
@@ -99,7 +99,7 @@
                     android:layout_height="wrap_content"
                     android:paddingHorizontal="@dimen/playlists_create_layout_horizontal_padding"
                     android:text="@string/form_selected_songs"
-                    android:textColor="@color/white"
+                    android:textColor="@android:color/white"
                     android:textSize="@dimen/playlists_create_text_size" />
 
                 <com.google.android.material.floatingactionbutton.FloatingActionButton
@@ -121,10 +121,8 @@
                 android:layout_height="match_parent"
                 android:background="?android:colorBackground"
                 android:paddingVertical="@dimen/playlists_create_layout_vertical_padding"
-                tools:itemCount="20"
+                tools:itemCount="10"
                 tools:listitem="@layout/playlists_track_drag_item" />
-
-
         </LinearLayout>
     </ScrollView>
 </androidx.coordinatorlayout.widget.CoordinatorLayout>
