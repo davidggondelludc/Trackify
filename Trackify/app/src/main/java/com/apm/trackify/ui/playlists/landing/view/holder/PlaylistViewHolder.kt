@@ -6,11 +6,10 @@ import com.apm.trackify.databinding.PlaylistsItemBinding
 import com.apm.trackify.model.domain.Playlist
 import com.apm.trackify.ui.playlists.landing.PlaylistsLandingFragmentDirections
 import com.apm.trackify.util.base.DelegateViewHolder
-import com.apm.trackify.util.extension.getQuantityString
 import com.apm.trackify.util.extension.loadFromURI
 import com.apm.trackify.util.extension.scaleOnTouch
 
-class PlaylistViewHolder(val binding: PlaylistsItemBinding) :
+class PlaylistViewHolder(override val binding: PlaylistsItemBinding) :
     DelegateViewHolder<Playlist>(binding) {
 
     init {
@@ -26,6 +25,7 @@ class PlaylistViewHolder(val binding: PlaylistsItemBinding) :
 
         binding.cover.loadFromURI(item.imageUri, R.drawable.placeholder_playlist)
         binding.name.text = item.name
-        binding.totalTracks.getQuantityString(R.plurals.tracks, item.totalTracks, item.totalTracks)
+        binding.totalTracks.text =
+            resources.getQuantityString(R.plurals.tracks, item.totalTracks, item.totalTracks)
     }
 }

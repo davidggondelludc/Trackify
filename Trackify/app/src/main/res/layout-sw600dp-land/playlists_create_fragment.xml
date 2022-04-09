@@ -14,7 +14,7 @@
             android:id="@+id/toolbar"
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
-            app:menu="@menu/playlists_create_menu" />
+            app:menu="@menu/toolbar_playlists_create" />
     </com.google.android.material.appbar.AppBarLayout>
 
     <ScrollView

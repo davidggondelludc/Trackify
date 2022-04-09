@@ -6,7 +6,7 @@ import com.apm.trackify.model.domain.Playlist
 import com.apm.trackify.ui.routes.landing.RoutesLandingFragmentDirections
 import com.apm.trackify.util.base.DelegateViewHolder
 
-class PlaylistRouteViewHolder(private val binding: RoutesPlaylistsItemBinding) :
+class PlaylistRouteViewHolder(override val binding: RoutesPlaylistsItemBinding) :
     DelegateViewHolder<Playlist>(binding) {
 
     override fun bind(item: Playlist) {

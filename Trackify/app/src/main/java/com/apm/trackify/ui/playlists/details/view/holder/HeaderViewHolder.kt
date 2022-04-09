@@ -7,7 +7,7 @@ import com.apm.trackify.util.base.DelegateViewHolder
 import com.apm.trackify.util.extension.loadFromURI
 import com.apm.trackify.util.extension.toast
 
-class HeaderViewHolder(private val binding: PlaylistsTrackHeaderItemBinding) :
+class HeaderViewHolder(override val binding: PlaylistsTrackHeaderItemBinding) :
     DelegateViewHolder<Playlist>(binding) {
 
     override fun bind(item: Playlist) {

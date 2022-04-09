@@ -5,7 +5,7 @@ import com.apm.trackify.model.domain.User
 import com.apm.trackify.util.base.DelegateViewHolder
 import com.apm.trackify.util.extension.toast
 
-class UserFollowingViewHolder(val binding: UserFollowingItemBinding) :
+class UserFollowingViewHolder(override val binding: UserFollowingItemBinding) :
     DelegateViewHolder<User>(binding) {
 
     init {

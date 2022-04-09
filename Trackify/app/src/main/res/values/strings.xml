@@ -55,6 +55,8 @@
     <!-- routes landing -->
     <string name="create_route_menu">Create route</string>
 
+    <string name="popup_play">Play</string>
+
     <!-- plurals -->
     <plurals name="tracks">
         <item quantity="one">%d track</item>

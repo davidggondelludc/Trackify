@@ -5,7 +5,7 @@ import com.apm.trackify.model.domain.Route
 import com.apm.trackify.util.base.DelegateViewHolder
 import com.apm.trackify.util.extension.toast
 
-class UserSharedRouteViewHolder(val binding: UserSharedRouteItemBinding) :
+class UserSharedRouteViewHolder(override val binding: UserSharedRouteItemBinding) :
     DelegateViewHolder<Route>(binding) {
 
     init {

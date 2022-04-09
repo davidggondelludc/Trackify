@@ -9,7 +9,7 @@ import com.apm.trackify.util.extension.scaleOnTouch
 import com.apm.trackify.util.extension.toast
 import com.apm.trackify.util.extension.toggleVisibility
 
-class TrackAddViewHolder(private val binding: PlaylistsTrackAddItemBinding) :
+class TrackAddViewHolder(override val binding: PlaylistsTrackAddItemBinding) :
     DelegateViewHolder<Track>(binding) {
 
     init {

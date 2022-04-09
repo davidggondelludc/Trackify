@@ -8,7 +8,7 @@ import com.apm.trackify.util.base.DelegateViewHolder
 import com.apm.trackify.util.extension.*
 
 class TrackDragViewHolder(
-    private val binding: PlaylistsTrackDragItemBinding,
+    override val binding: PlaylistsTrackDragItemBinding,
     itemTouchHelper: ItemTouchHelper
 ) : DelegateViewHolder<Track>(binding) {
 

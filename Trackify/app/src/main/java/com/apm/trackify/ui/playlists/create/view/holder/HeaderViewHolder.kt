@@ -6,7 +6,7 @@ import com.apm.trackify.model.domain.Playlist
 import com.apm.trackify.ui.playlists.create.PlaylistCreateFragmentDirections
 import com.apm.trackify.util.base.DelegateViewHolder
 
-class HeaderViewHolder(private val binding: PlaylistsCreateHeaderBinding) :
+class HeaderViewHolder(override val binding: PlaylistsCreateHeaderBinding) :
     DelegateViewHolder<Playlist>(binding) {
 
     override fun bind(item: Playlist) {

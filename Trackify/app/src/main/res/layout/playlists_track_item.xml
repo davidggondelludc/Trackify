@@ -63,7 +63,7 @@
         android:layout_width="wrap_content"
         android:layout_height="0dp"
         android:background="?attr/selectableItemBackgroundBorderless"
-        android:contentDescription="@string/track_drag_description"
+        android:contentDescription="@string/track_more_description"
         android:padding="12dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
