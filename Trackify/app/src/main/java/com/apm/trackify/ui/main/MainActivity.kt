@@ -12,10 +12,9 @@ import androidx.navigation.ui.navigateUp
 import androidx.navigation.ui.setupWithNavController
 import com.apm.trackify.R
 import com.apm.trackify.databinding.ActivityMainBinding
-import com.google.firebase.FirebaseApp
-import com.google.firebase.FirebaseOptions
+import com.apm.trackify.service.FirebaseService
+import com.google.android.gms.tasks.OnFailureListener
 import dagger.hilt.android.AndroidEntryPoint
-import java.io.FileInputStream
 
 
 @AndroidEntryPoint
@@ -23,6 +22,7 @@ class MainActivity : AppCompatActivity() {
 
     private lateinit var navController: NavController
     private lateinit var appBarConfiguration: AppBarConfiguration
+    private var firebaseService = FirebaseService()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         // Handle the splash screen transition and must be called before super.onCreate()
@@ -47,20 +47,12 @@ class MainActivity : AppCompatActivity() {
         appBarConfiguration = AppBarConfiguration(navController.graph)
 
         binding.bottomNavigation.setupWithNavController(navController)
+
+        firebaseService.createNewUser("usuario", "token", OnFailureListener {  })
+        firebaseService.createNewRoute("usuario","playlist", "coordinates", "nuevaurl")
     }
 
     override fun onSupportNavigateUp(): Boolean {
         return navController.navigateUp(appBarConfiguration)
-    }
-
-    private fun firebaseInit() {
-
-        val serviceAccount = FileInputStream("path/to/serviceAccountKey.json")
-
-        //val options = FirebaseOptions.Builder().
-        //val options: FirebaseOptions = FirebaseOptions.Builder().setCredentials(GoogleCredentials.fromStream(serviceAccount)).build()
-
-        //FirebaseApp.initializeApp(options)
-
     }
 }
