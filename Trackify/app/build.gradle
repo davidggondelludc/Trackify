@@ -74,6 +74,8 @@ dependencies {
     implementation "androidx.recyclerview:recyclerview:$recyclerview_version"
     implementation "com.github.bumptech.glide:glide:$glide_version"
     implementation "com.google.android.gms:play-services-maps:$maps_version"
+    implementation platform("com.google.firebase:firebase-bom:$firebase_version")
+    implementation 'com.google.firebase:firebase-auth-ktx'
     //noinspection GradleDependency
     implementation "com.google.android.material:material:$material_version"
     implementation "com.google.dagger:hilt-android:$hilt_version"

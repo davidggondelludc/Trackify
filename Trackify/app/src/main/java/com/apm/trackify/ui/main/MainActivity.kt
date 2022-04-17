@@ -1,6 +1,7 @@
 package com.apm.trackify.ui.main
 
 import android.os.Bundle
+import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
@@ -9,8 +10,13 @@ import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.navigateUp
 import androidx.navigation.ui.setupWithNavController
+import com.apm.trackify.R
 import com.apm.trackify.databinding.ActivityMainBinding
+import com.google.firebase.FirebaseApp
+import com.google.firebase.FirebaseOptions
 import dagger.hilt.android.AndroidEntryPoint
+import java.io.FileInputStream
+
 
 @AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
@@ -30,6 +36,14 @@ class MainActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         navController = binding.navHostFragment.getFragment<NavHostFragment>().navController
+        navController.addOnDestinationChangedListener {_, destination, _ ->
+            when (destination.id) {
+                R.id.playlists_fragment -> binding.bottomNavigation.visibility = View.VISIBLE
+                R.id.routes_fragment -> binding.bottomNavigation.visibility = View.VISIBLE
+                R.id.user_fragment -> binding.bottomNavigation.visibility = View.VISIBLE
+                else -> binding.bottomNavigation.visibility = View.GONE
+            }
+        }
         appBarConfiguration = AppBarConfiguration(navController.graph)
 
         binding.bottomNavigation.setupWithNavController(navController)
@@ -37,5 +51,16 @@ class MainActivity : AppCompatActivity() {
 
     override fun onSupportNavigateUp(): Boolean {
         return navController.navigateUp(appBarConfiguration)
+    }
+
+    private fun firebaseInit() {
+
+        val serviceAccount = FileInputStream("path/to/serviceAccountKey.json")
+
+        //val options = FirebaseOptions.Builder().
+        //val options: FirebaseOptions = FirebaseOptions.Builder().setCredentials(GoogleCredentials.fromStream(serviceAccount)).build()
+
+        //FirebaseApp.initializeApp(options)
+
     }
 }

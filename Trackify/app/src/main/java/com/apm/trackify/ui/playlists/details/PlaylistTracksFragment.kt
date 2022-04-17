@@ -17,7 +17,9 @@ import com.apm.trackify.ui.playlists.details.view.adapter.HeaderAdapter
 import com.apm.trackify.ui.playlists.details.view.adapter.TrackAdapter
 import com.apm.trackify.ui.playlists.details.view.model.PlaylistTracksViewModel
 import com.apm.trackify.util.extension.setupToolbar
+import com.google.android.material.bottomnavigation.BottomNavigationView
 import dagger.hilt.android.AndroidEntryPoint
+import dagger.hilt.android.components.ViewWithFragmentComponent
 import java.util.concurrent.TimeUnit
 
 @AndroidEntryPoint
