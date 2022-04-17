@@ -24,9 +24,9 @@ class UserLandingFragment : Fragment() {
         setupToolbar(binding.toolbar)
 
         val widthDp = resources.displayMetrics.widthPixels / resources.displayMetrics.density
-        if (widthDp < 600) {
-            setupViewPager(binding)
-        }
+        //if (widthDp < 600) {
+        setupViewPager(binding)
+        //}
     }
 
     private fun setupViewPager(binding: UserLandingFragmentBinding) {
