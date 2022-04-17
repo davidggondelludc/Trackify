@@ -9,7 +9,6 @@
         android:id="@+id/routes_fragment"
         android:name="com.apm.trackify.ui.routes.landing.RoutesLandingFragment"
         tools:layout="@layout/routes_landing_fragment">
-
         <action
             android:id="@+id/to_route_create_fragment"
             app:destination="@+id/route_create_fragment"
@@ -17,7 +16,6 @@
             app:exitAnim="@anim/fade_out"
             app:popEnterAnim="@anim/fade_in"
             app:popExitAnim="@anim/fade_out" />
-
         <action
             android:id="@+id/to_playlist_track_fragment"
             app:destination="@+id/playlist_tracks_fragment"
@@ -36,7 +34,6 @@
         android:id="@+id/playlist_tracks_fragment"
         android:name="com.apm.trackify.ui.playlists.details.PlaylistTracksFragment"
         tools:layout="@layout/playlists_tracks_fragment">
-
         <argument
             android:name="playlist"
             app:argType="com.apm.trackify.model.domain.Playlist" />

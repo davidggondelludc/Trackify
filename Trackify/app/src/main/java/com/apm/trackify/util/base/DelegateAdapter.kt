@@ -10,4 +10,8 @@ abstract class DelegateAdapter<T, VH : DelegateViewHolder<T>>(diffCallback: Diff
         val item = getItem(position)
         holder.bind(item)
     }
+
+    fun submit(item: T) {
+        submitList(listOf(item))
+    }
 }

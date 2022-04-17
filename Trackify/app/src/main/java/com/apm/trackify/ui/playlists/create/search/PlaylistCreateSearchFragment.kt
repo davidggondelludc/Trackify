@@ -6,17 +6,16 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
-import androidx.recyclerview.widget.ConcatAdapter
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.apm.trackify.databinding.PlaylistsCreateSearchFragmentBinding
-import com.apm.trackify.ui.playlists.create.view.adapter.AddTrackAdapter
-import com.apm.trackify.ui.playlists.create.view.model.PlaylistCreateViewModel
+import com.apm.trackify.ui.playlists.create.search.view.adapter.TrackAddAdapter
+import com.apm.trackify.ui.playlists.create.search.view.model.PlaylistCreateSearchViewModel
 import com.apm.trackify.util.extension.setupToolbar
 
 class PlaylistCreateSearchFragment : Fragment() {
 
-    private val viewModel: PlaylistCreateViewModel by viewModels()
+    private val viewModel: PlaylistCreateSearchViewModel by viewModels()
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -28,22 +27,16 @@ class PlaylistCreateSearchFragment : Fragment() {
         val binding = PlaylistsCreateSearchFragmentBinding.bind(view)
 
         setupToolbar(binding.toolbar)
-
         setupRecyclerView(binding.rvSearchedSongs)
     }
 
     private fun setupRecyclerView(recyclerView: RecyclerView) {
-
-        val addTrackAdapter = AddTrackAdapter()
-
-        viewModel.getTracks().observe(viewLifecycleOwner) {
+        val addTrackAdapter = TrackAddAdapter()
+        viewModel.tracks.observe(viewLifecycleOwner) {
             addTrackAdapter.submitList(it)
         }
 
-        val concatAdapter = ConcatAdapter()
-        concatAdapter.addAdapter(addTrackAdapter)
-
-        recyclerView.adapter = concatAdapter
+        recyclerView.adapter = addTrackAdapter
         recyclerView.layoutManager = LinearLayoutManager(context)
     }
 }

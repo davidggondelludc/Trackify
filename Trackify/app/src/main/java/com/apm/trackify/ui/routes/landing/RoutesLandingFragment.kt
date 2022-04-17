@@ -11,8 +11,8 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.apm.trackify.R
 import com.apm.trackify.databinding.RoutesLandingFragmentBinding
-import com.apm.trackify.ui.routes.landing.view.model.RoutesLandingViewModel
 import com.apm.trackify.ui.routes.landing.view.adapter.PlaylistRouteAdapter
+import com.apm.trackify.ui.routes.landing.view.model.RoutesLandingViewModel
 import com.apm.trackify.util.extension.setupToolbar
 import com.apm.trackify.util.maps.MapsUtil
 import com.google.android.gms.maps.GoogleMap
@@ -52,7 +52,7 @@ class RoutesLandingFragment : Fragment(), OnMapReadyCallback {
 
     private fun setupRecyclerView(recyclerView: RecyclerView) {
         val playlistRoutesAdapter = PlaylistRouteAdapter()
-        viewModel.getPlaylists().observe(viewLifecycleOwner) {
+        viewModel.playlists.observe(viewLifecycleOwner) {
             playlistRoutesAdapter.submitList(it)
         }
 
