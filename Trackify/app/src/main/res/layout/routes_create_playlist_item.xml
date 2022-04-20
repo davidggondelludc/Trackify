@@ -18,11 +18,11 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:shapeAppearanceOverlay="@style/ShapeAppearanceOverlay.App.CornerSize10Percent"
-        app:srcCompat="@drawable/placeholder_track" />
+        tools:srcCompat="@drawable/placeholder_track" />
 
     <TextView
         android:id="@+id/name"
-        style="@style/Track.TextPrimary"
+        style="@style/Inline.TextPrimary"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"

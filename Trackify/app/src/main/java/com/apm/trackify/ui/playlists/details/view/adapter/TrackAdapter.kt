@@ -2,16 +2,18 @@ package com.apm.trackify.ui.playlists.details.view.adapter
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.recyclerview.widget.ListAdapter
+import com.apm.trackify.R
 import com.apm.trackify.databinding.PlaylistsTrackItemBinding
 import com.apm.trackify.model.diff.TrackDiffUtil
 import com.apm.trackify.model.domain.Track
-import com.apm.trackify.service.MediaServiceLifecycle
+import com.apm.trackify.service.media.MediaServiceLifecycle
 import com.apm.trackify.ui.playlists.details.view.holder.TrackViewHolder
-import com.apm.trackify.util.base.DelegateAdapter
-import com.apm.trackify.util.base.DelegateViewHolder
+import com.apm.trackify.util.extension.loadFromURI
+import com.apm.trackify.util.extension.toggleVisibility
 
-class TrackAdapter(private var mediaService: MediaServiceLifecycle) :
-    DelegateAdapter<Track, TrackViewHolder>(TrackDiffUtil()) {
+class TrackAdapter(private val mediaService: MediaServiceLifecycle) :
+    ListAdapter<Track, TrackViewHolder>(TrackDiffUtil()) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): TrackViewHolder {
         val inflater = LayoutInflater.from(parent.context)
@@ -20,11 +22,16 @@ class TrackAdapter(private var mediaService: MediaServiceLifecycle) :
         return TrackViewHolder(binding)
     }
 
-    override fun onBindViewHolder(holder: DelegateViewHolder<Track>, position: Int) {
-        super.onBindViewHolder(holder, position)
+    override fun onBindViewHolder(holder: TrackViewHolder, position: Int) {
+        val track = getItem(position)
+
+        holder.coverImageView.loadFromURI(track.imageUri, R.drawable.placeholder_track)
+        holder.nameTextView.text = track.name
+        holder.artistsTextView.text = track.artists
+        holder.explicitImageView.toggleVisibility(track.explicit, true)
 
         holder.itemView.setOnClickListener {
-            mediaService.play(getItem(position).previewUrl)
+            mediaService.play(track.previewUrl)
         }
     }
 }

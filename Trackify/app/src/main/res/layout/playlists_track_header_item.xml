@@ -16,7 +16,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/placeholder_playlist" />
+        tools:srcCompat="@drawable/placeholder_playlist" />
 
     <View
         android:layout_width="match_parent"
@@ -45,7 +45,7 @@
 
         <Button
             android:id="@+id/spotify"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/spotify_button" />
 
@@ -57,17 +57,24 @@
             android:textColor="?android:attr/textColorPrimary"
             tools:text="@tools:sample/lorem" />
 
-        <TextView
-            android:id="@+id/owner"
+        <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textColor="?android:attr/textColorPrimary"
-            tools:text="@tools:sample/lorem" />
+            android:orientation="horizontal">
 
-        <Button
-            android:id="@+id/unfollow"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/unfollow_button" />
+            <TextView
+                android:id="@+id/owner"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="?android:attr/textColorPrimary"
+                tools:text="@tools:sample/lorem" />
+
+            <Button
+                android:id="@+id/unfollow"
+                style="?attr/materialButtonOutlinedStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/unfollow_button" />
+        </LinearLayout>
     </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>
