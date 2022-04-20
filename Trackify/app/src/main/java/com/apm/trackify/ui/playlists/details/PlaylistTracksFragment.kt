@@ -11,6 +11,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.apm.trackify.R
 import com.apm.trackify.databinding.PlaylistsTracksFragmentBinding
+import com.apm.trackify.service.MediaServiceLifecycle
 import com.apm.trackify.ui.playlists.details.listener.ParallaxListener
 import com.apm.trackify.ui.playlists.details.view.adapter.FooterAdapter
 import com.apm.trackify.ui.playlists.details.view.adapter.HeaderAdapter
@@ -19,10 +20,13 @@ import com.apm.trackify.ui.playlists.details.view.model.PlaylistTracksViewModel
 import com.apm.trackify.util.extension.setupToolbar
 import dagger.hilt.android.AndroidEntryPoint
 import java.util.concurrent.TimeUnit
+import javax.inject.Inject
 
 @AndroidEntryPoint
 class PlaylistTracksFragment : Fragment() {
 
+    @Inject
+    lateinit var mediaServiceLifecycle: MediaServiceLifecycle
     private val viewModel: PlaylistTracksViewModel by viewModels()
 
     override fun onCreateView(
@@ -32,6 +36,8 @@ class PlaylistTracksFragment : Fragment() {
     ): View = PlaylistsTracksFragmentBinding.inflate(inflater, container, false).root
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        viewLifecycleOwner.lifecycle.addObserver(mediaServiceLifecycle)
+
         val binding = PlaylistsTracksFragmentBinding.bind(view)
 
         setupToolbar(binding.toolbar)
@@ -44,7 +50,7 @@ class PlaylistTracksFragment : Fragment() {
             headerAdapter.submit(it)
         }
 
-        val trackAdapter = TrackAdapter()
+        val trackAdapter = TrackAdapter(mediaServiceLifecycle)
 
         val footerAdapter = FooterAdapter()
         viewModel.tracks.observe(viewLifecycleOwner) {

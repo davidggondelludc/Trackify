@@ -18,13 +18,11 @@ class TrackViewHolder(override val binding: PlaylistsTrackItemBinding) :
     }
 
     override fun bind(item: Track) {
-        // TODO: replace toast with track playback
-        binding.root.setOnClickListener { it.context.toast("PLAYBACK ${item.name}") }
-
         binding.cover.loadFromURI(item.imageUri, R.drawable.placeholder_track)
         binding.name.text = item.name
         binding.artists.text = item.artists
         binding.explicit.toggleVisibility(item.explicit, true)
+
         binding.more.setOnClickListener {
             val popupMenu = PopupMenu(itemView.context, binding.more)
             popupMenu.menuInflater.inflate(R.menu.popup_track, popupMenu.menu)
