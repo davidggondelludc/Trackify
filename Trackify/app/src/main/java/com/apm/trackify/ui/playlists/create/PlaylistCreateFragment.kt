@@ -13,11 +13,17 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.apm.trackify.R
 import com.apm.trackify.databinding.PlaylistsCreateFragmentBinding
+import com.apm.trackify.model.service.SpotifyApi
 import com.apm.trackify.ui.playlists.create.listener.DragSwipeCallback
 import com.apm.trackify.ui.playlists.create.view.adapter.HeaderAdapter
 import com.apm.trackify.ui.playlists.create.view.adapter.TrackDragAdapter
 import com.apm.trackify.ui.playlists.create.view.model.PlaylistCreateViewModel
 import com.apm.trackify.util.extension.setupToolbar
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import retrofit2.Retrofit
+import retrofit2.converter.gson.GsonConverterFactory
 
 class PlaylistCreateFragment : Fragment() {
 
