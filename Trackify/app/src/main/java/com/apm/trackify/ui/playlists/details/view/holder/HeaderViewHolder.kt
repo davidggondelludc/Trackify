@@ -15,8 +15,6 @@ class HeaderViewHolder(override val binding: PlaylistsTrackHeaderItemBinding) :
         binding.name.text = item.name
         binding.owner.text = item.owner
 
-        // TODO: replace toasts with correct interaction
-        binding.spotify.setOnClickListener { it.context.toast("GO TO SPOTIFY") }
         binding.unfollow.setOnClickListener { it.context.toast("UNFOLLOW") }
     }
 }

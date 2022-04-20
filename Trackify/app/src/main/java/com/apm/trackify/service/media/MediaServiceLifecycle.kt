@@ -1,4 +1,4 @@
-package com.apm.trackify.service
+package com.apm.trackify.service.media
 
 import android.media.MediaPlayer
 import androidx.lifecycle.DefaultLifecycleObserver

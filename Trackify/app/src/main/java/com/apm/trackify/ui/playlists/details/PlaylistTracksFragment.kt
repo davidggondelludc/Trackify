@@ -11,16 +11,14 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.apm.trackify.R
 import com.apm.trackify.databinding.PlaylistsTracksFragmentBinding
-import com.apm.trackify.service.MediaServiceLifecycle
+import com.apm.trackify.service.media.MediaServiceLifecycle
 import com.apm.trackify.ui.playlists.details.listener.ParallaxListener
 import com.apm.trackify.ui.playlists.details.view.adapter.FooterAdapter
 import com.apm.trackify.ui.playlists.details.view.adapter.HeaderAdapter
 import com.apm.trackify.ui.playlists.details.view.adapter.TrackAdapter
 import com.apm.trackify.ui.playlists.details.view.model.PlaylistTracksViewModel
 import com.apm.trackify.util.extension.setupToolbar
-import com.google.android.material.bottomnavigation.BottomNavigationView
 import dagger.hilt.android.AndroidEntryPoint
-import dagger.hilt.android.components.ViewWithFragmentComponent
 import java.util.concurrent.TimeUnit
 import javax.inject.Inject
 

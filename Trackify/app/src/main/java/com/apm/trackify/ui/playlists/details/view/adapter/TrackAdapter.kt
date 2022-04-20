@@ -5,7 +5,7 @@ import android.view.ViewGroup
 import com.apm.trackify.databinding.PlaylistsTrackItemBinding
 import com.apm.trackify.model.diff.TrackDiffUtil
 import com.apm.trackify.model.domain.Track
-import com.apm.trackify.service.MediaServiceLifecycle
+import com.apm.trackify.service.media.MediaServiceLifecycle
 import com.apm.trackify.ui.playlists.details.view.holder.TrackViewHolder
 import com.apm.trackify.util.base.DelegateAdapter
 import com.apm.trackify.util.base.DelegateViewHolder
