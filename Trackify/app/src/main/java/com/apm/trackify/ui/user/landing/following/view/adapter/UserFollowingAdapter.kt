@@ -7,7 +7,6 @@ import com.apm.trackify.databinding.UserFollowingItemBinding
 import com.apm.trackify.model.diff.UserDiffUtil
 import com.apm.trackify.model.domain.User
 import com.apm.trackify.ui.user.landing.following.view.holder.UserFollowingViewHolder
-import com.apm.trackify.util.base.DelegateAdapter
 import com.apm.trackify.util.extension.toast
 
 class UserFollowingAdapter() : ListAdapter<User, UserFollowingViewHolder>(UserDiffUtil()) {

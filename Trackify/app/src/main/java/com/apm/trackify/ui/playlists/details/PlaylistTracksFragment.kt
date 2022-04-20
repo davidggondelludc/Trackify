@@ -55,10 +55,12 @@ class PlaylistTracksFragment : Fragment() {
         val footerAdapter = FooterAdapter()
         viewModel.tracks.observe(viewLifecycleOwner) {
             trackAdapter.submitList(it)
-            footerAdapter.submit(
-                generateFooter(
-                    it.size,
-                    it.sumOf { track -> track.duration }.toLong()
+            footerAdapter.submitList(
+                listOf(
+                    generateFooter(
+                        it.size,
+                        it.sumOf { track -> track.duration }.toLong()
+                    )
                 )
             )
         }
