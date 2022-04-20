@@ -47,7 +47,7 @@ class PlaylistTracksFragment : Fragment() {
     private fun setupRecyclerView(recyclerView: RecyclerView) {
         val headerAdapter = HeaderAdapter()
         viewModel.playlist.observe(viewLifecycleOwner) {
-            headerAdapter.submit(it)
+            headerAdapter.submitList(listOf(it))
         }
 
         val trackAdapter = TrackAdapter(mediaServiceLifecycle)

@@ -1,20 +1,14 @@
 package com.apm.trackify.ui.playlists.details.view.holder
 
-import com.apm.trackify.R
+import androidx.recyclerview.widget.RecyclerView
 import com.apm.trackify.databinding.PlaylistsTrackHeaderItemBinding
-import com.apm.trackify.model.domain.Playlist
-import com.apm.trackify.util.base.DelegateViewHolder
-import com.apm.trackify.util.extension.loadFromURI
-import com.apm.trackify.util.extension.toast
 
-class HeaderViewHolder(override val binding: PlaylistsTrackHeaderItemBinding) :
-    DelegateViewHolder<Playlist>(binding) {
+class HeaderViewHolder(val binding: PlaylistsTrackHeaderItemBinding) :
+    RecyclerView.ViewHolder(binding.root) {
 
-    override fun bind(item: Playlist) {
-        binding.cover.loadFromURI(item.imageUri, R.drawable.placeholder_playlist)
-        binding.name.text = item.name
-        binding.owner.text = item.owner
-
-        binding.unfollow.setOnClickListener { it.context.toast("UNFOLLOW") }
-    }
+    val coverImageView = binding.cover
+    val nameTextView = binding.name
+    val ownerTextView = binding.owner
+    val spotifyButton = binding.spotify
+    val unfollowButton = binding.unfollow
 }
