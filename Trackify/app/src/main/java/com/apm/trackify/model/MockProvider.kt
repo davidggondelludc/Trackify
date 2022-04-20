@@ -11,8 +11,8 @@ object MockProvider {
     val routes = List(20) {
         Route(
             "1",
-            "Playlist $it",
-            3
+            "Route $it",
+            it
         )
     }
 

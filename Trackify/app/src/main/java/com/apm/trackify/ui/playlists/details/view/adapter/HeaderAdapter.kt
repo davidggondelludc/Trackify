@@ -31,8 +31,7 @@ class HeaderAdapter : ListAdapter<Playlist, HeaderViewHolder>(PlaylistDiffUtil()
         holder.ownerTextView.text = playlist.owner
 
         holder.spotifyButton.setOnClickListener {
-            val intent = Intent(Intent.ACTION_VIEW)
-            intent.data = Uri.parse(playlist.playlistUri)
+            val intent = Intent(Intent.ACTION_VIEW, Uri.parse(playlist.playlistUri))
             startActivity(holder.itemView.context, intent, null)
         }
 

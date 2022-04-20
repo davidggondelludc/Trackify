@@ -19,17 +19,16 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:shapeAppearanceOverlay="@style/ShapeAppearanceOverlay.App.CornerSize10Percent"
-        app:srcCompat="@drawable/placeholder_track" />
+        tools:srcCompat="@drawable/placeholder_track" />
 
     <TextView
         android:id="@+id/name"
-        style="@style/Track.TextPrimary"
+        style="@style/Inline.TextPrimary"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
-        android:layout_marginEnd="4dp"
         app:layout_constraintBottom_toTopOf="@+id/artists"
-        app:layout_constraintEnd_toStartOf="@+id/more"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/cover"
         app:layout_constraintTop_toTopOf="@+id/cover"
         tools:text="@tools:sample/lorem" />
@@ -46,27 +45,14 @@
 
     <TextView
         android:id="@+id/artists"
-        style="@style/Track.TextSecondary"
+        style="@style/Inline.TextSecondary"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="4dp"
-        android:layout_marginEnd="4dp"
         app:layout_constraintBottom_toBottomOf="@+id/cover"
-        app:layout_constraintEnd_toStartOf="@+id/more"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/explicit"
         app:layout_constraintTop_toBottomOf="@+id/name"
         app:layout_goneMarginStart="0dp"
         tools:text="@tools:sample/lorem" />
-
-    <ImageButton
-        android:id="@+id/more"
-        android:layout_width="wrap_content"
-        android:layout_height="0dp"
-        android:background="?attr/selectableItemBackgroundBorderless"
-        android:contentDescription="@string/track_more_description"
-        android:padding="12dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/ic_more" />
 </androidx.constraintlayout.widget.ConstraintLayout>
