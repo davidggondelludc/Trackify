@@ -7,6 +7,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import com.apm.trackify.databinding.LoginActivityBinding
 import com.apm.trackify.ui.main.MainActivity
+import com.apm.trackify.ui.main.MainApplication
 import com.spotify.sdk.android.auth.AuthorizationClient
 import com.spotify.sdk.android.auth.AuthorizationRequest
 import com.spotify.sdk.android.auth.AuthorizationResponse
@@ -62,7 +63,7 @@ class LoginActivity : AppCompatActivity() {
             val response = AuthorizationClient.getResponse(resultCode, data)
             if (response.type == AuthorizationResponse.Type.TOKEN) {
                 val intent = Intent(this, MainActivity::class.java)
-                intent.putExtra("token", response.accessToken)
+                MainApplication.TOKEN = response.accessToken
                 startActivity(intent)
                 finish()
             }

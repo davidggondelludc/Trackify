@@ -13,7 +13,6 @@ import com.apm.trackify.databinding.ActivityMainBinding
 import com.google.firebase.FirebaseApp
 import dagger.hilt.android.AndroidEntryPoint
 
-
 @AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
 

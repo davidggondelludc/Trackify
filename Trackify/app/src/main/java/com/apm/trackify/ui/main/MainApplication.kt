@@ -10,6 +10,10 @@ import dagger.hilt.android.HiltAndroidApp
 @HiltAndroidApp
 class MainApplication : Application() {
 
+    companion object {
+        var TOKEN: String? = null
+    }
+
     override fun onCreate() {
         super.onCreate()
 
