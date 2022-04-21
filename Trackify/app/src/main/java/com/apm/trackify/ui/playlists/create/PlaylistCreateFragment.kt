@@ -4,22 +4,29 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.appcompat.widget.Toolbar
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
-import androidx.navigation.findNavController
 import androidx.navigation.fragment.findNavController
-import androidx.navigation.ui.AppBarConfiguration
-import androidx.navigation.ui.setupWithNavController
 import androidx.recyclerview.widget.ConcatAdapter
+import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.apm.trackify.R
 import com.apm.trackify.databinding.PlaylistsCreateFragmentBinding
-import com.apm.trackify.ui.playlists.create.view.adapter.AddTrackAdapter
+import com.apm.trackify.service.media.MediaServiceLifecycle
+import com.apm.trackify.ui.playlists.create.listener.DragSwipeCallback
+import com.apm.trackify.ui.playlists.create.view.adapter.HeaderAdapter
+import com.apm.trackify.ui.playlists.create.view.adapter.TrackDragAdapter
 import com.apm.trackify.ui.playlists.create.view.model.PlaylistCreateViewModel
+import com.apm.trackify.util.extension.setupToolbar
+import dagger.hilt.android.AndroidEntryPoint
+import javax.inject.Inject
 
+@AndroidEntryPoint
 class PlaylistCreateFragment : Fragment() {
+
+    @Inject
+    lateinit var mediaServiceLifecycle: MediaServiceLifecycle
     private val viewModel: PlaylistCreateViewModel by viewModels()
 
     override fun onCreateView(
@@ -29,56 +36,39 @@ class PlaylistCreateFragment : Fragment() {
     ): View = PlaylistsCreateFragmentBinding.inflate(inflater, container, false).root
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        viewLifecycleOwner.lifecycle.addObserver(mediaServiceLifecycle)
+
         val binding = PlaylistsCreateFragmentBinding.bind(view)
 
         setupToolbar(binding.toolbar)
-
-        binding.formSearchButton.setOnClickListener {
-            val navController = it.findNavController()
-            val action = PlaylistCreateFragmentDirections.toPlaylistCreateSearchFragment()
-            navController.navigate(action)
-        }
-
-        setupRecyclerView(binding.rvSelectedSongs)
-    }
-
-    private fun setupToolbar(toolbar: Toolbar) {
-        val navController = findNavController()
-        val appBarConfiguration = AppBarConfiguration(
-            setOf(
-                R.id.playlists_fragment,
-                R.id.routes_fragment,
-                R.id.user_fragment
-            )
-        )
-
-        toolbar.setupWithNavController(navController, appBarConfiguration)
-        toolbar.setOnMenuItemClickListener{
+        binding.toolbar.setOnMenuItemClickListener {
             when (it.itemId) {
                 R.id.savePlaylist -> {
+                    val navController = findNavController()
                     navController.navigateUp()
                 }
             }
             true
         }
+        setupRecyclerView(binding.rvSelectedSongs)
     }
 
     private fun setupRecyclerView(recyclerView: RecyclerView) {
-        /*val callback = ItemTouchHelperCallback(viewModel)
-        val itemTouchHelper = ItemTouchHelper(callback)
-        itemTouchHelper.attachToRecyclerView(recyclerView)
-*/
-
-        val trackAdapter = AddTrackAdapter()
-
-        viewModel.getTracks().observe(viewLifecycleOwner) {
-            trackAdapter.submitList(it)
+        val headerAdapter = HeaderAdapter()
+        viewModel.playlist.observe(viewLifecycleOwner) {
+            headerAdapter.submitList(listOf(it))
         }
 
-        val concatAdapter = ConcatAdapter()
-        concatAdapter.addAdapter(trackAdapter)
+        val callback = DragSwipeCallback(viewModel)
+        val itemTouchHelper = ItemTouchHelper(callback)
+        itemTouchHelper.attachToRecyclerView(recyclerView)
 
-        recyclerView.adapter = concatAdapter
+        val trackDragAdapter = TrackDragAdapter(itemTouchHelper, mediaServiceLifecycle)
+        viewModel.tracks.observe(viewLifecycleOwner) {
+            trackDragAdapter.submitList(it)
+        }
+
+        recyclerView.adapter = ConcatAdapter(headerAdapter, trackDragAdapter)
         recyclerView.layoutManager = LinearLayoutManager(context)
     }
 }

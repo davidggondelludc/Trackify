@@ -18,6 +18,9 @@
     <dimen name="track_text_size_primary">13dp</dimen>
     <dimen name="track_text_size_secondary">11dp</dimen>
 
+    <!-- route -->
+    <dimen name="route_cover_padding">10dp</dimen>
+
     <!-- playlists create layout -->
     <dimen name="playlists_create_layout_padding">16dp</dimen>
     <dimen name="playlists_create_search_layout_padding_bottom">16dp</dimen>
@@ -32,4 +35,9 @@
     <dimen name="playlists_landing_layout_vertical_padding">16dp</dimen>
     <dimen name="playlists_landing_text_size_title">16sp</dimen>
     <dimen name="playlists_landing_text_size_subtitle">14sp</dimen>
+
+    <!-- users landing layout -->
+    <dimen name="user_username_title">20dp</dimen>
+    <dimen name="user_username_followers">12dp</dimen>
+    <dimen name="user_mapview_height">200dp</dimen>
 </resources>

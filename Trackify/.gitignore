@@ -31,7 +31,10 @@ build/
 .navigation
 captures/
 output.json 
-     
+
+#Firebase api key
+app/google-services.json
+
 #NDK
 obj/
 .externalNativeBuild

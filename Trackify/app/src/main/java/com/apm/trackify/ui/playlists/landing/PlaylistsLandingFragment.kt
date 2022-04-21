@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
@@ -11,9 +12,18 @@ import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.apm.trackify.R
 import com.apm.trackify.databinding.PlaylistsLandingFragmentBinding
+import com.apm.trackify.model.service.PlaylistsMapper
+import com.apm.trackify.model.service.SpotifyApi
 import com.apm.trackify.ui.playlists.landing.view.adapter.PlaylistAdapter
 import com.apm.trackify.ui.playlists.landing.view.model.PlaylistsLandingViewModel
 import com.apm.trackify.util.extension.setupToolbar
+import com.apm.trackify.util.extension.toast
+import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import retrofit2.Retrofit
+import retrofit2.converter.gson.GsonConverterFactory
 
 class PlaylistsLandingFragment : Fragment() {
 
@@ -39,19 +49,20 @@ class PlaylistsLandingFragment : Fragment() {
             }
             true
         }
-
         setupRecyclerView(binding.playlists)
     }
 
     private fun setupRecyclerView(recyclerView: RecyclerView) {
         val playlistsAdapter = PlaylistAdapter()
-        viewModel.getPlaylists().observe(viewLifecycleOwner) {
+        viewModel.playlists.observe(viewLifecycleOwner) {
             playlistsAdapter.submitList(it)
         }
 
+        viewModel.errorMessage.observe(viewLifecycleOwner) {
+            context?.toast(it)
+        }
+
         recyclerView.adapter = playlistsAdapter
-        recyclerView.layoutManager = GridLayoutManager(
-            context, 2, RecyclerView.VERTICAL, false
-        )
+        recyclerView.layoutManager = GridLayoutManager(context, 2, RecyclerView.VERTICAL, false)
     }
 }

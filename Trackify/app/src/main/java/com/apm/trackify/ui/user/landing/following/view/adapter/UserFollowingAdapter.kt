@@ -7,6 +7,7 @@ import com.apm.trackify.databinding.UserFollowingItemBinding
 import com.apm.trackify.model.diff.UserDiffUtil
 import com.apm.trackify.model.domain.User
 import com.apm.trackify.ui.user.landing.following.view.holder.UserFollowingViewHolder
+import com.apm.trackify.util.extension.toast
 
 class UserFollowingAdapter() : ListAdapter<User, UserFollowingViewHolder>(UserDiffUtil()) {
 
@@ -18,7 +19,13 @@ class UserFollowingAdapter() : ListAdapter<User, UserFollowingViewHolder>(UserDi
     }
 
     override fun onBindViewHolder(holder: UserFollowingViewHolder, position: Int) {
-        val item = getItem(position)
-        holder.bind(item)
+        val user = getItem(position)
+
+        holder.nameTextView.text = user.userName
+        holder.sharedPlaylistsTextView.text = "${user.routes.size} shared playlists"
+
+        holder.itemView.setOnClickListener {
+            it.context.toast("Go to user profile")
+        }
     }
 }

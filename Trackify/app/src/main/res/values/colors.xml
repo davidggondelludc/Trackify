@@ -5,8 +5,6 @@
     <color name="green_blue_crayola">#2886D7</color>
     <color name="tufts_blue">#3C91DB</color>
     <color name="raisin_black">#262833</color>
-    <color name="black">#000000</color>
-    <color name="white">#FFFFFFFF</color>
     <color name="success">#38EE1C</color>
     <color name="cover_tint">#262626</color>
 </resources>

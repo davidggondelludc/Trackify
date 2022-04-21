@@ -7,11 +7,19 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.viewpager2.widget.ViewPager2
 import com.apm.trackify.databinding.UserLandingFragmentBinding
-import com.apm.trackify.ui.user.landing.TabLayoutPagerAdapter
+import com.apm.trackify.service.FirebaseService
 import com.apm.trackify.util.extension.setupToolbar
 import com.google.android.material.tabs.TabLayout
+import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
+import javax.inject.Inject
 
 class UserLandingFragment : Fragment() {
+
+    private val firebaseService: FirebaseService = FirebaseService()
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -23,11 +31,12 @@ class UserLandingFragment : Fragment() {
         val binding = UserLandingFragmentBinding.bind(view)
 
         setupToolbar(binding.toolbar)
-
         val widthDp = resources.displayMetrics.widthPixels / resources.displayMetrics.density
-        if (widthDp < 600) {
-            setupViewPager(binding)
-        }
+        //if (widthDp < 600) {
+        setupViewPager(binding)
+        //}
+        setupUserName(binding, "usuario")
+
     }
 
     private fun setupViewPager(binding: UserLandingFragmentBinding) {
@@ -43,7 +52,6 @@ class UserLandingFragment : Fragment() {
         })
 
         binding.tabLayout?.addOnTabSelectedListener(object : TabLayout.OnTabSelectedListener {
-
             override fun onTabSelected(tab: TabLayout.Tab) {
                 binding.viewPager2?.currentItem = tab.position
             }
@@ -54,4 +62,11 @@ class UserLandingFragment : Fragment() {
         })
     }
 
+    fun setupUserName(binding: UserLandingFragmentBinding, userName: String) {
+
+        val foundUser = firebaseService.getUser(userName) { user ->
+            binding.userName.text = user.userName
+            binding.userFollowers.text = "${user.followers.toString()} Followers"
+        }
+    }
 }

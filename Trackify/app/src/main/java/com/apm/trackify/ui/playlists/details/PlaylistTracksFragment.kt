@@ -7,12 +7,11 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.ConcatAdapter
-import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.apm.trackify.R
 import com.apm.trackify.databinding.PlaylistsTracksFragmentBinding
-import com.apm.trackify.ui.playlists.details.listener.DragSwipeCallback
+import com.apm.trackify.service.media.MediaServiceLifecycle
 import com.apm.trackify.ui.playlists.details.listener.ParallaxListener
 import com.apm.trackify.ui.playlists.details.view.adapter.FooterAdapter
 import com.apm.trackify.ui.playlists.details.view.adapter.HeaderAdapter
@@ -21,10 +20,13 @@ import com.apm.trackify.ui.playlists.details.view.model.PlaylistTracksViewModel
 import com.apm.trackify.util.extension.setupToolbar
 import dagger.hilt.android.AndroidEntryPoint
 import java.util.concurrent.TimeUnit
+import javax.inject.Inject
 
 @AndroidEntryPoint
 class PlaylistTracksFragment : Fragment() {
 
+    @Inject
+    lateinit var mediaServiceLifecycle: MediaServiceLifecycle
     private val viewModel: PlaylistTracksViewModel by viewModels()
 
     override fun onCreateView(
@@ -34,6 +36,8 @@ class PlaylistTracksFragment : Fragment() {
     ): View = PlaylistsTracksFragmentBinding.inflate(inflater, container, false).root
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        viewLifecycleOwner.lifecycle.addObserver(mediaServiceLifecycle)
+
         val binding = PlaylistsTracksFragmentBinding.bind(view)
 
         setupToolbar(binding.toolbar)
@@ -41,19 +45,15 @@ class PlaylistTracksFragment : Fragment() {
     }
 
     private fun setupRecyclerView(recyclerView: RecyclerView) {
-        val callback = DragSwipeCallback(viewModel)
-        val itemTouchHelper = ItemTouchHelper(callback)
-        itemTouchHelper.attachToRecyclerView(recyclerView)
-
         val headerAdapter = HeaderAdapter()
-        viewModel.getPlaylist().observe(viewLifecycleOwner) {
+        viewModel.playlist.observe(viewLifecycleOwner) {
             headerAdapter.submitList(listOf(it))
         }
 
-        val trackAdapter = TrackAdapter(itemTouchHelper)
+        val trackAdapter = TrackAdapter(mediaServiceLifecycle)
 
         val footerAdapter = FooterAdapter()
-        viewModel.getTracks().observe(viewLifecycleOwner) {
+        viewModel.tracks.observe(viewLifecycleOwner) {
             trackAdapter.submitList(it)
             footerAdapter.submitList(
                 listOf(

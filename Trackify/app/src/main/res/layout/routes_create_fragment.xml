@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    xmlns:tools="http://schemas.android.com/tools">
+    android:layout_height="match_parent">
 
     <com.google.android.material.appbar.AppBarLayout
         android:id="@+id/appBarLayout"
@@ -15,7 +15,7 @@
             android:id="@+id/toolbar"
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
-            app:menu="@menu/routes_create_menu" />
+            app:menu="@menu/toolbar_routes_create" />
     </com.google.android.material.appbar.AppBarLayout>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -23,16 +23,12 @@
         android:layout_height="match_parent"
         app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
-        <com.google.android.gms.maps.MapView
+        <androidx.fragment.app.FragmentContainerView
             android:id="@+id/mapView"
+            android:name="com.google.android.gms.maps.SupportMapFragment"
             android:layout_width="0dp"
-            android:layout_height="0dp"
-            android:layout_marginTop="8dp"
-            android:layout_marginStart="8dp"
-            android:layout_marginEnd="8dp"
-            android:layout_marginBottom="16dp"
-            android:background="@color/green_blue_crayola"
-            app:layout_constraintBottom_toTopOf="@+id/start_coordinates"
+            android:layout_height="256dp"
+            android:padding="16dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
@@ -41,7 +37,7 @@
             android:id="@+id/playlist_to_share_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
+            android:padding="8dp"
             android:text="@string/playlist_to_share_title"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -51,19 +47,19 @@
             android:id="@+id/start_coordinates"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="313dp"
             android:autofillHints="@string/start_hint"
             android:ems="10"
             android:inputType="text"
             android:labelFor="@id/start_title"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toBottomOf="@id/mapView" />
 
         <ImageButton
             android:id="@+id/pin_button"
             android:layout_width="wrap_content"
             android:layout_height="0dp"
+            android:padding="8dp"
             app:layout_constraintBottom_toBottomOf="@+id/start_coordinates"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@+id/start_coordinates"
@@ -74,6 +70,7 @@
             android:id="@+id/imgBtnEndRoute"
             android:layout_width="wrap_content"
             android:layout_height="0dp"
+            android:padding="8dp"
             app:layout_constraintBottom_toBottomOf="@+id/end_coordinates"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@+id/end_coordinates"
@@ -84,7 +81,7 @@
             android:id="@+id/end_coordinates"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
+            android:padding="8dp"
             android:autofillHints="@string/end_hint"
             android:ems="10"
             android:inputType="text"
@@ -97,34 +94,34 @@
             android:id="@+id/start_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="20dp"
             android:text="@string/start"
-            app:layout_constraintBaseline_toBaselineOf="@+id/start_coordinates"
-            app:layout_constraintStart_toStartOf="parent" />
+            app:layout_constraintBottom_toBottomOf="@+id/start_coordinates"
+            app:layout_constraintEnd_toStartOf="@+id/start_coordinates"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/mapView" />
 
         <TextView
             android:id="@+id/end_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="20dp"
             android:text="@string/end"
-            app:layout_constraintBaseline_toBaselineOf="@+id/end_coordinates"
-            app:layout_constraintStart_toStartOf="parent" />
+            app:layout_constraintBottom_toBottomOf="@+id/end_coordinates"
+            app:layout_constraintEnd_toStartOf="@+id/end_coordinates"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/start_coordinates" />
 
         <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rvUserPlaylistsInRoute"
             android:layout_width="0dp"
             android:layout_height="0dp"
-            android:layout_marginStart="8dp"
-            android:layout_marginTop="11dp"
-            android:layout_marginEnd="8dp"
-            android:background="@color/black"
             android:choiceMode="singleChoice"
+            android:padding="8dp"
             app:layout_behavior="@string/appbar_scrolling_view_behavior"
-            tools:itemCount="3"
-            tools:listitem="@layout/routes_create_playlist_item"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/playlist_to_share_title" />
+            app:layout_constraintTop_toBottomOf="@+id/playlist_to_share_title"
+            tools:itemCount="3"
+            tools:listitem="@layout/routes_create_playlist_item" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

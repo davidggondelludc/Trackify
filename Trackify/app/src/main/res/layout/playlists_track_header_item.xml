@@ -16,7 +16,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/placeholder_playlist" />
+        tools:srcCompat="@drawable/placeholder_playlist" />
 
     <View
         android:layout_width="match_parent"
@@ -35,7 +35,7 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@drawable/background_round_corner"
+        android:background="@drawable/placeholder_corner"
         android:orientation="vertical"
         android:paddingStart="@dimen/screen_margin_horizontal"
         android:paddingTop="12dp"
@@ -45,9 +45,14 @@
 
         <Button
             android:id="@+id/spotify"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/spotify_button" />
+            android:backgroundTint="#1D8954"
+            android:text="@string/spotify_button"
+            android:textAllCaps="false"
+            android:textColor="@android:color/white"
+            app:icon="@drawable/ic_spotify"
+            app:iconTint="@android:color/white" />
 
         <TextView
             android:id="@+id/name"
@@ -57,17 +62,24 @@
             android:textColor="?android:attr/textColorPrimary"
             tools:text="@tools:sample/lorem" />
 
-        <TextView
-            android:id="@+id/owner"
+        <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textColor="?android:attr/textColorPrimary"
-            tools:text="@tools:sample/lorem" />
+            android:orientation="horizontal">
 
-        <Button
-            android:id="@+id/unfollow"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/unfollow_button" />
+            <TextView
+                android:id="@+id/owner"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="?android:attr/textColorPrimary"
+                tools:text="@tools:sample/lorem" />
+
+            <Button
+                android:id="@+id/unfollow"
+                style="?attr/materialButtonOutlinedStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/unfollow_button" />
+        </LinearLayout>
     </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -3,8 +3,8 @@
     android:ordering="together">
     <objectAnimator
         android:propertyName="scaleX"
-        android:valueTo="1" />
+        android:valueTo="1.0" />
     <objectAnimator
         android:propertyName="scaleY"
-        android:valueTo="1" />
+        android:valueTo="1.0" />
 </set>
