@@ -15,6 +15,9 @@ import com.apm.trackify.databinding.ActivityMainBinding
 import com.apm.trackify.service.FirebaseService
 import com.google.android.gms.tasks.OnFailureListener
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.awaitAll
+import kotlinx.coroutines.launch
 
 
 @AndroidEntryPoint
@@ -22,7 +25,6 @@ class MainActivity : AppCompatActivity() {
 
     private lateinit var navController: NavController
     private lateinit var appBarConfiguration: AppBarConfiguration
-    private var firebaseService = FirebaseService()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         // Handle the splash screen transition and must be called before super.onCreate()
@@ -48,8 +50,11 @@ class MainActivity : AppCompatActivity() {
 
         binding.bottomNavigation.setupWithNavController(navController)
 
-        firebaseService.createNewUser("usuario", "token", OnFailureListener {  })
-        firebaseService.createNewRoute("usuario","playlist", "coordinates", "nuevaurl")
+//        FirebaseApp.initializeApp(/*context=*/this)
+//        val firebaseAppCheck = FirebaseAppCheck.getInstance()
+//        firebaseAppCheck.installAppCheckProviderFactory(
+//            DebugAppCheckProviderFactory.getInstance()
+//        )
     }
 
     override fun onSupportNavigateUp(): Boolean {
