@@ -11,11 +11,11 @@ import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.WriteBatch
 import kotlinx.coroutines.runBlocking
 import kotlinx.coroutines.tasks.await
+import java.net.UnknownServiceException
 import javax.inject.Inject
 import javax.inject.Singleton
 
-@Singleton
-class FirebaseService @Inject constructor() {
+class FirebaseService {
 
     private val db: FirebaseFirestore = FirebaseFirestore.getInstance()
 
@@ -122,21 +122,20 @@ class FirebaseService @Inject constructor() {
         return routeList
     }
 
-    suspend fun getUser(userName: String): User {
-        lateinit var user: User
+    fun getUser(userName: String, onSuccess: (User) -> Unit) {
 
         db.collection("users").document(userName).get().addOnSuccessListener { document ->
             val following = document.data?.get("following") as List<DocumentReference>
             val routes = document.data?.get("routes") as List<DocumentReference>
-            user = User(
-                document.id,
-                following.map { it.toString() },
-                routes.map { it.toString() },
-                document.data?.get("followers") as Long
+            onSuccess(
+                User(
+                    document.id,
+                    following.map { it.toString() },
+                    routes.map { it.toString() },
+                    document.data?.get("followers") as Long
+                )
             )
-        }.await()
-
-        return user
+        }
     }
 
     suspend fun findFollowingUsers(userName: String): MutableList<User> {
@@ -150,9 +149,19 @@ class FirebaseService @Inject constructor() {
                     docList.add(doc)
                 }
             }.await()
-
         for (doc in docList) {
-            userList.add(getUser(doc.id))
+            db.collection("users").document(doc.id).get().addOnSuccessListener { document ->
+                val following = document.data?.get("following") as List<DocumentReference>
+                val routes = document.data?.get("routes") as List<DocumentReference>
+                userList.add(
+                    User(
+                        document.id,
+                        following.map { it.toString() },
+                        routes.map { it.toString() },
+                        document.data?.get("followers") as Long
+                    )
+                )
+            }.await()
         }
 
         return userList

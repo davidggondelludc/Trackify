@@ -17,11 +17,9 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import javax.inject.Inject
 
-@AndroidEntryPoint
 class UserLandingFragment : Fragment() {
 
-    @Inject
-    lateinit var firebaseService: FirebaseService
+    private val firebaseService: FirebaseService = FirebaseService()
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -37,7 +35,7 @@ class UserLandingFragment : Fragment() {
         //if (widthDp < 600) {
         setupViewPager(binding)
         //}
-        setupUserName(binding,"usuario")
+        setupUserName(binding, "usuario")
 
     }
 
@@ -65,13 +63,10 @@ class UserLandingFragment : Fragment() {
     }
 
     fun setupUserName(binding: UserLandingFragmentBinding, userName: String) {
-        CoroutineScope(Dispatchers.IO).launch {
-            val foundUser = firebaseService.getUser(userName)
 
-            withContext(Dispatchers.Main) {
-                binding.userName.text = foundUser.userName
-                binding.userFollowers.text = "${foundUser.followers.toString()} Followers"
-            }
+        val foundUser = firebaseService.getUser(userName) { user ->
+            binding.userName.text = user.userName
+            binding.userFollowers.text = "${user.followers.toString()} Followers"
         }
     }
 }
