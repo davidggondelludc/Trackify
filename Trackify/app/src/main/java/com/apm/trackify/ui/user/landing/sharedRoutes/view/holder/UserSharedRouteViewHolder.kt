@@ -1,21 +1,18 @@
 package com.apm.trackify.ui.user.landing.sharedRoutes.view.holder
 
+import androidx.recyclerview.widget.RecyclerView
 import com.apm.trackify.databinding.UserSharedRouteItemBinding
-import com.apm.trackify.model.domain.Route
-import com.apm.trackify.util.base.DelegateViewHolder
-import com.apm.trackify.util.extension.toast
+import com.apm.trackify.util.extension.scaleOnTouch
 
-class UserSharedRouteViewHolder(override val binding: UserSharedRouteItemBinding) :
-    DelegateViewHolder<Route>(binding) {
+class UserSharedRouteViewHolder(val binding: UserSharedRouteItemBinding) :
+    RecyclerView.ViewHolder(binding.root) {
+
+    val coverImageView = binding.cover
+    val nameTextView = binding.name
+    val followersTextView = binding.followers
+    val moreButton = binding.more
 
     init {
-        binding.root.setOnClickListener { it.context.toast("Show map of the route") }
-        binding.sharedRouteItemShare.setOnClickListener { it.context.toast("Share playlist") }
-        binding.sharedRouteItemDelete.setOnClickListener { it.context.toast("Delete shared playlist") }
-    }
-
-    override fun bind(item: Route) {
-        binding.userPlaylist.text = item.title
-        binding.twPlaylistFollowers.text = "Followers ${item.followers}"
+        scaleOnTouch()
     }
 }

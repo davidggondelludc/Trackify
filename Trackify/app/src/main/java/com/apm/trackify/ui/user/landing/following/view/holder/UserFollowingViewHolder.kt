@@ -1,19 +1,16 @@
 package com.apm.trackify.ui.user.landing.following.view.holder
 
+import androidx.recyclerview.widget.RecyclerView
 import com.apm.trackify.databinding.UserFollowingItemBinding
-import com.apm.trackify.model.domain.User
-import com.apm.trackify.util.base.DelegateViewHolder
-import com.apm.trackify.util.extension.toast
+import com.apm.trackify.util.extension.scaleOnTouch
 
-class UserFollowingViewHolder(override val binding: UserFollowingItemBinding) :
-    DelegateViewHolder<User>(binding) {
+class UserFollowingViewHolder(val binding: UserFollowingItemBinding) :
+    RecyclerView.ViewHolder(binding.root) {
+
+    val nameTextView = binding.name
+    val sharedPlaylistsTextView = binding.sharedPlaylists
 
     init {
-        binding.imgBtnSeeUserFollowing.setOnClickListener { it.context.toast("Go to user profile") }
-    }
-
-    override fun bind(item: User) {
-        binding.tvUsename.text = item.name
-        binding.tvUserPlaylists.text = "${item.sharedPlaylists} shared playlists"
+        scaleOnTouch()
     }
 }

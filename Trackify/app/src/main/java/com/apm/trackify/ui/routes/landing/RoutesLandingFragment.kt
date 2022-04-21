@@ -64,7 +64,7 @@ class RoutesLandingFragment : Fragment(), OnMapReadyCallback {
         mapUtil = MapsUtil(googleMap, context)
         mapUtil.setDefaultSettings()
 
-        val coordinates = listOf<LatLng>(
+        val coordinates = listOf(
             LatLng(43.371023, -8.405215), LatLng(43.382825, -8.410223),
             LatLng(43.365160, -8.374968), LatLng(43.364100, -8.399088),
             LatLng(43.358961, -8.401851)

@@ -18,11 +18,11 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:shapeAppearanceOverlay="@style/ShapeAppearanceOverlay.App.CornerSize5Percent"
-        app:srcCompat="@drawable/placeholder_playlist" />
+        tools:srcCompat="@drawable/placeholder_playlist" />
 
     <TextView
         android:id="@+id/name"
-        style="@style/Playlist.TextPrimary"
+        style="@style/Mosaic.TextPrimary"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="6dp"
@@ -33,7 +33,7 @@
 
     <TextView
         android:id="@+id/totalTracks"
-        style="@style/Playlist.TextSecondary"
+        style="@style/Mosaic.TextSecondary"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         app:layout_constraintEnd_toEndOf="parent"

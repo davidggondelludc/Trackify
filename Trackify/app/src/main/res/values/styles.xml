@@ -38,37 +38,37 @@
     </style>
 
     <!-- item playlist -->
-    <style name="Playlist">
+    <style name="Mosaic">
         <item name="android:ellipsize">end</item>
         <item name="android:gravity">center</item>
     </style>
 
-    <style name="Playlist.TextPrimary">
+    <style name="Mosaic.TextPrimary">
         <item name="android:maxLines">2</item>
         <item name="android:textStyle">bold</item>
         <item name="android:textColor">?android:attr/textColorPrimary</item>
         <item name="android:textSize">@dimen/playlist_text_size_primary</item>
     </style>
 
-    <style name="Playlist.TextSecondary">
+    <style name="Mosaic.TextSecondary">
         <item name="android:maxLines">1</item>
         <item name="android:textColor">?android:attr/textColorSecondary</item>
         <item name="android:textSize">@dimen/playlist_text_size_secondary</item>
     </style>
 
     <!-- item track -->
-    <style name="Track">
+    <style name="Inline">
         <item name="android:maxLines">1</item>
         <item name="android:ellipsize">end</item>
         <item name="android:gravity">center_vertical</item>
     </style>
 
-    <style name="Track.TextPrimary">
+    <style name="Inline.TextPrimary">
         <item name="android:textColor">?android:attr/textColorPrimary</item>
         <item name="android:textSize">@dimen/track_text_size_primary</item>
     </style>
 
-    <style name="Track.TextSecondary">
+    <style name="Inline.TextSecondary">
         <item name="android:textColor">?android:attr/textColorSecondary</item>
         <item name="android:textSize">@dimen/track_text_size_secondary</item>
     </style>

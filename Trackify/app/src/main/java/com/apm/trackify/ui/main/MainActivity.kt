@@ -12,12 +12,7 @@ import androidx.navigation.ui.navigateUp
 import androidx.navigation.ui.setupWithNavController
 import com.apm.trackify.R
 import com.apm.trackify.databinding.ActivityMainBinding
-import com.apm.trackify.service.FirebaseService
-import com.google.android.gms.tasks.OnFailureListener
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.coroutines.GlobalScope
-import kotlinx.coroutines.awaitAll
-import kotlinx.coroutines.launch
 
 
 @AndroidEntryPoint
@@ -38,7 +33,7 @@ class MainActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         navController = binding.navHostFragment.getFragment<NavHostFragment>().navController
-        navController.addOnDestinationChangedListener {_, destination, _ ->
+        navController.addOnDestinationChangedListener { _, destination, _ ->
             when (destination.id) {
                 R.id.playlists_fragment -> binding.bottomNavigation.visibility = View.VISIBLE
                 R.id.routes_fragment -> binding.bottomNavigation.visibility = View.VISIBLE
@@ -46,18 +41,13 @@ class MainActivity : AppCompatActivity() {
                 else -> binding.bottomNavigation.visibility = View.GONE
             }
         }
-        appBarConfiguration = AppBarConfiguration(navController.graph)
 
         binding.bottomNavigation.setupWithNavController(navController)
-
-//        FirebaseApp.initializeApp(/*context=*/this)
-//        val firebaseAppCheck = FirebaseAppCheck.getInstance()
-//        firebaseAppCheck.installAppCheckProviderFactory(
-//            DebugAppCheckProviderFactory.getInstance()
-//        )
     }
 
     override fun onSupportNavigateUp(): Boolean {
+        val appBarConfiguration = AppBarConfiguration(navController.graph)
+
         return navController.navigateUp(appBarConfiguration)
     }
 }

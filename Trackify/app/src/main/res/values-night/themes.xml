@@ -17,8 +17,8 @@
         <!--        <item name="colorOnSurface">@color/md_theme_dark_onSurface</item>-->
 
         <!-- error color -->
-        <!--        <item name="colorError">@color/md_theme_dark_error</item>-->
-        <!--        <item name="colorOnError">@color/md_theme_dark_onError</item>-->
+        <!--                <item name="colorError">@color/md_theme_dark_error</item>-->
+        <!--                <item name="colorOnError">@android:color/holo_red_light</item>-->
 
         <!-- background color -->
         <item name="android:colorBackground">@color/raisin_black</item>
