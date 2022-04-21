@@ -47,7 +47,12 @@
             android:id="@+id/spotify"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/spotify_button" />
+            android:backgroundTint="#1D8954"
+            android:text="@string/spotify_button"
+            android:textAllCaps="false"
+            android:textColor="@android:color/white"
+            app:icon="@drawable/ic_spotify"
+            app:iconTint="@android:color/white" />
 
         <TextView
             android:id="@+id/name"

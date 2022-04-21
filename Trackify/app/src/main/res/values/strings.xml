@@ -24,6 +24,9 @@
     <string name="save">Save</string>
     <string name="delete">Delete</string>
 
+    <!-- login -->
+    <string name="login">Login with Spotify</string>
+
     <!-- bottom menu -->
     <string name="playlists_menu">Playlists</string>
     <string name="routes_menu">Explore</string>
