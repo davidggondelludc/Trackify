@@ -13,7 +13,9 @@ import androidx.navigation.ui.setupWithNavController
 import com.apm.trackify.R
 import com.apm.trackify.databinding.ActivityMainBinding
 import dagger.hilt.android.AndroidEntryPoint
-import java.io.FileInputStream
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 
 
 @AndroidEntryPoint
@@ -54,7 +56,7 @@ class MainActivity : AppCompatActivity() {
 
     private fun firebaseInit() {
 
-        val serviceAccount = FileInputStream("path/to/serviceAccountKey.json")
+        //val serviceAccount = FileInputStream("path/to/serviceAccountKey.json")
 
         //val options = FirebaseOptions.Builder().
         //val options: FirebaseOptions = FirebaseOptions.Builder().setCredentials(GoogleCredentials.fromStream(serviceAccount)).build()
