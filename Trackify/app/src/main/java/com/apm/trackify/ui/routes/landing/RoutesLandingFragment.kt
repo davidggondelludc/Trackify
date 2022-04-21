@@ -14,6 +14,7 @@ import com.apm.trackify.databinding.RoutesLandingFragmentBinding
 import com.apm.trackify.ui.routes.landing.view.adapter.PlaylistRouteAdapter
 import com.apm.trackify.ui.routes.landing.view.model.RoutesLandingViewModel
 import com.apm.trackify.util.extension.setupToolbar
+import com.apm.trackify.util.extension.toPx
 import com.apm.trackify.util.maps.MapsUtil
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.OnMapReadyCallback
@@ -61,7 +62,8 @@ class RoutesLandingFragment : Fragment(), OnMapReadyCallback {
     }
 
     override fun onMapReady(googleMap: GoogleMap) {
-        mapUtil = MapsUtil(googleMap, context)
+        val heightpx = resources.getDimension(R.dimen.user_mapview_height).toPx.toInt()
+        mapUtil = MapsUtil(googleMap, context, resources.displayMetrics.widthPixels, heightpx)
         mapUtil.setDefaultSettings()
 
         val coordinates = listOf(

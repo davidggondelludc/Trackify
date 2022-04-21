@@ -8,9 +8,11 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.apm.trackify.R
 import com.apm.trackify.databinding.UserSharedRoutesFragmentBinding
 import com.apm.trackify.ui.user.landing.sharedRoutes.view.adapter.UserSharedRouteAdapter
 import com.apm.trackify.ui.user.landing.sharedRoutes.view.model.UserSharedRoutesViewModel
+import com.apm.trackify.util.extension.toPx
 import com.apm.trackify.util.maps.MapsUtil
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.MapView
@@ -55,7 +57,8 @@ class UserSharedRoutesFragment : Fragment(), OnMapReadyCallback {
     }
 
     override fun onMapReady(googleMap: GoogleMap) {
-        mapUtil = MapsUtil(googleMap, context)
+        val heightpx = resources.getDimension(R.dimen.user_mapview_height).toPx.toInt()
+        mapUtil = MapsUtil(googleMap, context, resources.displayMetrics.widthPixels, heightpx)
         mapUtil.setDefaultSettings()
 
         val coordinates = listOf(

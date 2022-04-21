@@ -39,4 +39,5 @@
     <!-- users landing layout -->
     <dimen name="user_username_title">20dp</dimen>
     <dimen name="user_username_followers">12dp</dimen>
+    <dimen name="user_mapview_height">200dp</dimen>
 </resources>

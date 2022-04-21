@@ -12,3 +12,4 @@ fun Context.toast(message: CharSequence): Toast = Toast
     .apply {
         show()
     }
+
