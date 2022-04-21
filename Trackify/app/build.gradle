@@ -6,6 +6,7 @@ plugins {
     id "androidx.navigation.safeargs.kotlin"
     id "dagger.hilt.android.plugin"
     id "com.google.android.libraries.mapsplatform.secrets-gradle-plugin"
+    id 'com.google.gms.google-services'
 }
 
 android {
@@ -76,9 +77,14 @@ dependencies {
     implementation "com.google.android.gms:play-services-maps:$maps_version"
     implementation platform("com.google.firebase:firebase-bom:$firebase_version")
     implementation "com.google.firebase:firebase-auth-ktx"
+    implementation "com.google.firebase:firebase-appcheck-safetynet:$safetynet_version"
     //noinspection GradleDependency
     implementation "com.google.android.material:material:$material_version"
     implementation "com.google.dagger:hilt-android:$hilt_version"
+    implementation 'com.google.firebase:firebase-appcheck:16.0.0-beta06'
+    implementation 'com.google.firebase:firebase-firestore:21.4.0'
+    implementation 'com.google.firebase:firebase-appcheck-debug:16.0.0-beta06'
+    implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-play-services:1.1.1'
 
     kapt "com.google.dagger:hilt-android-compiler:$hilt_version"
 

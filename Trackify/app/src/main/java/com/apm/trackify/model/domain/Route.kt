@@ -7,5 +7,7 @@ import kotlinx.parcelize.Parcelize
 data class Route(
     val id: String,
     val title: String,
-    val followers: Int
+    val playlistUrl: String,
+    val coordinates: String,
+    val creator: String
 ): Parcelable

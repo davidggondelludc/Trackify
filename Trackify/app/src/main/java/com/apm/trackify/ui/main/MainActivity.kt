@@ -14,10 +14,12 @@ import com.apm.trackify.R
 import com.apm.trackify.databinding.ActivityMainBinding
 import dagger.hilt.android.AndroidEntryPoint
 
+
 @AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
 
     private lateinit var navController: NavController
+    private lateinit var appBarConfiguration: AppBarConfiguration
 
     override fun onCreate(savedInstanceState: Bundle?) {
         // Handle the splash screen transition and must be called before super.onCreate()

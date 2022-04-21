@@ -10,16 +10,19 @@ object MockProvider {
 
     val routes = List(20) {
         Route(
-            "1",
+            "$it",
             "Route $it",
-            it
+            "url $it",
+            "coordinates",
+            "creator"
         )
     }
 
     val users = List(20) {
         User(
-            "$it",
-            "User $it",
+            "Usuario $it",
+            listOf("User $it"),
+            listOf("User $it"),
             5
         )
     }

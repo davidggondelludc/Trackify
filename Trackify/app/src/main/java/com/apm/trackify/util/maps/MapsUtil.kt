@@ -9,7 +9,7 @@ import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.model.*
 
-class MapsUtil(var map: GoogleMap, val context: Context?) : GoogleMap.OnMarkerClickListener,
+class MapsUtil(var map: GoogleMap, val context: Context?, val width: Int, val height: Int) : GoogleMap.OnMarkerClickListener,
     GoogleMap.OnMapClickListener {
     private val offset = 0.003
     private lateinit var mapsRouteUrl: String
@@ -83,36 +83,13 @@ class MapsUtil(var map: GoogleMap, val context: Context?) : GoogleMap.OnMarkerCl
                 }
             }
         }
-        //drawRoutePolyline(coordinates)
+
         val myBounds = LatLngBounds(
             LatLng(minLat - offset, minLong - offset),
             LatLng(maxLat + 2 * offset, maxLong + offset)
         )
-        map.moveCamera(CameraUpdateFactory.newLatLngBounds(myBounds, 5))
+        map.moveCamera(CameraUpdateFactory.newLatLngBounds(myBounds, (width * 0.5).toInt(), (height * 0.5).toInt(), 10))
     }
-
-/*    fun drawRoutePolyline(coordinates: List<LatLng>) {
-        val geoApiContext = GeoApiContext.Builder()
-            .apiKey(MAPS_API_KEY)
-            .build()
-        var request = DirectionsApi.newRequest(geoApiContext)
-        request.origin("${coordinates[0].latitude},${coordinates[0].longitude}")
-        var waypointList: MutableList<String> = ArrayList()
-        coordinates.subList(1, coordinates.size - 1).forEach {
-
-            waypointList.add("${it.longitude},${it.latitude}")
-        }
-        request.waypoints(*waypointList.toTypedArray())
-        request.destination("${coordinates[coordinates.size-1].latitude},${coordinates[coordinates.size-1].longitude}")
-        request.mode(TravelMode.WALKING)
-
-        try {
-            val result = request.await()
-            println(result)
-        } catch (ex: Exception){
-            Log.e(TAG, ex.localizedMessage)
-        }
-    }*/
 
     private fun resizeMapIcons(
         iconName: String,
