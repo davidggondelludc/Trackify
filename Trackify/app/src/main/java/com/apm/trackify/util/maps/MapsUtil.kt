@@ -88,7 +88,7 @@ class MapsUtil(var map: GoogleMap, val context: Context?) : GoogleMap.OnMarkerCl
             LatLng(minLat - offset, minLong - offset),
             LatLng(maxLat + 2 * offset, maxLong + offset)
         )
-        map.moveCamera(CameraUpdateFactory.newLatLngBounds(myBounds, 5))
+        map.moveCamera(CameraUpdateFactory.newLatLngBounds(myBounds,500,500,0))
     }
 
 /*    fun drawRoutePolyline(coordinates: List<LatLng>) {

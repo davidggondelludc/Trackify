@@ -21,8 +21,8 @@ class UserFollowingAdapter() : ListAdapter<User, UserFollowingViewHolder>(UserDi
     override fun onBindViewHolder(holder: UserFollowingViewHolder, position: Int) {
         val user = getItem(position)
 
-        holder.nameTextView.text = user.name
-        holder.sharedPlaylistsTextView.text = "${user.sharedPlaylists} shared playlists"
+        holder.nameTextView.text = user.userName
+        holder.sharedPlaylistsTextView.text = "${user.routes.size} shared playlists"
 
         holder.itemView.setOnClickListener {
             it.context.toast("Go to user profile")

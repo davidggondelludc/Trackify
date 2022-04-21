@@ -34,11 +34,7 @@ class UserSharedRouteAdapter : ListAdapter<Route, UserSharedRouteViewHolder>(Rou
             )
         )
         holder.nameTextView.text = route.title
-        holder.followersTextView.text = holder.itemView.resources.getQuantityString(
-            R.plurals.followers,
-            route.followers,
-            route.followers
-        )
+        holder.followersTextView.text = route.creator
 
         holder.itemView.setOnClickListener {
             it.context.toast("Show map of the route")

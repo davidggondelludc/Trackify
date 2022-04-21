@@ -2,11 +2,14 @@ package com.apm.trackify.service
 
 import android.content.ContentValues.TAG
 import android.util.Log
+import com.apm.trackify.model.domain.Route
+import com.apm.trackify.model.domain.User
 import com.google.android.gms.tasks.OnFailureListener
 import com.google.firebase.firestore.DocumentReference
 import com.google.firebase.firestore.FieldValue
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.WriteBatch
+import kotlinx.coroutines.runBlocking
 import kotlinx.coroutines.tasks.await
 import javax.inject.Inject
 import javax.inject.Singleton
@@ -25,7 +28,7 @@ class FirebaseService @Inject constructor() {
             if (task.isSuccessful) {
                 val documentSnap = task.result
                 if (documentSnap.exists()) {
-                    Log.d(TAG, "Document already exists");
+                    Log.d(TAG, "Document already exists")
                 } else {
                     db.collection("users").document(userName)
                         .set(user)
@@ -38,9 +41,11 @@ class FirebaseService @Inject constructor() {
 
     fun createNewRoute(userName: String, name: String, coordinates: String, playlistUrl: String) {
         val route: MutableMap<String, Any> = HashMap()
+        route["name"] = name
         route["playlistUrl"] = playlistUrl
         route["coordinates"] = coordinates
         route["creator"] = userName
+
         db.collection("routes").add(route).addOnSuccessListener { document ->
             db.collection("users").document(userName).update(
                 "routes",
@@ -53,7 +58,7 @@ class FirebaseService @Inject constructor() {
         var following: MutableList<String> = ArrayList()
 
         db.collection("users").document(userName).get().addOnSuccessListener { document ->
-           following = document.data?.getValue("following") as MutableList<String>
+            following = document.data?.getValue("following") as MutableList<String>
         }.await()
 
         return following.contains(followedUserName)
@@ -95,15 +100,60 @@ class FirebaseService @Inject constructor() {
         batch.commit()
     }
 
-    suspend fun getRoutesByUsername(userName: String): MutableList<MutableMap<String, Any>> {
-        var routeList: MutableList<MutableMap<String, Any>> = ArrayList()
+    suspend fun findRoutesByUsername(userName: String): MutableList<Route> {
+        var routeList: MutableList<Route> = ArrayList()
 
-        db.collection("routes").whereEqualTo("creator", userName).get().addOnSuccessListener { documents ->
-            for (document in documents) {
-                routeList.add(document.data)
-            }
-        }.await()
+        db.collection("routes").whereEqualTo("creator", userName).get()
+            .addOnSuccessListener { documents ->
+                for (document in documents) {
+                    routeList.add(
+                        Route(
+                            document.id,
+                            document.data["name"] as String,
+                            document.data["playlistUrl"] as String,
+                            document.data["coordinates"] as String,
+                            document.data["creator"] as String
+                        )
+                    )
+                }
+            }.await()
 
         return routeList
+    }
+
+    suspend fun getUser(userName: String): User {
+        lateinit var user: User
+
+        db.collection("users").document(userName).get().addOnSuccessListener { document ->
+            val following = document.data?.get("following") as List<DocumentReference>
+            val routes = document.data?.get("routes") as List<DocumentReference>
+            user = User(
+                document.id,
+                following.map { it.toString() },
+                routes.map { it.toString() },
+                document.data?.get("followers") as Long
+            )
+        }.await()
+
+        return user
+    }
+
+    suspend fun findFollowingUsers(userName: String): MutableList<User> {
+        var docList: MutableList<DocumentReference> = ArrayList()
+        var userList: MutableList<User> = ArrayList()
+
+        db.collection("users").document(userName).get()
+            .addOnSuccessListener { myDocument ->
+                val data = myDocument.data
+                for (doc in (data?.get("following") as MutableList<DocumentReference>)) {
+                    docList.add(doc)
+                }
+            }.await()
+
+        for (doc in docList) {
+            userList.add(getUser(doc.id))
+        }
+
+        return userList
     }
 }

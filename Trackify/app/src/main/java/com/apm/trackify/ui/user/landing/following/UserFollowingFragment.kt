@@ -20,9 +20,6 @@ import javax.inject.Inject
 class UserFollowingFragment : Fragment() {
 
     private val viewModel: UserFollowingViewModel by viewModels()
-    private var firebaseService = FirebaseService()
-    //@Inject
-    //lateinit var firebaseService: FirebaseService
 
     override fun onCreateView(
         inflater: LayoutInflater,
