@@ -16,6 +16,7 @@ import javax.inject.Singleton
 
 @Singleton
 class FirebaseService @Inject constructor() {
+
     private val db: FirebaseFirestore = FirebaseFirestore.getInstance()
 
     fun createNewUser(userName: String, onFailureListener: OnFailureListener) {

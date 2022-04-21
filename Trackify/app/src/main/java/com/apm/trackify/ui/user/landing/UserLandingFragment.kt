@@ -10,14 +10,18 @@ import com.apm.trackify.databinding.UserLandingFragmentBinding
 import com.apm.trackify.service.FirebaseService
 import com.apm.trackify.util.extension.setupToolbar
 import com.google.android.material.tabs.TabLayout
+import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
+import javax.inject.Inject
 
+@AndroidEntryPoint
 class UserLandingFragment : Fragment() {
 
-    private var firebaseService = FirebaseService()
+    @Inject
+    lateinit var firebaseService: FirebaseService
 
     override fun onCreateView(
         inflater: LayoutInflater,

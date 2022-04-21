@@ -12,6 +12,7 @@ import androidx.navigation.ui.navigateUp
 import androidx.navigation.ui.setupWithNavController
 import com.apm.trackify.R
 import com.apm.trackify.databinding.ActivityMainBinding
+import com.google.firebase.FirebaseApp
 import dagger.hilt.android.AndroidEntryPoint
 
 
@@ -41,6 +42,8 @@ class MainActivity : AppCompatActivity() {
                 else -> binding.bottomNavigation.visibility = View.GONE
             }
         }
+
+        FirebaseApp.initializeApp(this)
 
         binding.bottomNavigation.setupWithNavController(navController)
     }
