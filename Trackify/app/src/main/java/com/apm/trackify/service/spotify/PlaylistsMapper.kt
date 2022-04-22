@@ -10,7 +10,7 @@ class PlaylistsMapper {
         for (item in items) {
             val id = item.id
             val name = item.name
-            val playlistUri = item.playlistUri
+            val playlistUri = item.externalUrls.spotify
             val totalTracks = item.tracks.totalTracks
             val owner = item.owner.ownerName
             val images = item.images

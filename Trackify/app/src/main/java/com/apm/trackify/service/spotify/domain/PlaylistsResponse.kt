@@ -8,11 +8,15 @@ data class PlaylistsResponse(
 
 data class PlaylistSpotify(
     @SerializedName("id") val id: String,
-    @SerializedName("href") val playlistUri: String,
+    @SerializedName("external_urls") val externalUrls: ExternalUrls,
     @SerializedName("images") val images: List<PlaylistImages>,
     @SerializedName("name") val name: String,
     @SerializedName("tracks") val tracks: PlaylistTracks,
     @SerializedName("owner") val owner: PlaylistOwner
+)
+
+data class ExternalUrls(
+    @SerializedName("spotify") val spotify: String
 )
 
 data class PlaylistImages(
