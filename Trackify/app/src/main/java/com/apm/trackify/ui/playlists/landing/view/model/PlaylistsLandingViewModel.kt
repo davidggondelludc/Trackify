@@ -3,14 +3,12 @@ package com.apm.trackify.ui.playlists.landing.view.model
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.apm.trackify.model.domain.Playlist
-import com.apm.trackify.model.service.PlaylistsMapper
-import com.apm.trackify.model.service.SpotifyApi
+import com.apm.trackify.service.spotify.PlaylistsMapper
+import com.apm.trackify.service.spotify.SpotifyApi
 import com.apm.trackify.ui.main.MainApplication
-import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.*
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
-import javax.inject.Inject
 
 class PlaylistsLandingViewModel(): ViewModel() {
     val playlists = MutableLiveData<List<Playlist>>()

@@ -1,4 +1,4 @@
-package com.apm.trackify.service
+package com.apm.trackify.service.firebase
 
 import android.content.ContentValues.TAG
 import android.util.Log
@@ -9,11 +9,7 @@ import com.google.firebase.firestore.DocumentReference
 import com.google.firebase.firestore.FieldValue
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.WriteBatch
-import kotlinx.coroutines.runBlocking
 import kotlinx.coroutines.tasks.await
-import java.net.UnknownServiceException
-import javax.inject.Inject
-import javax.inject.Singleton
 
 class FirebaseService {
 
