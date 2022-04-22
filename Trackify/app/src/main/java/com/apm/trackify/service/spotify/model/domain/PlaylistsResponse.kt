@@ -1,4 +1,4 @@
-package com.apm.trackify.service.spotify.domain
+package com.apm.trackify.service.spotify.model.domain
 
 import com.google.gson.annotations.SerializedName
 

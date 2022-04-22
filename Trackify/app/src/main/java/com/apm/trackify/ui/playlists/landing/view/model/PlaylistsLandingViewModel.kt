@@ -3,14 +3,14 @@ package com.apm.trackify.ui.playlists.landing.view.model
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.apm.trackify.model.domain.Playlist
-import com.apm.trackify.service.spotify.PlaylistsMapper
-import com.apm.trackify.service.spotify.SpotifyApi
+import com.apm.trackify.service.spotify.SpotifyAPI
+import com.apm.trackify.service.spotify.model.mapper.PlaylistMapper
 import com.apm.trackify.ui.main.MainApplication
 import kotlinx.coroutines.*
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
-class PlaylistsLandingViewModel(): ViewModel() {
+class PlaylistsLandingViewModel() : ViewModel() {
     val playlists = MutableLiveData<List<Playlist>>()
     val errorMessage = MutableLiveData<String>()
     var job: Job? = null
@@ -23,12 +23,12 @@ class PlaylistsLandingViewModel(): ViewModel() {
 
         job = CoroutineScope(Dispatchers.IO).launch {
             val call =
-                rt.create(SpotifyApi::class.java).getPlaylists("v1/me/playlists", tk)
+                rt.create(SpotifyAPI::class.java).getPlaylists("v1/me/playlists", tk)
 
             withContext(Dispatchers.Main) {
                 if (call.isSuccessful) {
                     val res = call.body()
-                    playlists.value = PlaylistsMapper().mapPlaylists(res!!)
+                    playlists.value = PlaylistMapper.toPlaylist(res!!)
                 } else {
                     errorMessage.value = "Error while loading playlists."
                 }

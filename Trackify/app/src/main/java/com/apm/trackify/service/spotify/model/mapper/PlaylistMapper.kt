@@ -1,10 +1,11 @@
-package com.apm.trackify.service.spotify
+package com.apm.trackify.service.spotify.model.mapper
 
 import com.apm.trackify.model.domain.Playlist
-import com.apm.trackify.service.spotify.domain.PlaylistsResponse
+import com.apm.trackify.service.spotify.model.domain.PlaylistsResponse
 
-class PlaylistsMapper {
-    fun mapPlaylists(playlistsResponse: PlaylistsResponse): List<Playlist> {
+object PlaylistMapper {
+
+    fun toPlaylist(playlistsResponse: PlaylistsResponse): List<Playlist> {
         val items = playlistsResponse.items
         val playlistList = mutableListOf<Playlist>()
         for (item in items) {
@@ -18,6 +19,7 @@ class PlaylistsMapper {
             val imgUrl = firstImg?.imageUrl ?: images[0].imageUrl
             playlistList.add(Playlist(id, playlistUri, imgUrl, name, totalTracks, owner))
         }
+
         return playlistList
     }
 }
