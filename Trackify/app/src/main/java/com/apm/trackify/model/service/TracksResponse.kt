@@ -3,7 +3,11 @@ package com.apm.trackify.model.service
 import com.google.gson.annotations.SerializedName
 
 data class TracksResponse(
-    @SerializedName("items") var items: List<TrackSpotify>
+    @SerializedName("items") var items: List<TrackInfo>
+)
+
+data class TrackInfo(
+    @SerializedName("track") var track: TrackSpotify
 )
 
 data class TrackSpotify(

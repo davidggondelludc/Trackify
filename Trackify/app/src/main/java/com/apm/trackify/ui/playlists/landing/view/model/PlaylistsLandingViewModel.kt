@@ -6,13 +6,11 @@ import com.apm.trackify.model.domain.Playlist
 import com.apm.trackify.model.service.PlaylistsMapper
 import com.apm.trackify.model.service.SpotifyApi
 import com.apm.trackify.ui.main.MainApplication
-import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.*
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
-import javax.inject.Inject
 
-class PlaylistsLandingViewModel(): ViewModel() {
+class PlaylistsLandingViewModel() : ViewModel() {
     val playlists = MutableLiveData<List<Playlist>>()
     val errorMessage = MutableLiveData<String>()
     var job: Job? = null
