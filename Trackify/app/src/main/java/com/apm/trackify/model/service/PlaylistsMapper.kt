@@ -1,12 +1,6 @@
 package com.apm.trackify.model.service
 
 import com.apm.trackify.model.domain.Playlist
-import com.apm.trackify.model.prueba.PlaylistsResponse
-import com.google.gson.JsonDeserializationContext
-import com.google.gson.JsonDeserializer
-import com.google.gson.JsonElement
-import com.google.gson.JsonObject
-import java.lang.reflect.Type
 
 class PlaylistsMapper {
     fun mapPlaylists(playlistsResponse:PlaylistsResponse): List<Playlist> {

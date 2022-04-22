@@ -1,7 +1,6 @@
-package com.apm.trackify.model.prueba
+package com.apm.trackify.model.service
 
 import com.google.gson.annotations.SerializedName
-import org.json.JSONObject
 
 data class PlaylistsResponse(
         @SerializedName("items") var items:List<PlaylistSpotify>
