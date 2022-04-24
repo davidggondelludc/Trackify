@@ -122,4 +122,26 @@ class MapsUtil(var map: GoogleMap, val context: Context?, val width: Int, val he
         val intent = Intent(Intent.ACTION_VIEW, Uri.parse(mapsRouteUrl))
         context?.startActivity(intent)
     }
+
+
+    fun createUserMarker(userCoordinates: LatLng) {
+        var marker: MarkerOptions = MarkerOptions().position(userCoordinates)
+            .icon(this.context?.let {
+                resizeMapIcons(icons[0], 64, 64, it)?.let {
+                    BitmapDescriptorFactory.fromBitmap(it)
+                }
+            })
+        map.addMarker(marker)
+
+        val userBounds = LatLngBounds(
+            LatLng(userCoordinates.latitude - offset, userCoordinates.longitude - offset),
+            LatLng(userCoordinates.latitude + 2 * offset, userCoordinates.longitude + offset)
+        )
+        map.moveCamera(CameraUpdateFactory.newLatLngBounds(userBounds, (width * 0.5).toInt(), (height * 0.5).toInt(), 10))
+
+        var auxUrl = "https://www.google.com/maps/@" + userCoordinates.latitude + "," + userCoordinates.longitude
+        mapsRouteUrl = auxUrl
+        map.setOnMapClickListener(this)
+
+    }
 }

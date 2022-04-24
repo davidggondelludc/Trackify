@@ -10,6 +10,7 @@ class PlaylistRouteViewHolder(val binding: RoutesPlaylistsItemBinding) :
     val coverImageView = binding.cover
     val nameTextView = binding.name
     val ownerTextView = binding.owner
+    val more = binding.more1
 
     init {
         scaleOnTouch()

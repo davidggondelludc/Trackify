@@ -48,12 +48,13 @@ class RoutesLandingFragment : Fragment(), OnMapReadyCallback {
         }
         binding.mapView.getFragment<SupportMapFragment>().getMapAsync(this)
 
+
         setupRecyclerView(binding.rvPlaylistRoutes)
     }
 
     private fun setupRecyclerView(recyclerView: RecyclerView) {
         val playlistRoutesAdapter = PlaylistRouteAdapter()
-        viewModel.playlists.observe(viewLifecycleOwner) {
+        viewModel.routes.observe(viewLifecycleOwner) {
             playlistRoutesAdapter.submitList(it)
         }
 
@@ -66,6 +67,7 @@ class RoutesLandingFragment : Fragment(), OnMapReadyCallback {
         mapUtil = MapsUtil(googleMap, context, resources.displayMetrics.widthPixels, heightpx)
         mapUtil.setDefaultSettings()
 
+        /*
         val coordinates = listOf(
             LatLng(43.371023, -8.405215), LatLng(43.382825, -8.410223),
             LatLng(43.365160, -8.374968), LatLng(43.364100, -8.399088),
@@ -73,5 +75,10 @@ class RoutesLandingFragment : Fragment(), OnMapReadyCallback {
         )
 
         mapUtil.drawRouteAndSetOnClick(coordinates)
+
+         */
+        val userCoordinate = LatLng(43.371023, -8.405215)
+
+        mapUtil.createUserMarker(userCoordinate)
     }
 }
