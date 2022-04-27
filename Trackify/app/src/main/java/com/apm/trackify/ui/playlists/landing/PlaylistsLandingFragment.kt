@@ -48,9 +48,8 @@ class PlaylistsLandingFragment : Fragment() {
         viewModel.playlists.observe(viewLifecycleOwner) {
             playlistsAdapter.submitList(it)
         }
-
         viewModel.errorMessage.observe(viewLifecycleOwner) {
-            context?.toast(it)
+            context?.toast(R.string.error)
         }
 
         recyclerView.adapter = playlistsAdapter

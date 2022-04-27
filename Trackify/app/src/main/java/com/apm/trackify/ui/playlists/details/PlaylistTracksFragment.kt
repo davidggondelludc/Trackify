@@ -18,6 +18,7 @@ import com.apm.trackify.ui.playlists.details.view.adapter.HeaderAdapter
 import com.apm.trackify.ui.playlists.details.view.adapter.TrackAdapter
 import com.apm.trackify.ui.playlists.details.view.model.PlaylistTracksViewModel
 import com.apm.trackify.util.extension.setupToolbar
+import com.apm.trackify.util.extension.toast
 import dagger.hilt.android.AndroidEntryPoint
 import java.util.concurrent.TimeUnit
 import javax.inject.Inject
@@ -63,6 +64,9 @@ class PlaylistTracksFragment : Fragment() {
                     )
                 )
             )
+        }
+        viewModel.errorMessage.observe(viewLifecycleOwner) {
+            context?.toast(R.string.error)
         }
 
         recyclerView.adapter = ConcatAdapter(headerAdapter, trackAdapter, footerAdapter)

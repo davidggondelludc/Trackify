@@ -3,21 +3,21 @@ package com.apm.trackify.model.service
 import com.google.gson.annotations.SerializedName
 
 data class TracksResponse(
-    @SerializedName("items") var items: List<TrackInfo>
+    @SerializedName("items") val items: List<TrackInfo>
 )
 
 data class TrackInfo(
-    @SerializedName("track") var track: TrackSpotify
+    @SerializedName("track") val track: TrackSpotify
 )
 
 data class TrackSpotify(
-    @SerializedName("id") var id: String,
+    @SerializedName("id") val id: String,
     @SerializedName("album") val album: AlbumSpotify,
     @SerializedName("name") val name: String,
     @SerializedName("explicit") val explicit: Boolean,
     @SerializedName("artists") val artists: MutableList<ArtistSpotify>,
     @SerializedName("duration_ms") val duration: Int,
-    @SerializedName("preview_url") val previewUrl: String
+    @SerializedName("preview_url") val previewUrl: String?
 )
 
 data class AlbumSpotify(

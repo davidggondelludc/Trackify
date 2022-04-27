@@ -23,6 +23,7 @@
     <string name="share">Share</string>
     <string name="save">Save</string>
     <string name="delete">Delete</string>
+    <string name="error">Something went wrong</string>
 
     <!-- login -->
     <string name="login">Login with Spotify</string>

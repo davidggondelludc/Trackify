@@ -10,4 +10,4 @@ data class Route(
     val playlistUrl: String,
     val coordinates: String,
     val creator: String
-): Parcelable
+) : Parcelable

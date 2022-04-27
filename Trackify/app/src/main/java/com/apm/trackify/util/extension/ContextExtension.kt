@@ -13,3 +13,9 @@ fun Context.toast(message: CharSequence): Toast = Toast
         show()
     }
 
+fun Context.toast(message: Int): Toast = Toast
+    .makeText(this, message, Toast.LENGTH_SHORT)
+    .apply {
+        show()
+    }
+
