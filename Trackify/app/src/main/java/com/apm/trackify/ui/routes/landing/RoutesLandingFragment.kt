@@ -1,14 +1,25 @@
 package com.apm.trackify.ui.routes.landing
 
+import android.Manifest
+import android.Manifest.permission.ACCESS_FINE_LOCATION
+import android.annotation.SuppressLint
 import android.content.ContentValues.TAG
 import android.content.Context
+import android.content.Intent
+import android.content.pm.PackageManager
+import android.location.Geocoder
 import android.location.Location
 import android.location.LocationManager
 import android.os.Bundle
+import android.os.Handler
+import android.os.ResultReceiver
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
+import androidx.core.app.ActivityCompat
+import androidx.core.content.ContextCompat
 import androidx.core.content.ContextCompat.getSystemService
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
@@ -23,18 +34,24 @@ import com.apm.trackify.ui.routes.landing.view.model.RoutesLandingViewModel
 import com.apm.trackify.util.extension.setupToolbar
 import com.apm.trackify.util.extension.toPx
 import com.apm.trackify.util.maps.MapsUtil
-import com.google.android.gms.location.FusedLocationProviderClient
-import com.google.android.gms.location.LocationServices
+import com.google.android.gms.location.*
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.OnMapReadyCallback
 import com.google.android.gms.maps.SupportMapFragment
 import com.google.android.gms.maps.model.LatLng
+import com.google.android.material.snackbar.Snackbar
 
 
 class RoutesLandingFragment : Fragment(), OnMapReadyCallback {
 
     private val viewModel: RoutesLandingViewModel by viewModels()
+    private var latitude: Double = 42.73699753499026
+    private var longitude: Double = -5.486167589053743
+
     private lateinit var mapUtil: MapsUtil
+
+    private lateinit var fusedLocationClient: FusedLocationProviderClient
+    private val locationPermissionCode = 2
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -43,6 +60,7 @@ class RoutesLandingFragment : Fragment(), OnMapReadyCallback {
     ): View = RoutesLandingFragmentBinding.inflate(inflater, container, false).root
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        fusedLocationClient = LocationServices.getFusedLocationProviderClient(requireActivity())
         val binding = RoutesLandingFragmentBinding.bind(view)
 
         setupToolbar(binding.toolbar)
@@ -60,7 +78,10 @@ class RoutesLandingFragment : Fragment(), OnMapReadyCallback {
 
 
         setupRecyclerView(binding.rvPlaylistRoutes)
+
+
     }
+
 
     private fun setupRecyclerView(recyclerView: RecyclerView) {
         val playlistRoutesAdapter = PlaylistRouteAdapter()
@@ -77,9 +98,34 @@ class RoutesLandingFragment : Fragment(), OnMapReadyCallback {
         mapUtil = MapsUtil(googleMap, context, resources.displayMetrics.widthPixels, heightpx)
         mapUtil.setDefaultSettings()
 
-        val userCoordinate = LatLng(40.412235968709616, -3.6823606115609073)
-
+        getLastLocation()
+        val userCoordinate = LatLng(latitude, longitude)
         mapUtil.createUserMarker(userCoordinate)
     }
+
+
+    @SuppressLint("MissingPermission")
+    private fun getLastLocation() {
+        fusedLocationClient.lastLocation
+            .addOnCompleteListener{ taskLocation ->
+                if(taskLocation.isSuccessful && taskLocation.result!=null){
+                    Toast.makeText(requireContext(),"Getting your Location",Toast.LENGTH_SHORT).show()
+                    val location = taskLocation.result
+                    latitude = location.latitude
+                    longitude = location.longitude
+                    val userCoordinate = LatLng(latitude, longitude)
+                    mapUtil.createUserMarker(userCoordinate)
+                }
+                else{
+                    Log.w(TAG, "getLastLocation:exception", taskLocation.exception)
+                    Toast.makeText(requireContext(),"No Location Detected. Make sure permissions are granted",Toast.LENGTH_SHORT).show()
+                    val userCoordinate = LatLng(latitude, longitude)
+                    mapUtil.createUserMarker(userCoordinate)
+                }
+            }
+    }
+
+
+
 
 }

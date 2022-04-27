@@ -136,8 +136,8 @@ class MapsUtil(var map: GoogleMap, val context: Context?, val width: Int, val he
             LatLng(userCoordinates.latitude + 2 * offset, userCoordinates.longitude + offset)
         )
         map.moveCamera(CameraUpdateFactory.newLatLngBounds(userBounds, (width * 0.5).toInt(), (height * 0.5).toInt(), 10))
-
-        var auxUrl = "https://www.google.com/maps/place/" + userCoordinates.latitude + "," + userCoordinates.longitude
+        var zoom = ",15z"
+        var auxUrl = "https://www.google.com/maps/place/" + userCoordinates.latitude + "," + userCoordinates.longitude + zoom
         mapsRouteUrl = auxUrl
         map.setOnMapClickListener(this)
 
