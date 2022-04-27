@@ -15,7 +15,7 @@ class FirebaseService {
 
     private val db: FirebaseFirestore = FirebaseFirestore.getInstance()
 
-    fun createNewUser(userName: String, onFailureListener: OnFailureListener) {
+    fun createNewUser(userName: String, onSuccess: () -> Unit, onFailure: () -> Unit) {
         val user: MutableMap<String, Any> = HashMap()
         user["following"] = listOf<DocumentReference>()
         user["routes"] = listOf<DocumentReference>()
@@ -28,8 +28,8 @@ class FirebaseService {
                     Log.d(TAG, "Document already exists")
                 } else {
                     db.collection("users").document(userName)
-                        .set(user)
-                        .addOnFailureListener(onFailureListener)
+                        .set(user).addOnSuccessListener { _ -> onSuccess() }
+                        .addOnFailureListener { _ -> onFailure() }
                 }
             }
         }
@@ -97,13 +97,12 @@ class FirebaseService {
         batch.commit()
     }
 
-    suspend fun findRoutesByUsername(userName: String): MutableList<Route> {
-        var routeList: MutableList<Route> = ArrayList()
+    fun findRoutesByUsername(userName: String, forEachRoute: (Route) -> Unit) {
 
         db.collection("routes").whereEqualTo("creator", userName).get()
             .addOnSuccessListener { documents ->
                 for (document in documents) {
-                    routeList.add(
+                   forEachRoute(
                         Route(
                             document.id,
                             document.data["name"] as String,
@@ -113,9 +112,7 @@ class FirebaseService {
                         )
                     )
                 }
-            }.await()
-
-        return routeList
+            }
     }
 
     fun getUser(userName: String, onSuccess: (User) -> Unit) {
@@ -134,7 +131,7 @@ class FirebaseService {
         }
     }
 
-    suspend fun findFollowingUsers(userName: String): MutableList<User> {
+    fun findFollowingUsers(userName: String, forEachUser: (User) -> Unit) {
         var docList: MutableList<DocumentReference> = ArrayList()
         var userList: MutableList<User> = ArrayList()
 
@@ -142,24 +139,8 @@ class FirebaseService {
             .addOnSuccessListener { myDocument ->
                 val data = myDocument.data
                 for (doc in (data?.get("following") as MutableList<DocumentReference>)) {
-                    docList.add(doc)
+                    getUser(doc.id, forEachUser)
                 }
-            }.await()
-        for (doc in docList) {
-            db.collection("users").document(doc.id).get().addOnSuccessListener { document ->
-                val following = document.data?.get("following") as List<DocumentReference>
-                val routes = document.data?.get("routes") as List<DocumentReference>
-                userList.add(
-                    User(
-                        document.id,
-                        following.map { it.toString() },
-                        routes.map { it.toString() },
-                        document.data?.get("followers") as Long
-                    )
-                )
-            }.await()
-        }
-
-        return userList
+            }
     }
 }

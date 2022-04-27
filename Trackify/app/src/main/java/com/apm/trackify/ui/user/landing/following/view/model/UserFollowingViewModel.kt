@@ -13,16 +13,14 @@ import kotlinx.coroutines.withContext
 class UserFollowingViewModel : ViewModel() {
 
     val users = MutableLiveData<List<User>>()
+    var mutableUsers = mutableListOf<User>()
     private var firebaseService = FirebaseService()
 
     init {
-        users.value = MockProvider.users
-        CoroutineScope(Dispatchers.IO).launch {
-            val foundUsers = firebaseService.findFollowingUsers("usuario")
-
-            withContext(Dispatchers.Main) {
-                users.value = foundUsers
-            }
+        mutableUsers.clear()
+        firebaseService.findFollowingUsers("usuario") {
+            mutableUsers.add(it)
+            users.value = mutableUsers.toList()
         }
     }
 }

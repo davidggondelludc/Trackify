@@ -27,6 +27,15 @@ object MockProvider {
         )
     }
 
+    val usersMutable = MutableList(20) {
+        User(
+            "Usuario $it",
+            listOf("User $it"),
+            listOf("User $it"),
+            5
+        )
+    }
+
     val playlists = List(20) {
         Playlist(
             "$it playlist",
