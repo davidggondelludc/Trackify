@@ -60,13 +60,11 @@ class LoginActivity : AppCompatActivity() {
         super.onActivityResult(requestCode, resultCode, data)
 
         //dado que no me funciona el login
-        /*
         val intent = Intent(this, MainActivity::class.java)
         startActivity(intent)
         finish()
-        */
 
-
+        /*
         if (requestCode == AUTH_TOKEN_REQUEST_CODE) {
             val response = AuthorizationClient.getResponse(resultCode, data)
             if (response.type == AuthorizationResponse.Type.TOKEN) {
@@ -77,6 +75,8 @@ class LoginActivity : AppCompatActivity() {
             }
             isReady = true
         }
+
+         */
 
     }
 }

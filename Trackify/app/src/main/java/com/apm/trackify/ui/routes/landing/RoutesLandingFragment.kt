@@ -1,9 +1,15 @@
 package com.apm.trackify.ui.routes.landing
 
+import android.content.ContentValues.TAG
+import android.content.Context
+import android.location.Location
+import android.location.LocationManager
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.content.ContextCompat.getSystemService
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
@@ -11,15 +17,19 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.apm.trackify.R
 import com.apm.trackify.databinding.RoutesLandingFragmentBinding
+import com.apm.trackify.ui.main.MainActivity
 import com.apm.trackify.ui.routes.landing.view.adapter.PlaylistRouteAdapter
 import com.apm.trackify.ui.routes.landing.view.model.RoutesLandingViewModel
 import com.apm.trackify.util.extension.setupToolbar
 import com.apm.trackify.util.extension.toPx
 import com.apm.trackify.util.maps.MapsUtil
+import com.google.android.gms.location.FusedLocationProviderClient
+import com.google.android.gms.location.LocationServices
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.OnMapReadyCallback
 import com.google.android.gms.maps.SupportMapFragment
 import com.google.android.gms.maps.model.LatLng
+
 
 class RoutesLandingFragment : Fragment(), OnMapReadyCallback {
 
@@ -67,18 +77,9 @@ class RoutesLandingFragment : Fragment(), OnMapReadyCallback {
         mapUtil = MapsUtil(googleMap, context, resources.displayMetrics.widthPixels, heightpx)
         mapUtil.setDefaultSettings()
 
-        /*
-        val coordinates = listOf(
-            LatLng(43.371023, -8.405215), LatLng(43.382825, -8.410223),
-            LatLng(43.365160, -8.374968), LatLng(43.364100, -8.399088),
-            LatLng(43.358961, -8.401851)
-        )
-
-        mapUtil.drawRouteAndSetOnClick(coordinates)
-
-         */
-        val userCoordinate = LatLng(43.371023, -8.405215)
+        val userCoordinate = LatLng(40.412235968709616, -3.6823606115609073)
 
         mapUtil.createUserMarker(userCoordinate)
     }
+
 }

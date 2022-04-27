@@ -44,7 +44,6 @@ class PlaylistRouteAdapter : ListAdapter<Route, PlaylistRouteViewHolder>(RouteDi
             navController.navigate(action)
         }
 
-
         holder.itemView.setOnClickListener {
             Toast.makeText(it.context,"Show route in map",Toast.LENGTH_SHORT).show()
         }
