@@ -2,6 +2,7 @@ package com.apm.trackify.ui.playlists.details.di
 
 import androidx.lifecycle.SavedStateHandle
 import com.apm.trackify.model.domain.PlaylistItem
+import com.apm.trackify.service.spotify.SpotifyService
 import com.apm.trackify.ui.playlists.details.view.model.PlaylistTracksViewModel
 import dagger.Module
 import dagger.Provides
@@ -18,6 +19,9 @@ object PlaylistTracksModule {
             ?: throw IllegalStateException("Playlist not found in state handle")
 
     @Provides
-    fun provideViewModel(playlistItem: PlaylistItem): PlaylistTracksViewModel =
-        PlaylistTracksViewModel(playlistItem)
+    fun provideViewModel(
+        playlistItem: PlaylistItem,
+        spotifyService: SpotifyService
+    ): PlaylistTracksViewModel =
+        PlaylistTracksViewModel(playlistItem, spotifyService)
 }

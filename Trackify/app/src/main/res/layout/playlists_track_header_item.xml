@@ -47,7 +47,7 @@
             android:id="@+id/spotify"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:backgroundTint="#1D8954"
+            android:backgroundTint="#1DB954"
             android:text="@string/spotify_button"
             android:textAllCaps="false"
             android:textColor="@android:color/white"
