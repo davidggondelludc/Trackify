@@ -4,11 +4,10 @@ import android.os.Parcelable
 import kotlinx.parcelize.Parcelize
 
 @Parcelize
-data class Playlist(
+data class RouteItem(
     val id: String,
-    val playlistUri: String,
-    val imageUri: String,
-    val name: String,
-    val totalTracks: Int,
-    val owner: String
+    val title: String,
+    val playlistUrl: String,
+    val coordinates: String,
+    val creator: String
 ) : Parcelable

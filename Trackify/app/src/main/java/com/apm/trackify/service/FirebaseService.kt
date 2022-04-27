@@ -2,18 +2,14 @@ package com.apm.trackify.service
 
 import android.content.ContentValues.TAG
 import android.util.Log
-import com.apm.trackify.model.domain.Route
-import com.apm.trackify.model.domain.User
+import com.apm.trackify.model.domain.RouteItem
+import com.apm.trackify.model.domain.UserItem
 import com.google.android.gms.tasks.OnFailureListener
 import com.google.firebase.firestore.DocumentReference
 import com.google.firebase.firestore.FieldValue
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.WriteBatch
-import kotlinx.coroutines.runBlocking
 import kotlinx.coroutines.tasks.await
-import java.net.UnknownServiceException
-import javax.inject.Inject
-import javax.inject.Singleton
 
 class FirebaseService {
 
@@ -101,14 +97,14 @@ class FirebaseService {
         batch.commit()
     }
 
-    suspend fun findRoutesByUsername(userName: String): MutableList<Route> {
-        var routeList: MutableList<Route> = ArrayList()
+    suspend fun findRoutesByUsername(userName: String): MutableList<RouteItem> {
+        var routeList: MutableList<RouteItem> = ArrayList()
 
         db.collection("routes").whereEqualTo("creator", userName).get()
             .addOnSuccessListener { documents ->
                 for (document in documents) {
                     routeList.add(
-                        Route(
+                        RouteItem(
                             document.id,
                             document.data["name"] as String,
                             document.data["playlistUrl"] as String,
@@ -122,13 +118,13 @@ class FirebaseService {
         return routeList
     }
 
-    fun getUser(userName: String, onSuccess: (User) -> Unit) {
+    fun getUser(userName: String, onSuccess: (UserItem) -> Unit) {
 
         db.collection("users").document(userName).get().addOnSuccessListener { document ->
             val following = document.data?.get("following") as List<DocumentReference>
             val routes = document.data?.get("routes") as List<DocumentReference>
             onSuccess(
-                User(
+                UserItem(
                     document.id,
                     following.map { it.toString() },
                     routes.map { it.toString() },
@@ -138,9 +134,9 @@ class FirebaseService {
         }
     }
 
-    suspend fun findFollowingUsers(userName: String): MutableList<User> {
+    suspend fun findFollowingUsers(userName: String): MutableList<UserItem> {
         var docList: MutableList<DocumentReference> = ArrayList()
-        var userList: MutableList<User> = ArrayList()
+        var userList: MutableList<UserItem> = ArrayList()
 
         db.collection("users").document(userName).get()
             .addOnSuccessListener { myDocument ->
@@ -154,7 +150,7 @@ class FirebaseService {
                 val following = document.data?.get("following") as List<DocumentReference>
                 val routes = document.data?.get("routes") as List<DocumentReference>
                 userList.add(
-                    User(
+                    UserItem(
                         document.id,
                         following.map { it.toString() },
                         routes.map { it.toString() },

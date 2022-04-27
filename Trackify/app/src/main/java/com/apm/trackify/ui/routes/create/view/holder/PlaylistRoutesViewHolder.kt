@@ -2,7 +2,7 @@ package com.apm.trackify.ui.routes.create.view.holder
 
 import androidx.recyclerview.widget.RecyclerView
 import com.apm.trackify.databinding.RoutesCreatePlaylistItemBinding
-import com.apm.trackify.model.domain.Playlist
+import com.apm.trackify.model.domain.PlaylistItem
 
 class PlaylistRoutesViewHolder (val binding: RoutesCreatePlaylistItemBinding) :
     RecyclerView.ViewHolder(binding.root) {
@@ -10,9 +10,9 @@ class PlaylistRoutesViewHolder (val binding: RoutesCreatePlaylistItemBinding) :
     val coverImageView = binding.cover
     val nameTextView = binding.name
 
-    fun bind(playlist: Playlist) {
+    fun bind(playlistItem: PlaylistItem) {
         binding.content.setOnClickListener {
         }
-        binding.name.text = playlist.name
+        binding.name.text = playlistItem.name
     }
 }

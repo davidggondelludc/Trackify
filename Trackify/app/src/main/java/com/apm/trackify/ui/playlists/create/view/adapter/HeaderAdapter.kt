@@ -5,12 +5,12 @@ import android.view.ViewGroup
 import androidx.navigation.findNavController
 import androidx.recyclerview.widget.ListAdapter
 import com.apm.trackify.databinding.PlaylistsCreateHeaderBinding
-import com.apm.trackify.model.diff.PlaylistDiffUtil
-import com.apm.trackify.model.domain.Playlist
+import com.apm.trackify.model.diff.PlaylistItemDiffUtil
+import com.apm.trackify.model.domain.PlaylistItem
 import com.apm.trackify.ui.playlists.create.PlaylistCreateFragmentDirections
 import com.apm.trackify.ui.playlists.create.view.holder.HeaderViewHolder
 
-class HeaderAdapter : ListAdapter<Playlist, HeaderViewHolder>(PlaylistDiffUtil()) {
+class HeaderAdapter : ListAdapter<PlaylistItem, HeaderViewHolder>(PlaylistItemDiffUtil()) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): HeaderViewHolder {
         val inflater = LayoutInflater.from(parent.context)

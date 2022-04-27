@@ -3,8 +3,8 @@ package com.apm.trackify.ui.playlists.create.view.model
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.apm.trackify.model.MockProvider
-import com.apm.trackify.model.domain.Playlist
-import com.apm.trackify.model.domain.Track
+import com.apm.trackify.model.domain.PlaylistItem
+import com.apm.trackify.model.domain.TrackItem
 import com.apm.trackify.util.extension.isInBounds
 import com.apm.trackify.util.extension.swap
 
@@ -18,10 +18,10 @@ import com.apm.trackify.util.extension.swap
  */
 class PlaylistCreateViewModel : ViewModel() {
 
-    val playlist = MutableLiveData<Playlist>()
-    val tracks = MutableLiveData<List<Track>>()
+    val playlist = MutableLiveData<PlaylistItem>()
+    val tracks = MutableLiveData<List<TrackItem>>()
 
-    private val dataset: MutableList<Track> = MockProvider.tracks.toMutableList()
+    private val dataset: MutableList<TrackItem> = MockProvider.tracks.toMutableList()
 
     init {
         playlist.value = MockProvider.playlist

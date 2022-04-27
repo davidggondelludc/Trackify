@@ -8,13 +8,13 @@ import androidx.core.content.ContextCompat.startActivity
 import androidx.recyclerview.widget.ListAdapter
 import com.apm.trackify.R
 import com.apm.trackify.databinding.PlaylistsTrackHeaderItemBinding
-import com.apm.trackify.model.diff.PlaylistDiffUtil
-import com.apm.trackify.model.domain.Playlist
+import com.apm.trackify.model.diff.PlaylistItemDiffUtil
+import com.apm.trackify.model.domain.PlaylistItem
 import com.apm.trackify.ui.playlists.details.view.holder.HeaderViewHolder
 import com.apm.trackify.util.extension.loadFromURI
 import com.apm.trackify.util.extension.toast
 
-class HeaderAdapter : ListAdapter<Playlist, HeaderViewHolder>(PlaylistDiffUtil()) {
+class HeaderAdapter : ListAdapter<PlaylistItem, HeaderViewHolder>(PlaylistItemDiffUtil()) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): HeaderViewHolder {
         val inflater = LayoutInflater.from(parent.context)
