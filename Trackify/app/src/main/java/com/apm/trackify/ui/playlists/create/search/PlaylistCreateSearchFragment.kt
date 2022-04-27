@@ -1,9 +1,8 @@
 package com.apm.trackify.ui.playlists.create.search
 
 import android.os.Bundle
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
+import android.view.*
+import android.view.inputmethod.EditorInfo
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -36,6 +35,15 @@ class PlaylistCreateSearchFragment : Fragment() {
 
         setupToolbar(binding.toolbar)
         setupRecyclerView(binding.rvSearchedSongs)
+
+        binding.searchField.setOnEditorActionListener { textView, i, keyEvent ->
+            if (i == EditorInfo.IME_ACTION_SEARCH) {
+                PlaylistCreateSearchViewModel().updateTracks(textView.text.toString())
+                true
+            } else {
+                false
+            }
+        }
     }
 
     private fun setupRecyclerView(recyclerView: RecyclerView) {
