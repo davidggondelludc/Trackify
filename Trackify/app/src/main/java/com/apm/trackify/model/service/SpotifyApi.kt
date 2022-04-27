@@ -6,7 +6,7 @@ import retrofit2.http.Header
 import retrofit2.http.Url
 
 interface SpotifyApi {
-    
+
     @GET
     suspend fun getPlaylists(
         @Url url: String,
@@ -18,4 +18,10 @@ interface SpotifyApi {
         @Url url: String,
         @Header("Authorization") token: String
     ): Response<TracksResponse>
+
+    @GET
+    suspend fun findTracks(
+        @Url url: String,
+        @Header("Authorization") token: String
+    ): Response<SearchResponse>
 }
