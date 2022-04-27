@@ -2,7 +2,7 @@ package com.apm.trackify.model.diff
 
 import androidx.recyclerview.widget.DiffUtil
 
-class StringDiffUtil : DiffUtil.ItemCallback<String>() {
+class StringItemDiffUtil : DiffUtil.ItemCallback<String>() {
 
     override fun areItemsTheSame(oldItem: String, newItem: String): Boolean =
         oldItem == newItem

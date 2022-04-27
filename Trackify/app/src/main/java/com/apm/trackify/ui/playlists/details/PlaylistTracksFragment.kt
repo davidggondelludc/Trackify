@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.ConcatAdapter
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -28,6 +29,8 @@ class PlaylistTracksFragment : Fragment() {
 
     @Inject
     lateinit var mediaServiceLifecycle: MediaServiceLifecycle
+
+    private val args: PlaylistTracksFragmentArgs by navArgs()
     private val viewModel: PlaylistTracksViewModel by viewModels()
 
     override fun onCreateView(
@@ -47,26 +50,26 @@ class PlaylistTracksFragment : Fragment() {
 
     private fun setupRecyclerView(recyclerView: RecyclerView) {
         val headerAdapter = HeaderAdapter()
-        viewModel.playlist.observe(viewLifecycleOwner) {
-            headerAdapter.submitList(listOf(it))
-        }
+        headerAdapter.submitList(listOf(args.playlist))
 
         val trackAdapter = TrackAdapter(mediaServiceLifecycle)
 
         val footerAdapter = FooterAdapter()
-        viewModel.tracks.observe(viewLifecycleOwner) {
-            trackAdapter.submitList(it)
-            footerAdapter.submitList(
-                listOf(
-                    generateFooter(
-                        it.size,
-                        it.sumOf { track -> track.duration }.toLong()
+        viewModel.getResponse().observe(viewLifecycleOwner) {
+            if (it.isSuccessful) {
+                val tracks = it.body()?.toTrackItems()!!
+                trackAdapter.submitList(tracks)
+                footerAdapter.submitList(
+                    listOf(
+                        generateFooter(
+                            tracks.size,
+                            tracks.sumOf { track -> track.duration }.toLong()
+                        )
                     )
                 )
-            )
-        }
-        viewModel.errorMessage.observe(viewLifecycleOwner) {
-            context?.toast(R.string.error)
+            } else {
+                context?.toast(R.string.error)
+            }
         }
 
         recyclerView.adapter = ConcatAdapter(headerAdapter, trackAdapter, footerAdapter)

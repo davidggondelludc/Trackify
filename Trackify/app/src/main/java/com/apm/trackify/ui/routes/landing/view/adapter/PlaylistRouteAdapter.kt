@@ -12,7 +12,8 @@ import com.apm.trackify.ui.routes.landing.RoutesLandingFragmentDirections
 import com.apm.trackify.ui.routes.landing.view.holder.PlaylistRouteViewHolder
 import com.apm.trackify.util.extension.loadFromURI
 
-class PlaylistRouteAdapter : ListAdapter<PlaylistItem, PlaylistRouteViewHolder>(PlaylistItemDiffUtil()) {
+class PlaylistRouteAdapter :
+    ListAdapter<PlaylistItem, PlaylistRouteViewHolder>(PlaylistItemDiffUtil()) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PlaylistRouteViewHolder {
         val inflater = LayoutInflater.from(parent.context)

@@ -10,7 +10,8 @@ import com.apm.trackify.model.domain.PlaylistItem
 import com.apm.trackify.ui.routes.create.view.holder.PlaylistRoutesViewHolder
 import com.apm.trackify.util.extension.loadFromURI
 
-class PlaylistRoutesAdapter() : ListAdapter<PlaylistItem, PlaylistRoutesViewHolder> (PlaylistItemDiffUtil()) {
+class PlaylistRoutesAdapter :
+    ListAdapter<PlaylistItem, PlaylistRoutesViewHolder>(PlaylistItemDiffUtil()) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PlaylistRoutesViewHolder {
         val inflater = LayoutInflater.from(parent.context)
@@ -25,5 +26,4 @@ class PlaylistRoutesAdapter() : ListAdapter<PlaylistItem, PlaylistRoutesViewHold
         holder.coverImageView.loadFromURI(playlist.imageUri, R.drawable.placeholder_playlist)
         holder.nameTextView.text = playlist.name
     }
-
 }

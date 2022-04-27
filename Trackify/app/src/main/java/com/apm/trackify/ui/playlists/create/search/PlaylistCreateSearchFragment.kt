@@ -9,11 +9,13 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.apm.trackify.R
 import com.apm.trackify.databinding.PlaylistsCreateSearchFragmentBinding
 import com.apm.trackify.service.media.MediaServiceLifecycle
 import com.apm.trackify.ui.playlists.create.search.view.adapter.TrackAddAdapter
 import com.apm.trackify.ui.playlists.create.search.view.model.PlaylistCreateSearchViewModel
 import com.apm.trackify.util.extension.setupToolbar
+import com.apm.trackify.util.extension.toast
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 
@@ -51,8 +53,12 @@ class PlaylistCreateSearchFragment : Fragment() {
 
     private fun setupRecyclerView(recyclerView: RecyclerView) {
         val addTrackAdapter = TrackAddAdapter(mediaServiceLifecycle)
-        viewModel.tracks.observe(viewLifecycleOwner) {
-            addTrackAdapter.submitList(it)
+        viewModel.getResponse().observe(viewLifecycleOwner) {
+            if (it.isSuccessful) {
+                addTrackAdapter.submitList(it.body()?.toTrackItems())
+            } else {
+                context?.toast(R.string.error)
+            }
         }
 
         recyclerView.adapter = addTrackAdapter

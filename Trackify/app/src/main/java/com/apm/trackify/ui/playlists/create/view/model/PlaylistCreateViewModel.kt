@@ -14,7 +14,7 @@ import com.apm.trackify.util.extension.swap
  * If you pass the same list to the adapter it does not even call the DiffUtil. The library
  * assumes you are using Room or any other ORM which offers a new async list every time it
  * gets updated, so just calling submitList on it will work, and for sloppy developers, it
- * prevents doing the calculations twice if the same list is called
+ * prevents doing the calculations twice if the same list is called.
  */
 class PlaylistCreateViewModel : ViewModel() {
 

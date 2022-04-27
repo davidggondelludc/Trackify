@@ -9,7 +9,8 @@ import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.model.*
 
-class MapsUtil(var map: GoogleMap, val context: Context?, val width: Int, val height: Int) : GoogleMap.OnMarkerClickListener,
+class MapsUtil(var map: GoogleMap, val context: Context?, val width: Int, val height: Int) :
+    GoogleMap.OnMarkerClickListener,
     GoogleMap.OnMapClickListener {
     private val offset = 0.003
     private lateinit var mapsRouteUrl: String
@@ -88,7 +89,14 @@ class MapsUtil(var map: GoogleMap, val context: Context?, val width: Int, val he
             LatLng(minLat - offset, minLong - offset),
             LatLng(maxLat + 2 * offset, maxLong + offset)
         )
-        map.moveCamera(CameraUpdateFactory.newLatLngBounds(myBounds, (width * 0.5).toInt(), (height * 0.5).toInt(), 10))
+        map.moveCamera(
+            CameraUpdateFactory.newLatLngBounds(
+                myBounds,
+                (width * 0.5).toInt(),
+                (height * 0.5).toInt(),
+                10
+            )
+        )
     }
 
     private fun resizeMapIcons(

@@ -33,7 +33,6 @@ class FirebaseService {
                 }
             }
         }
-
     }
 
     fun createNewRoute(userName: String, name: String, coordinates: String, playlistUrl: String) {

@@ -4,7 +4,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.apm.trackify.databinding.RoutesCreatePlaylistItemBinding
 import com.apm.trackify.model.domain.PlaylistItem
 
-class PlaylistRoutesViewHolder (val binding: RoutesCreatePlaylistItemBinding) :
+class PlaylistRoutesViewHolder(val binding: RoutesCreatePlaylistItemBinding) :
     RecyclerView.ViewHolder(binding.root) {
 
     val coverImageView = binding.cover

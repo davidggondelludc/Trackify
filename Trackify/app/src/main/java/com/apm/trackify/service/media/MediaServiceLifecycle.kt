@@ -32,13 +32,11 @@ class MediaServiceLifecycle @Inject constructor() : DefaultLifecycleObserver {
 
     override fun onPause(owner: LifecycleOwner) {
         super.onPause(owner)
-
         stop()
     }
 
     override fun onDestroy(owner: LifecycleOwner) {
         super.onDestroy(owner)
-
         stop()
     }
 }

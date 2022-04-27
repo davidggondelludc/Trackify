@@ -14,7 +14,8 @@ import com.apm.trackify.ui.user.landing.sharedRoutes.view.holder.UserSharedRoute
 import com.apm.trackify.util.CoverUtil
 import com.apm.trackify.util.extension.toast
 
-class UserSharedRouteAdapter : ListAdapter<RouteItem, UserSharedRouteViewHolder>(RouteItemDiffUtil()) {
+class UserSharedRouteAdapter :
+    ListAdapter<RouteItem, UserSharedRouteViewHolder>(RouteItemDiffUtil()) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): UserSharedRouteViewHolder {
         val inflater = LayoutInflater.from(parent.context)

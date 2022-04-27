@@ -47,11 +47,12 @@ class PlaylistsLandingFragment : Fragment() {
 
     private fun setupRecyclerView(recyclerView: RecyclerView) {
         val playlistsAdapter = PlaylistAdapter()
-        viewModel.playlists.observe(viewLifecycleOwner) {
-            playlistsAdapter.submitList(it)
-        }
-        viewModel.errorMessage.observe(viewLifecycleOwner) {
-            context?.toast(R.string.error)
+        viewModel.getResponse().observe(viewLifecycleOwner) {
+            if (it.isSuccessful) {
+                playlistsAdapter.submitList(it.body()?.toPlaylistItems())
+            } else {
+                context?.toast(R.string.error)
+            }
         }
 
         recyclerView.adapter = playlistsAdapter
