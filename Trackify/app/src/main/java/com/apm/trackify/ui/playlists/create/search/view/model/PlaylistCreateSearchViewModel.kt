@@ -3,7 +3,7 @@ package com.apm.trackify.ui.playlists.create.search.view.model
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.apm.trackify.model.domain.TrackItem
-import com.apm.trackify.model.service.SpotifyApi
+import com.apm.trackify.service.spotify.SpotifyApi
 import com.apm.trackify.ui.main.MainApplication
 import kotlinx.coroutines.*
 import retrofit2.Retrofit

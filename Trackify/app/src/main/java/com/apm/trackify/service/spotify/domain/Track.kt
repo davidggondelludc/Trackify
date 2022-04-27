@@ -1,4 +1,4 @@
-package com.apm.trackify.model.service.domain
+package com.apm.trackify.service.spotify.domain
 
 import com.apm.trackify.model.domain.TrackItem
 

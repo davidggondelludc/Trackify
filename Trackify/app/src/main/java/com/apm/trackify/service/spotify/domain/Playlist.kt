@@ -1,7 +1,7 @@
-package com.apm.trackify.model.service.domain
+package com.apm.trackify.service.spotify.domain
 
 import com.apm.trackify.model.domain.PlaylistItem
-import com.apm.trackify.model.service.response.TracksResponse
+import com.apm.trackify.service.spotify.response.TracksResponse
 
 data class Playlist(
     val external_urls: ExternalUrls,

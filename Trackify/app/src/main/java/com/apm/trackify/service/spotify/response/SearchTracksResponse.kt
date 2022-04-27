@@ -1,7 +1,7 @@
-package com.apm.trackify.model.service.response
+package com.apm.trackify.service.spotify.response
 
 import com.apm.trackify.model.domain.TrackItem
-import com.apm.trackify.model.service.domain.Track
+import com.apm.trackify.service.spotify.domain.Track
 
 data class SearchTracksResponse(
     val items: List<Track>,
