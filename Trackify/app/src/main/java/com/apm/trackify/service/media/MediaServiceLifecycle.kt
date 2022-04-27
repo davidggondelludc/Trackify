@@ -26,8 +26,8 @@ class MediaServiceLifecycle @Inject constructor() : DefaultLifecycleObserver {
         }
     }
 
-    override fun onResume(owner: LifecycleOwner) {
-        super.onResume(owner)
+    override fun onPause(owner: LifecycleOwner) {
+        super.onPause(owner)
 
         mediaPlayer?.reset()
         mediaPlayer?.release()

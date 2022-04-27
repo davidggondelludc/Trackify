@@ -18,20 +18,19 @@ class PlaylistTracksViewModel @Inject constructor(playlist: Playlist) : ViewMode
 
     val playlist = MutableLiveData<Playlist>()
     val tracks = MutableLiveData<List<Track>>()
-    private val errorMessage = MutableLiveData<String>()
+    val errorMessage = MutableLiveData<String>()
+
     private var job: Job? = null
 
     init {
         this.playlist.value = playlist
-        // tracks.value = MockProvider.tracks.toMutableList()
-        val tk = "Bearer ${MainApplication.TOKEN}"
-        val rt = Retrofit.Builder().baseUrl("https://api.spotify.com/").addConverterFactory(
+        val retrofit = Retrofit.Builder().baseUrl("https://api.spotify.com/").addConverterFactory(
             GsonConverterFactory.create()
         ).build()
 
         job = CoroutineScope(Dispatchers.IO).launch {
-            val call = rt.create(SpotifyApi::class.java)
-                .getTracks("v1/playlists/" + playlist.id + "/tracks", tk)
+            val call = retrofit.create(SpotifyApi::class.java)
+                .getTracks("v1/playlists/${playlist.id}/tracks", "Bearer ${MainApplication.TOKEN}")
 
             withContext(Dispatchers.Main) {
                 if (call.isSuccessful) {
@@ -42,6 +41,10 @@ class PlaylistTracksViewModel @Inject constructor(playlist: Playlist) : ViewMode
                 }
             }
         }
+    }
 
+    override fun onCleared() {
+        super.onCleared()
+        job?.cancel()
     }
 }

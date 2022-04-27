@@ -32,7 +32,7 @@ class TrackAddAdapter(private val mediaService: MediaServiceLifecycle) :
         holder.artistsTextView.text = track.artists
 
         holder.itemView.setOnClickListener {
-            mediaService.play(track.previewUrl)
+            track.previewUrl?.let { it1 -> mediaService.play(it1) }
         }
 
         holder.addButton.setOnClickListener {

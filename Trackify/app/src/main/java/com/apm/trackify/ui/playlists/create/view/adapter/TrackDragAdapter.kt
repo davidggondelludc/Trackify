@@ -34,7 +34,7 @@ class TrackDragAdapter(
         holder.artistsTextView.text = track.artists
 
         holder.itemView.setOnClickListener {
-            mediaService.play(track.previewUrl)
+            track.previewUrl?.let { it1 -> mediaService.play(it1) }
         }
     }
 }

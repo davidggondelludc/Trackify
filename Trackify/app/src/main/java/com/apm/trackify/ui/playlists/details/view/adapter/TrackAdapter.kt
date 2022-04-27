@@ -31,7 +31,7 @@ class TrackAdapter(private val mediaService: MediaServiceLifecycle) :
         holder.explicitImageView.toggleVisibility(track.explicit, true)
 
         holder.itemView.setOnClickListener {
-            mediaService.play(track.previewUrl)
+            track.previewUrl?.let { it1 -> mediaService.play(it1) }
         }
     }
 }

@@ -11,5 +11,5 @@ data class Track(
     val artists: String,
     val explicit: Boolean,
     val duration: Int,
-    val previewUrl: String
+    val previewUrl: String?
 ) : Parcelable
