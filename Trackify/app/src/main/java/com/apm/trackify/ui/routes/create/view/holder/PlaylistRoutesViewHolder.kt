@@ -9,10 +9,9 @@ class PlaylistRoutesViewHolder (val binding: RoutesCreatePlaylistItemBinding) :
 
     val coverImageView = binding.cover
     val nameTextView = binding.name
+    val checkBox = binding.checkbox
 
     fun bind(playlist: Playlist) {
-        binding.content.setOnClickListener {
-        }
         binding.name.text = playlist.name
     }
 }
