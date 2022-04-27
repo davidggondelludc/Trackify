@@ -24,6 +24,7 @@
     <string name="save">Save</string>
     <string name="delete">Delete</string>
     <string name="error">Something went wrong</string>
+    <string name="preview_url">Preview not available</string>
 
     <!-- login -->
     <string name="login">Login with Spotify</string>

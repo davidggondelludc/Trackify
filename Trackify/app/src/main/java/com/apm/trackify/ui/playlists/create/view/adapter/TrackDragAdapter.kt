@@ -11,6 +11,7 @@ import com.apm.trackify.model.domain.Track
 import com.apm.trackify.service.media.MediaServiceLifecycle
 import com.apm.trackify.ui.playlists.create.view.holder.TrackDragViewHolder
 import com.apm.trackify.util.extension.loadFromURI
+import com.apm.trackify.util.extension.toast
 import com.apm.trackify.util.extension.toggleVisibility
 
 class TrackDragAdapter(
@@ -34,7 +35,11 @@ class TrackDragAdapter(
         holder.artistsTextView.text = track.artists
 
         holder.itemView.setOnClickListener {
-            track.previewUrl?.let { it1 -> mediaService.play(it1) }
+            if (track.previewUrl == null) {
+                it.context.toast(R.string.preview_url)
+            } else {
+                mediaService.play(track.previewUrl)
+            }
         }
     }
 }
