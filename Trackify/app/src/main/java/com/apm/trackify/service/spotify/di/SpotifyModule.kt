@@ -1,7 +1,7 @@
 package com.apm.trackify.service.spotify.di
 
-import com.apm.trackify.service.spotify.interceptor.HeaderInterceptor
 import com.apm.trackify.service.spotify.SpotifyService
+import com.apm.trackify.service.spotify.interceptor.HeaderInterceptor
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -20,7 +20,7 @@ object SpotifyModule {
     fun provideSpotifyService(): SpotifyService =
         Retrofit
             .Builder()
-            .baseUrl(SpotifyService.BASE_URL)
+            .baseUrl("https://api.spotify.com/v1/")
             .addConverterFactory(GsonConverterFactory.create())
             .client(
                 OkHttpClient

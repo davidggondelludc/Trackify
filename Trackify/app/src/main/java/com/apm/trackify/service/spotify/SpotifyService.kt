@@ -10,10 +10,6 @@ import retrofit2.http.Query
 
 interface SpotifyService {
 
-    companion object {
-        const val BASE_URL: String = "https://api.spotify.com/v1/"
-    }
-
     @GET("me/playlists")
     suspend fun getMePlaylists(): Response<PlaylistsResponse>
 
