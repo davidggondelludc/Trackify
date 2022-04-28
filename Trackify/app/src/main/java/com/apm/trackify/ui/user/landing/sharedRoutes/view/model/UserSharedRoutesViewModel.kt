@@ -13,16 +13,14 @@ import kotlinx.coroutines.withContext
 class UserSharedRoutesViewModel : ViewModel() {
 
     val routes = MutableLiveData<List<RouteItem>>()
+    var mutableRoutes = mutableListOf<RouteItem>()
     private var firebaseService = FirebaseService()
 
     init {
-        routes.value = MockProvider.routes
-        CoroutineScope(Dispatchers.IO).launch {
-            val foundRoutes = firebaseService.findRoutesByUsername("usuario")
-
-            withContext(Dispatchers.Main) {
-                routes.value = foundRoutes
-            }
+        mutableRoutes.clear()
+        firebaseService.findRoutesByUsername("usuario") {
+            mutableRoutes.add(it)
+            routes.value = mutableRoutes
         }
     }
 }
