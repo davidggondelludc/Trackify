@@ -9,13 +9,9 @@ import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.apm.trackify.databinding.UserFollowingFragmentBinding
-import com.apm.trackify.service.FirebaseService
 import com.apm.trackify.ui.user.landing.following.view.adapter.UserFollowingAdapter
 import com.apm.trackify.ui.user.landing.following.view.model.UserFollowingViewModel
 import com.apm.trackify.util.extension.toast
-import com.google.android.gms.tasks.OnFailureListener
-import kotlinx.coroutines.*
-import javax.inject.Inject
 
 class UserFollowingFragment : Fragment() {
 

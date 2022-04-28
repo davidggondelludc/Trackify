@@ -7,15 +7,9 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.viewpager2.widget.ViewPager2
 import com.apm.trackify.databinding.UserLandingFragmentBinding
-import com.apm.trackify.service.FirebaseService
+import com.apm.trackify.service.firebase.FirebaseService
 import com.apm.trackify.util.extension.setupToolbar
 import com.google.android.material.tabs.TabLayout
-import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
-import javax.inject.Inject
 
 class UserLandingFragment : Fragment() {
 
@@ -36,7 +30,6 @@ class UserLandingFragment : Fragment() {
         setupViewPager(binding)
         //}
         setupUserName(binding, "usuario")
-
     }
 
     private fun setupViewPager(binding: UserLandingFragmentBinding) {

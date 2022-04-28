@@ -1,21 +1,30 @@
 package com.apm.trackify.ui.playlists.details.view.model
 
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.apm.trackify.model.MockProvider
-import com.apm.trackify.model.domain.Playlist
-import com.apm.trackify.model.domain.Track
+import androidx.lifecycle.viewModelScope
+import com.apm.trackify.model.domain.PlaylistItem
+import com.apm.trackify.service.spotify.SpotifyService
+import com.apm.trackify.service.spotify.domain.response.TracksResponse
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.launch
+import retrofit2.Response
 import javax.inject.Inject
 
 @HiltViewModel
-class PlaylistTracksViewModel @Inject constructor(playlist: Playlist) : ViewModel() {
+class PlaylistTracksViewModel @Inject constructor(
+    playlistItem: PlaylistItem,
+    spotifyService: SpotifyService
+) : ViewModel() {
 
-    val playlist = MutableLiveData<Playlist>()
-    val tracks = MutableLiveData<List<Track>>()
+    val response = MutableLiveData<Response<TracksResponse>>()
+
+    fun getResponse(): LiveData<Response<TracksResponse>> = response
 
     init {
-        this.playlist.value = playlist
-        tracks.value = MockProvider.tracks.toMutableList()
+        viewModelScope.launch {
+            response.value = spotifyService.getPlaylistTracks(playlistItem.id)
+        }
     }
 }

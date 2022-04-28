@@ -8,13 +8,14 @@ import androidx.core.content.ContextCompat.startActivity
 import androidx.recyclerview.widget.ListAdapter
 import com.apm.trackify.R
 import com.apm.trackify.databinding.UserSharedRouteItemBinding
-import com.apm.trackify.model.diff.RouteDiffUtil
-import com.apm.trackify.model.domain.Route
+import com.apm.trackify.model.diff.RouteItemDiffUtil
+import com.apm.trackify.model.domain.RouteItem
 import com.apm.trackify.ui.user.landing.sharedRoutes.view.holder.UserSharedRouteViewHolder
 import com.apm.trackify.util.CoverUtil
 import com.apm.trackify.util.extension.toast
 
-class UserSharedRouteAdapter : ListAdapter<Route, UserSharedRouteViewHolder>(RouteDiffUtil()) {
+class UserSharedRouteAdapter :
+    ListAdapter<RouteItem, UserSharedRouteViewHolder>(RouteItemDiffUtil()) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): UserSharedRouteViewHolder {
         val inflater = LayoutInflater.from(parent.context)

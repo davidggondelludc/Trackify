@@ -5,15 +5,16 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.ListAdapter
 import com.apm.trackify.R
 import com.apm.trackify.databinding.PlaylistsTrackItemBinding
-import com.apm.trackify.model.diff.TrackDiffUtil
-import com.apm.trackify.model.domain.Track
+import com.apm.trackify.model.diff.TrackItemDiffUtil
+import com.apm.trackify.model.domain.TrackItem
 import com.apm.trackify.service.media.MediaServiceLifecycle
 import com.apm.trackify.ui.playlists.details.view.holder.TrackViewHolder
 import com.apm.trackify.util.extension.loadFromURI
+import com.apm.trackify.util.extension.toast
 import com.apm.trackify.util.extension.toggleVisibility
 
 class TrackAdapter(private val mediaService: MediaServiceLifecycle) :
-    ListAdapter<Track, TrackViewHolder>(TrackDiffUtil()) {
+    ListAdapter<TrackItem, TrackViewHolder>(TrackItemDiffUtil()) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): TrackViewHolder {
         val inflater = LayoutInflater.from(parent.context)
@@ -31,7 +32,12 @@ class TrackAdapter(private val mediaService: MediaServiceLifecycle) :
         holder.explicitImageView.toggleVisibility(track.explicit, true)
 
         holder.itemView.setOnClickListener {
-            mediaService.play(track.previewUrl)
+            if (track.previewUrl == null) {
+                mediaService.stop()
+                it.context.toast(R.string.preview_url)
+            } else {
+                mediaService.play(track.previewUrl)
+            }
         }
     }
 }

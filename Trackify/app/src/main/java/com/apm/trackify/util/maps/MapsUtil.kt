@@ -9,7 +9,8 @@ import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.model.*
 
-class MapsUtil(var map: GoogleMap, val context: Context?, val width: Int, val height: Int) : GoogleMap.OnMarkerClickListener,
+class MapsUtil(var map: GoogleMap, val context: Context?, val width: Int, val height: Int) :
+    GoogleMap.OnMarkerClickListener,
     GoogleMap.OnMapClickListener {
     private val offset = 0.003
     private lateinit var mapsRouteUrl: String
@@ -88,7 +89,14 @@ class MapsUtil(var map: GoogleMap, val context: Context?, val width: Int, val he
             LatLng(minLat - offset, minLong - offset),
             LatLng(maxLat + 2 * offset, maxLong + offset)
         )
-        map.moveCamera(CameraUpdateFactory.newLatLngBounds(myBounds, (width * 0.5).toInt(), (height * 0.5).toInt(), 10))
+        map.moveCamera(
+            CameraUpdateFactory.newLatLngBounds(
+                myBounds,
+                (width * 0.5).toInt(),
+                (height * 0.5).toInt(),
+                10
+            )
+        )
     }
 
     private fun resizeMapIcons(
@@ -121,5 +129,25 @@ class MapsUtil(var map: GoogleMap, val context: Context?, val width: Int, val he
     override fun onMapClick(coordinates: LatLng) {
         val intent = Intent(Intent.ACTION_VIEW, Uri.parse(mapsRouteUrl))
         context?.startActivity(intent)
+    }
+
+
+    fun createUserMarker(userCoordinates: LatLng) {
+        var marker: MarkerOptions = MarkerOptions().position(userCoordinates)
+            .title("User location")
+            .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_ORANGE))
+
+        map.addMarker(marker)
+
+        val userBounds = LatLngBounds(
+            LatLng(userCoordinates.latitude - offset, userCoordinates.longitude - offset),
+            LatLng(userCoordinates.latitude + 2 * offset, userCoordinates.longitude + offset)
+        )
+        map.moveCamera(CameraUpdateFactory.newLatLngBounds(userBounds, (width * 0.5).toInt(), (height * 0.5).toInt(), 10))
+        var zoom = ",15z"
+        var auxUrl = "https://www.google.com/maps/place/" + userCoordinates.latitude + "," + userCoordinates.longitude + zoom
+        mapsRouteUrl = auxUrl
+        map.setOnMapClickListener(this)
+
     }
 }

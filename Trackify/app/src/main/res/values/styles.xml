@@ -36,7 +36,7 @@
         <item name="postSplashScreenTheme">@style/Theme.Trackify</item>
     </style>
 
-    <!-- item playlist -->
+    <!-- mosaic text -->
     <style name="Mosaic">
         <item name="android:ellipsize">end</item>
         <item name="android:gravity">center</item>
@@ -55,7 +55,7 @@
         <item name="android:textSize">@dimen/playlist_text_size_secondary</item>
     </style>
 
-    <!-- item track -->
+    <!-- inline text -->
     <style name="Inline">
         <item name="android:maxLines">1</item>
         <item name="android:ellipsize">end</item>

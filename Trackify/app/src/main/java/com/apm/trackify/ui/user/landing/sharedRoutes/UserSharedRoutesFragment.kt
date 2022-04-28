@@ -99,6 +99,4 @@ class UserSharedRoutesFragment : Fragment(), OnMapReadyCallback {
         super.onLowMemory()
         mapView.onLowMemory()
     }
-
-
 }

@@ -1,9 +1,11 @@
 package com.apm.trackify.ui.login
 
 import android.content.Intent
+import android.content.pm.PackageManager
 import android.os.Bundle
 import android.view.ViewTreeObserver
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.app.ActivityCompat
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import com.apm.trackify.databinding.LoginActivityBinding
 import com.apm.trackify.ui.main.MainActivity
@@ -47,17 +49,27 @@ class LoginActivity : AppCompatActivity() {
         val request =
             AuthorizationRequest.Builder(CLIENT_ID, AuthorizationResponse.Type.TOKEN, REDIRECT_URI)
                 .setShowDialog(false)
-                .setScopes(arrayOf("user-read-email"))
+                .setScopes(arrayOf("playlist-read-private"))
                 .build()
         AuthorizationClient.openLoginActivity(this, AUTH_TOKEN_REQUEST_CODE, request)
         binding.login.setOnClickListener {
             AuthorizationClient.openLoginActivity(this, AUTH_TOKEN_REQUEST_CODE, request)
         }
+
+        checkLocationPermission()
     }
 
     @Deprecated("Deprecated in Java")
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
+
+        //for solving my login problems
+        /*
+        val intent = Intent(this, MainActivity::class.java)
+        startActivity(intent)
+        finish()
+         */
+
 
         if (requestCode == AUTH_TOKEN_REQUEST_CODE) {
             val response = AuthorizationClient.getResponse(resultCode, data)
@@ -69,5 +81,24 @@ class LoginActivity : AppCompatActivity() {
             }
             isReady = true
         }
+
+
     }
+
+    private fun checkLocationPermission() {
+        if (ActivityCompat.checkSelfPermission(
+                applicationContext,
+                android.Manifest.permission.ACCESS_COARSE_LOCATION
+            )
+            != PackageManager.PERMISSION_GRANTED
+        ) {
+            ActivityCompat.requestPermissions(
+                this,
+                arrayOf(android.Manifest.permission.ACCESS_COARSE_LOCATION),
+                1001
+            )
+        }
+    }
+
+
 }
