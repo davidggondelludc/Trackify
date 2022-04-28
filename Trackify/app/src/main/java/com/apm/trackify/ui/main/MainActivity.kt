@@ -37,6 +37,7 @@ class MainActivity : AppCompatActivity() {
         FirebaseApp.initializeApp(this)
 
         binding.bottomNavigation.setupWithNavController(navController)
+        //checkLocationPermission()
     }
 
     override fun onSupportNavigateUp(): Boolean {

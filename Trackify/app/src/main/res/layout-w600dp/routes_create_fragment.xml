@@ -23,6 +23,16 @@
         android:layout_height="match_parent"
         app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior">
 
+        <TextView
+            android:id="@+id/create_route_title2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="8dp"
+            android:text="@string/create_route_description"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rvUserPlaylistsInRoute"
             android:layout_width="0dp"
@@ -45,74 +55,50 @@
             android:text="@string/playlist_to_share_title"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@+id/mapView"
-            app:layout_constraintTop_toBottomOf="@+id/end_coordinates" />
+            app:layout_constraintTop_toBottomOf="@+id/delete_button" />
 
         <ImageButton
-            android:id="@+id/imgBtnEndRoute"
+            android:id="@+id/delete_button"
             android:layout_width="wrap_content"
             android:layout_height="0dp"
             android:padding="8dp"
-            app:layout_constraintBottom_toBottomOf="@+id/end_coordinates"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/end_coordinates"
-            app:layout_constraintTop_toTopOf="@+id/end_coordinates"
-            app:srcCompat="@drawable/ic_finish" />
-
-        <ImageButton
-            android:id="@+id/pin_button"
-            android:layout_width="wrap_content"
-            android:layout_height="0dp"
-            android:padding="8dp"
-            app:layout_constraintBottom_toBottomOf="@+id/start_coordinates"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/start_coordinates"
-            app:layout_constraintTop_toTopOf="@+id/start_coordinates"
-            app:srcCompat="@drawable/ic_my_location" />
+            app:layout_constraintStart_toEndOf="@+id/route_name"
+            app:layout_constraintTop_toBottomOf="@+id/delete_text"
+            app:srcCompat="@drawable/ic_delete" />
 
         <EditText
-            android:id="@+id/start_coordinates"
+            android:id="@+id/route_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:autofillHints="@string/start_hint"
-            android:ems="10"
+            android:ems="8"
             android:inputType="text"
-            android:labelFor="@id/start_title"
+            android:labelFor="@id/route_name_title"
             android:padding="8dp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/start_title"
-            app:layout_constraintTop_toTopOf="parent" />
-
-        <EditText
-            android:id="@+id/end_coordinates"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:autofillHints="@string/start_hint"
-            android:ems="10"
-            android:inputType="text"
-            android:labelFor="@id/start_title"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/end_title"
-            app:layout_constraintTop_toBottomOf="@+id/start_coordinates" />
+            app:layout_constraintBottom_toBottomOf="@+id/delete_button"
+            app:layout_constraintStart_toEndOf="@+id/route_name_title"
+            app:layout_constraintTop_toTopOf="@+id/delete_text" />
 
         <TextView
-            android:id="@+id/start_title"
+            android:id="@+id/route_name_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:padding="8dp"
-            android:text="@string/start"
-            app:layout_constraintBottom_toBottomOf="@+id/start_coordinates"
+            android:text="@string/route_name"
+            app:layout_constraintBottom_toBottomOf="@+id/route_name"
             app:layout_constraintStart_toEndOf="@+id/mapView"
-            app:layout_constraintTop_toTopOf="@+id/start_coordinates" />
+            app:layout_constraintTop_toTopOf="@+id/route_name" />
 
         <TextView
-            android:id="@+id/end_title"
+            android:id="@+id/delete_text"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:padding="8dp"
-            android:text="@string/end"
-            app:layout_constraintBottom_toBottomOf="@+id/end_coordinates"
-            app:layout_constraintStart_toEndOf="@+id/mapView"
-            app:layout_constraintTop_toTopOf="@+id/end_coordinates" />
+            android:text="@string/delete_markers"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/route_name"
+            app:layout_constraintTop_toBottomOf="@+id/create_route_title2" />
 
         <androidx.fragment.app.FragmentContainerView
             android:id="@+id/mapView"
@@ -123,7 +109,7 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toStartOf="@+id/rvUserPlaylistsInRoute"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toBottomOf="@+id/create_route_title2" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.coordinatorlayout.widget.CoordinatorLayout>
 

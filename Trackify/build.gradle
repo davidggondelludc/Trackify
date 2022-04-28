@@ -11,7 +11,7 @@ buildscript {
         browser_version = "1.4.0"
         coordinatorlayout_version = "1.2.0"
         core_version = "1.7.0"
-        coroutines_play_services_version = "1.6.1"
+        coroutines_version = "1.6.1"
         constraintlayout_version = "2.1.3"
         espresso_version = "3.4.0"
         firebase_version = "29.3.1"
@@ -37,6 +37,7 @@ buildscript {
         secrets_version = "2.0.1"
         splashscreen_version = "1.0.0-beta02"
         spotify_version = "1.2.5"
+        play_services_location_version = "19.0.1"
     }
 
     dependencies {
