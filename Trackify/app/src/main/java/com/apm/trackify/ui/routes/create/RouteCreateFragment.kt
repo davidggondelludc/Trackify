@@ -13,9 +13,9 @@ import com.apm.trackify.R
 import com.apm.trackify.databinding.RoutesCreateFragmentBinding
 import com.apm.trackify.ui.routes.create.view.adapter.PlaylistRoutesAdapter
 import com.apm.trackify.ui.routes.create.view.model.RoutesCreateViewModel
-import com.apm.trackify.util.extension.toast
 import com.apm.trackify.util.extension.setupToolbar
 import com.apm.trackify.util.extension.toPx
+import com.apm.trackify.util.extension.toast
 import com.apm.trackify.util.maps.MapsUtil
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.OnMapReadyCallback

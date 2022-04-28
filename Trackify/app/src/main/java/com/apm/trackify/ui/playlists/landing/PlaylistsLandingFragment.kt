@@ -15,7 +15,9 @@ import com.apm.trackify.ui.playlists.landing.view.adapter.PlaylistAdapter
 import com.apm.trackify.ui.playlists.landing.view.model.PlaylistsLandingViewModel
 import com.apm.trackify.util.extension.setupToolbar
 import com.apm.trackify.util.extension.toast
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class PlaylistsLandingFragment : Fragment() {
 
     private val viewModel: PlaylistsLandingViewModel by viewModels()
@@ -45,12 +47,12 @@ class PlaylistsLandingFragment : Fragment() {
 
     private fun setupRecyclerView(recyclerView: RecyclerView) {
         val playlistsAdapter = PlaylistAdapter()
-        viewModel.playlists.observe(viewLifecycleOwner) {
-            playlistsAdapter.submitList(it)
-        }
-
-        viewModel.errorMessage.observe(viewLifecycleOwner) {
-            context?.toast(it)
+        viewModel.getResponse().observe(viewLifecycleOwner) {
+            if (it.isSuccessful) {
+                playlistsAdapter.submitList(it.body()?.toPlaylistItems())
+            } else {
+                context?.toast(R.string.error)
+            }
         }
 
         recyclerView.adapter = playlistsAdapter

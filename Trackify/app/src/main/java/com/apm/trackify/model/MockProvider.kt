@@ -1,15 +1,15 @@
 package com.apm.trackify.model
 
-import com.apm.trackify.model.domain.Playlist
-import com.apm.trackify.model.domain.Route
-import com.apm.trackify.model.domain.Track
-import com.apm.trackify.model.domain.User
+import com.apm.trackify.model.domain.PlaylistItem
+import com.apm.trackify.model.domain.RouteItem
+import com.apm.trackify.model.domain.TrackItem
+import com.apm.trackify.model.domain.UserItem
 
 // TODO: change placeholders for retrieved data
 object MockProvider {
 
     val routes = List(20) {
-        Route(
+        RouteItem(
             "$it",
             "Route $it",
             "url $it",
@@ -19,7 +19,7 @@ object MockProvider {
     }
 
     val users = List(20) {
-        User(
+        UserItem(
             "Usuario $it",
             listOf("User $it"),
             listOf("User $it"),
@@ -28,27 +28,27 @@ object MockProvider {
     }
 
     val playlists = List(20) {
-        Playlist(
+        PlaylistItem(
             "$it playlist",
             "https://open.spotify.com/playlist/5Ka9ePddRWRGLKYJ7v6gAE?si=daeb8cd4d95c41af",
             "https://mosaic.scdn.co/640/ab67616d0000b2733a2d2b9621ef645380c63c16ab67616d0000b273b3ed0d541b9c8508d3b6f729ab67616d0000b273ba4c798ab356b8adb64bb2fcab67616d0000b273dbe9c4609ec382dcc0391e62",
             "Playlist $it",
-            it,
-            "User $it"
+            "User $it",
+            it
         )
     }
 
-    val playlist = Playlist(
+    val playlist = PlaylistItem(
         "1 playlist",
         "https://open.spotify.com/playlist/5Ka9ePddRWRGLKYJ7v6gAE?si=daeb8cd4d95c41af",
         "https://mosaic.scdn.co/640/ab67616d0000b2733a2d2b9621ef645380c63c16ab67616d0000b273b3ed0d541b9c8508d3b6f729ab67616d0000b273ba4c798ab356b8adb64bb2fcab67616d0000b273dbe9c4609ec382dcc0391e62",
         "Playlist",
-        20,
-        "User"
+        "User",
+        20
     )
 
     val tracks = List(61) {
-        Track(
+        TrackItem(
             "$it track",
             "https://mosaic.scdn.co/60/ab67616d0000b2733a2d2b9621ef645380c63c16ab67616d0000b273b3ed0d541b9c8508d3b6f729ab67616d0000b273ba4c798ab356b8adb64bb2fcab67616d0000b273dbe9c4609ec382dcc0391e62",
             "Track $it",

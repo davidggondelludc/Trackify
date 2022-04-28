@@ -9,7 +9,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerInParent="true"
-        android:backgroundTint="#1D8954"
+        android:backgroundTint="#1DB954"
         android:text="@string/login"
         android:textAllCaps="false"
         android:textColor="@android:color/white"

@@ -30,7 +30,6 @@ class UserLandingFragment : Fragment() {
         setupViewPager(binding)
         //}
         setupUserName(binding, "usuario")
-
     }
 
     private fun setupViewPager(binding: UserLandingFragmentBinding) {

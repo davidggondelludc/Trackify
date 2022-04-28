@@ -6,13 +6,14 @@ import androidx.navigation.findNavController
 import androidx.recyclerview.widget.ListAdapter
 import com.apm.trackify.R
 import com.apm.trackify.databinding.RoutesPlaylistsItemBinding
-import com.apm.trackify.model.diff.PlaylistDiffUtil
-import com.apm.trackify.model.domain.Playlist
+import com.apm.trackify.model.diff.PlaylistItemDiffUtil
+import com.apm.trackify.model.domain.PlaylistItem
 import com.apm.trackify.ui.routes.landing.RoutesLandingFragmentDirections
 import com.apm.trackify.ui.routes.landing.view.holder.PlaylistRouteViewHolder
 import com.apm.trackify.util.extension.loadFromURI
 
-class PlaylistRouteAdapter : ListAdapter<Playlist, PlaylistRouteViewHolder>(PlaylistDiffUtil()) {
+class PlaylistRouteAdapter :
+    ListAdapter<PlaylistItem, PlaylistRouteViewHolder>(PlaylistItemDiffUtil()) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PlaylistRouteViewHolder {
         val inflater = LayoutInflater.from(parent.context)

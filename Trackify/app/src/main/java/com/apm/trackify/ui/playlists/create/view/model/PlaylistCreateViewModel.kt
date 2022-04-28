@@ -3,8 +3,8 @@ package com.apm.trackify.ui.playlists.create.view.model
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.apm.trackify.model.MockProvider
-import com.apm.trackify.model.domain.Playlist
-import com.apm.trackify.model.domain.Track
+import com.apm.trackify.model.domain.PlaylistItem
+import com.apm.trackify.model.domain.TrackItem
 import com.apm.trackify.util.extension.isInBounds
 import com.apm.trackify.util.extension.swap
 
@@ -14,14 +14,14 @@ import com.apm.trackify.util.extension.swap
  * If you pass the same list to the adapter it does not even call the DiffUtil. The library
  * assumes you are using Room or any other ORM which offers a new async list every time it
  * gets updated, so just calling submitList on it will work, and for sloppy developers, it
- * prevents doing the calculations twice if the same list is called
+ * prevents doing the calculations twice if the same list is called.
  */
 class PlaylistCreateViewModel : ViewModel() {
 
-    val playlist = MutableLiveData<Playlist>()
-    val tracks = MutableLiveData<List<Track>>()
+    val playlist = MutableLiveData<PlaylistItem>()
+    val tracks = MutableLiveData<List<TrackItem>>()
 
-    private val dataset: MutableList<Track> = MockProvider.tracks.toMutableList()
+    private val dataset: MutableList<TrackItem> = MockProvider.tracks.toMutableList()
 
     init {
         playlist.value = MockProvider.playlist

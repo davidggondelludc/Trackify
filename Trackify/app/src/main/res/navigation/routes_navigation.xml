@@ -36,6 +36,6 @@
         tools:layout="@layout/playlists_tracks_fragment">
         <argument
             android:name="playlist"
-            app:argType="com.apm.trackify.model.domain.Playlist" />
+            app:argType="com.apm.trackify.model.domain.PlaylistItem" />
     </fragment>
 </navigation>

@@ -1,44 +1,26 @@
 package com.apm.trackify.ui.playlists.landing.view.model
 
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.apm.trackify.model.domain.Playlist
-import com.apm.trackify.service.spotify.SpotifyAPI
-import com.apm.trackify.service.spotify.model.mapper.PlaylistMapper
-import com.apm.trackify.ui.main.MainApplication
-import kotlinx.coroutines.*
-import retrofit2.Retrofit
-import retrofit2.converter.gson.GsonConverterFactory
+import androidx.lifecycle.viewModelScope
+import com.apm.trackify.service.spotify.SpotifyService
+import com.apm.trackify.service.spotify.domain.response.PlaylistsResponse
+import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.launch
+import retrofit2.Response
+import javax.inject.Inject
 
-class PlaylistsLandingViewModel() : ViewModel() {
-    val playlists = MutableLiveData<List<Playlist>>()
-    val errorMessage = MutableLiveData<String>()
-    var job: Job? = null
+@HiltViewModel
+class PlaylistsLandingViewModel @Inject constructor(spotifyService: SpotifyService) : ViewModel() {
+
+    private val response = MutableLiveData<Response<PlaylistsResponse>>()
+
+    fun getResponse(): LiveData<Response<PlaylistsResponse>> = response
 
     init {
-        val tk = "Bearer ${MainApplication.TOKEN}"
-        val rt = Retrofit.Builder().baseUrl("https://api.spotify.com/").addConverterFactory(
-            GsonConverterFactory.create()
-        ).build()
-
-        job = CoroutineScope(Dispatchers.IO).launch {
-            val call =
-                rt.create(SpotifyAPI::class.java).getPlaylists("v1/me/playlists", tk)
-
-            withContext(Dispatchers.Main) {
-                if (call.isSuccessful) {
-                    val res = call.body()
-                    playlists.value = PlaylistMapper.toPlaylist(res!!)
-                } else {
-                    errorMessage.value = "Error while loading playlists."
-                }
-            }
-
+        viewModelScope.launch {
+            response.value = spotifyService.getMePlaylists()
         }
-    }
-
-    override fun onCleared() {
-        super.onCleared()
-        job?.cancel()
     }
 }
