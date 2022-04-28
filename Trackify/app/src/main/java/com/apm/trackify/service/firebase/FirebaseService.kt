@@ -28,15 +28,15 @@ class FirebaseService {
                     Log.d(TAG, "Document already exists")
                 } else {
                     db.collection("users").document(userName)
-                        .set(user).addOnSuccessListener { _ -> onSuccess() }
-                        .addOnFailureListener { _ -> onFailure() }
+                        .set(user).addOnSuccessListener {  onSuccess() }
+                        .addOnFailureListener { onFailure() }
                 }
             }
         }
-
     }
 
-    fun createNewRoute(userName: String, name: String, coordinates: String, playlistUrl: String) {
+    fun createNewRoute(userName: String, name: String, coordinates: String, playlistUrl: String,
+                       onSuccess: () -> Unit, onFailure: () -> Unit) {
         val route: MutableMap<String, Any> = HashMap()
         route["name"] = name
         route["playlistUrl"] = playlistUrl
@@ -47,54 +47,66 @@ class FirebaseService {
             db.collection("users").document(userName).update(
                 "routes",
                 FieldValue.arrayUnion(db.document("routes/${document.id}"))
-            )
+            ).addOnSuccessListener { onSuccess() }.addOnFailureListener { onFailure() }
         }
     }
 
-    suspend fun checkFollowed(userName: String, followedUserName: String): Boolean {
+    private fun checkFollowed(userName: String, followedUserName: String, onResult: (Boolean) -> Unit) {
         var following: MutableList<String> = ArrayList()
 
         db.collection("users").document(userName).get().addOnSuccessListener { document ->
             following = document.data?.getValue("following") as MutableList<String>
-        }.await()
-
-        return following.contains(followedUserName)
+            onResult(following.contains((followedUserName)))
+        }
     }
 
-    fun follow(myUserName: String, followedUserName: String) {
-        val batch: WriteBatch = db.batch()
-        val myProfile = db.document("users/${myUserName}")
-        val followedProfile = db.document("users/${followedUserName}")
+    fun follow(myUserName: String, followedUserName: String, onSuccess: () -> Unit, onFailure: () -> Unit) {
+        checkFollowed(myUserName, followedUserName) {
+            if (!it) {
+                val batch: WriteBatch = db.batch()
+                val myProfile = db.document("users/${myUserName}")
+                val followedProfile = db.document("users/${followedUserName}")
 
-        batch.update(
-            myProfile, "following",
-            FieldValue.arrayUnion(followedProfile)
-        )
+                batch.update(
+                    myProfile, "following",
+                    FieldValue.arrayUnion(followedProfile)
+                )
 
-        batch.update(
-            followedProfile,
-            "followers",
-            FieldValue.increment(1)
-        )
-        batch.commit()
+                batch.update(
+                    followedProfile,
+                    "followers",
+                    FieldValue.increment(1)
+                )
+                batch.commit().addOnSuccessListener { onSuccess() }
+            } else {
+                onFailure()
+            }
+        }
     }
 
-    fun unfollow(myUserName: String, followedUserName: String) {
-        val batch: WriteBatch = db.batch()
-        val myProfile = db.document("users/${myUserName}")
-        val followedProfile = db.document("users/${followedUserName}")
+    fun unfollow(myUserName: String, followedUserName: String, onSuccess: () -> Unit, onFailure: () -> Unit) {
+        checkFollowed(myUserName, followedUserName) {
+            if (it) {
+                val batch: WriteBatch = db.batch()
+                val myProfile = db.document("users/${myUserName}")
+                val followedProfile = db.document("users/${followedUserName}")
 
-        batch.update(
-            myProfile,
-            "following",
-            FieldValue.arrayRemove(followedProfile)
-        )
-        batch.update(
-            followedProfile,
-            "followers",
-            FieldValue.increment(-1)
-        )
-        batch.commit()
+                batch.update(
+                    myProfile,
+                    "following",
+                    FieldValue.arrayRemove(followedProfile)
+                )
+                batch.update(
+                    followedProfile,
+                    "followers",
+                    FieldValue.increment(-1)
+                )
+                batch.commit().addOnSuccessListener { onSuccess() }.addOnFailureListener { onFailure() }
+            } else {
+                onFailure()
+            }
+        }
+
     }
 
     fun findRoutesByUsername(userName: String, forEachRoute: (Route) -> Unit) {
