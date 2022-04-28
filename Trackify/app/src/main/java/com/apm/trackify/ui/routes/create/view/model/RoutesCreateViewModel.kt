@@ -1,9 +1,7 @@
 package com.apm.trackify.ui.routes.create.view.model
 
-import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.apm.trackify.model.MockProvider
 import com.apm.trackify.model.domain.Playlist
 import com.apm.trackify.service.spotify.SpotifyAPI
 import com.apm.trackify.service.spotify.model.mapper.PlaylistMapper

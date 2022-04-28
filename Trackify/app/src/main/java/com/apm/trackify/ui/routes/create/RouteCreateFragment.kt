@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
@@ -31,6 +32,7 @@ class RouteCreateFragment : Fragment(), OnMapReadyCallback {
     private lateinit var mapUtil: MapsUtilCreateRoute
     private var firebaseService: FirebaseService = FirebaseService()
     private lateinit var fusedLocationClient: FusedLocationProviderClient
+    private var numberPlaylistSelected: Int = -1
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -49,20 +51,29 @@ class RouteCreateFragment : Fragment(), OnMapReadyCallback {
 
         setupToolbar(binding.toolbar)
         binding.toolbar.setOnMenuItemClickListener {
-            when (it.itemId) {
-                R.id.createRoute -> {
-                    firebaseService.createNewRoute("usuario","nombreRuta", mapUtil.getAllClicks().toString(), "playlistUrl")
-                    val navController = findNavController()
-                    navController.navigateUp()
+            if (mapUtil.getAllMarkers().size > 1) {
+                val playlistRoutesAdapter: PlaylistRoutesAdapter = binding.rvUserPlaylistsInRoute.adapter as PlaylistRoutesAdapter
+                numberPlaylistSelected = playlistRoutesAdapter.getSelectedPosition()
+                if (numberPlaylistSelected != -1) {
+                    val routeName: String = binding.routeName.text.toString().trim()
+                    when (it.itemId) {
+                        R.id.createRoute -> {
+                            firebaseService.createNewRoute("usuario", routeName, mapUtil.getAllMarkers().toString(), getUrlPlaylist(numberPlaylistSelected))
+                            val navController = findNavController()
+                            navController.navigateUp()
+                            Toast.makeText(this.context, "Route created successfully!", Toast.LENGTH_SHORT).show()
+                        }
+                    }
+                } else {
+                    Toast.makeText(context, "Select one playlist", Toast.LENGTH_SHORT).show()
                 }
+            } else {
+                Toast.makeText(context, "Introduce at least 2 markers in the map", Toast.LENGTH_SHORT).show()
             }
             true
         }
-        binding.pinButton.setOnClickListener { mapUtil.clearClicks() }
-        binding.imgBtnEndRoute.setOnClickListener { it.context.toast("Set ending coordinates") }
-
+        binding.deleteButton.setOnClickListener { mapUtil.clearMarkers() }
         binding.mapView.getFragment<SupportMapFragment>().getMapAsync(this)
-
         setupRecyclerView(binding.rvUserPlaylistsInRoute)
     }
 
@@ -86,7 +97,10 @@ class RouteCreateFragment : Fragment(), OnMapReadyCallback {
         mapUtil.setDefaultSettings()
 
         mapUtil.setUpMap(this.requireContext(), fusedLocationClient)
-        mapUtil.drawRouteAndSetOnClick()
+    }
+
+    private fun getUrlPlaylist (position: Int): String {
+        return viewModel.playlists.value?.get(position)?.playlistUri ?: ""
     }
 
 }
