@@ -63,6 +63,7 @@
     <!-- user landing -->
     <string name="share_route_title">Sharing route</string>
     <string name="share_route_text">I have been doing a route with Trackify</string>
+    <string name="see_playlist">See playlist</string>
 
     <!-- plurals -->
     <plurals name="playlists">

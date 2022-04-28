@@ -1,6 +1,9 @@
 package com.apm.trackify.ui.routes.create
 
+import android.annotation.SuppressLint
+import android.content.ContentValues
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -108,13 +111,33 @@ class RouteCreateFragment : Fragment(), OnMapReadyCallback {
         recyclerView.layoutManager = LinearLayoutManager(context)
     }
 
+    @SuppressLint("MissingPermission")
     override fun onMapReady(googleMap: GoogleMap) {
-        val heightpx = resources.getDimension(R.dimen.user_mapview_height).toPx.toInt()
-        mapUtil =
-            MapsUtilCreateRoute(googleMap, context, resources.displayMetrics.widthPixels, heightpx)
-        mapUtil.setDefaultSettings()
+        fusedLocationClient.lastLocation
+            .addOnCompleteListener { taskLocation ->
+                if (taskLocation.isSuccessful) {
+                    val heightpx = resources.getDimension(R.dimen.user_mapview_height).toPx.toInt()
+                    mapUtil =
+                        MapsUtilCreateRoute(
+                            googleMap,
+                            context,
+                            resources.displayMetrics.widthPixels,
+                            heightpx
+                        )
+                    mapUtil.setDefaultSettings()
 
-        mapUtil.setUpMap(fusedLocationClient)
+                    mapUtil.setUpMap(fusedLocationClient)
+                } else {
+                    Log.w(ContentValues.TAG, "getLastLocation:exception", taskLocation.exception)
+                    Toast.makeText(
+                        requireContext(),
+                        "No Location Detected. Make sure permissions are granted",
+                        Toast.LENGTH_SHORT
+                    ).show()
+                    val navController = findNavController()
+                    navController.navigateUp()
+                }
+            }
     }
 
     private fun getUrlPlaylist(position: Int): String {

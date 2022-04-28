@@ -63,6 +63,14 @@ class LoginActivity : AppCompatActivity() {
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
 
+        //for solving my login problems
+        /*
+        val intent = Intent(this, MainActivity::class.java)
+        startActivity(intent)
+        finish()
+         */
+
+
         if (requestCode == AUTH_TOKEN_REQUEST_CODE) {
             val response = AuthorizationClient.getResponse(resultCode, data)
             if (response.type == AuthorizationResponse.Type.TOKEN) {
@@ -73,6 +81,8 @@ class LoginActivity : AppCompatActivity() {
             }
             isReady = true
         }
+
+
     }
 
     private fun checkLocationPermission() {

@@ -44,4 +44,18 @@
         app:layout_constraintStart_toEndOf="@+id/cover"
         app:layout_constraintTop_toBottomOf="@+id/name"
         tools:text="@tools:sample/lorem" />
+
+    <ImageButton
+        android:id="@+id/more1"
+        android:layout_width="wrap_content"
+        android:layout_height="0dp"
+        android:background="?attr/selectableItemBackgroundBorderless"
+        android:contentDescription="@string/track_more_description"
+        android:padding="12dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/ic_music_note" />
+
+
 </androidx.constraintlayout.widget.ConstraintLayout>

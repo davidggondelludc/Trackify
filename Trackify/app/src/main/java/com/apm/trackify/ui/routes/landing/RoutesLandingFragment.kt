@@ -1,9 +1,13 @@
 package com.apm.trackify.ui.routes.landing
 
+import android.annotation.SuppressLint
+import android.content.ContentValues.TAG
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
@@ -16,15 +20,23 @@ import com.apm.trackify.ui.routes.landing.view.model.RoutesLandingViewModel
 import com.apm.trackify.util.extension.setupToolbar
 import com.apm.trackify.util.extension.toPx
 import com.apm.trackify.util.maps.MapsUtil
+import com.google.android.gms.location.FusedLocationProviderClient
+import com.google.android.gms.location.LocationServices
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.OnMapReadyCallback
 import com.google.android.gms.maps.SupportMapFragment
 import com.google.android.gms.maps.model.LatLng
 
+
 class RoutesLandingFragment : Fragment(), OnMapReadyCallback {
 
     private val viewModel: RoutesLandingViewModel by viewModels()
+    private var latitude: Double = 42.73699753499026
+    private var longitude: Double = -5.486167589053743
+
     private lateinit var mapUtil: MapsUtil
+
+    private lateinit var fusedLocationClient: FusedLocationProviderClient
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -33,6 +45,7 @@ class RoutesLandingFragment : Fragment(), OnMapReadyCallback {
     ): View = RoutesLandingFragmentBinding.inflate(inflater, container, false).root
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        fusedLocationClient = LocationServices.getFusedLocationProviderClient(requireActivity())
         val binding = RoutesLandingFragmentBinding.bind(view)
 
         setupToolbar(binding.toolbar)
@@ -48,12 +61,16 @@ class RoutesLandingFragment : Fragment(), OnMapReadyCallback {
         }
         binding.mapView.getFragment<SupportMapFragment>().getMapAsync(this)
 
+
         setupRecyclerView(binding.rvPlaylistRoutes)
+
+
     }
+
 
     private fun setupRecyclerView(recyclerView: RecyclerView) {
         val playlistRoutesAdapter = PlaylistRouteAdapter()
-        viewModel.playlists.observe(viewLifecycleOwner) {
+        viewModel.routes.observe(viewLifecycleOwner) {
             playlistRoutesAdapter.submitList(it)
         }
 
@@ -66,12 +83,34 @@ class RoutesLandingFragment : Fragment(), OnMapReadyCallback {
         mapUtil = MapsUtil(googleMap, context, resources.displayMetrics.widthPixels, heightpx)
         mapUtil.setDefaultSettings()
 
-        val coordinates = listOf(
-            LatLng(43.371023, -8.405215), LatLng(43.382825, -8.410223),
-            LatLng(43.365160, -8.374968), LatLng(43.364100, -8.399088),
-            LatLng(43.358961, -8.401851)
-        )
-
-        mapUtil.drawRouteAndSetOnClick(coordinates)
+        getLastLocation()
+        val userCoordinate = LatLng(latitude, longitude)
+        mapUtil.createUserMarker(userCoordinate)
     }
+
+
+    @SuppressLint("MissingPermission")
+    private fun getLastLocation() {
+        fusedLocationClient.lastLocation
+            .addOnCompleteListener { taskLocation ->
+                if (taskLocation.isSuccessful && taskLocation.result != null) {
+                    val location = taskLocation.result
+                    latitude = location.latitude
+                    longitude = location.longitude
+                    val userCoordinate = LatLng(latitude, longitude)
+                    mapUtil.createUserMarker(userCoordinate)
+                } else {
+                    Log.w(TAG, "getLastLocation:exception", taskLocation.exception)
+                    Toast.makeText(
+                        requireContext(),
+                        "No Location Detected. Make sure permissions are granted",
+                        Toast.LENGTH_SHORT
+                    ).show()
+                    val navController = findNavController()
+                    navController.navigateUp()
+                }
+            }
+    }
+
+
 }
