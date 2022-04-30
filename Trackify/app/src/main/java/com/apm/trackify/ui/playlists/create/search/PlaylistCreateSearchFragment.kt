@@ -1,10 +1,12 @@
 package com.apm.trackify.ui.playlists.create.search
 
+import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.inputmethod.EditorInfo
+import android.view.inputmethod.InputMethodManager
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -43,7 +45,10 @@ class PlaylistCreateSearchFragment : Fragment() {
         binding.search.setOnEditorActionListener { textView, i, _ ->
             when (i) {
                 EditorInfo.IME_ACTION_SEARCH -> {
+                    binding.searchProgressBar.visibility = View.VISIBLE
                     viewModel.searchTracks(textView.text.toString())
+                    binding.searchProgressBar.visibility = View.GONE
+                    hideKeyboard()
                     true
                 }
                 else -> false
@@ -63,5 +68,11 @@ class PlaylistCreateSearchFragment : Fragment() {
 
         recyclerView.adapter = addTrackAdapter
         recyclerView.layoutManager = LinearLayoutManager(context)
+    }
+
+    private fun hideKeyboard() {
+        val imm = context?.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+        imm.hideSoftInputFromWindow(view?.windowToken, 0)
+        view?.clearFocus()
     }
 }
