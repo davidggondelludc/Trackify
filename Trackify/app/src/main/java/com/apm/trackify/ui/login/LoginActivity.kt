@@ -70,7 +70,6 @@ class LoginActivity : AppCompatActivity() {
         finish()
          */
 
-
         if (requestCode == AUTH_TOKEN_REQUEST_CODE) {
             val response = AuthorizationClient.getResponse(resultCode, data)
             if (response.type == AuthorizationResponse.Type.TOKEN) {
@@ -81,7 +80,6 @@ class LoginActivity : AppCompatActivity() {
             }
             isReady = true
         }
-
 
     }
 
