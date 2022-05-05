@@ -1,12 +1,18 @@
 package com.apm.trackify.ui.playlists.create.view.model
 
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import com.apm.trackify.model.MockProvider
 import com.apm.trackify.model.domain.PlaylistItem
 import com.apm.trackify.model.domain.TrackItem
+import com.apm.trackify.service.spotify.SpotifyService
 import com.apm.trackify.util.extension.isInBounds
 import com.apm.trackify.util.extension.swap
+import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.launch
+import javax.inject.Inject
 
 /**
  * Weird logic: dataset.toList()
@@ -16,16 +22,26 @@ import com.apm.trackify.util.extension.swap
  * gets updated, so just calling submitList on it will work, and for sloppy developers, it
  * prevents doing the calculations twice if the same list is called.
  */
-class PlaylistCreateViewModel : ViewModel() {
+@HiltViewModel
+class PlaylistCreateViewModel @Inject constructor(spotifyService: SpotifyService) : ViewModel() {
 
     val playlist = MutableLiveData<PlaylistItem>()
-    val tracks = MutableLiveData<List<TrackItem>>()
 
-    private val dataset: MutableList<TrackItem> = MockProvider.tracks.toMutableList()
+    private val tracks = MutableLiveData<List<TrackItem>>()
+    fun getTracks(): LiveData<List<TrackItem>> = tracks
+    private val dataset = mutableListOf<TrackItem>()
 
     init {
         playlist.value = MockProvider.playlist
-        tracks.value = dataset.toList() // Weird logic
+
+        viewModelScope.launch {
+            val response = spotifyService.getMeTopTracks()
+
+            if (response.isSuccessful) {
+                response.body()?.toTrackItems()?.let { dataset.addAll(it) }
+                tracks.value = dataset.toList()
+            }
+        }
     }
 
     fun move(from: Int, to: Int) {

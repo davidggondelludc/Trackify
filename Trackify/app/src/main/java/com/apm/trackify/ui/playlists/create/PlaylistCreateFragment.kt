@@ -64,7 +64,7 @@ class PlaylistCreateFragment : Fragment() {
         itemTouchHelper.attachToRecyclerView(recyclerView)
 
         val trackDragAdapter = TrackDragAdapter(itemTouchHelper, mediaServiceLifecycle)
-        viewModel.tracks.observe(viewLifecycleOwner) {
+        viewModel.getTracks().observe(viewLifecycleOwner) {
             trackDragAdapter.submitList(it)
         }
 

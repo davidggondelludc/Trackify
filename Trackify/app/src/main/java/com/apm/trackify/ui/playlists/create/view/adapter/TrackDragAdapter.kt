@@ -11,7 +11,7 @@ import com.apm.trackify.model.domain.TrackItem
 import com.apm.trackify.service.media.MediaServiceLifecycle
 import com.apm.trackify.ui.playlists.create.view.holder.TrackDragViewHolder
 import com.apm.trackify.util.extension.loadFromURI
-import com.apm.trackify.util.extension.toast
+import com.apm.trackify.util.extension.snackbar
 import com.apm.trackify.util.extension.toggleVisibility
 
 class TrackDragAdapter(
@@ -37,7 +37,7 @@ class TrackDragAdapter(
         holder.itemView.setOnClickListener {
             if (track.previewUrl == null) {
                 mediaService.stop()
-                it.context.toast(R.string.preview_url)
+                it.snackbar(R.string.preview_url)
             } else {
                 mediaService.play(track.previewUrl)
             }

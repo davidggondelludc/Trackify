@@ -10,7 +10,7 @@ import com.apm.trackify.model.domain.TrackItem
 import com.apm.trackify.service.media.MediaServiceLifecycle
 import com.apm.trackify.ui.playlists.details.view.holder.TrackViewHolder
 import com.apm.trackify.util.extension.loadFromURI
-import com.apm.trackify.util.extension.toast
+import com.apm.trackify.util.extension.snackbar
 import com.apm.trackify.util.extension.toggleVisibility
 
 class TrackAdapter(private val mediaService: MediaServiceLifecycle) :
@@ -34,7 +34,7 @@ class TrackAdapter(private val mediaService: MediaServiceLifecycle) :
         holder.itemView.setOnClickListener {
             if (track.previewUrl == null) {
                 mediaService.stop()
-                it.context.toast(R.string.preview_url)
+                it.snackbar(R.string.preview_url)
             } else {
                 mediaService.play(track.previewUrl)
             }
