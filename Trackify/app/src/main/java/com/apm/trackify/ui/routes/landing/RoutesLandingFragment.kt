@@ -61,10 +61,7 @@ class RoutesLandingFragment : Fragment(), OnMapReadyCallback {
         }
         binding.mapView.getFragment<SupportMapFragment>().getMapAsync(this)
 
-
         setupRecyclerView(binding.rvPlaylistRoutes)
-
-
     }
 
 
@@ -84,8 +81,6 @@ class RoutesLandingFragment : Fragment(), OnMapReadyCallback {
         mapUtil.setDefaultSettings()
 
         getLastLocation()
-        val userCoordinate = LatLng(latitude, longitude)
-        mapUtil.createUserMarker(userCoordinate)
     }
 
 
@@ -111,6 +106,5 @@ class RoutesLandingFragment : Fragment(), OnMapReadyCallback {
                 }
             }
     }
-
 
 }
