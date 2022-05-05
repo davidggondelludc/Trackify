@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.view.inputmethod.EditorInfo
 import android.view.inputmethod.InputMethodManager
+import android.widget.ProgressBar
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -40,14 +41,13 @@ class PlaylistCreateSearchFragment : Fragment() {
         val binding = PlaylistsCreateSearchFragmentBinding.bind(view)
 
         setupToolbar(binding.toolbar)
-        setupRecyclerView(binding.rvSearchedSongs)
+        setupRecyclerView(binding.rvSearchedSongs, binding.searchProgressBar)
 
         binding.search.setOnEditorActionListener { textView, i, _ ->
             when (i) {
                 EditorInfo.IME_ACTION_SEARCH -> {
                     binding.searchProgressBar.visibility = View.VISIBLE
                     viewModel.searchTracks(textView.text.toString())
-                    binding.searchProgressBar.visibility = View.GONE
                     hideKeyboard()
                     true
                 }
@@ -56,9 +56,10 @@ class PlaylistCreateSearchFragment : Fragment() {
         }
     }
 
-    private fun setupRecyclerView(recyclerView: RecyclerView) {
+    private fun setupRecyclerView(recyclerView: RecyclerView, searchProgressBar: ProgressBar) {
         val addTrackAdapter = TrackAddAdapter(mediaServiceLifecycle)
         viewModel.getResponse().observe(viewLifecycleOwner) {
+            searchProgressBar.visibility = View.GONE
             if (it.isSuccessful) {
                 addTrackAdapter.submitList(it.body()?.toTrackItems())
             } else {
