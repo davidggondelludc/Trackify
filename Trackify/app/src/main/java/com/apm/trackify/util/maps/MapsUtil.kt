@@ -1,5 +1,6 @@
 package com.apm.trackify.util.maps
 
+import android.annotation.SuppressLint
 import android.content.Context
 import android.content.Intent
 import android.graphics.Bitmap
@@ -27,11 +28,14 @@ class MapsUtil(var map: GoogleMap, val context: Context?, val width: Int, val he
     )
 
     fun setDefaultSettings() {
+
         map.mapType = GoogleMap.MAP_TYPE_NORMAL
-        map.uiSettings.setAllGesturesEnabled(false)
+        map.uiSettings.setAllGesturesEnabled(true)
+        map.uiSettings.isZoomControlsEnabled = true
         map.isBuildingsEnabled = false
-        map.isTrafficEnabled = true
-        map.setOnMarkerClickListener(this)
+        map.isTrafficEnabled = false
+        map.setOnMapClickListener(this)
+
     }
 
     fun drawRouteAndSetOnClick(coordinates: List<LatLng>) {
@@ -131,23 +135,14 @@ class MapsUtil(var map: GoogleMap, val context: Context?, val width: Int, val he
         context?.startActivity(intent)
     }
 
-
+    @SuppressLint("MissingPermission")
     fun createUserMarker(userCoordinates: LatLng) {
-        var marker: MarkerOptions = MarkerOptions().position(userCoordinates)
-            .title("User location")
-            .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_ORANGE))
-
-        map.addMarker(marker)
-
-        val userBounds = LatLngBounds(
-            LatLng(userCoordinates.latitude - offset, userCoordinates.longitude - offset),
-            LatLng(userCoordinates.latitude + 2 * offset, userCoordinates.longitude + offset)
-        )
-        map.moveCamera(CameraUpdateFactory.newLatLngBounds(userBounds, (width * 0.5).toInt(), (height * 0.5).toInt(), 10))
+        map.isMyLocationEnabled = true
+        val currentLatLng = LatLng(userCoordinates.latitude, userCoordinates.longitude)
+        map.animateCamera(CameraUpdateFactory.newLatLngZoom(currentLatLng, 12f))
         var zoom = ",15z"
         var auxUrl = "https://www.google.com/maps/place/" + userCoordinates.latitude + "," + userCoordinates.longitude + zoom
         mapsRouteUrl = auxUrl
         map.setOnMapClickListener(this)
-
     }
 }
