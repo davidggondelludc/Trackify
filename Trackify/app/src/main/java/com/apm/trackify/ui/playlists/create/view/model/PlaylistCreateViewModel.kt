@@ -4,10 +4,10 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.apm.trackify.model.MockProvider
-import com.apm.trackify.model.domain.PlaylistItem
-import com.apm.trackify.model.domain.TrackItem
-import com.apm.trackify.service.spotify.SpotifyService
+import com.apm.trackify.provider.model.MockProvider
+import com.apm.trackify.provider.model.domain.PlaylistItem
+import com.apm.trackify.provider.model.domain.UiModel
+import com.apm.trackify.provider.service.spotify.SpotifyApi
 import com.apm.trackify.util.extension.isInBounds
 import com.apm.trackify.util.extension.swap
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -23,24 +23,24 @@ import javax.inject.Inject
  * prevents doing the calculations twice if the same list is called.
  */
 @HiltViewModel
-class PlaylistCreateViewModel @Inject constructor(spotifyService: SpotifyService) : ViewModel() {
+class PlaylistCreateViewModel @Inject constructor(spotifyApi: SpotifyApi) : ViewModel() {
 
     val playlist = MutableLiveData<PlaylistItem>()
 
-    private val tracks = MutableLiveData<List<TrackItem>>()
-    fun getTracks(): LiveData<List<TrackItem>> = tracks
-    private val dataset = mutableListOf<TrackItem>()
+    private val tracks = MutableLiveData<List<UiModel.TrackItem>>()
+    fun getTracks(): LiveData<List<UiModel.TrackItem>> = tracks
+    private val dataset = mutableListOf<UiModel.TrackItem>()
 
     init {
         playlist.value = MockProvider.playlist
 
         viewModelScope.launch {
-            val response = spotifyService.getMeTopTracks()
-
-            if (response.isSuccessful) {
-                response.body()?.toTrackItems()?.let { dataset.addAll(it) }
-                tracks.value = dataset.toList()
-            }
+//            val response = spotifyService.getMeTopTracks()
+//
+//            if (response.isSuccessful) {
+//                response.body()?.toTrackItems()?.let { dataset.addAll(it) }
+//                tracks.value = dataset.toList()
+//            }
         }
     }
 

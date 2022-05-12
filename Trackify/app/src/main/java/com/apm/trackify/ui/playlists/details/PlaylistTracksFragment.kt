@@ -6,22 +6,22 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.ConcatAdapter
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.apm.trackify.R
 import com.apm.trackify.databinding.PlaylistsTracksFragmentBinding
-import com.apm.trackify.service.media.MediaServiceLifecycle
+import com.apm.trackify.provider.service.media.MediaServiceLifecycle
 import com.apm.trackify.ui.playlists.details.listener.ParallaxListener
 import com.apm.trackify.ui.playlists.details.view.adapter.FooterAdapter
 import com.apm.trackify.ui.playlists.details.view.adapter.HeaderAdapter
 import com.apm.trackify.ui.playlists.details.view.adapter.TrackAdapter
 import com.apm.trackify.ui.playlists.details.view.model.PlaylistTracksViewModel
 import com.apm.trackify.util.extension.setupToolbar
-import com.apm.trackify.util.extension.snackbar
-import com.apm.trackify.util.extension.toast
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.flow.collectLatest
 import java.util.concurrent.TimeUnit
 import javax.inject.Inject
 
@@ -56,22 +56,27 @@ class PlaylistTracksFragment : Fragment() {
         val trackAdapter = TrackAdapter(mediaServiceLifecycle)
 
         val footerAdapter = FooterAdapter()
-        viewModel.getResponse().observe(viewLifecycleOwner) {
-            if (it.isSuccessful) {
-                val tracks = it.body()?.toTrackItems()!!
-                trackAdapter.submitList(tracks)
-                footerAdapter.submitList(
-                    listOf(
-                        generateFooter(
-                            tracks.size,
-                            tracks.sumOf { track -> track.duration }.toLong()
-                        )
-                    )
-                )
-            } else {
-                context?.toast(R.string.error)
+        viewLifecycleOwner.lifecycleScope.launchWhenCreated {
+            viewModel.tracksFlow.collectLatest {
+                trackAdapter.submitData(it)
             }
         }
+//        viewModel.getResponse().observe(viewLifecycleOwner) {
+//            if (it.isSuccessful) {
+//                val tracks = it.body()?.toTrackItems()!!
+//                trackAdapter.submitList(tracks)
+//                footerAdapter.submitList(
+//                    listOf(
+//                        generateFooter(
+//                            tracks.size,
+//                            tracks.sumOf { track -> track.duration }.toLong()
+//                        )
+//                    )
+//                )
+//            } else {
+//                context?.toast(R.string.error)
+//            }
+//        }
 
         recyclerView.adapter = ConcatAdapter(headerAdapter, trackAdapter, footerAdapter)
         recyclerView.layoutManager = LinearLayoutManager(context)

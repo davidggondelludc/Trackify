@@ -6,5 +6,5 @@ import com.apm.trackify.databinding.PlaylistsTrackFooterItemBinding
 class FooterViewHolder(val binding: PlaylistsTrackFooterItemBinding) :
     RecyclerView.ViewHolder(binding.root) {
 
-    val titleTextView = binding.title
+    val descriptionTextView = binding.description
 }

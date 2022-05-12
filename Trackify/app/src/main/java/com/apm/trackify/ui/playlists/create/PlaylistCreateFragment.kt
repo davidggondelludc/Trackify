@@ -13,7 +13,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.apm.trackify.R
 import com.apm.trackify.databinding.PlaylistsCreateFragmentBinding
-import com.apm.trackify.service.media.MediaServiceLifecycle
+import com.apm.trackify.provider.service.media.MediaServiceLifecycle
 import com.apm.trackify.ui.playlists.create.listener.DragSwipeCallback
 import com.apm.trackify.ui.playlists.create.view.adapter.HeaderAdapter
 import com.apm.trackify.ui.playlists.create.view.adapter.TrackDragAdapter

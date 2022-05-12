@@ -1,8 +1,8 @@
 package com.apm.trackify.ui.playlists.details.di
 
 import androidx.lifecycle.SavedStateHandle
-import com.apm.trackify.model.domain.PlaylistItem
-import com.apm.trackify.service.spotify.SpotifyService
+import com.apm.trackify.provider.model.domain.PlaylistItem
+import com.apm.trackify.provider.repository.SpotifyRepository
 import com.apm.trackify.ui.playlists.details.view.model.PlaylistTracksViewModel
 import dagger.Module
 import dagger.Provides
@@ -21,7 +21,7 @@ object PlaylistTracksModule {
     @Provides
     fun provideViewModel(
         playlistItem: PlaylistItem,
-        spotifyService: SpotifyService
+        spotifyRepository: SpotifyRepository
     ): PlaylistTracksViewModel =
-        PlaylistTracksViewModel(playlistItem, spotifyService)
+        PlaylistTracksViewModel(playlistItem, spotifyRepository)
 }

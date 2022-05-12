@@ -14,7 +14,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.apm.trackify.R
 import com.apm.trackify.databinding.PlaylistsCreateSearchFragmentBinding
-import com.apm.trackify.service.media.MediaServiceLifecycle
+import com.apm.trackify.provider.service.media.MediaServiceLifecycle
 import com.apm.trackify.ui.playlists.create.search.view.adapter.TrackAddAdapter
 import com.apm.trackify.ui.playlists.create.search.view.model.PlaylistCreateSearchViewModel
 import com.apm.trackify.util.extension.setupToolbar

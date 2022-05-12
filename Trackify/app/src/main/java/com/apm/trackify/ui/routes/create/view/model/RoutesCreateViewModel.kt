@@ -4,15 +4,15 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.apm.trackify.service.spotify.SpotifyService
-import com.apm.trackify.service.spotify.domain.response.PlaylistsResponse
+import com.apm.trackify.provider.service.spotify.SpotifyApi
+import com.apm.trackify.provider.service.spotify.data.response.PlaylistsResponse
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import retrofit2.Response
 import javax.inject.Inject
 
 @HiltViewModel
-class RoutesCreateViewModel @Inject constructor(spotifyService: SpotifyService) : ViewModel() {
+class RoutesCreateViewModel @Inject constructor(spotifyApi: SpotifyApi) : ViewModel() {
 
     private val response = MutableLiveData<Response<PlaylistsResponse>>()
 
@@ -20,7 +20,7 @@ class RoutesCreateViewModel @Inject constructor(spotifyService: SpotifyService) 
 
     init {
         viewModelScope.launch {
-            response.value = spotifyService.getMePlaylists()
+            response.value = spotifyApi.getMePlaylists()
         }
     }
 }

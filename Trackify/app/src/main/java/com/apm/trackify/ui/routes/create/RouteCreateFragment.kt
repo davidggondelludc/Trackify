@@ -16,7 +16,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.apm.trackify.R
 import com.apm.trackify.databinding.RoutesCreateFragmentBinding
-import com.apm.trackify.service.firebase.FirebaseService
+import com.apm.trackify.provider.service.firebase.FirebaseService
 import com.apm.trackify.ui.routes.create.view.adapter.PlaylistRoutesAdapter
 import com.apm.trackify.ui.routes.create.view.model.RoutesCreateViewModel
 import com.apm.trackify.util.extension.setupToolbar

@@ -4,8 +4,8 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.ListAdapter
 import com.apm.trackify.databinding.UserFollowingItemBinding
-import com.apm.trackify.model.diff.UserItemDiffUtil
-import com.apm.trackify.model.domain.UserItem
+import com.apm.trackify.provider.model.diff.UserItemDiffUtil
+import com.apm.trackify.provider.model.domain.UserItem
 import com.apm.trackify.ui.user.landing.following.view.holder.UserFollowingViewHolder
 import com.apm.trackify.util.extension.toast
 
