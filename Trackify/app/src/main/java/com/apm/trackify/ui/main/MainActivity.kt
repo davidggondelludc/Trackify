@@ -1,5 +1,4 @@
 package com.apm.trackify.ui.main
-
 import android.os.Bundle
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity

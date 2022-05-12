@@ -4,12 +4,14 @@ import android.content.Intent
 import android.content.pm.PackageManager
 import android.os.Bundle
 import android.view.ViewTreeObserver
+import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import com.apm.trackify.databinding.LoginActivityBinding
 import com.apm.trackify.ui.main.MainActivity
 import com.apm.trackify.ui.main.MainApplication
+import com.apm.trackify.ui.main.NetworkConnection
 import com.spotify.sdk.android.auth.AuthorizationClient
 import com.spotify.sdk.android.auth.AuthorizationRequest
 import com.spotify.sdk.android.auth.AuthorizationResponse
@@ -25,6 +27,8 @@ class LoginActivity : AppCompatActivity() {
     }
 
     private var isReady = false
+
+    private lateinit var netCon: NetworkConnection
 
     override fun onCreate(savedInstanceState: Bundle?) {
         // Handle the splash screen transition and must be called before super.onCreate()
@@ -57,6 +61,7 @@ class LoginActivity : AppCompatActivity() {
         }
 
         checkLocationPermission()
+        checkNetworkConnection()
     }
 
     @Deprecated("Deprecated in Java")
@@ -98,5 +103,18 @@ class LoginActivity : AppCompatActivity() {
         }
     }
 
+    private fun checkNetworkConnection() {
+        netCon = NetworkConnection(application)
 
+        netCon.observe(this) { isConnected ->
+            if (isConnected) {
+                print("INTERNET ON")
+            } else {
+                AlertDialog.Builder(this).setIcon(android.R.drawable.ic_delete)
+                    .setTitle("Internet Connection Alert")
+                    .setMessage("Please check your internet connection")
+                    .setPositiveButton("Close") { _, _ -> finish() }.show()
+            }
+        }
+    }
 }
