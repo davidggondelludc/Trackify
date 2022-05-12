@@ -25,23 +25,23 @@
         <androidx.fragment.app.FragmentContainerView
             android:id="@+id/mapView"
             android:name="com.google.android.gms.maps.SupportMapFragment"
-            android:layout_width="match_parent"
-            android:layout_height="375dp"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
             android:layout_weight="1"
-            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toBottomOf="@+id/textView9"
+            app:layout_constraintWidth_percent="0.6" />
 
         <TextView
             android:id="@+id/textView9"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
             android:text="Available routes in your current location"
             android:textSize="@dimen/playlist_text_size_primary"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/mapView" />
+            app:layout_constraintTop_toTopOf="parent" />
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rvPlaylistRoutes"
@@ -49,8 +49,8 @@
             android:layout_height="0dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/textView9"
+            app:layout_constraintWidth_percent="0.4"
             tools:itemCount="8"
             tools:listitem="@layout/routes_playlists_item" />
     </androidx.constraintlayout.widget.ConstraintLayout>
