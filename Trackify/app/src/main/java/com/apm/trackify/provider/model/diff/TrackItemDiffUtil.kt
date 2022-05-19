@@ -1,22 +1,13 @@
 package com.apm.trackify.provider.model.diff
 
 import androidx.recyclerview.widget.DiffUtil
-import com.apm.trackify.provider.model.domain.UiModel
+import com.apm.trackify.provider.model.domain.TrackItem
 
-class TrackItemDiffUtil : DiffUtil.ItemCallback<UiModel>() {
+class TrackItemDiffUtil : DiffUtil.ItemCallback<TrackItem>() {
 
-    override fun areItemsTheSame(oldItem: UiModel, newItem: UiModel): Boolean {
-        val isSameTrackItem = oldItem is UiModel.TrackItem
-                && newItem is UiModel.TrackItem
-                && oldItem.id == newItem.id
+    override fun areItemsTheSame(oldItem: TrackItem, newItem: TrackItem): Boolean =
+        oldItem.id == newItem.id
 
-        val isSameFooter = oldItem is UiModel.Footer
-                && newItem is UiModel.Footer
-                && oldItem.description == newItem.description
-
-        return isSameTrackItem || isSameFooter
-    }
-
-    override fun areContentsTheSame(oldItem: UiModel, newItem: UiModel): Boolean =
+    override fun areContentsTheSame(oldItem: TrackItem, newItem: TrackItem): Boolean =
         oldItem == newItem
 }

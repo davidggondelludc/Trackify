@@ -1,10 +1,8 @@
 package com.apm.trackify.provider.repository
 
-import androidx.paging.PagingData
-import com.apm.trackify.provider.service.spotify.data.Track
-import kotlinx.coroutines.flow.Flow
+import com.apm.trackify.provider.model.domain.TrackItem
 
 interface SpotifyRepository {
 
-    fun getPlaylistTracks(playlistId: String): Flow<PagingData<Track>>
+    suspend fun getPlaylistTracks(playlistId: String): List<TrackItem>
 }

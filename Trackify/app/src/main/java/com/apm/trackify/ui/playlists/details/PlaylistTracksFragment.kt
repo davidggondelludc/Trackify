@@ -6,7 +6,6 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
-import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.ConcatAdapter
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -20,8 +19,8 @@ import com.apm.trackify.ui.playlists.details.view.adapter.HeaderAdapter
 import com.apm.trackify.ui.playlists.details.view.adapter.TrackAdapter
 import com.apm.trackify.ui.playlists.details.view.model.PlaylistTracksViewModel
 import com.apm.trackify.util.extension.setupToolbar
+import com.apm.trackify.util.extension.toast
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.coroutines.flow.collectLatest
 import java.util.concurrent.TimeUnit
 import javax.inject.Inject
 
@@ -50,33 +49,27 @@ class PlaylistTracksFragment : Fragment() {
     }
 
     private fun setupRecyclerView(recyclerView: RecyclerView) {
-        val headerAdapter = HeaderAdapter()
-        headerAdapter.submitList(listOf(args.playlist))
-
-        val trackAdapter = TrackAdapter(mediaServiceLifecycle)
-
-        val footerAdapter = FooterAdapter()
-        viewLifecycleOwner.lifecycleScope.launchWhenCreated {
-            viewModel.tracksFlow.collectLatest {
-                trackAdapter.submitData(it)
-            }
+        val headerAdapter = HeaderAdapter().apply {
+            submitList(listOf(args.playlist))
         }
-//        viewModel.getResponse().observe(viewLifecycleOwner) {
-//            if (it.isSuccessful) {
-//                val tracks = it.body()?.toTrackItems()!!
-//                trackAdapter.submitList(tracks)
-//                footerAdapter.submitList(
-//                    listOf(
-//                        generateFooter(
-//                            tracks.size,
-//                            tracks.sumOf { track -> track.duration }.toLong()
-//                        )
-//                    )
-//                )
-//            } else {
-//                context?.toast(R.string.error)
-//            }
-//        }
+        val trackAdapter = TrackAdapter(mediaServiceLifecycle)
+        val footerAdapter = FooterAdapter()
+
+        viewModel.error.observe(viewLifecycleOwner) {
+            context?.toast(it)
+        }
+
+        viewModel.tracks.observe(viewLifecycleOwner) {
+            trackAdapter.submitList(it)
+            footerAdapter.submitList(
+                listOf(
+                    generateFooter(
+                        it.size,
+                        it.sumOf { track -> track.duration }.toLong()
+                    )
+                )
+            )
+        }
 
         recyclerView.adapter = ConcatAdapter(headerAdapter, trackAdapter, footerAdapter)
         recyclerView.layoutManager = LinearLayoutManager(context)

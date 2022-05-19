@@ -6,7 +6,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.apm.trackify.provider.model.MockProvider
 import com.apm.trackify.provider.model.domain.PlaylistItem
-import com.apm.trackify.provider.model.domain.UiModel
+import com.apm.trackify.provider.model.domain.TrackItem
 import com.apm.trackify.provider.service.spotify.SpotifyApi
 import com.apm.trackify.util.extension.isInBounds
 import com.apm.trackify.util.extension.swap
@@ -27,9 +27,9 @@ class PlaylistCreateViewModel @Inject constructor(spotifyApi: SpotifyApi) : View
 
     val playlist = MutableLiveData<PlaylistItem>()
 
-    private val tracks = MutableLiveData<List<UiModel.TrackItem>>()
-    fun getTracks(): LiveData<List<UiModel.TrackItem>> = tracks
-    private val dataset = mutableListOf<UiModel.TrackItem>()
+    private val tracks = MutableLiveData<List<TrackItem>>()
+    fun getTracks(): LiveData<List<TrackItem>> = tracks
+    private val dataset = mutableListOf<TrackItem>()
 
     init {
         playlist.value = MockProvider.playlist

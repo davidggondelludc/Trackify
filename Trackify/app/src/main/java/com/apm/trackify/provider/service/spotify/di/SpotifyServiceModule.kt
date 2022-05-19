@@ -1,6 +1,7 @@
 package com.apm.trackify.provider.service.spotify.di
 
 import com.apm.trackify.provider.service.spotify.SpotifyApi
+import com.apm.trackify.provider.service.spotify.adapter.ResultCallAdapterFactory
 import com.apm.trackify.provider.service.spotify.interceptor.AuthorizationInterceptor
 import com.google.gson.FieldNamingPolicy
 import com.google.gson.Gson
@@ -50,6 +51,7 @@ object SpotifyServiceModule {
             .Builder()
             .baseUrl("https://api.spotify.com/v1/")
             .addConverterFactory(GsonConverterFactory.create(gson))
+            .addCallAdapterFactory(ResultCallAdapterFactory())
             .client(okHttpClient)
             .build()
 

@@ -24,6 +24,7 @@
     <string name="save">Save</string>
     <string name="delete">Delete</string>
     <string name="error">Something went wrong</string>
+    <string name="internet">No internet connection</string>
     <string name="preview_url">Preview unavailable for this track</string>
 
     <!-- login -->

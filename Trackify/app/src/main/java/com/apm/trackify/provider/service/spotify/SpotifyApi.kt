@@ -16,15 +16,13 @@ interface SpotifyApi {
     @GET("playlists/{playlist_id}/tracks")
     suspend fun getPlaylistTracks(
         @Path("playlist_id") playlistId: String,
-        @Query("limit") limit: Int,
-        @Query("offset") offset: Int
-    ): Response<TracksResponse>
+        @Query("limit") limit: Int = 100,
+        @Query("offset") offset: Int = 0
+    ): Result<TracksResponse>
 
     @GET("search")
     suspend fun search(
         @Query("q") query: String,
-        @Query("type") type: String,
-        @Query("limit") limit: Int = 20,
-        @Query("offset") offset: Int = 0
+        @Query("type") type: String
     ): Response<SearchResponse>
 }

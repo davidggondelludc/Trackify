@@ -1,13 +1,16 @@
 package com.apm.trackify.ui.playlists.details.view.model
 
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import androidx.paging.insertFooterItem
-import androidx.paging.map
+import androidx.lifecycle.viewModelScope
+import com.apm.trackify.R
 import com.apm.trackify.provider.model.domain.PlaylistItem
-import com.apm.trackify.provider.model.domain.UiModel
+import com.apm.trackify.provider.model.domain.TrackItem
 import com.apm.trackify.provider.repository.SpotifyRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.flow.map
+import kotlinx.coroutines.launch
+import retrofit2.HttpException
+import java.io.IOException
 import javax.inject.Inject
 
 @HiltViewModel
@@ -16,18 +19,18 @@ class PlaylistTracksViewModel @Inject constructor(
     spotifyRepository: SpotifyRepository
 ) : ViewModel() {
 
-    val tracksFlow =
-        spotifyRepository
-            .getPlaylistTracks(playlistItem.id)
-            .map { pagingData ->
-                {
-                    var duration = 0
-                    pagingData
-                        .map {
-                            duration += it.duration_ms
-                            UiModel.TrackItem(it) as UiModel
-                        }
-                        .insertFooterItem(item = UiModel.Footer("$duration time"))
-                }
+    val error = MutableLiveData<Int>()
+    val tracks = MutableLiveData<List<TrackItem>>()
+
+    init {
+        viewModelScope.launch {
+            try {
+                tracks.value = spotifyRepository.getPlaylistTracks(playlistItem.id)
+            } catch (e: HttpException) {
+                error.value = R.string.error
+            } catch (e: IOException) {
+                error.value = R.string.internet
             }
+        }
+    }
 }

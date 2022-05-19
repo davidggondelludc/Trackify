@@ -1,6 +1,6 @@
 package com.apm.trackify.provider.service.spotify.data
 
-import com.apm.trackify.provider.model.domain.UiModel
+import com.apm.trackify.provider.model.domain.TrackItem
 
 data class Track(
     val album: Album,
@@ -12,8 +12,8 @@ data class Track(
     val preview_url: String?
 ) {
 
-    fun toTrackItem(): UiModel.TrackItem {
-        return UiModel.TrackItem(
+    fun toTrackItem(): TrackItem {
+        return TrackItem(
             id,
             album.images.last().url,
             name,
