@@ -10,7 +10,8 @@ data class Track(
     val id: String,
     val name: String,
     val popularity: Int,
-    val preview_url: String?
+    val preview_url: String?,
+    val uri: String
 ) {
 
     fun toTrackItem(): TrackItem {
@@ -21,7 +22,8 @@ data class Track(
             artists.joinToString(", ") { it.name },
             explicit,
             duration_ms,
-            preview_url
+            preview_url,
+            uri
         )
     }
 }

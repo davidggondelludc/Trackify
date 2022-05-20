@@ -16,7 +16,7 @@ data class Playlist(
         return PlaylistItem(
             id,
             external_urls.spotify,
-            images.first().url,
+            if (images.isEmpty()) "" else images.first().url,
             name,
             owner.display_name,
             tracks.total

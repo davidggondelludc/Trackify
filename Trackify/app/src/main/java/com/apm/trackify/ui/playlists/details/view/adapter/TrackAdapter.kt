@@ -33,7 +33,7 @@ class TrackAdapter(private val mediaService: MediaServiceLifecycle) :
 
         holder.itemView.setOnClickListener {
             if (track.previewUrl == null) {
-                mediaService.stop(position)
+                mediaService.stop()
                 it.snackbar(R.string.preview_url)
             } else {
                 mediaService.play(track.previewUrl, position)

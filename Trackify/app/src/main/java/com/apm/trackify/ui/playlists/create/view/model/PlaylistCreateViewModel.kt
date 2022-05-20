@@ -8,6 +8,7 @@ import com.apm.trackify.provider.model.MockProvider
 import com.apm.trackify.provider.model.domain.PlaylistItem
 import com.apm.trackify.provider.model.domain.TrackItem
 import com.apm.trackify.provider.repository.SpotifyRepository
+import com.apm.trackify.provider.repository.enum.Duration
 import com.apm.trackify.provider.service.media.MediaServiceLifecycle
 import com.apm.trackify.util.extension.swap
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -27,7 +28,7 @@ import javax.inject.Inject
 @HiltViewModel
 class PlaylistCreateViewModel @Inject constructor(
     private val mediaServiceLifecycle: MediaServiceLifecycle,
-    spotifyRepository: SpotifyRepository,
+    private val spotifyRepository: SpotifyRepository,
 ) : ViewModel() {
 
     val error = MutableLiveData<Int>()
@@ -38,10 +39,13 @@ class PlaylistCreateViewModel @Inject constructor(
 
     init {
         playlist.value = MockProvider.playlist
+        generateTracklist(Duration.SHORT)
+    }
 
+    fun generateTracklist(duration: Duration) {
         viewModelScope.launch {
             try {
-                tracklist = spotifyRepository.generateTracklist().toMutableList()
+                tracklist = spotifyRepository.generateTracklist(duration).toMutableList()
                 tracks.value = tracklist.toList()
             } catch (e: HttpException) {
                 error.value = R.string.error
@@ -49,6 +53,11 @@ class PlaylistCreateViewModel @Inject constructor(
                 error.value = R.string.internet
             }
         }
+    }
+
+    fun add(trackItem: TrackItem) {
+        tracklist.add(trackItem)
+        tracks.value = tracklist.toList()
     }
 
     fun move(from: Int, to: Int) {
@@ -60,5 +69,17 @@ class PlaylistCreateViewModel @Inject constructor(
         mediaServiceLifecycle.stop(position)
         tracklist.removeAt(position)
         tracks.value = tracklist.toList()
+    }
+
+    fun savePlaylist() {
+        viewModelScope.launch {
+            try {
+                spotifyRepository.createPlaylist("", tracklist)
+            } catch (e: HttpException) {
+                error.value = R.string.error
+            } catch (e: IOException) {
+                error.value = R.string.internet
+            }
+        }
     }
 }

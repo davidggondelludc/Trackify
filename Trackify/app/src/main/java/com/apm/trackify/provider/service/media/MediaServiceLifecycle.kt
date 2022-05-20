@@ -22,41 +22,31 @@ class MediaServiceLifecycle @Inject constructor() : DefaultLifecycleObserver {
             mediaPlayer?.start()
         }
         mediaPlayer?.setOnCompletionListener {
-            mediaPlayer?.reset()
-            mediaPlayer?.release()
-
-            position = null
-            mediaPlayer = null
+            stop()
         }
+    }
+
+    fun stop() {
+        mediaPlayer?.reset()
+        mediaPlayer?.release()
+
+        position = null
+        mediaPlayer = null
     }
 
     fun stop(pos: Int) {
         if (position == pos) {
-            mediaPlayer?.reset()
-            mediaPlayer?.release()
-
-            position = null
-            mediaPlayer = null
+            stop()
         }
     }
 
     override fun onPause(owner: LifecycleOwner) {
         super.onPause(owner)
-
-        mediaPlayer?.reset()
-        mediaPlayer?.release()
-
-        position = null
-        mediaPlayer = null
+        stop()
     }
 
     override fun onDestroy(owner: LifecycleOwner) {
         super.onDestroy(owner)
-
-        mediaPlayer?.reset()
-        mediaPlayer?.release()
-
-        position = null
-        mediaPlayer = null
+        stop()
     }
 }

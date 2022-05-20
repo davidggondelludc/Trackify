@@ -64,7 +64,8 @@ object MockProvider {
             "Artists",
             true,
             60000,
-            "https://p.scdn.co/mp3-preview/4de2570644eeff4b10cef0770fddfc50e1e2b666?cid=774b29d4f13844c495f206cafdad9c86"
+            "https://p.scdn.co/mp3-preview/4de2570644eeff4b10cef0770fddfc50e1e2b666?cid=774b29d4f13844c495f206cafdad9c86",
+            ""
         )
     }
 }
