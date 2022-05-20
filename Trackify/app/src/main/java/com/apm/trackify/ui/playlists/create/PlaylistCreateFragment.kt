@@ -18,9 +18,11 @@ import com.apm.trackify.ui.playlists.create.listener.DragSwipeCallback
 import com.apm.trackify.ui.playlists.create.view.adapter.HeaderAdapter
 import com.apm.trackify.ui.playlists.create.view.adapter.TrackDragAdapter
 import com.apm.trackify.ui.playlists.create.view.model.PlaylistCreateViewModel
+import com.apm.trackify.ui.playlists.details.view.adapter.FooterAdapter
 import com.apm.trackify.util.extension.setupToolbar
 import com.apm.trackify.util.extension.toast
 import dagger.hilt.android.AndroidEntryPoint
+import java.util.concurrent.TimeUnit
 import javax.inject.Inject
 
 @AndroidEntryPoint
@@ -61,6 +63,7 @@ class PlaylistCreateFragment : Fragment() {
 
         val headerAdapter = HeaderAdapter()
         val trackDragAdapter = TrackDragAdapter(itemTouchHelper, mediaServiceLifecycle)
+        val footerAdapter = FooterAdapter()
 
         viewModel.error.observe(viewLifecycleOwner) {
             context?.toast(it)
@@ -72,9 +75,77 @@ class PlaylistCreateFragment : Fragment() {
 
         viewModel.tracks.observe(viewLifecycleOwner) {
             trackDragAdapter.submitList(it)
+            footerAdapter.submitList(
+                listOf(
+                    generateFooter(
+                        it.size,
+                        it.sumOf { track -> track.duration }.toLong()
+                    )
+                )
+            )
         }
 
-        recyclerView.adapter = ConcatAdapter(headerAdapter, trackDragAdapter)
+        recyclerView.adapter = ConcatAdapter(headerAdapter, trackDragAdapter, footerAdapter)
         recyclerView.layoutManager = LinearLayoutManager(context)
+    }
+
+    private fun generateFooter(tracks: Int, milliseconds: Long): String {
+        val hours = TimeUnit.MILLISECONDS.toHours(milliseconds)
+        val minutes =
+            TimeUnit.MILLISECONDS.toMinutes(milliseconds) - TimeUnit.HOURS.toMinutes(hours)
+
+        when {
+            hours == 0L -> {
+                return "${
+                    context?.resources?.getQuantityString(
+                        R.plurals.tracks,
+                        tracks,
+                        tracks
+                    )
+                } · ${
+                    context?.resources?.getQuantityString(
+                        R.plurals.minutes,
+                        minutes.toInt(),
+                        minutes.toInt()
+                    )
+                }"
+            }
+            minutes == 0L -> {
+                return "${
+                    context?.resources?.getQuantityString(
+                        R.plurals.tracks,
+                        tracks,
+                        tracks
+                    )
+                } · ${
+                    context?.resources?.getQuantityString(
+                        R.plurals.hours,
+                        hours.toInt(),
+                        hours.toInt()
+                    )
+                }"
+            }
+            else -> {
+                return "${
+                    context?.resources?.getQuantityString(
+                        R.plurals.tracks,
+                        tracks,
+                        tracks
+                    )
+                } · ${
+                    context?.resources?.getQuantityString(
+                        R.plurals.hours,
+                        hours.toInt(),
+                        hours.toInt()
+                    )
+                } ${
+                    context?.resources?.getQuantityString(
+                        R.plurals.minutes,
+                        minutes.toInt(),
+                        minutes.toInt()
+                    )
+                }"
+            }
+        }
     }
 }

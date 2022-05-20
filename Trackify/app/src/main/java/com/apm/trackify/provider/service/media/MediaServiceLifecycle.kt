@@ -9,9 +9,11 @@ import javax.inject.Singleton
 @Singleton
 class MediaServiceLifecycle @Inject constructor() : DefaultLifecycleObserver {
 
+    private var position: Int? = null
     private var mediaPlayer: MediaPlayer? = null
 
-    fun play(url: String) {
+    fun play(url: String, pos: Int) {
+        position = pos
         mediaPlayer?.stop()
         mediaPlayer = MediaPlayer()
         mediaPlayer?.setDataSource(url)
@@ -20,23 +22,41 @@ class MediaServiceLifecycle @Inject constructor() : DefaultLifecycleObserver {
             mediaPlayer?.start()
         }
         mediaPlayer?.setOnCompletionListener {
-            stop()
+            mediaPlayer?.reset()
+            mediaPlayer?.release()
+
+            position = null
+            mediaPlayer = null
         }
     }
 
-    fun stop() {
-        mediaPlayer?.reset()
-        mediaPlayer?.release()
-        mediaPlayer = null
+    fun stop(pos: Int) {
+        if (position == pos) {
+            mediaPlayer?.reset()
+            mediaPlayer?.release()
+
+            position = null
+            mediaPlayer = null
+        }
     }
 
     override fun onPause(owner: LifecycleOwner) {
         super.onPause(owner)
-        stop()
+
+        mediaPlayer?.reset()
+        mediaPlayer?.release()
+
+        position = null
+        mediaPlayer = null
     }
 
     override fun onDestroy(owner: LifecycleOwner) {
         super.onDestroy(owner)
-        stop()
+
+        mediaPlayer?.reset()
+        mediaPlayer?.release()
+
+        position = null
+        mediaPlayer = null
     }
 }

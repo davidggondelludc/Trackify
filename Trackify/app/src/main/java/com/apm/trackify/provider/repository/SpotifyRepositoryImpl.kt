@@ -26,7 +26,10 @@ class SpotifyRepositoryImpl @Inject constructor(
             }
         }
 
-        return tracklist.map { it.toTrackItem() }
+        return tracklist.run {
+            sortBy { it.popularity }
+            map { it.toTrackItem() }
+        }
     }
 
     override suspend fun getPlaylistTracks(playlistId: String): List<TrackItem> {
@@ -44,4 +47,6 @@ class SpotifyRepositoryImpl @Inject constructor(
 
         return tracks
     }
+
+    
 }

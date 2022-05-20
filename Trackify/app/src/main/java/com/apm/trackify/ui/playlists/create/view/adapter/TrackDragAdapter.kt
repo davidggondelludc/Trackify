@@ -36,10 +36,10 @@ class TrackDragAdapter(
 
         holder.itemView.setOnClickListener {
             if (track.previewUrl == null) {
-                mediaService.stop()
+                mediaService.stop(position)
                 it.snackbar(R.string.preview_url)
             } else {
-                mediaService.play(track.previewUrl)
+                mediaService.play(track.previewUrl, position)
             }
         }
     }

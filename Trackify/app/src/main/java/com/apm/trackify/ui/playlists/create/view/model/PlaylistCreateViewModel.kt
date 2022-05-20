@@ -8,7 +8,7 @@ import com.apm.trackify.provider.model.MockProvider
 import com.apm.trackify.provider.model.domain.PlaylistItem
 import com.apm.trackify.provider.model.domain.TrackItem
 import com.apm.trackify.provider.repository.SpotifyRepository
-import com.apm.trackify.util.extension.isInBounds
+import com.apm.trackify.provider.service.media.MediaServiceLifecycle
 import com.apm.trackify.util.extension.swap
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
@@ -26,7 +26,8 @@ import javax.inject.Inject
  */
 @HiltViewModel
 class PlaylistCreateViewModel @Inject constructor(
-    spotifyRepository: SpotifyRepository
+    private val mediaServiceLifecycle: MediaServiceLifecycle,
+    spotifyRepository: SpotifyRepository,
 ) : ViewModel() {
 
     val error = MutableLiveData<Int>()
@@ -41,7 +42,7 @@ class PlaylistCreateViewModel @Inject constructor(
         viewModelScope.launch {
             try {
                 tracklist = spotifyRepository.generateTracklist().toMutableList()
-                tracks.value = tracklist
+                tracks.value = tracklist.toList()
             } catch (e: HttpException) {
                 error.value = R.string.error
             } catch (e: IOException) {
@@ -56,9 +57,8 @@ class PlaylistCreateViewModel @Inject constructor(
     }
 
     fun remove(position: Int) {
-        if (tracklist.isInBounds(position)) {
-            tracklist.removeAt(position)
-            tracks.value = tracklist.toList()
-        }
+        mediaServiceLifecycle.stop(position)
+        tracklist.removeAt(position)
+        tracks.value = tracklist.toList()
     }
 }
