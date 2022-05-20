@@ -47,10 +47,10 @@ class PlaylistCreateFragment : Fragment() {
         binding.toolbar.setOnMenuItemClickListener {
             when (it.itemId) {
                 R.id.savePlaylist -> {
-                    viewModel.savePlaylist()
-                    
-                    val navController = findNavController()
-                    navController.navigateUp()
+                    viewModel.savePlaylist {
+                        val navController = findNavController()
+                        navController.navigateUp()
+                    }
                 }
             }
             true

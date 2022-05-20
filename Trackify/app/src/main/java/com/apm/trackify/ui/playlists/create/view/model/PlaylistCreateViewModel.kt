@@ -71,10 +71,11 @@ class PlaylistCreateViewModel @Inject constructor(
         tracks.value = tracklist.toList()
     }
 
-    fun savePlaylist() {
+    fun savePlaylist(execute: () -> Unit) {
         viewModelScope.launch {
             try {
                 spotifyRepository.createPlaylist("", tracklist)
+                execute()
             } catch (e: HttpException) {
                 error.value = R.string.error
             } catch (e: IOException) {

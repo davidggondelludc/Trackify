@@ -22,11 +22,10 @@ class SpotifyRepositoryImpl @Inject constructor(
         val artist = spotifyApi.getMeTopArtists().getOrThrow().items.random()
         val relatedArtists =
             spotifyApi.getArtistRelatedArtists(artist.id).getOrThrow().artists.toMutableList()
-        relatedArtists.add(artist)
 
-        for (relatedArtist in relatedArtists.reversed()) {
+        for (relatedArtist in relatedArtists) {
             val topTracks = spotifyApi.getArtistTopTracks(relatedArtist.id).getOrThrow().tracks
-            for (track in topTracks.reversed()) {
+            for (track in topTracks) {
                 tracklist.add(track)
             }
         }
