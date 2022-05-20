@@ -1,5 +1,6 @@
 package com.apm.trackify.ui.main
 
+import android.annotation.SuppressLint
 import android.app.Application
 import android.content.Context
 import android.net.ConnectivityManager
@@ -29,6 +30,7 @@ class NetworkConnection(private val connectivityManager: ConnectivityManager) :
         }
     }
 
+    @SuppressLint("MissingPermission")
     @RequiresApi(Build.VERSION_CODES.LOLLIPOP)
     override fun onActive() {
         super.onActive()

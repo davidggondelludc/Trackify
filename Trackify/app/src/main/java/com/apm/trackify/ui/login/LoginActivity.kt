@@ -28,14 +28,13 @@ class LoginActivity : AppCompatActivity() {
 
     private var isReady = false
 
-    private lateinit var netCon: NetworkConnection
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         // Handle the splash screen transition and must be called before super.onCreate()
         installSplashScreen()
 
         super.onCreate(savedInstanceState)
-
         val binding = LoginActivityBinding.inflate(layoutInflater)
         binding.login.viewTreeObserver.addOnPreDrawListener(
             object : ViewTreeObserver.OnPreDrawListener {
@@ -61,7 +60,7 @@ class LoginActivity : AppCompatActivity() {
         }
 
         checkLocationPermission()
-        checkNetworkConnection()
+
     }
 
     @Deprecated("Deprecated in Java")
@@ -100,21 +99,6 @@ class LoginActivity : AppCompatActivity() {
                 arrayOf(android.Manifest.permission.ACCESS_COARSE_LOCATION),
                 1001
             )
-        }
-    }
-
-    private fun checkNetworkConnection() {
-        netCon = NetworkConnection(application)
-
-        netCon.observe(this) { isConnected ->
-            if (isConnected) {
-                print("INTERNET ON")
-            } else {
-                AlertDialog.Builder(this).setIcon(android.R.drawable.ic_delete)
-                    .setTitle("Internet Connection Alert")
-                    .setMessage("Please check your internet connection")
-                    .setPositiveButton("Close") { _, _ -> finish() }.show()
-            }
         }
     }
 }
