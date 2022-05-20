@@ -1,7 +1,7 @@
 package com.apm.trackify.provider.service.spotify.data
 
 import com.apm.trackify.provider.model.domain.PlaylistItem
-import com.apm.trackify.provider.service.spotify.data.response.TracksResponse
+import com.apm.trackify.provider.service.spotify.data.response.playlists.PlaylistTracksResponse
 
 data class Playlist(
     val external_urls: ExternalUrls,
@@ -9,7 +9,7 @@ data class Playlist(
     val images: List<Image>,
     val name: String,
     val owner: Owner,
-    val tracks: TracksResponse
+    val tracks: PlaylistTracksResponse
 ) {
 
     fun toPlaylistItem(): PlaylistItem {

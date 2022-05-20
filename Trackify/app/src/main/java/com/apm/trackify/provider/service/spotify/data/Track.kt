@@ -9,6 +9,7 @@ data class Track(
     val explicit: Boolean,
     val id: String,
     val name: String,
+    val popularity: Int,
     val preview_url: String?
 ) {
 

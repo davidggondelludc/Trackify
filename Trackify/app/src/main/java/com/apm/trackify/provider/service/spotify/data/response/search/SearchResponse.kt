@@ -1,4 +1,4 @@
-package com.apm.trackify.provider.service.spotify.data.response
+package com.apm.trackify.provider.service.spotify.data.response.search
 
 import com.apm.trackify.provider.model.domain.TrackItem
 import com.apm.trackify.provider.service.spotify.data.Track

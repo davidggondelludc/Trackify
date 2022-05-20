@@ -1,17 +1,19 @@
 package com.apm.trackify.ui.playlists.create.view.model
 
-import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.apm.trackify.R
 import com.apm.trackify.provider.model.MockProvider
 import com.apm.trackify.provider.model.domain.PlaylistItem
 import com.apm.trackify.provider.model.domain.TrackItem
-import com.apm.trackify.provider.service.spotify.SpotifyApi
+import com.apm.trackify.provider.repository.SpotifyRepository
 import com.apm.trackify.util.extension.isInBounds
 import com.apm.trackify.util.extension.swap
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
+import retrofit2.HttpException
+import java.io.IOException
 import javax.inject.Inject
 
 /**
@@ -23,36 +25,40 @@ import javax.inject.Inject
  * prevents doing the calculations twice if the same list is called.
  */
 @HiltViewModel
-class PlaylistCreateViewModel @Inject constructor(spotifyApi: SpotifyApi) : ViewModel() {
+class PlaylistCreateViewModel @Inject constructor(
+    spotifyRepository: SpotifyRepository
+) : ViewModel() {
 
+    val error = MutableLiveData<Int>()
     val playlist = MutableLiveData<PlaylistItem>()
+    val tracks = MutableLiveData<List<TrackItem>>()
 
-    private val tracks = MutableLiveData<List<TrackItem>>()
-    fun getTracks(): LiveData<List<TrackItem>> = tracks
-    private val dataset = mutableListOf<TrackItem>()
+    private var tracklist = mutableListOf<TrackItem>()
 
     init {
         playlist.value = MockProvider.playlist
 
         viewModelScope.launch {
-//            val response = spotifyService.getMeTopTracks()
-//
-//            if (response.isSuccessful) {
-//                response.body()?.toTrackItems()?.let { dataset.addAll(it) }
-//                tracks.value = dataset.toList()
-//            }
+            try {
+                tracklist = spotifyRepository.generateTracklist().toMutableList()
+                tracks.value = tracklist
+            } catch (e: HttpException) {
+                error.value = R.string.error
+            } catch (e: IOException) {
+                error.value = R.string.internet
+            }
         }
     }
 
     fun move(from: Int, to: Int) {
-        dataset.swap(from, to)
-        tracks.value = dataset.toList() // Weird logic
+        tracklist.swap(from, to)
+        tracks.value = tracklist.toList()
     }
 
     fun remove(position: Int) {
-        if (dataset.isInBounds(position)) {
-            dataset.removeAt(position)
-            tracks.value = dataset.toList() // Weird logic
+        if (tracklist.isInBounds(position)) {
+            tracklist.removeAt(position)
+            tracks.value = tracklist.toList()
         }
     }
 }

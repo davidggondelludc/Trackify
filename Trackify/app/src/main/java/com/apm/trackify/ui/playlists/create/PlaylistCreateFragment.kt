@@ -19,6 +19,7 @@ import com.apm.trackify.ui.playlists.create.view.adapter.HeaderAdapter
 import com.apm.trackify.ui.playlists.create.view.adapter.TrackDragAdapter
 import com.apm.trackify.ui.playlists.create.view.model.PlaylistCreateViewModel
 import com.apm.trackify.util.extension.setupToolbar
+import com.apm.trackify.util.extension.toast
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 
@@ -54,17 +55,22 @@ class PlaylistCreateFragment : Fragment() {
     }
 
     private fun setupRecyclerView(recyclerView: RecyclerView) {
-        val headerAdapter = HeaderAdapter()
-        viewModel.playlist.observe(viewLifecycleOwner) {
-            headerAdapter.submitList(listOf(it))
-        }
-
         val callback = DragSwipeCallback(viewModel)
         val itemTouchHelper = ItemTouchHelper(callback)
         itemTouchHelper.attachToRecyclerView(recyclerView)
 
+        val headerAdapter = HeaderAdapter()
         val trackDragAdapter = TrackDragAdapter(itemTouchHelper, mediaServiceLifecycle)
-        viewModel.getTracks().observe(viewLifecycleOwner) {
+
+        viewModel.error.observe(viewLifecycleOwner) {
+            context?.toast(it)
+        }
+
+        viewModel.playlist.observe(viewLifecycleOwner) {
+            headerAdapter.submitList(listOf(it))
+        }
+
+        viewModel.tracks.observe(viewLifecycleOwner) {
             trackDragAdapter.submitList(it)
         }
 
