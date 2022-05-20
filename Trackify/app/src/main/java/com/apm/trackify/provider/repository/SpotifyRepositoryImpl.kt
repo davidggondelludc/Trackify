@@ -1,5 +1,6 @@
 package com.apm.trackify.provider.repository
 
+import com.apm.trackify.provider.model.domain.PlaylistItem
 import com.apm.trackify.provider.model.domain.TrackItem
 import com.apm.trackify.provider.repository.enum.Duration
 import com.apm.trackify.provider.service.spotify.SpotifyApi
@@ -58,6 +59,10 @@ class SpotifyRepositoryImpl @Inject constructor(
 
     override suspend fun searchTracks(query: String): List<TrackItem> {
         return spotifyApi.search(query).getOrThrow().toTrackItems()
+    }
+
+    override suspend fun getMePlaylists(): List<PlaylistItem> {
+        return spotifyApi.getMePlaylists().getOrThrow().toPlaylistItems()
     }
 
     override suspend fun getPlaylistTracks(playlistId: String): List<TrackItem> {

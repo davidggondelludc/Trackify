@@ -1,26 +1,34 @@
 package com.apm.trackify.ui.routes.create.view.model
 
-import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.apm.trackify.provider.service.spotify.SpotifyApi
-import com.apm.trackify.provider.service.spotify.data.response.me.MePlaylistsResponse
+import com.apm.trackify.R
+import com.apm.trackify.provider.model.domain.PlaylistItem
+import com.apm.trackify.provider.repository.SpotifyRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
-import retrofit2.Response
+import retrofit2.HttpException
+import java.io.IOException
 import javax.inject.Inject
 
 @HiltViewModel
-class RoutesCreateViewModel @Inject constructor(spotifyApi: SpotifyApi) : ViewModel() {
+class RoutesCreateViewModel @Inject constructor(
+    spotifyRepository: SpotifyRepository
+) : ViewModel() {
 
-    private val response = MutableLiveData<Response<MePlaylistsResponse>>()
-
-    fun getResponse(): LiveData<Response<MePlaylistsResponse>> = response
+    val error = MutableLiveData<Int>()
+    val playlists = MutableLiveData<List<PlaylistItem>>()
 
     init {
         viewModelScope.launch {
-            response.value = spotifyApi.getMePlaylists()
+            try {
+                playlists.value = spotifyRepository.getMePlaylists()
+            } catch (e: HttpException) {
+                error.value = R.string.error
+            } catch (e: IOException) {
+                error.value = R.string.internet
+            }
         }
     }
 }

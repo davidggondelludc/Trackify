@@ -42,20 +42,25 @@ class PlaylistsLandingFragment : Fragment() {
             }
             true
         }
-        setupRecyclerView(binding.playlists)
-    }
 
-    private fun setupRecyclerView(recyclerView: RecyclerView) {
-        val playlistsAdapter = PlaylistAdapter()
-        viewModel.getResponse().observe(viewLifecycleOwner) {
-            if (it.isSuccessful) {
-                playlistsAdapter.submitList(it.body()?.toPlaylistItems())
-            } else {
-                context?.toast(R.string.error)
-            }
+        binding.swipeRefresh.setOnRefreshListener {
+            viewModel.getMePlaylists()
+            binding.swipeRefresh.isRefreshing = true
         }
 
-        recyclerView.adapter = playlistsAdapter
-        recyclerView.layoutManager = GridLayoutManager(context, 2, RecyclerView.VERTICAL, false)
+        val playlistsAdapter = PlaylistAdapter()
+
+        viewModel.error.observe(viewLifecycleOwner) {
+            context?.toast(it)
+        }
+
+        viewModel.playlists.observe(viewLifecycleOwner) {
+            playlistsAdapter.submitList(it)
+            binding.swipeRefresh.isRefreshing = false
+        }
+
+        binding.playlists.adapter = playlistsAdapter
+        binding.playlists.layoutManager =
+            GridLayoutManager(context, 2, RecyclerView.VERTICAL, false)
     }
 }

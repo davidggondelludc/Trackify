@@ -10,7 +10,6 @@ import com.apm.trackify.provider.service.spotify.data.response.me.MePlaylistsRes
 import com.apm.trackify.provider.service.spotify.data.response.me.MeTopArtistsResponse
 import com.apm.trackify.provider.service.spotify.data.response.playlists.PlaylistTracksResponse
 import com.apm.trackify.provider.service.spotify.data.response.search.SearchResponse
-import retrofit2.Response
 import retrofit2.http.*
 
 interface SpotifyApi {
@@ -19,7 +18,7 @@ interface SpotifyApi {
     suspend fun getMeUser(): Result<User>
 
     @GET("me/playlists")
-    suspend fun getMePlaylists(): Response<MePlaylistsResponse>
+    suspend fun getMePlaylists(): Result<MePlaylistsResponse>
 
     @GET("me/top/artists")
     suspend fun getMeTopArtists(): Result<MeTopArtistsResponse>
