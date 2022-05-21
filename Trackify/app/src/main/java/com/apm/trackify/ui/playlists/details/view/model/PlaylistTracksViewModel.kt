@@ -28,6 +28,7 @@ class PlaylistTracksViewModel @Inject constructor(
     spotifyRepository: SpotifyRepository
 ) : ViewModel() {
 
+    val loading = MutableLiveData<Boolean>()
     val error = MutableLiveData<Int>()
     val tracks = MutableLiveData<List<TrackItem>>()
     var sortType: SortType = SortType.CUSTOM
@@ -37,10 +38,12 @@ class PlaylistTracksViewModel @Inject constructor(
     private lateinit var tracklist: MutableList<TrackItem>
 
     init {
+        loading.value = true
         viewModelScope.launch {
             try {
                 originalTracklist = spotifyRepository.getPlaylistTracks(playlistItem.id)
                 sort(null, null)
+                loading.value = false
             } catch (e: HttpException) {
                 error.value = R.string.error
             } catch (e: IOException) {

@@ -20,6 +20,7 @@ import com.apm.trackify.ui.playlists.details.view.adapter.TrackAdapter
 import com.apm.trackify.ui.playlists.details.view.model.PlaylistTracksViewModel
 import com.apm.trackify.util.extension.setupToolbar
 import com.apm.trackify.util.extension.toast
+import com.apm.trackify.util.extension.toggleVisibility
 import dagger.hilt.android.AndroidEntryPoint
 import java.util.concurrent.TimeUnit
 import javax.inject.Inject
@@ -43,6 +44,11 @@ class PlaylistTracksFragment : Fragment() {
         viewLifecycleOwner.lifecycle.addObserver(mediaServiceLifecycle)
 
         val binding = PlaylistsTracksFragmentBinding.bind(view)
+
+        viewModel.loading.observe(viewLifecycleOwner) {
+            binding.loading.toggleVisibility(it, false)
+            binding.container.toggleVisibility(!it, false)
+        }
 
         setupToolbar(binding.toolbar)
         setupRecyclerView(binding.playlist)

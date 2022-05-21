@@ -72,6 +72,7 @@ ext {
     constraintlayout_version = "2.1.4"
     coordinatorlayout_version = "1.2.0"
     recyclerview_version = "1.2.1"
+    lottie_version = "5.1.1"
 
     // Material 1.5.0 has bugs with components not rendering on preview mode
     // https://github.com/material-components/material-components-android/issues/2457
@@ -107,6 +108,7 @@ dependencies {
     implementation "androidx.constraintlayout:constraintlayout:$constraintlayout_version"
     implementation "androidx.coordinatorlayout:coordinatorlayout:$coordinatorlayout_version"
     implementation "androidx.recyclerview:recyclerview:$recyclerview_version"
+    implementation "com.airbnb.android:lottie:$lottie_version"
 
     implementation "androidx.navigation:navigation-ui-ktx:$navigation_version"
     implementation "androidx.navigation:navigation-fragment-ktx:$navigation_version"
