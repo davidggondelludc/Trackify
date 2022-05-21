@@ -30,11 +30,12 @@ class MapsUtil(var map: GoogleMap, val context: Context?, val width: Int, val he
     fun setDefaultSettings() {
 
         map.mapType = GoogleMap.MAP_TYPE_NORMAL
-        map.uiSettings.setAllGesturesEnabled(true)
-        map.uiSettings.isZoomControlsEnabled = true
+        map.uiSettings.setAllGesturesEnabled(false)
+        map.uiSettings.isZoomControlsEnabled = false
         map.isBuildingsEnabled = false
         map.isTrafficEnabled = false
         map.setOnMapClickListener(this)
+        map.setOnMarkerClickListener(this)
 
     }
 
@@ -141,7 +142,8 @@ class MapsUtil(var map: GoogleMap, val context: Context?, val width: Int, val he
         val currentLatLng = LatLng(userCoordinates.latitude, userCoordinates.longitude)
         map.animateCamera(CameraUpdateFactory.newLatLngZoom(currentLatLng, 12f))
         var zoom = ",15z"
-        var auxUrl = "https://www.google.com/maps/place/" + userCoordinates.latitude + "," + userCoordinates.longitude + zoom
+        var auxUrl =
+            "https://www.google.com/maps/place/" + userCoordinates.latitude + "," + userCoordinates.longitude + zoom
         mapsRouteUrl = auxUrl
         map.setOnMapClickListener(this)
     }

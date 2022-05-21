@@ -5,17 +5,34 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import android.widget.PopupMenu
 import androidx.core.content.ContextCompat.startActivity
+import androidx.navigation.NavController
 import androidx.recyclerview.widget.ListAdapter
 import com.apm.trackify.R
 import com.apm.trackify.databinding.UserSharedRouteItemBinding
 import com.apm.trackify.model.diff.RouteItemDiffUtil
 import com.apm.trackify.model.domain.RouteItem
+import com.apm.trackify.service.firebase.FirebaseService
+import com.apm.trackify.service.spotify.SpotifyService
+import com.apm.trackify.ui.user.landing.UserLandingFragmentDirections
 import com.apm.trackify.ui.user.landing.sharedRoutes.view.holder.UserSharedRouteViewHolder
 import com.apm.trackify.util.CoverUtil
 import com.apm.trackify.util.extension.toast
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 
-class UserSharedRouteAdapter :
+class UserSharedRouteAdapter(
+    reload: () -> Unit,
+    spotifyService: SpotifyService,
+    navController: NavController
+) :
     ListAdapter<RouteItem, UserSharedRouteViewHolder>(RouteItemDiffUtil()) {
+
+    private val myreload = reload
+    private val firebaseService = FirebaseService()
+    private val mySpotifyService = spotifyService
+    private val navController = navController
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): UserSharedRouteViewHolder {
         val inflater = LayoutInflater.from(parent.context)
@@ -46,6 +63,25 @@ class UserSharedRouteAdapter :
             popupMenu.menuInflater.inflate(R.menu.popup_route_menu, popupMenu.menu)
             popupMenu.setOnMenuItemClickListener {
                 when (it.itemId) {
+                    R.id.viewPlaylist -> {
+                        CoroutineScope(Dispatchers.IO).launch {
+                            val response = mySpotifyService.getPlaylistById(route.playlistId)
+
+                            withContext(Dispatchers.Main) {
+                                if (response.isSuccessful) {
+                                    val playlist = response.body()?.toPlaylistItem()
+                                    if (playlist != null) {
+                                        val action =
+                                            UserLandingFragmentDirections.actionUserFragmentToPlaylistTracksFragment(
+                                                playlist
+                                            )
+                                        navController.navigate(action)
+                                    }
+                                }
+                            }
+                        }
+                        true
+                    }
                     R.id.share -> {
                         val intent = Intent(Intent.ACTION_SEND).apply {
                             putExtra(
@@ -62,7 +98,14 @@ class UserSharedRouteAdapter :
                         true
                     }
                     R.id.delete -> {
-                        view.context.toast("DELETE")
+                        firebaseService.deleteRoute(
+                            route.id,
+                            {
+                                view.context.toast("Route deleted")
+                                myreload()
+                            },
+                            { view.context.toast("Could not delete route") })
+
                         true
                     }
                     else -> false

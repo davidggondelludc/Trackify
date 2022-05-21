@@ -1,5 +1,6 @@
 package com.apm.trackify.service.spotify
 
+import com.apm.trackify.service.spotify.domain.Playlist
 import com.apm.trackify.service.spotify.domain.response.PlaylistsResponse
 import com.apm.trackify.service.spotify.domain.response.SearchResponse
 import com.apm.trackify.service.spotify.domain.response.TopTracksResponse
@@ -27,4 +28,9 @@ interface SpotifyService {
         @Query("q") query: String,
         @Query("type") type: String
     ): Response<SearchResponse>
+
+    @GET("playlists/{playlist_id}")
+    suspend fun getPlaylistById(
+        @Path("playlist_id") playlistId: String
+    ): Response<Playlist>
 }
