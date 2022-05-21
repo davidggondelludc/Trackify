@@ -10,5 +10,4 @@ class HeaderViewHolder(val binding: PlaylistsTrackHeaderItemBinding) :
     val nameTextView = binding.name
     val ownerTextView = binding.owner
     val spotifyButton = binding.spotify
-    val unfollowButton = binding.unfollow
 }

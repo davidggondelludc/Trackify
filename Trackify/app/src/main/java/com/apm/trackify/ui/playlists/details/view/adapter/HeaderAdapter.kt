@@ -12,7 +12,6 @@ import com.apm.trackify.provider.model.diff.PlaylistItemDiffUtil
 import com.apm.trackify.provider.model.domain.PlaylistItem
 import com.apm.trackify.ui.playlists.details.view.holder.HeaderViewHolder
 import com.apm.trackify.util.extension.loadFromURI
-import com.apm.trackify.util.extension.toast
 
 class HeaderAdapter : ListAdapter<PlaylistItem, HeaderViewHolder>(PlaylistItemDiffUtil()) {
 
@@ -33,10 +32,6 @@ class HeaderAdapter : ListAdapter<PlaylistItem, HeaderViewHolder>(PlaylistItemDi
         holder.spotifyButton.setOnClickListener {
             val intent = Intent(Intent.ACTION_VIEW, Uri.parse(playlist.playlistUri))
             startActivity(holder.itemView.context, intent, null)
-        }
-
-        holder.unfollowButton.setOnClickListener {
-            it.context.toast("UNFOLLOW")
         }
     }
 }
