@@ -1,6 +1,8 @@
 package com.apm.trackify.provider.service.spotify.data
 
 import com.apm.trackify.provider.model.domain.TrackItem
+import java.text.SimpleDateFormat
+import java.util.*
 
 data class Track(
     val album: Album,
@@ -14,16 +16,16 @@ data class Track(
     val uri: String
 ) {
 
-    fun toTrackItem(): TrackItem {
-        return TrackItem(
+    fun toTrackItem(addedAt: String = "0000-00-00T00:00:00Z"): TrackItem =
+        TrackItem(
             id,
+            uri,
             album.images.last().url,
             name,
             artists.joinToString(", ") { it.name },
             explicit,
             duration_ms,
             preview_url,
-            uri
+            SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss'Z'", Locale.US).parse(addedAt)!!
         )
-    }
 }

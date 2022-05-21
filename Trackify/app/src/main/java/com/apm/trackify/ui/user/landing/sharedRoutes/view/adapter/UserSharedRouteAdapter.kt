@@ -59,14 +59,11 @@ class UserSharedRouteAdapter :
                             view.resources.getText(R.string.share_route_title)
                         )
                         startActivity(view.context, shareIntent, null)
-                        true
                     }
-                    R.id.delete -> {
-                        view.context.toast("DELETE")
-                        true
-                    }
-                    else -> false
+                    R.id.delete -> view.context.toast("DELETE")
+                    else -> throw IllegalArgumentException("UserSharedRoute menu id not exist.")
                 }
+                true
             }
             popupMenu.show()
         }

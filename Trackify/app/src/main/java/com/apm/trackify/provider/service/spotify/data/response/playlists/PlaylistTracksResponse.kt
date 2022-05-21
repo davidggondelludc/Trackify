@@ -20,10 +20,11 @@ data class PlaylistTracksResponse(
     }
 
     data class TrackResponse(
+        val added_at: String,
         val track: Track
     ) {
 
         fun toTrackItem(): TrackItem =
-            track.toTrackItem()
+            track.toTrackItem(added_at)
     }
 }
