@@ -52,11 +52,11 @@ class HeaderAdapter(
             }
             popupMenu.setOnMenuItemClickListener {
                 when (it.itemId) {
-                    R.id.by_title -> viewModel.sort(SortType.TITLE, true)
-                    R.id.by_artist -> viewModel.sort(SortType.ARTIST, true)
-                    R.id.by_duration -> viewModel.sort(SortType.DURATION, true)
-                    R.id.by_recently_added -> viewModel.sort(SortType.RECENTLY_ADDED, true)
-                    R.id.by_custom -> viewModel.sort(SortType.CUSTOM, true)
+                    R.id.by_title -> viewModel.sort(SortType.TITLE, null)
+                    R.id.by_artist -> viewModel.sort(SortType.ARTIST, null)
+                    R.id.by_duration -> viewModel.sort(SortType.DURATION, null)
+                    R.id.by_recently_added -> viewModel.sort(SortType.RECENTLY_ADDED, null)
+                    R.id.by_custom -> viewModel.sort(SortType.CUSTOM, null)
                     else -> throw IllegalArgumentException("Sort type not exist.")
                 }
                 true
