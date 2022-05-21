@@ -61,7 +61,7 @@ android {
 }
 
 ext {
-    splashscreen_version = "1.0.0-beta02"
+    splashscreen_version = "1.0.0-rc01"
 
     core_version = "1.7.0"
     activity_version = "1.4.0"
@@ -69,7 +69,7 @@ ext {
     lifecycle_version = "2.4.1"
 
     appcompat_version = "1.4.1"
-    constraintlayout_version = "2.1.3"
+    constraintlayout_version = "2.1.4"
     coordinatorlayout_version = "1.2.0"
     recyclerview_version = "1.2.1"
 
