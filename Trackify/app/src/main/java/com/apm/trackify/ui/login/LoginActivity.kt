@@ -4,12 +4,14 @@ import android.content.Intent
 import android.content.pm.PackageManager
 import android.os.Bundle
 import android.view.ViewTreeObserver
+import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import com.apm.trackify.databinding.LoginActivityBinding
 import com.apm.trackify.ui.main.MainActivity
 import com.apm.trackify.ui.main.MainApplication
+import com.apm.trackify.ui.main.NetworkConnection
 import com.spotify.sdk.android.auth.AuthorizationClient
 import com.spotify.sdk.android.auth.AuthorizationRequest
 import com.spotify.sdk.android.auth.AuthorizationResponse
@@ -26,12 +28,13 @@ class LoginActivity : AppCompatActivity() {
 
     private var isReady = false
 
+
+
     override fun onCreate(savedInstanceState: Bundle?) {
         // Handle the splash screen transition and must be called before super.onCreate()
         installSplashScreen()
 
         super.onCreate(savedInstanceState)
-
         val binding = LoginActivityBinding.inflate(layoutInflater)
         binding.login.viewTreeObserver.addOnPreDrawListener(
             object : ViewTreeObserver.OnPreDrawListener {
@@ -57,6 +60,7 @@ class LoginActivity : AppCompatActivity() {
         }
 
         checkLocationPermission()
+
     }
 
     @Deprecated("Deprecated in Java")
@@ -97,6 +101,4 @@ class LoginActivity : AppCompatActivity() {
             )
         }
     }
-
-
 }

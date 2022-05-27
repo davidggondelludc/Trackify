@@ -7,4 +7,5 @@
     <color name="raisin_black">#262833</color>
     <color name="success">#38EE1C</color>
     <color name="cover_tint">#262626</color>
+    <color name="error">#ff3333</color>
 </resources>

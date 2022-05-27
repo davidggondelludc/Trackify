@@ -1,5 +1,6 @@
 package com.apm.trackify.service.spotify
 
+import com.apm.trackify.service.spotify.domain.Owner
 import com.apm.trackify.service.spotify.domain.response.PlaylistsResponse
 import com.apm.trackify.service.spotify.domain.response.SearchResponse
 import com.apm.trackify.service.spotify.domain.response.TopTracksResponse
@@ -27,4 +28,9 @@ interface SpotifyService {
         @Query("q") query: String,
         @Query("type") type: String
     ): Response<SearchResponse>
+
+    @GET("users/{user_id}")
+    suspend fun getUserInfo(
+        @Path("user_id") userId: String
+    ) : Response<Owner>
 }
