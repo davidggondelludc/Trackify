@@ -7,7 +7,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.viewpager2.widget.ViewPager2
 import com.apm.trackify.databinding.UserLandingFragmentBinding
-import com.apm.trackify.service.firebase.FirebaseService
+import com.apm.trackify.provider.service.firebase.FirebaseService
 import com.apm.trackify.util.extension.setupToolbar
 import com.google.android.material.tabs.TabLayout
 

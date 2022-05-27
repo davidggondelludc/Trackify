@@ -4,23 +4,24 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.ConcatAdapter
 import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
 import com.apm.trackify.R
 import com.apm.trackify.databinding.PlaylistsTracksFragmentBinding
-import com.apm.trackify.service.media.MediaServiceLifecycle
+import com.apm.trackify.provider.service.media.MediaServiceLifecycle
 import com.apm.trackify.ui.playlists.details.listener.ParallaxListener
 import com.apm.trackify.ui.playlists.details.view.adapter.FooterAdapter
 import com.apm.trackify.ui.playlists.details.view.adapter.HeaderAdapter
 import com.apm.trackify.ui.playlists.details.view.adapter.TrackAdapter
 import com.apm.trackify.ui.playlists.details.view.model.PlaylistTracksViewModel
 import com.apm.trackify.util.extension.setupToolbar
-import com.apm.trackify.util.extension.toast
+import com.apm.trackify.util.extension.toggleVisibility
 import dagger.hilt.android.AndroidEntryPoint
+import es.dmoral.toasty.Toasty
 import java.util.concurrent.TimeUnit
 import javax.inject.Inject
 
@@ -45,36 +46,36 @@ class PlaylistTracksFragment : Fragment() {
         val binding = PlaylistsTracksFragmentBinding.bind(view)
 
         setupToolbar(binding.toolbar)
-        setupRecyclerView(binding.playlist)
-    }
 
-    private fun setupRecyclerView(recyclerView: RecyclerView) {
-        val headerAdapter = HeaderAdapter()
-        headerAdapter.submitList(listOf(args.playlist))
-
+        val headerAdapter = HeaderAdapter(viewModel).apply {
+            submitList(listOf(args.playlist))
+        }
         val trackAdapter = TrackAdapter(mediaServiceLifecycle)
-
         val footerAdapter = FooterAdapter()
-        viewModel.getResponse().observe(viewLifecycleOwner) {
-            if (it.isSuccessful) {
-                val tracks = it.body()?.toTrackItems()!!
-                trackAdapter.submitList(tracks)
-                footerAdapter.submitList(
-                    listOf(
-                        generateFooter(
-                            tracks.size,
-                            tracks.sumOf { track -> track.duration }.toLong()
-                        )
+
+        binding.playlist.adapter = ConcatAdapter(headerAdapter, trackAdapter, footerAdapter)
+        binding.playlist.layoutManager = LinearLayoutManager(requireContext())
+        binding.playlist.addOnScrollListener(ParallaxListener())
+
+        viewModel.loading.observe(viewLifecycleOwner) {
+            binding.loading.toggleVisibility(it, false)
+            binding.container.toggleVisibility(!it, false)
+        }
+        viewModel.error.observe(viewLifecycleOwner) {
+            binding.loading.toggleVisibility(visible = false, gone = false)
+            Toasty.error(requireContext(), it, Toast.LENGTH_SHORT, true).show()
+        }
+        viewModel.tracks.observe(viewLifecycleOwner) {
+            trackAdapter.submitList(it)
+            footerAdapter.submitList(
+                listOf(
+                    generateFooter(
+                        it.size,
+                        it.sumOf { track -> track.duration }.toLong()
                     )
                 )
-            } else {
-                context?.toast(R.string.error)
-            }
+            )
         }
-
-        recyclerView.adapter = ConcatAdapter(headerAdapter, trackAdapter, footerAdapter)
-        recyclerView.layoutManager = LinearLayoutManager(context)
-        recyclerView.addOnScrollListener(ParallaxListener())
     }
 
     private fun generateFooter(tracks: Int, milliseconds: Long): String {

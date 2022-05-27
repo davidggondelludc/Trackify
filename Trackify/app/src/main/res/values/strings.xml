@@ -23,7 +23,13 @@
     <string name="share">Share</string>
     <string name="save">Save</string>
     <string name="delete">Delete</string>
+    <string name="title">Title</string>
+    <string name="artist">Artist</string>
+    <string name="duration">Duration</string>
+    <string name="recently_added">Recently added</string>
+    <string name="custom">Custom</string>
     <string name="error">Something went wrong</string>
+    <string name="internet">No internet connection</string>
     <string name="preview_url">Preview unavailable for this track</string>
 
     <!-- login -->
@@ -46,7 +52,9 @@
     <!-- playlist details landing -->
     <string name="playlist_cover_description">Playlist cover</string>
     <string name="spotify_button">Play on Spotify</string>
-    <string name="unfollow_button">Unfollow</string>
+    <string name="tracks_text">Tracks</string>
+    <string name="sort_by_text">sort by</string>
+    <string name="sort_order_description">Sort order</string>
     <string name="track_cover_description">Track cover</string>
     <string name="track_more_description">Show track details</string>
     <string name="track_drag_description">Drag and drop track</string>

@@ -11,7 +11,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.apm.trackify.R
 import com.apm.trackify.databinding.UserSharedRoutesFragmentBinding
-import com.apm.trackify.service.spotify.SpotifyService
+import com.apm.trackify.provider.service.spotify.SpotifyApi
 import com.apm.trackify.ui.user.landing.sharedRoutes.view.adapter.UserSharedRouteAdapter
 import com.apm.trackify.ui.user.landing.sharedRoutes.view.model.UserSharedRoutesViewModel
 import com.apm.trackify.util.extension.toPx
@@ -30,7 +30,7 @@ class UserSharedRoutesFragment : Fragment(), OnMapReadyCallback {
     private val viewModel: UserSharedRoutesViewModel by viewModels()
 
     @Inject
-    lateinit var spotifyService: SpotifyService
+    lateinit var spotifyApi: SpotifyApi
     private lateinit var mapUtil: MapsUtil
     lateinit var binding: UserSharedRoutesFragmentBinding
     lateinit var mapView: MapView
@@ -60,7 +60,7 @@ class UserSharedRoutesFragment : Fragment(), OnMapReadyCallback {
         val routeAdapter =
             UserSharedRouteAdapter(
                 { viewModel.findRoutes() },
-                spotifyService,
+                spotifyApi,
                 navController,
                 { coordinates: List<LatLng> -> mapUtil.drawRouteAndSetOnClick(coordinates) }
             )

@@ -12,13 +12,12 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.apm.trackify.R
 import com.apm.trackify.databinding.PlaylistsCreateSearchFragmentBinding
-import com.apm.trackify.service.media.MediaServiceLifecycle
+import com.apm.trackify.provider.service.media.MediaServiceLifecycle
 import com.apm.trackify.ui.playlists.create.search.view.adapter.TrackAddAdapter
 import com.apm.trackify.ui.playlists.create.search.view.model.PlaylistCreateSearchViewModel
+import com.apm.trackify.ui.playlists.create.view.model.PlaylistCreateViewModel
 import com.apm.trackify.util.extension.setupToolbar
-import com.apm.trackify.util.extension.toast
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 
@@ -27,6 +26,7 @@ class PlaylistCreateSearchFragment : Fragment() {
 
     @Inject
     lateinit var mediaServiceLifecycle: MediaServiceLifecycle
+    private val createViewModel: PlaylistCreateViewModel by viewModels()
     private val viewModel: PlaylistCreateSearchViewModel by viewModels()
 
     override fun onCreateView(
@@ -57,14 +57,10 @@ class PlaylistCreateSearchFragment : Fragment() {
     }
 
     private fun setupRecyclerView(recyclerView: RecyclerView, searchProgressBar: ProgressBar) {
-        val addTrackAdapter = TrackAddAdapter(mediaServiceLifecycle)
-        viewModel.getResponse().observe(viewLifecycleOwner) {
+        val addTrackAdapter = TrackAddAdapter(createViewModel, mediaServiceLifecycle)
+        viewModel.tracks.observe(viewLifecycleOwner) {
             searchProgressBar.visibility = View.GONE
-            if (it.isSuccessful) {
-                addTrackAdapter.submitList(it.body()?.toTrackItems())
-            } else {
-                context?.toast(R.string.error)
-            }
+            addTrackAdapter.submitList(it)
         }
 
         recyclerView.adapter = addTrackAdapter

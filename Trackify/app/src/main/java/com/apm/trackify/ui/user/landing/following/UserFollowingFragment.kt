@@ -11,7 +11,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.apm.trackify.databinding.UserFollowingFragmentBinding
 import com.apm.trackify.ui.user.landing.following.view.adapter.UserFollowingAdapter
 import com.apm.trackify.ui.user.landing.following.view.model.UserFollowingViewModel
-import com.apm.trackify.util.extension.toast
+import com.apm.trackify.util.extension.toastError
 
 class UserFollowingFragment : Fragment() {
 
@@ -27,7 +27,7 @@ class UserFollowingFragment : Fragment() {
         val binding = UserFollowingFragmentBinding.bind(view)
 
         binding.btnReadUserQr.setOnClickListener {
-            it.context.toast("Read user QR")
+            it.context.toastError("Read user QR")
         }
 
         setupRecyclerView(binding.rvUsersFollowing)

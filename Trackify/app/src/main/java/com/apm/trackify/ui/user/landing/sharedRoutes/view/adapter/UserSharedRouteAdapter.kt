@@ -9,23 +9,23 @@ import androidx.navigation.NavController
 import androidx.recyclerview.widget.ListAdapter
 import com.apm.trackify.R
 import com.apm.trackify.databinding.UserSharedRouteItemBinding
-import com.apm.trackify.model.diff.RouteItemDiffUtil
-import com.apm.trackify.model.domain.RouteItem
-import com.apm.trackify.service.firebase.FirebaseService
-import com.apm.trackify.service.spotify.SpotifyService
 import com.apm.trackify.ui.user.landing.UserLandingFragmentDirections
+import com.apm.trackify.provider.model.diff.RouteItemDiffUtil
+import com.apm.trackify.provider.model.domain.RouteItem
+import com.apm.trackify.provider.service.firebase.FirebaseService
+import com.apm.trackify.provider.service.spotify.SpotifyApi
 import com.apm.trackify.ui.user.landing.sharedRoutes.view.holder.UserSharedRouteViewHolder
 import com.apm.trackify.util.CoverUtil
-import com.apm.trackify.util.extension.toast
 import com.google.android.gms.maps.model.LatLng
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
+import com.apm.trackify.util.extension.toastError
 
 class UserSharedRouteAdapter(
     reload: () -> Unit,
-    spotifyService: SpotifyService,
+    spotifyApi: SpotifyApi,
     navController: NavController,
     mapsDraw: (List<LatLng>) -> Unit
 ) :
@@ -33,7 +33,7 @@ class UserSharedRouteAdapter(
 
     private val myreload = reload
     private val firebaseService = FirebaseService()
-    private val mySpotifyService = spotifyService
+    private val mySpotifyApi = spotifyApi
     private val navController = navController
     private val draw = mapsDraw
 
@@ -68,7 +68,7 @@ class UserSharedRouteAdapter(
                 when (it.itemId) {
                     R.id.viewPlaylist -> {
                         CoroutineScope(Dispatchers.IO).launch {
-                            val response = mySpotifyService.getPlaylistById(route.playlistId)
+                            val response = mySpotifyApi.getPlaylistById(route.playlistId)
 
                             withContext(Dispatchers.Main) {
                                 if (response.isSuccessful) {
@@ -104,10 +104,10 @@ class UserSharedRouteAdapter(
                         firebaseService.deleteRoute(
                             route.id,
                             {
-                                view.context.toast("Route deleted")
+                                view.context.toastError("Route deleted")
                                 myreload()
                             },
-                            { view.context.toast("Could not delete route") })
+                            { view.context.toastError("Could not delete route") })
 
                         true
                     }

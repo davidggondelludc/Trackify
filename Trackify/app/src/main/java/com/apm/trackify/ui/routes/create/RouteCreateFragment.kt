@@ -16,12 +16,12 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.apm.trackify.R
 import com.apm.trackify.databinding.RoutesCreateFragmentBinding
-import com.apm.trackify.service.firebase.FirebaseService
+import com.apm.trackify.provider.service.firebase.FirebaseService
 import com.apm.trackify.ui.routes.create.view.adapter.PlaylistRoutesAdapter
 import com.apm.trackify.ui.routes.create.view.model.RoutesCreateViewModel
 import com.apm.trackify.util.extension.setupToolbar
 import com.apm.trackify.util.extension.toPx
-import com.apm.trackify.util.extension.toast
+import com.apm.trackify.util.extension.toastError
 import com.apm.trackify.util.maps.MapsUtilCreateRoute
 import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.location.LocationServices
@@ -100,13 +100,15 @@ class RouteCreateFragment : Fragment(), OnMapReadyCallback {
 
     private fun setupRecyclerView(recyclerView: RecyclerView) {
         val playlistRoutesAdapter = PlaylistRoutesAdapter()
-        viewModel.getResponse().observe(viewLifecycleOwner) {
-            if (it.isSuccessful) {
-                playlistRoutesAdapter.submitList(it.body()?.toPlaylistItems())
-            } else {
-                context?.toast(R.string.error)
-            }
+
+        viewModel.error.observe(viewLifecycleOwner) {
+            context?.toastError(it)
         }
+
+        viewModel.playlists.observe(viewLifecycleOwner) {
+            playlistRoutesAdapter.submitList(it)
+        }
+
         recyclerView.adapter = playlistRoutesAdapter
         recyclerView.layoutManager = LinearLayoutManager(context)
     }
@@ -141,8 +143,7 @@ class RouteCreateFragment : Fragment(), OnMapReadyCallback {
     }
 
     private fun getUrlPlaylist(position: Int): String {
-        return viewModel.getResponse().value?.body()?.toPlaylistItems()?.get(position)?.playlistUri
-            ?: ""
+        return viewModel.playlists.value?.get(position)?.playlistUri ?: ""
     }
 
 }
