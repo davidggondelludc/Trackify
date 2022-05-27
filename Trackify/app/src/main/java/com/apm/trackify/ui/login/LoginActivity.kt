@@ -49,7 +49,7 @@ class LoginActivity : AppCompatActivity() {
         val request =
             AuthorizationRequest.Builder(CLIENT_ID, AuthorizationResponse.Type.TOKEN, REDIRECT_URI)
                 .setShowDialog(false)
-                .setScopes(arrayOf("playlist-read-private", "user-top-read"))
+                .setScopes(arrayOf("playlist-read-private", "user-top-read", "playlist-modify-public", "playlist-modify-private"))
                 .build()
         AuthorizationClient.openLoginActivity(this, AUTH_TOKEN_REQUEST_CODE, request)
         binding.login.setOnClickListener {
