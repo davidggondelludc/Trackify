@@ -7,10 +7,10 @@ import androidx.navigation.findNavController
 import androidx.recyclerview.widget.ListAdapter
 import com.apm.trackify.R
 import com.apm.trackify.databinding.RoutesPlaylistsItemBinding
-import com.apm.trackify.model.MockProvider
-import com.apm.trackify.model.diff.RouteItemDiffUtil
-import com.apm.trackify.model.domain.PlaylistItem
-import com.apm.trackify.model.domain.RouteItem
+import com.apm.trackify.provider.model.MockProvider
+import com.apm.trackify.provider.model.diff.RouteItemDiffUtil
+import com.apm.trackify.provider.model.domain.PlaylistItem
+import com.apm.trackify.provider.model.domain.RouteItem
 import com.apm.trackify.ui.routes.landing.RoutesLandingFragmentDirections
 import com.apm.trackify.ui.routes.landing.view.holder.PlaylistRouteViewHolder
 import com.apm.trackify.util.extension.loadFromURI

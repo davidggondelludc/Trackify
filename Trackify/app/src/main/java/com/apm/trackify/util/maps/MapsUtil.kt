@@ -14,7 +14,7 @@ class MapsUtil(var map: GoogleMap, val context: Context?, val width: Int, val he
     GoogleMap.OnMarkerClickListener,
     GoogleMap.OnMapClickListener {
     private val offset = 0.003
-    private lateinit var mapsRouteUrl: String
+    private var mapsRouteUrl = ""
     private val icons = listOf(
         "uno",
         "dos",
@@ -30,11 +30,12 @@ class MapsUtil(var map: GoogleMap, val context: Context?, val width: Int, val he
     fun setDefaultSettings() {
 
         map.mapType = GoogleMap.MAP_TYPE_NORMAL
-        map.uiSettings.setAllGesturesEnabled(true)
-        map.uiSettings.isZoomControlsEnabled = true
+        map.uiSettings.setAllGesturesEnabled(false)
+        map.uiSettings.isZoomControlsEnabled = false
         map.isBuildingsEnabled = false
         map.isTrafficEnabled = false
         map.setOnMapClickListener(this)
+        map.setOnMarkerClickListener(this)
 
     }
 
@@ -131,8 +132,10 @@ class MapsUtil(var map: GoogleMap, val context: Context?, val width: Int, val he
     }
 
     override fun onMapClick(coordinates: LatLng) {
-        val intent = Intent(Intent.ACTION_VIEW, Uri.parse(mapsRouteUrl))
-        context?.startActivity(intent)
+        if (mapsRouteUrl != "") {
+            val intent = Intent(Intent.ACTION_VIEW, Uri.parse(mapsRouteUrl))
+            context?.startActivity(intent)
+        }
     }
 
     @SuppressLint("MissingPermission")
@@ -141,7 +144,8 @@ class MapsUtil(var map: GoogleMap, val context: Context?, val width: Int, val he
         val currentLatLng = LatLng(userCoordinates.latitude, userCoordinates.longitude)
         map.animateCamera(CameraUpdateFactory.newLatLngZoom(currentLatLng, 12f))
         var zoom = ",15z"
-        var auxUrl = "https://www.google.com/maps/place/" + userCoordinates.latitude + "," + userCoordinates.longitude + zoom
+        var auxUrl =
+            "https://www.google.com/maps/place/" + userCoordinates.latitude + "," + userCoordinates.longitude + zoom
         mapsRouteUrl = auxUrl
         map.setOnMapClickListener(this)
     }

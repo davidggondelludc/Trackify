@@ -27,8 +27,9 @@
         <!-- -->
         <item name="android:windowTranslucentStatus">true</item>
 
-        <!-- -->
+        <!-- custom theming -->
         <item name="toolbarStyle">@style/Widget.App.Toolbar</item>
+        <item name="radioButtonStyle">@style/Widget.App.RadioButton</item>
         <item name="bottomNavigationStyle">@style/Widget.App.BottomNavigationView</item>
     </style>
 </resources>

@@ -5,17 +5,37 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import android.widget.PopupMenu
 import androidx.core.content.ContextCompat.startActivity
+import androidx.navigation.NavController
 import androidx.recyclerview.widget.ListAdapter
 import com.apm.trackify.R
 import com.apm.trackify.databinding.UserSharedRouteItemBinding
-import com.apm.trackify.model.diff.RouteItemDiffUtil
-import com.apm.trackify.model.domain.RouteItem
+import com.apm.trackify.ui.user.landing.UserLandingFragmentDirections
+import com.apm.trackify.provider.model.diff.RouteItemDiffUtil
+import com.apm.trackify.provider.model.domain.RouteItem
+import com.apm.trackify.provider.service.firebase.FirebaseService
+import com.apm.trackify.provider.service.spotify.SpotifyApi
 import com.apm.trackify.ui.user.landing.sharedRoutes.view.holder.UserSharedRouteViewHolder
 import com.apm.trackify.util.CoverUtil
-import com.apm.trackify.util.extension.toast
+import com.google.android.gms.maps.model.LatLng
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
+import com.apm.trackify.util.extension.toastError
 
-class UserSharedRouteAdapter :
+class UserSharedRouteAdapter(
+    reload: () -> Unit,
+    spotifyApi: SpotifyApi,
+    navController: NavController,
+    mapsDraw: (List<LatLng>) -> Unit
+) :
     ListAdapter<RouteItem, UserSharedRouteViewHolder>(RouteItemDiffUtil()) {
+
+    private val myreload = reload
+    private val firebaseService = FirebaseService()
+    private val mySpotifyApi = spotifyApi
+    private val navController = navController
+    private val draw = mapsDraw
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): UserSharedRouteViewHolder {
         val inflater = LayoutInflater.from(parent.context)
@@ -38,7 +58,7 @@ class UserSharedRouteAdapter :
         holder.followersTextView.text = route.creator
 
         holder.itemView.setOnClickListener {
-            it.context.toast("Show map of the route")
+            draw(route.coordinates)
         }
 
         holder.moreButton.setOnClickListener { view ->
@@ -46,6 +66,25 @@ class UserSharedRouteAdapter :
             popupMenu.menuInflater.inflate(R.menu.popup_route_menu, popupMenu.menu)
             popupMenu.setOnMenuItemClickListener {
                 when (it.itemId) {
+                    R.id.viewPlaylist -> {
+                        CoroutineScope(Dispatchers.IO).launch {
+                            val response = mySpotifyApi.getPlaylistById(route.playlistId)
+
+                            withContext(Dispatchers.Main) {
+                                if (response.isSuccessful) {
+                                    val playlist = response.body()?.toPlaylistItem()
+                                    if (playlist != null) {
+                                        val action =
+                                            UserLandingFragmentDirections.actionUserFragmentToPlaylistTracksFragment(
+                                                playlist
+                                            )
+                                        navController.navigate(action)
+                                    }
+                                }
+                            }
+                        }
+                        true
+                    }
                     R.id.share -> {
                         val intent = Intent(Intent.ACTION_SEND).apply {
                             putExtra(
@@ -62,7 +101,14 @@ class UserSharedRouteAdapter :
                         true
                     }
                     R.id.delete -> {
-                        view.context.toast("DELETE")
+                        firebaseService.deleteRoute(
+                            route.id,
+                            {
+                                view.context.toastError("Route deleted")
+                                myreload()
+                            },
+                            { view.context.toastError("Could not delete route") })
+
                         true
                     }
                     else -> false

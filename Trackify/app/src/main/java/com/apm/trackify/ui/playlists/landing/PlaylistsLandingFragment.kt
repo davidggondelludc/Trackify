@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
@@ -14,8 +15,8 @@ import com.apm.trackify.databinding.PlaylistsLandingFragmentBinding
 import com.apm.trackify.ui.playlists.landing.view.adapter.PlaylistAdapter
 import com.apm.trackify.ui.playlists.landing.view.model.PlaylistsLandingViewModel
 import com.apm.trackify.util.extension.setupToolbar
-import com.apm.trackify.util.extension.toast
 import dagger.hilt.android.AndroidEntryPoint
+import es.dmoral.toasty.Toasty
 
 @AndroidEntryPoint
 class PlaylistsLandingFragment : Fragment() {
@@ -31,7 +32,6 @@ class PlaylistsLandingFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         val binding = PlaylistsLandingFragmentBinding.bind(view)
 
-        setupToolbar(binding.toolbar)
         binding.toolbar.setOnMenuItemClickListener {
             when (it.itemId) {
                 R.id.add -> {
@@ -42,20 +42,26 @@ class PlaylistsLandingFragment : Fragment() {
             }
             true
         }
-        setupRecyclerView(binding.playlists)
-    }
+        setupToolbar(binding.toolbar)
 
-    private fun setupRecyclerView(recyclerView: RecyclerView) {
-        val playlistsAdapter = PlaylistAdapter()
-        viewModel.getResponse().observe(viewLifecycleOwner) {
-            if (it.isSuccessful) {
-                playlistsAdapter.submitList(it.body()?.toPlaylistItems())
-            } else {
-                context?.toast(R.string.error)
-            }
+        binding.swipeRefresh.setOnRefreshListener {
+            viewModel.getMePlaylists()
+            binding.swipeRefresh.isRefreshing = true
         }
 
-        recyclerView.adapter = playlistsAdapter
-        recyclerView.layoutManager = GridLayoutManager(context, 2, RecyclerView.VERTICAL, false)
+        val playlistsAdapter = PlaylistAdapter()
+
+        binding.playlists.adapter = playlistsAdapter
+        binding.playlists.layoutManager =
+            GridLayoutManager(requireContext(), 2, RecyclerView.VERTICAL, false)
+
+        viewModel.error.observe(viewLifecycleOwner) {
+            binding.swipeRefresh.isRefreshing = false
+            Toasty.error(requireContext(), it, Toast.LENGTH_SHORT, true).show()
+        }
+        viewModel.playlists.observe(viewLifecycleOwner) {
+            binding.swipeRefresh.isRefreshing = false
+            playlistsAdapter.submitList(it)
+        }
     }
 }

@@ -5,8 +5,8 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.ListAdapter
 import com.apm.trackify.R
 import com.apm.trackify.databinding.RoutesCreatePlaylistItemBinding
-import com.apm.trackify.model.diff.PlaylistItemDiffUtil
-import com.apm.trackify.model.domain.PlaylistItem
+import com.apm.trackify.provider.model.diff.PlaylistItemDiffUtil
+import com.apm.trackify.provider.model.domain.PlaylistItem
 import com.apm.trackify.ui.routes.create.view.holder.PlaylistRoutesViewHolder
 import com.apm.trackify.util.extension.loadFromURI
 

@@ -1,27 +1,24 @@
 package com.apm.trackify.ui.playlists.create.search.view.model
 
-import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.apm.trackify.service.spotify.SpotifyService
-import com.apm.trackify.service.spotify.domain.response.SearchResponse
+import com.apm.trackify.provider.model.domain.TrackItem
+import com.apm.trackify.provider.repository.SpotifyRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
-import retrofit2.Response
 import javax.inject.Inject
 
 @HiltViewModel
-class PlaylistCreateSearchViewModel @Inject constructor(private val spotifyService: SpotifyService) :
-    ViewModel() {
+class PlaylistCreateSearchViewModel @Inject constructor(
+    private val spotifyRepository: SpotifyRepository
+) : ViewModel() {
 
-    private val response = MutableLiveData<Response<SearchResponse>>()
-
-    fun getResponse(): LiveData<Response<SearchResponse>> = response
+    val tracks = MutableLiveData<List<TrackItem>>()
 
     fun searchTracks(query: String) {
         viewModelScope.launch {
-            response.value = spotifyService.search(query, "track")
+            tracks.value = spotifyRepository.searchTracks(query)
         }
     }
 }

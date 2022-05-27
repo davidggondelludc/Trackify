@@ -6,9 +6,9 @@ import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.ListAdapter
 import com.apm.trackify.R
 import com.apm.trackify.databinding.PlaylistsTrackDragItemBinding
-import com.apm.trackify.model.diff.TrackItemDiffUtil
-import com.apm.trackify.model.domain.TrackItem
-import com.apm.trackify.service.media.MediaServiceLifecycle
+import com.apm.trackify.provider.model.diff.TrackItemDiffUtil
+import com.apm.trackify.provider.model.domain.TrackItem
+import com.apm.trackify.provider.service.media.MediaServiceLifecycle
 import com.apm.trackify.ui.playlists.create.view.holder.TrackDragViewHolder
 import com.apm.trackify.util.extension.loadFromURI
 import com.apm.trackify.util.extension.snackbar
@@ -39,7 +39,7 @@ class TrackDragAdapter(
                 mediaService.stop()
                 it.snackbar(R.string.preview_url)
             } else {
-                mediaService.play(track.previewUrl)
+                mediaService.play(track.previewUrl, position)
             }
         }
     }

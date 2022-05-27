@@ -2,13 +2,8 @@ package com.apm.trackify.ui.user.landing.following.view.model
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.apm.trackify.model.MockProvider
-import com.apm.trackify.model.domain.UserItem
-import com.apm.trackify.service.firebase.FirebaseService
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
+import com.apm.trackify.provider.model.domain.UserItem
+import com.apm.trackify.provider.service.firebase.FirebaseService
 
 class UserFollowingViewModel : ViewModel() {
 

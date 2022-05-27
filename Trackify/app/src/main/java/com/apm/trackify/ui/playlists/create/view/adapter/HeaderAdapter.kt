@@ -5,8 +5,8 @@ import android.view.ViewGroup
 import androidx.navigation.findNavController
 import androidx.recyclerview.widget.ListAdapter
 import com.apm.trackify.databinding.PlaylistsCreateHeaderBinding
-import com.apm.trackify.model.diff.PlaylistItemDiffUtil
-import com.apm.trackify.model.domain.PlaylistItem
+import com.apm.trackify.provider.model.diff.PlaylistItemDiffUtil
+import com.apm.trackify.provider.model.domain.PlaylistItem
 import com.apm.trackify.ui.playlists.create.PlaylistCreateFragmentDirections
 import com.apm.trackify.ui.playlists.create.view.holder.HeaderViewHolder
 
