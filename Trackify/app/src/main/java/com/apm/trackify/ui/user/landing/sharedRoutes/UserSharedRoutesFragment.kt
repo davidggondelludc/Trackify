@@ -58,7 +58,12 @@ class UserSharedRoutesFragment : Fragment(), OnMapReadyCallback {
     private fun setupRecyclerView(recyclerView: RecyclerView) {
         val navController = findNavController()
         val routeAdapter =
-            UserSharedRouteAdapter({ viewModel.findRoutes() }, spotifyService, navController)
+            UserSharedRouteAdapter(
+                { viewModel.findRoutes() },
+                spotifyService,
+                navController,
+                { coordinates: List<LatLng> -> mapUtil.drawRouteAndSetOnClick(coordinates) }
+            )
         viewModel.routes.observe(viewLifecycleOwner) {
             routeAdapter.submitList(it)
         }
@@ -71,14 +76,6 @@ class UserSharedRoutesFragment : Fragment(), OnMapReadyCallback {
         val heightpx = resources.getDimension(R.dimen.user_mapview_height).toPx.toInt()
         mapUtil = MapsUtil(googleMap, context, resources.displayMetrics.widthPixels, heightpx)
         mapUtil.setDefaultSettings()
-
-        val coordinates = listOf(
-            LatLng(43.371023, -8.405215), LatLng(43.382825, -8.410223),
-            LatLng(43.365160, -8.374968), LatLng(43.364100, -8.399088),
-            LatLng(43.358961, -8.401851)
-        )
-
-        mapUtil.drawRouteAndSetOnClick(coordinates)
     }
 
     override fun onResume() {

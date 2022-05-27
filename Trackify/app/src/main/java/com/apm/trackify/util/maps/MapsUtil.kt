@@ -14,7 +14,7 @@ class MapsUtil(var map: GoogleMap, val context: Context?, val width: Int, val he
     GoogleMap.OnMarkerClickListener,
     GoogleMap.OnMapClickListener {
     private val offset = 0.003
-    private lateinit var mapsRouteUrl: String
+    private var mapsRouteUrl = ""
     private val icons = listOf(
         "uno",
         "dos",
@@ -132,8 +132,10 @@ class MapsUtil(var map: GoogleMap, val context: Context?, val width: Int, val he
     }
 
     override fun onMapClick(coordinates: LatLng) {
-        val intent = Intent(Intent.ACTION_VIEW, Uri.parse(mapsRouteUrl))
-        context?.startActivity(intent)
+        if (mapsRouteUrl != "") {
+            val intent = Intent(Intent.ACTION_VIEW, Uri.parse(mapsRouteUrl))
+            context?.startActivity(intent)
+        }
     }
 
     @SuppressLint("MissingPermission")

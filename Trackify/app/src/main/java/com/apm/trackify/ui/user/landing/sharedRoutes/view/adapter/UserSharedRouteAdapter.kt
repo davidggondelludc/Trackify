@@ -17,6 +17,7 @@ import com.apm.trackify.ui.user.landing.UserLandingFragmentDirections
 import com.apm.trackify.ui.user.landing.sharedRoutes.view.holder.UserSharedRouteViewHolder
 import com.apm.trackify.util.CoverUtil
 import com.apm.trackify.util.extension.toast
+import com.google.android.gms.maps.model.LatLng
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -25,7 +26,8 @@ import kotlinx.coroutines.withContext
 class UserSharedRouteAdapter(
     reload: () -> Unit,
     spotifyService: SpotifyService,
-    navController: NavController
+    navController: NavController,
+    mapsDraw: (List<LatLng>) -> Unit
 ) :
     ListAdapter<RouteItem, UserSharedRouteViewHolder>(RouteItemDiffUtil()) {
 
@@ -33,6 +35,7 @@ class UserSharedRouteAdapter(
     private val firebaseService = FirebaseService()
     private val mySpotifyService = spotifyService
     private val navController = navController
+    private val draw = mapsDraw
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): UserSharedRouteViewHolder {
         val inflater = LayoutInflater.from(parent.context)
@@ -55,7 +58,7 @@ class UserSharedRouteAdapter(
         holder.followersTextView.text = route.creator
 
         holder.itemView.setOnClickListener {
-            it.context.toast("Show map of the route")
+            draw(route.coordinates)
         }
 
         holder.moreButton.setOnClickListener { view ->

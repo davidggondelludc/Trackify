@@ -138,6 +138,15 @@ class FirebaseService {
         db.collection("routes").whereEqualTo("creator", userName).get()
             .addOnSuccessListener { documents ->
                 for (document in documents) {
+                    val coords = document.data["coordinates"] as List<HashMap<String, Double>>
+                    val newCoords = ArrayList<LatLng>()
+                    for (coord in coords) {
+                        val lat = coord["latitude"]
+                        val long = coord["longitude"]
+                        if (lat != null && long != null) {
+                            newCoords.add(LatLng(lat, long))
+                        }
+                    }
                     forEachRoute(
                         RouteItem(
                             document.id,
@@ -145,7 +154,7 @@ class FirebaseService {
                             document.data["playlistId"] as String,
                             document.data["firstLat"] as Double,
                             document.data["firstLong"] as Double,
-                            document.data["coordinates"] as List<LatLng>,
+                            newCoords,
                             document.data["creator"] as String
                         )
                     )
