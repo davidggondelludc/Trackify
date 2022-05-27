@@ -4,12 +4,11 @@ import android.content.ContentValues.TAG
 import android.util.Log
 import com.apm.trackify.model.domain.RouteItem
 import com.apm.trackify.model.domain.UserItem
-import com.google.android.gms.tasks.OnFailureListener
+import com.google.android.gms.maps.model.LatLng
 import com.google.firebase.firestore.DocumentReference
 import com.google.firebase.firestore.FieldValue
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.WriteBatch
-import kotlinx.coroutines.tasks.await
 
 class FirebaseService {
 
@@ -28,18 +27,23 @@ class FirebaseService {
                     Log.d(TAG, "Document already exists")
                 } else {
                     db.collection("users").document(userName)
-                        .set(user).addOnSuccessListener {  onSuccess() }
+                        .set(user).addOnSuccessListener { onSuccess() }
                         .addOnFailureListener { onFailure() }
                 }
             }
         }
     }
 
-    fun createNewRoute(userName: String, name: String, coordinates: String, playlistUrl: String,
-                       onSuccess: () -> Unit, onFailure: () -> Unit) {
+    fun createNewRoute(
+        userName: String, name: String, coordinates: List<LatLng>, playlistUrl: String,
+        onSuccess: () -> Unit, onFailure: () -> Unit
+    ) {
         val route: MutableMap<String, Any> = HashMap()
+        val firstCoordinate = coordinates.first()
         route["name"] = name
-        route["playlistUrl"] = playlistUrl
+        route["playlistId"] = playlistUrl
+        route["firstLat"] = firstCoordinate.latitude
+        route["firstLong"] = firstCoordinate.longitude
         route["coordinates"] = coordinates
         route["creator"] = userName
 
@@ -51,7 +55,16 @@ class FirebaseService {
         }
     }
 
-    private fun checkFollowed(userName: String, followedUserName: String, onResult: (Boolean) -> Unit) {
+    fun deleteRoute(routeId: String, onSuccess: () -> Unit, onFailure: () -> Unit) {
+        db.collection("routes").document(routeId).delete().addOnSuccessListener { onSuccess() }
+            .addOnFailureListener { onFailure() }
+    }
+
+    private fun checkFollowed(
+        userName: String,
+        followedUserName: String,
+        onResult: (Boolean) -> Unit
+    ) {
         var following: MutableList<String> = ArrayList()
 
         db.collection("users").document(userName).get().addOnSuccessListener { document ->
@@ -60,7 +73,12 @@ class FirebaseService {
         }
     }
 
-    fun follow(myUserName: String, followedUserName: String, onSuccess: () -> Unit, onFailure: () -> Unit) {
+    fun follow(
+        myUserName: String,
+        followedUserName: String,
+        onSuccess: () -> Unit,
+        onFailure: () -> Unit
+    ) {
         checkFollowed(myUserName, followedUserName) {
             if (!it) {
                 val batch: WriteBatch = db.batch()
@@ -84,7 +102,12 @@ class FirebaseService {
         }
     }
 
-    fun unfollow(myUserName: String, followedUserName: String, onSuccess: () -> Unit, onFailure: () -> Unit) {
+    fun unfollow(
+        myUserName: String,
+        followedUserName: String,
+        onSuccess: () -> Unit,
+        onFailure: () -> Unit
+    ) {
         checkFollowed(myUserName, followedUserName) {
             if (it) {
                 val batch: WriteBatch = db.batch()
@@ -101,7 +124,8 @@ class FirebaseService {
                     "followers",
                     FieldValue.increment(-1)
                 )
-                batch.commit().addOnSuccessListener { onSuccess() }.addOnFailureListener { onFailure() }
+                batch.commit().addOnSuccessListener { onSuccess() }
+                    .addOnFailureListener { onFailure() }
             } else {
                 onFailure()
             }
@@ -114,12 +138,23 @@ class FirebaseService {
         db.collection("routes").whereEqualTo("creator", userName).get()
             .addOnSuccessListener { documents ->
                 for (document in documents) {
-                   forEachRoute(
+                    val coords = document.data["coordinates"] as List<HashMap<String, Double>>
+                    val newCoords = ArrayList<LatLng>()
+                    for (coord in coords) {
+                        val lat = coord["latitude"]
+                        val long = coord["longitude"]
+                        if (lat != null && long != null) {
+                            newCoords.add(LatLng(lat, long))
+                        }
+                    }
+                    forEachRoute(
                         RouteItem(
                             document.id,
                             document.data["name"] as String,
-                            document.data["playlistUrl"] as String,
-                            document.data["coordinates"] as String,
+                            document.data["playlistId"] as String,
+                            document.data["firstLat"] as Double,
+                            document.data["firstLong"] as Double,
+                            newCoords,
                             document.data["creator"] as String
                         )
                     )

@@ -4,6 +4,7 @@ import com.apm.trackify.model.domain.PlaylistItem
 import com.apm.trackify.model.domain.RouteItem
 import com.apm.trackify.model.domain.TrackItem
 import com.apm.trackify.model.domain.UserItem
+import com.google.android.gms.maps.model.LatLng
 
 // TODO: change placeholders for retrieved data
 object MockProvider {
@@ -13,7 +14,9 @@ object MockProvider {
             "$it",
             "Route $it",
             "url $it",
-            "coordinates",
+            1.0,
+            1.0,
+            listOf(LatLng(1.0, 1.0)),
             "creator"
         )
     }

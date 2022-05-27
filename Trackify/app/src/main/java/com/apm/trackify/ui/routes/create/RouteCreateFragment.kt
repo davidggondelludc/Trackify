@@ -67,8 +67,8 @@ class RouteCreateFragment : Fragment(), OnMapReadyCallback {
                             firebaseService.createNewRoute(
                                 "usuario",
                                 routeName,
-                                mapUtil.getAllMarkers().toString(),
-                                getUrlPlaylist(numberPlaylistSelected),
+                                mapUtil.getAllMarkers(),
+                                getUrlPlaylist(numberPlaylistSelected).split("/").last(),
                                 {},
                                 {})
                             val navController = findNavController()

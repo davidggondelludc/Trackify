@@ -8,5 +8,18 @@
     <fragment
         android:id="@+id/user_fragment"
         android:name="com.apm.trackify.ui.user.landing.UserLandingFragment"
-        tools:layout="@layout/user_landing_fragment" />
+        tools:layout="@layout/user_landing_fragment" >
+        <action
+            android:id="@+id/action_user_fragment_to_playlist_tracks_fragment"
+            app:destination="@id/playlist_tracks_fragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/playlist_tracks_fragment"
+        android:name="com.apm.trackify.ui.playlists.details.PlaylistTracksFragment"
+        tools:layout="@layout/playlists_tracks_fragment">
+        <argument
+            android:name="playlist"
+            app:argType="com.apm.trackify.model.domain.PlaylistItem" />
+    </fragment>
 </navigation>

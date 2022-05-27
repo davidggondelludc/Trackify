@@ -6,10 +6,12 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.apm.trackify.R
 import com.apm.trackify.databinding.UserSharedRoutesFragmentBinding
+import com.apm.trackify.service.spotify.SpotifyService
 import com.apm.trackify.ui.user.landing.sharedRoutes.view.adapter.UserSharedRouteAdapter
 import com.apm.trackify.ui.user.landing.sharedRoutes.view.model.UserSharedRoutesViewModel
 import com.apm.trackify.util.extension.toPx
@@ -18,11 +20,17 @@ import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.MapView
 import com.google.android.gms.maps.OnMapReadyCallback
 import com.google.android.gms.maps.model.LatLng
+import dagger.hilt.android.AndroidEntryPoint
 import java.util.*
+import javax.inject.Inject
 
+@AndroidEntryPoint
 class UserSharedRoutesFragment : Fragment(), OnMapReadyCallback {
 
     private val viewModel: UserSharedRoutesViewModel by viewModels()
+
+    @Inject
+    lateinit var spotifyService: SpotifyService
     private lateinit var mapUtil: MapsUtil
     lateinit var binding: UserSharedRoutesFragmentBinding
     lateinit var mapView: MapView
@@ -44,10 +52,18 @@ class UserSharedRoutesFragment : Fragment(), OnMapReadyCallback {
         mapView = binding.mapViewFragment
         mapView.onCreate(mapViewBundle)
         mapView.getMapAsync(this)
+        viewModel.findRoutes()
     }
 
     private fun setupRecyclerView(recyclerView: RecyclerView) {
-        val routeAdapter = UserSharedRouteAdapter()
+        val navController = findNavController()
+        val routeAdapter =
+            UserSharedRouteAdapter(
+                { viewModel.findRoutes() },
+                spotifyService,
+                navController,
+                { coordinates: List<LatLng> -> mapUtil.drawRouteAndSetOnClick(coordinates) }
+            )
         viewModel.routes.observe(viewLifecycleOwner) {
             routeAdapter.submitList(it)
         }
@@ -60,14 +76,6 @@ class UserSharedRoutesFragment : Fragment(), OnMapReadyCallback {
         val heightpx = resources.getDimension(R.dimen.user_mapview_height).toPx.toInt()
         mapUtil = MapsUtil(googleMap, context, resources.displayMetrics.widthPixels, heightpx)
         mapUtil.setDefaultSettings()
-
-        val coordinates = listOf(
-            LatLng(43.371023, -8.405215), LatLng(43.382825, -8.410223),
-            LatLng(43.365160, -8.374968), LatLng(43.364100, -8.399088),
-            LatLng(43.358961, -8.401851)
-        )
-
-        mapUtil.drawRouteAndSetOnClick(coordinates)
     }
 
     override fun onResume() {
