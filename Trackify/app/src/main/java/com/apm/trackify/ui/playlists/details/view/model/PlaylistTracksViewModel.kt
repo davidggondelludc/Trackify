@@ -24,8 +24,8 @@ import javax.inject.Inject
  */
 @HiltViewModel
 class PlaylistTracksViewModel @Inject constructor(
-    playlistItem: PlaylistItem,
-    spotifyRepository: SpotifyRepository
+    private val playlistItem: PlaylistItem,
+    private val spotifyRepository: SpotifyRepository
 ) : ViewModel() {
 
     val loading = MutableLiveData<Boolean>()

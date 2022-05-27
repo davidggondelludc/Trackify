@@ -13,8 +13,9 @@ import com.apm.trackify.util.extension.loadFromURI
 import com.apm.trackify.util.extension.snackbar
 import com.apm.trackify.util.extension.toggleVisibility
 
-class TrackAdapter(private val mediaService: MediaServiceLifecycle) :
-    ListAdapter<TrackItem, TrackViewHolder>(TrackItemDiffUtil()) {
+class TrackAdapter(
+    private val mediaService: MediaServiceLifecycle
+) : ListAdapter<TrackItem, TrackViewHolder>(TrackItemDiffUtil()) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): TrackViewHolder {
         val inflater = LayoutInflater.from(parent.context)

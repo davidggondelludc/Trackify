@@ -12,7 +12,7 @@ import com.apm.trackify.provider.model.diff.RouteItemDiffUtil
 import com.apm.trackify.provider.model.domain.RouteItem
 import com.apm.trackify.ui.user.landing.sharedRoutes.view.holder.UserSharedRouteViewHolder
 import com.apm.trackify.util.CoverUtil
-import com.apm.trackify.util.extension.toast
+import com.apm.trackify.util.extension.toastError
 
 class UserSharedRouteAdapter :
     ListAdapter<RouteItem, UserSharedRouteViewHolder>(RouteItemDiffUtil()) {
@@ -38,7 +38,7 @@ class UserSharedRouteAdapter :
         holder.followersTextView.text = route.creator
 
         holder.itemView.setOnClickListener {
-            it.context.toast("Show map of the route")
+            it.context.toastError("Show map of the route")
         }
 
         holder.moreButton.setOnClickListener { view ->
@@ -60,7 +60,7 @@ class UserSharedRouteAdapter :
                         )
                         startActivity(view.context, shareIntent, null)
                     }
-                    R.id.delete -> view.context.toast("DELETE")
+                    R.id.delete -> view.context.toastError("DELETE")
                     else -> throw IllegalArgumentException("UserSharedRoute menu id not exist.")
                 }
                 true

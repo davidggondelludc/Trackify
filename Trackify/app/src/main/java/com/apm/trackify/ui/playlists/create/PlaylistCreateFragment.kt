@@ -20,7 +20,7 @@ import com.apm.trackify.ui.playlists.create.view.adapter.TrackDragAdapter
 import com.apm.trackify.ui.playlists.create.view.model.PlaylistCreateViewModel
 import com.apm.trackify.ui.playlists.details.view.adapter.FooterAdapter
 import com.apm.trackify.util.extension.setupToolbar
-import com.apm.trackify.util.extension.toast
+import com.apm.trackify.util.extension.toastError
 import dagger.hilt.android.AndroidEntryPoint
 import java.util.concurrent.TimeUnit
 import javax.inject.Inject
@@ -68,7 +68,7 @@ class PlaylistCreateFragment : Fragment() {
         val footerAdapter = FooterAdapter()
 
         viewModel.error.observe(viewLifecycleOwner) {
-            context?.toast(it)
+            context?.toastError(it)
         }
 
         viewModel.playlist.observe(viewLifecycleOwner) {

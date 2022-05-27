@@ -21,7 +21,7 @@ import com.apm.trackify.ui.routes.create.view.adapter.PlaylistRoutesAdapter
 import com.apm.trackify.ui.routes.create.view.model.RoutesCreateViewModel
 import com.apm.trackify.util.extension.setupToolbar
 import com.apm.trackify.util.extension.toPx
-import com.apm.trackify.util.extension.toast
+import com.apm.trackify.util.extension.toastError
 import com.apm.trackify.util.maps.MapsUtilCreateRoute
 import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.location.LocationServices
@@ -102,7 +102,7 @@ class RouteCreateFragment : Fragment(), OnMapReadyCallback {
         val playlistRoutesAdapter = PlaylistRoutesAdapter()
 
         viewModel.error.observe(viewLifecycleOwner) {
-            context?.toast(it)
+            context?.toastError(it)
         }
 
         viewModel.playlists.observe(viewLifecycleOwner) {
