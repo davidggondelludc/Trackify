@@ -7,6 +7,7 @@ plugins {
     id "dagger.hilt.android.plugin"
     id "com.google.android.libraries.mapsplatform.secrets-gradle-plugin"
     id "com.google.gms.google-services"
+    id "com.google.firebase.crashlytics"
 }
 
 android {
@@ -134,6 +135,8 @@ dependencies {
     implementation platform("com.google.firebase:firebase-bom:$firebase_version")
     implementation "com.google.firebase:firebase-auth-ktx"
     implementation "com.google.firebase:firebase-firestore:$firestore_version"
+    implementation 'com.google.firebase:firebase-crashlytics-ktx'
+    implementation 'com.google.firebase:firebase-analytics-ktx'
 
     implementation "com.google.android.gms:play-services-maps:$maps_version"
     implementation "com.google.android.gms:play-services-location:$location_version"
