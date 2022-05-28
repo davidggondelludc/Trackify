@@ -7,6 +7,7 @@ import com.apm.trackify.util.extension.scaleOnTouch
 class UserFollowingViewHolder(val binding: UserFollowingItemBinding) :
     RecyclerView.ViewHolder(binding.root) {
 
+    val avatarTextView = binding.avatar
     val nameTextView = binding.name
     val sharedPlaylistsTextView = binding.sharedPlaylists
 
