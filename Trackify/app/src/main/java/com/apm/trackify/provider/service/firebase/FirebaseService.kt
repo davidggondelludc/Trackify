@@ -191,19 +191,6 @@ class FirebaseService {
             }
     }
 
-    fun getAllRoutes(){
-        db.collection("routes")
-            .get()
-            .addOnSuccessListener { documents ->
-                for (document in documents) {
-                    Log.d("LECTURA", "${document.id} => ${document.data}")
-                }
-            }
-            .addOnFailureListener { exception ->
-                Log.w(TAG, "Error getting documents: ", exception)
-            }
-    }
-
     fun findRoutesByUserCoord( forEachRoute: (RouteItem) -> Unit) {
 
         db.collection("routes").get()
@@ -232,6 +219,5 @@ class FirebaseService {
                 }
             }
     }
-
-
+    
 }

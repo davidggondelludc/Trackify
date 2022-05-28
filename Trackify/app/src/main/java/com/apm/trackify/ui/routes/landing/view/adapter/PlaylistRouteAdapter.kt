@@ -63,7 +63,6 @@ class PlaylistRouteAdapter (spotifyApi: SpotifyApi) : ListAdapter<RouteItem, Pla
 
         holder.itemView.setOnClickListener {
             Toast.makeText(it.context, "Show route on the map", Toast.LENGTH_SHORT).show()
-            firebaseService.getAllRoutes()
         }
     }
 
