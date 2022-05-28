@@ -190,4 +190,48 @@ class FirebaseService {
                 }
             }
     }
+
+    fun getAllRoutes(){
+        db.collection("routes")
+            .get()
+            .addOnSuccessListener { documents ->
+                for (document in documents) {
+                    Log.d("LECTURA", "${document.id} => ${document.data}")
+                }
+            }
+            .addOnFailureListener { exception ->
+                Log.w(TAG, "Error getting documents: ", exception)
+            }
+    }
+
+    fun findRoutesByUserCoord( forEachRoute: (RouteItem) -> Unit) {
+
+        db.collection("routes").get()
+            .addOnSuccessListener { documents ->
+                for (document in documents) {
+                    val coords = document.data["coordinates"] as List<HashMap<String, Double>>
+                    val newCoords = ArrayList<LatLng>()
+                    for (coord in coords) {
+                        val lat = coord["latitude"]
+                        val long = coord["longitude"]
+                        if (lat != null && long != null) {
+                            newCoords.add(LatLng(lat, long))
+                        }
+                    }
+                    forEachRoute(
+                        RouteItem(
+                            document.id,
+                            document.data["name"] as String,
+                            document.data["playlistId"] as String,
+                            document.data["firstLat"] as Double,
+                            document.data["firstLong"] as Double,
+                            newCoords,
+                            document.data["creator"] as String
+                        )
+                    )
+                }
+            }
+    }
+
+
 }

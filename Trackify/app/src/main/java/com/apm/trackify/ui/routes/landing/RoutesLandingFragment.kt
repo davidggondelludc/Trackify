@@ -15,6 +15,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.apm.trackify.R
 import com.apm.trackify.databinding.RoutesLandingFragmentBinding
+import com.apm.trackify.provider.service.spotify.SpotifyApi
 import com.apm.trackify.ui.routes.landing.view.adapter.PlaylistRouteAdapter
 import com.apm.trackify.ui.routes.landing.view.model.RoutesLandingViewModel
 import com.apm.trackify.util.extension.setupToolbar
@@ -26,10 +27,14 @@ import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.OnMapReadyCallback
 import com.google.android.gms.maps.SupportMapFragment
 import com.google.android.gms.maps.model.LatLng
+import dagger.hilt.android.AndroidEntryPoint
+import javax.inject.Inject
 
-
+@AndroidEntryPoint
 class RoutesLandingFragment : Fragment(), OnMapReadyCallback {
 
+    @Inject
+    lateinit var spotifyApi: SpotifyApi
     private val viewModel: RoutesLandingViewModel by viewModels()
     private var latitude: Double = 42.73699753499026
     private var longitude: Double = -5.486167589053743
@@ -66,7 +71,7 @@ class RoutesLandingFragment : Fragment(), OnMapReadyCallback {
 
 
     private fun setupRecyclerView(recyclerView: RecyclerView) {
-        val playlistRoutesAdapter = PlaylistRouteAdapter()
+        val playlistRoutesAdapter = PlaylistRouteAdapter(spotifyApi)
         viewModel.routes.observe(viewLifecycleOwner) {
             playlistRoutesAdapter.submitList(it)
         }
@@ -95,6 +100,7 @@ class RoutesLandingFragment : Fragment(), OnMapReadyCallback {
                     val userCoordinate = LatLng(latitude, longitude)
                     mapUtil.createUserMarker(userCoordinate)
                 } else {
+
                     Log.w(TAG, "getLastLocation:exception", taskLocation.exception)
                     Toast.makeText(
                         requireContext(),
@@ -103,6 +109,7 @@ class RoutesLandingFragment : Fragment(), OnMapReadyCallback {
                     ).show()
                     val navController = findNavController()
                     navController.navigateUp()
+
                 }
             }
     }
