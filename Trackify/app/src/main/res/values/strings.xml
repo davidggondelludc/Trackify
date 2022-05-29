@@ -1,9 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <!-- TODO: organize this strings -->
-    <string name="form_duration">Playlist duration:</string>
-    <string name="form_title">Playlist Title</string>
-    <string name="form_selected_songs">Current selected songs</string>
     <string name="form_song_search">Search your song</string>
     <string name="form_min">min</string>
     <string name="form_min_input">30</string>
@@ -35,6 +32,13 @@
     <!-- login -->
     <string name="login">Login with Spotify</string>
 
+    <!-- internet alert dialog -->
+    <string name="alert_title">Internet Connection Alert</string>
+    <string name="alert_body">Please, check your Internet connection</string>
+    <string name="alert_close">Close</string>
+    <string name="alert_retry">Retry</string>
+
+
     <!-- bottom menu -->
     <string name="playlists_menu">Playlists</string>
     <string name="routes_menu">Explore</string>
@@ -45,6 +49,9 @@
 
     <!-- playlist create landing -->
     <string name="save_button_description">Save playlist button</string>
+    <string name="form_duration">Playlist duration:</string>
+    <string name="form_title">Playlist Title</string>
+    <string name="form_selected_songs">Current selected songs</string>
 
     <!-- playlist search landing -->
     <string name="track_add_description">Add track to playlist</string>

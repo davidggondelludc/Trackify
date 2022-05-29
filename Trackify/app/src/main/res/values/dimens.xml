@@ -22,6 +22,12 @@
     <!-- route -->
     <dimen name="route_cover_padding">10dp</dimen>
 
+    <!-- internet alert dialog -->
+    <dimen name="dialog_title">20dp</dimen>
+    <dimen name="dialog_body">16dp</dimen>
+    <dimen name="dialog_margin">16dp</dimen>
+    <dimen name="dialog_horizontal_margin">58dp</dimen>
+
     <!-- playlists create layout -->
     <dimen name="playlists_create_layout_padding">16dp</dimen>
     <dimen name="playlists_create_search_layout_padding_bottom">16dp</dimen>

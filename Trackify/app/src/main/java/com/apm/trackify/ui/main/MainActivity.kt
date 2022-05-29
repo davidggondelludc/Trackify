@@ -62,29 +62,20 @@ class MainActivity : AppCompatActivity() {
         val title = SpannableString("Internet Connection Alert")
         title.setSpan(AlignmentSpan.Standard(Layout.Alignment.ALIGN_CENTER), 0, title.length, 0)
 
+        val dialogView = layoutInflater.inflate(R.layout.network_custom_dialog, null)
+
         val dialog: AlertDialog = AlertDialog.Builder(this)
-            .setTitle(title)
-            .setMessage("Please check your internet connection")
-            .setIcon(R.drawable.ic_signal_wifi_bad).setCancelable(false)
-            .setPositiveButton("Wait", null)
-            .setNeutralButton(
-                "Try",
-                DialogInterface.OnClickListener { _, _ -> netCon.manualCheck() })
-            .setNegativeButton(
-                "Close",
-                DialogInterface.OnClickListener { _, _ -> finish() })
-            .create()
+            .setCancelable(false).setView(dialogView).create()
         dialog.setCanceledOnTouchOutside(false)
 
-        dialog.setOnShowListener {
-            val b: Button = dialog.getButton(AlertDialog.BUTTON_POSITIVE)
-            b.setOnClickListener(View.OnClickListener {
-                Toast.makeText(
-                    this,
-                    "Waiting for connection to be re-established.",
-                    Toast.LENGTH_LONG
-                ).show()
-            })
+        val retryBtn = dialogView.findViewById<Button>(R.id.btnTryCustomDialog)
+        retryBtn.setOnClickListener {
+            netCon.manualCheck()
+        }
+
+        val closeBtn = dialogView.findViewById<Button>(R.id.btnCloseCustomDialog)
+        closeBtn.setOnClickListener {
+            finish()
         }
 
         netCon.observe(this) { isConnected ->
