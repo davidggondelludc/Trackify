@@ -193,37 +193,38 @@ class FirebaseService {
 
     fun findRoutesByUserCoord(latitude: Double, longitude: Double, forEachRoute: (RouteItem) -> Unit) {
 
-        val latThresholds = 0.050
-        val longThresholds = 0.025
+        val latThreshold = 0.050
+        val longThreshold = 0.025
 
         db.collection("routes")
-            .whereGreaterThanOrEqualTo("firstLat", latitude-latThresholds)
-            .whereLessThanOrEqualTo("firstLat", latitude+latThresholds)
-            //.whereGreaterThanOrEqualTo("firstLong", latitude-longThresholds)
-            //.whereLessThanOrEqualTo("firstLong", latitude+longThresholds)
+            .whereGreaterThanOrEqualTo("firstLat", latitude-latThreshold)
+            .whereLessThanOrEqualTo("firstLat", latitude+latThreshold)
             .get()
             .addOnSuccessListener { documents ->
                 for (document in documents) {
-                    val coords = document.data["coordinates"] as List<HashMap<String, Double>>
-                    val newCoords = ArrayList<LatLng>()
-                    for (coord in coords) {
-                        val lat = coord["latitude"]
-                        val long = coord["longitude"]
-                        if (lat != null && long != null) {
-                            newCoords.add(LatLng(lat, long))
+                    val firstLong = document.data["firstLong"] as Double
+                    if (firstLong >= longitude-latThreshold && firstLong <= longitude+longThreshold){
+                        val coords = document.data["coordinates"] as List<HashMap<String, Double>>
+                        val newCoords = ArrayList<LatLng>()
+                        for (coord in coords) {
+                            val lat = coord["latitude"]
+                            val long = coord["longitude"]
+                            if (lat != null && long != null) {
+                                newCoords.add(LatLng(lat, long))
+                            }
                         }
-                    }
-                    forEachRoute(
-                        RouteItem(
-                            document.id,
-                            document.data["name"] as String,
-                            document.data["playlistId"] as String,
-                            document.data["firstLat"] as Double,
-                            document.data["firstLong"] as Double,
-                            newCoords,
-                            document.data["creator"] as String
+                        forEachRoute(
+                            RouteItem(
+                                document.id,
+                                document.data["name"] as String,
+                                document.data["playlistId"] as String,
+                                document.data["firstLat"] as Double,
+                                document.data["firstLong"] as Double,
+                                newCoords,
+                                document.data["creator"] as String
+                            )
                         )
-                    )
+                    }
                 }
             }
     }
