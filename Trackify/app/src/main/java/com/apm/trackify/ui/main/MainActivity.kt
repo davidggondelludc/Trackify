@@ -1,4 +1,5 @@
 package com.apm.trackify.ui.main
+
 import android.content.DialogInterface
 import android.os.Bundle
 import android.text.Layout
@@ -59,13 +60,15 @@ class MainActivity : AppCompatActivity() {
         netCon = NetworkConnection(application)
 
         val title = SpannableString("Internet Connection Alert")
-        title.setSpan(AlignmentSpan.Standard(Layout.Alignment.ALIGN_CENTER), 0, title.length,0)
+        title.setSpan(AlignmentSpan.Standard(Layout.Alignment.ALIGN_CENTER), 0, title.length, 0)
 
         val dialog: AlertDialog = AlertDialog.Builder(this)
             .setTitle(title)
             .setMessage("Please check your internet connection")
             .setIcon(R.drawable.ic_signal_wifi_bad).setCancelable(false)
-            .setPositiveButton("Wait",null)
+            .setPositiveButton("Wait", null).setNeutralButton(
+                "Try",
+                DialogInterface.OnClickListener { _, _ -> netCon.manualCheck() })
             .setNegativeButton(
                 "Close",
                 DialogInterface.OnClickListener { _, _ -> finish() })

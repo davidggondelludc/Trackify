@@ -5,6 +5,7 @@ import android.app.Application
 import android.content.Context
 import android.net.ConnectivityManager
 import android.net.Network
+import android.net.NetworkCapabilities
 import android.net.NetworkRequest
 import android.os.Build
 import androidx.annotation.RequiresApi
@@ -42,5 +43,36 @@ class NetworkConnection(private val connectivityManager: ConnectivityManager) :
     override fun onInactive() {
         super.onInactive()
         connectivityManager.unregisterNetworkCallback(networkCallback)
+    }
+
+    @SuppressLint("MissingPermission")
+    @RequiresApi(Build.VERSION_CODES.LOLLIPOP)
+    fun manualCheck() {
+       if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+           val network = connectivityManager.activeNetwork
+           if (network != null) {
+               val actNetwork = connectivityManager.getNetworkCapabilities(network)
+               if (actNetwork != null) {
+                   when {
+                       actNetwork.hasTransport(NetworkCapabilities.TRANSPORT_WIFI) -> {
+                           postValue(true)
+                       }
+                       actNetwork.hasTransport(NetworkCapabilities.TRANSPORT_CELLULAR) -> {
+                           postValue(true)
+                       }
+                       actNetwork.hasTransport(NetworkCapabilities.TRANSPORT_ETHERNET) -> {
+                           postValue(true)
+                       }
+                       else -> {
+                           postValue(false)
+                       }
+                   }
+               } else {
+                   postValue(false)
+               }
+           } else {
+               postValue(false)
+           }
+       }
     }
 }
