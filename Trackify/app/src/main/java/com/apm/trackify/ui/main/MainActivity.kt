@@ -66,7 +66,8 @@ class MainActivity : AppCompatActivity() {
             .setTitle(title)
             .setMessage("Please check your internet connection")
             .setIcon(R.drawable.ic_signal_wifi_bad).setCancelable(false)
-            .setPositiveButton("Wait", null).setNeutralButton(
+            .setPositiveButton("Wait", null)
+            .setNeutralButton(
                 "Try",
                 DialogInterface.OnClickListener { _, _ -> netCon.manualCheck() })
             .setNegativeButton(
