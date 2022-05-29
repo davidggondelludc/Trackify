@@ -18,6 +18,7 @@ import com.apm.trackify.ui.routes.landing.RoutesLandingFragmentDirections
 import com.apm.trackify.ui.routes.landing.view.holder.PlaylistRouteViewHolder
 import com.apm.trackify.ui.user.landing.UserLandingFragmentDirections
 import com.apm.trackify.util.extension.loadFromURI
+import com.google.android.gms.maps.model.LatLng
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -25,9 +26,12 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import javax.inject.Inject
 
-class PlaylistRouteAdapter (spotifyApi: SpotifyApi) : ListAdapter<RouteItem, PlaylistRouteViewHolder>(RouteItemDiffUtil()) {
+class PlaylistRouteAdapter (
+    spotifyApi: SpotifyApi,
+    mapsDraw: (List<LatLng>) -> Unit
+) : ListAdapter<RouteItem, PlaylistRouteViewHolder>(RouteItemDiffUtil()) {
 
-    private var firebaseService: FirebaseService = FirebaseService()
+    private val draw = mapsDraw
     private val mySpotifyApi = spotifyApi
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PlaylistRouteViewHolder {
@@ -62,7 +66,7 @@ class PlaylistRouteAdapter (spotifyApi: SpotifyApi) : ListAdapter<RouteItem, Pla
         }
 
         holder.itemView.setOnClickListener {
-            Toast.makeText(it.context, "Show route on the map", Toast.LENGTH_SHORT).show()
+            draw(route.coordinates)
         }
     }
 

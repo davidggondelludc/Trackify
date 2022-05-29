@@ -71,7 +71,11 @@ class RoutesLandingFragment : Fragment(), OnMapReadyCallback {
 
 
     private fun setupRecyclerView(recyclerView: RecyclerView) {
-        val playlistRoutesAdapter = PlaylistRouteAdapter(spotifyApi)
+        val playlistRoutesAdapter = PlaylistRouteAdapter(spotifyApi) { coordinates: List<LatLng> ->
+            mapUtil.drawRouteAndSetOnClick(
+                coordinates
+            )
+        }
         viewModel.routes.observe(viewLifecycleOwner) {
             playlistRoutesAdapter.submitList(it)
         }
