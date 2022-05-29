@@ -1,5 +1,6 @@
 package com.apm.trackify.ui.main
 
+import android.content.DialogInterface
 import android.os.Bundle
 import android.text.Layout
 import android.text.SpannableString
@@ -66,7 +67,9 @@ class MainActivity : AppCompatActivity() {
             .setMessage("Please check your internet connection")
             .setIcon(R.drawable.ic_signal_wifi_bad).setCancelable(false)
             .setPositiveButton("Wait", null)
-            .setNegativeButton("Close") { _, _ -> finish() }
+            .setNegativeButton(
+                "Close",
+                DialogInterface.OnClickListener { _, _ -> finish() })
             .create()
         dialog.setCanceledOnTouchOutside(false)
 
@@ -83,12 +86,9 @@ class MainActivity : AppCompatActivity() {
 
         netCon.observe(this) { isConnected ->
             if (isConnected) {
-                print("INTERNET ON")
+                dialog.dismiss()
             } else {
-                AlertDialog.Builder(this).setIcon(android.R.drawable.ic_delete)
-                    .setTitle("Internet Connection Alert")
-                    .setMessage("Please check your internet connection")
-                    .setPositiveButton("Close") { _, _ -> finish() }.show()
+                dialog.show()
             }
         }
     }
