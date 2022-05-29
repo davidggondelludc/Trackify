@@ -1,7 +1,12 @@
 package com.apm.trackify.ui.main
 
 import android.os.Bundle
+import android.text.Layout
+import android.text.SpannableString
+import android.text.style.AlignmentSpan
 import android.view.View
+import android.widget.Button
+import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.NavController
@@ -52,6 +57,29 @@ class MainActivity : AppCompatActivity() {
 
     private fun checkNetworkConnection() {
         netCon = NetworkConnection(application)
+
+        val title = SpannableString("Internet Connection Alert")
+        title.setSpan(AlignmentSpan.Standard(Layout.Alignment.ALIGN_CENTER), 0, title.length, 0)
+
+        val dialog: AlertDialog = AlertDialog.Builder(this)
+            .setTitle(title)
+            .setMessage("Please check your internet connection")
+            .setIcon(R.drawable.ic_signal_wifi_bad).setCancelable(false)
+            .setPositiveButton("Wait", null)
+            .setNegativeButton("Close") { _, _ -> finish() }
+            .create()
+        dialog.setCanceledOnTouchOutside(false)
+
+        dialog.setOnShowListener {
+            val b: Button = dialog.getButton(AlertDialog.BUTTON_POSITIVE)
+            b.setOnClickListener(View.OnClickListener {
+                Toast.makeText(
+                    this,
+                    "Waiting for connection to be re-established.",
+                    Toast.LENGTH_LONG
+                ).show()
+            })
+        }
 
         netCon.observe(this) { isConnected ->
             if (isConnected) {

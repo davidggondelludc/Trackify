@@ -7,6 +7,7 @@ plugins {
     id "dagger.hilt.android.plugin"
     id "com.google.android.libraries.mapsplatform.secrets-gradle-plugin"
     id "com.google.gms.google-services"
+    id "com.google.firebase.crashlytics"
 }
 
 android {
@@ -19,11 +20,11 @@ android {
 
         // This number is used only to determine whether one version is more recent than another,
         // with higher numbers indicating more recent versions
-        versionCode 3
+        versionCode 4
 
         // A string used as the version number shown to users. The value is a string so that you
         // can describe the app version as a <major>.<minor>.<point> string
-        versionName "0.3.0"
+        versionName "0.4.0"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
@@ -134,6 +135,8 @@ dependencies {
     implementation platform("com.google.firebase:firebase-bom:$firebase_version")
     implementation "com.google.firebase:firebase-auth-ktx"
     implementation "com.google.firebase:firebase-firestore:$firestore_version"
+    implementation 'com.google.firebase:firebase-crashlytics-ktx'
+    implementation 'com.google.firebase:firebase-analytics-ktx'
 
     implementation "com.google.android.gms:play-services-maps:$maps_version"
     implementation "com.google.android.gms:play-services-location:$location_version"

@@ -12,6 +12,7 @@ buildscript {
         navigation_version = "2.4.2"
         google_services_version = "4.3.10"
         secrets_version = "2.0.1"
+        crashlytics_version = "2.9.0"
     }
 
     dependencies {
@@ -23,6 +24,7 @@ buildscript {
         classpath "androidx.navigation:navigation-safe-args-gradle-plugin:$navigation_version"
         classpath "com.google.gms:google-services:$google_services_version"
         classpath "com.google.android.libraries.mapsplatform.secrets-gradle-plugin:secrets-gradle-plugin:$secrets_version"
+        classpath "com.google.firebase:firebase-crashlytics-gradle:$crashlytics_version"
     }
 }
 
