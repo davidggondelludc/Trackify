@@ -1,7 +1,7 @@
 package com.apm.trackify.provider.model.domain
 
 import android.os.Parcelable
-import com.apm.trackify.provider.repository.enum.Duration
+import com.apm.trackify.provider.repository.data.Duration
 import kotlinx.parcelize.Parcelize
 
 @Parcelize

@@ -60,7 +60,7 @@ class PlaylistCreateFragment : Fragment() {
         val itemTouchHelper = ItemTouchHelper(callback)
         itemTouchHelper.attachToRecyclerView(binding.playlist)
 
-        val headerAdapter = HeaderAdapter().apply {
+        val headerAdapter = HeaderAdapter(viewModel).apply {
             submitList(listOf(viewModel.playlist))
         }
         val trackDragAdapter = TrackDragAdapter(itemTouchHelper, mediaServiceLifecycle)

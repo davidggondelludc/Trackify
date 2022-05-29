@@ -7,7 +7,7 @@ import com.apm.trackify.R
 import com.apm.trackify.provider.model.domain.PlaylistRequestItem
 import com.apm.trackify.provider.model.domain.TrackItem
 import com.apm.trackify.provider.repository.SpotifyRepository
-import com.apm.trackify.provider.repository.enum.Duration
+import com.apm.trackify.provider.repository.data.Duration
 import com.apm.trackify.provider.service.media.MediaServiceLifecycle
 import com.apm.trackify.util.extension.swap
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -36,10 +36,6 @@ class PlaylistCreateViewModel @Inject constructor(
     val tracks = MutableLiveData<List<TrackItem>>()
 
     private var tracklist = mutableListOf<TrackItem>()
-
-    init {
-        generateTracklist(playlist.duration)
-    }
 
     fun generateTracklist(duration: Duration) {
         loading.value = true
