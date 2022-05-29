@@ -27,7 +27,6 @@ import com.google.android.gms.maps.OnMapReadyCallback
 import com.google.android.gms.maps.SupportMapFragment
 import com.google.android.gms.maps.model.LatLng
 
-
 class RoutesLandingFragment : Fragment(), OnMapReadyCallback {
 
     private val viewModel: RoutesLandingViewModel by viewModels()
@@ -64,7 +63,6 @@ class RoutesLandingFragment : Fragment(), OnMapReadyCallback {
         setupRecyclerView(binding.rvPlaylistRoutes)
     }
 
-
     private fun setupRecyclerView(recyclerView: RecyclerView) {
         val playlistRoutesAdapter = PlaylistRouteAdapter()
         viewModel.routes.observe(viewLifecycleOwner) {
@@ -82,7 +80,6 @@ class RoutesLandingFragment : Fragment(), OnMapReadyCallback {
 
         getLastLocation()
     }
-
 
     @SuppressLint("MissingPermission")
     private fun getLastLocation() {
@@ -106,5 +103,4 @@ class RoutesLandingFragment : Fragment(), OnMapReadyCallback {
                 }
             }
     }
-
 }

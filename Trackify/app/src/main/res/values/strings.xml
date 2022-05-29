@@ -45,6 +45,7 @@
 
     <!-- playlist create landing -->
     <string name="save_button_description">Save playlist button</string>
+    <string name="playlist_save_toast">Playlist created</string>
 
     <!-- playlist search landing -->
     <string name="track_add_description">Add track to playlist</string>

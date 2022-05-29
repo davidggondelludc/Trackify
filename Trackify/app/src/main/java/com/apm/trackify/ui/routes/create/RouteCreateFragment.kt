@@ -145,5 +145,4 @@ class RouteCreateFragment : Fragment(), OnMapReadyCallback {
     private fun getUrlPlaylist(position: Int): String {
         return viewModel.playlists.value?.get(position)?.playlistUri ?: ""
     }
-
 }

@@ -4,7 +4,6 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
@@ -15,8 +14,8 @@ import com.apm.trackify.databinding.PlaylistsLandingFragmentBinding
 import com.apm.trackify.ui.playlists.landing.view.adapter.PlaylistAdapter
 import com.apm.trackify.ui.playlists.landing.view.model.PlaylistsLandingViewModel
 import com.apm.trackify.util.extension.setupToolbar
+import com.apm.trackify.util.extension.toastError
 import dagger.hilt.android.AndroidEntryPoint
-import es.dmoral.toasty.Toasty
 
 @AndroidEntryPoint
 class PlaylistsLandingFragment : Fragment() {
@@ -57,7 +56,7 @@ class PlaylistsLandingFragment : Fragment() {
 
         viewModel.error.observe(viewLifecycleOwner) {
             binding.swipeRefresh.isRefreshing = false
-            Toasty.error(requireContext(), it, Toast.LENGTH_SHORT, true).show()
+            requireContext().toastError(it)
         }
         viewModel.playlists.observe(viewLifecycleOwner) {
             binding.swipeRefresh.isRefreshing = false

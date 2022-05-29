@@ -56,7 +56,6 @@ class UserLandingFragment : Fragment() {
     }
 
     fun setupUserName(binding: UserLandingFragmentBinding, userName: String) {
-
         val foundUser = firebaseService.getUser(userName) { user ->
             binding.userName.text = user.userName
             binding.userFollowers.text = "${user.followers.toString()} Followers"

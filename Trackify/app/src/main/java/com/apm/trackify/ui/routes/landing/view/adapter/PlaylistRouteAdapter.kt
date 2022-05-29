@@ -46,6 +46,5 @@ class PlaylistRouteAdapter : ListAdapter<RouteItem, PlaylistRouteViewHolder>(Rou
         holder.itemView.setOnClickListener {
             Toast.makeText(it.context, "Show route on the map", Toast.LENGTH_SHORT).show()
         }
-
     }
 }

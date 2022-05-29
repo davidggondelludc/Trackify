@@ -2,6 +2,7 @@ package com.apm.trackify.ui.playlists.create.search.view.adapter
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.navigation.findNavController
 import androidx.recyclerview.widget.ListAdapter
 import com.apm.trackify.R
 import com.apm.trackify.databinding.PlaylistsTrackAddItemBinding
@@ -44,6 +45,8 @@ class TrackAddAdapter(
         }
 
         holder.addButton.setOnClickListener {
+            val navController = it.findNavController()
+            navController.navigateUp()
             viewModel.add(track)
         }
     }

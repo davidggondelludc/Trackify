@@ -9,19 +9,19 @@ import androidx.navigation.NavController
 import androidx.recyclerview.widget.ListAdapter
 import com.apm.trackify.R
 import com.apm.trackify.databinding.UserSharedRouteItemBinding
-import com.apm.trackify.ui.user.landing.UserLandingFragmentDirections
 import com.apm.trackify.provider.model.diff.RouteItemDiffUtil
 import com.apm.trackify.provider.model.domain.RouteItem
 import com.apm.trackify.provider.service.firebase.FirebaseService
 import com.apm.trackify.provider.service.spotify.SpotifyApi
+import com.apm.trackify.ui.user.landing.UserLandingFragmentDirections
 import com.apm.trackify.ui.user.landing.sharedRoutes.view.holder.UserSharedRouteViewHolder
 import com.apm.trackify.util.CoverUtil
+import com.apm.trackify.util.extension.toastError
 import com.google.android.gms.maps.model.LatLng
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
-import com.apm.trackify.util.extension.toastError
 
 class UserSharedRouteAdapter(
     reload: () -> Unit,

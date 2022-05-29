@@ -4,7 +4,6 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.navArgs
@@ -19,9 +18,9 @@ import com.apm.trackify.ui.playlists.details.view.adapter.HeaderAdapter
 import com.apm.trackify.ui.playlists.details.view.adapter.TrackAdapter
 import com.apm.trackify.ui.playlists.details.view.model.PlaylistTracksViewModel
 import com.apm.trackify.util.extension.setupToolbar
+import com.apm.trackify.util.extension.toastError
 import com.apm.trackify.util.extension.toggleVisibility
 import dagger.hilt.android.AndroidEntryPoint
-import es.dmoral.toasty.Toasty
 import java.util.concurrent.TimeUnit
 import javax.inject.Inject
 
@@ -63,7 +62,7 @@ class PlaylistTracksFragment : Fragment() {
         }
         viewModel.error.observe(viewLifecycleOwner) {
             binding.loading.toggleVisibility(visible = false, gone = false)
-            Toasty.error(requireContext(), it, Toast.LENGTH_SHORT, true).show()
+            requireContext().toastError(it)
         }
         viewModel.tracks.observe(viewLifecycleOwner) {
             trackAdapter.submitList(it)
@@ -86,13 +85,13 @@ class PlaylistTracksFragment : Fragment() {
         when {
             hours == 0L -> {
                 return "${
-                    context?.resources?.getQuantityString(
+                    requireContext().resources.getQuantityString(
                         R.plurals.tracks,
                         tracks,
                         tracks
                     )
                 } · ${
-                    context?.resources?.getQuantityString(
+                    requireContext().resources.getQuantityString(
                         R.plurals.minutes,
                         minutes.toInt(),
                         minutes.toInt()
@@ -101,13 +100,13 @@ class PlaylistTracksFragment : Fragment() {
             }
             minutes == 0L -> {
                 return "${
-                    context?.resources?.getQuantityString(
+                    requireContext().resources.getQuantityString(
                         R.plurals.tracks,
                         tracks,
                         tracks
                     )
                 } · ${
-                    context?.resources?.getQuantityString(
+                    requireContext().resources.getQuantityString(
                         R.plurals.hours,
                         hours.toInt(),
                         hours.toInt()
@@ -116,19 +115,19 @@ class PlaylistTracksFragment : Fragment() {
             }
             else -> {
                 return "${
-                    context?.resources?.getQuantityString(
+                    requireContext().resources.getQuantityString(
                         R.plurals.tracks,
                         tracks,
                         tracks
                     )
                 } · ${
-                    context?.resources?.getQuantityString(
+                    requireContext().resources.getQuantityString(
                         R.plurals.hours,
                         hours.toInt(),
                         hours.toInt()
                     )
                 } ${
-                    context?.resources?.getQuantityString(
+                    requireContext().resources.getQuantityString(
                         R.plurals.minutes,
                         minutes.toInt(),
                         minutes.toInt()

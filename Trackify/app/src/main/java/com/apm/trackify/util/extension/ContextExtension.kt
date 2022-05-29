@@ -16,6 +16,11 @@ fun Context.toastError(message: CharSequence): Toast =
             show()
         }
 
+fun Context.toastSuccess(@StringRes resId: Int): Toast =
+    Toasty.success(this, resId, Toast.LENGTH_SHORT, true).apply {
+        show()
+    }
+
 fun Context.toastError(@StringRes resId: Int): Toast =
     Toasty.error(this, resId, Toast.LENGTH_SHORT, true).apply {
         show()
