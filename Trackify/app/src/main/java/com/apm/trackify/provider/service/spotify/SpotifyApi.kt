@@ -31,6 +31,11 @@ interface SpotifyApi {
         @Body playlist: PlaylistRequest
     ): Result<Playlist>
 
+    @GET("users/{user_id}")
+    suspend fun getUserInfo(
+        @Path("user_id") userId: String
+    ): Response<Owner>
+
     @GET("artists/{id}/related-artists")
     suspend fun getArtistRelatedArtists(
         @Path("id") id: String
@@ -42,11 +47,10 @@ interface SpotifyApi {
         @Query("market") market: String = "ES"
     ): Result<ArtistTopTracksResponse>
 
-    @POST("playlists/{id}/tracks")
-    suspend fun addTracksToPlaylist(
-        @Path("id") id: String,
-        @Body uris: PlaylistTracksRequest
-    )
+    @GET("playlists/{playlist_id}")
+    suspend fun getPlaylistById(
+        @Path("playlist_id") playlistId: String
+    ): Response<Playlist>
 
     @GET("playlists/{id}/tracks")
     suspend fun getPlaylistTracks(
@@ -55,19 +59,15 @@ interface SpotifyApi {
         @Query("offset") offset: Int
     ): Result<PlaylistTracksResponse>
 
+    @POST("playlists/{id}/tracks")
+    suspend fun addTracksToPlaylist(
+        @Path("id") id: String,
+        @Body uris: PlaylistTracksRequest
+    )
+
     @GET("search")
     suspend fun search(
         @Query("q") query: String,
         @Query("type") type: String = "track"
     ): Result<SearchResponse>
-
-    @GET("users/{user_id}")
-    suspend fun getUserInfo(
-        @Path("user_id") userId: String
-    ): Response<Owner>
-
-    @GET("playlists/{playlist_id}")
-    suspend fun getPlaylistById(
-        @Path("playlist_id") playlistId: String
-    ): Response<Playlist>
 }
