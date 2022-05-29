@@ -8,7 +8,7 @@ import com.apm.trackify.provider.model.MockProvider
 import com.apm.trackify.provider.model.domain.PlaylistItem
 import com.apm.trackify.provider.model.domain.TrackItem
 import com.apm.trackify.provider.repository.SpotifyRepository
-import com.apm.trackify.provider.repository.enum.Duration
+import com.apm.trackify.provider.repository.denum.Duration
 import com.apm.trackify.provider.service.media.MediaServiceLifecycle
 import com.apm.trackify.util.extension.swap
 import dagger.hilt.android.lifecycle.HiltViewModel

@@ -2,7 +2,7 @@ package com.apm.trackify.provider.repository
 
 import com.apm.trackify.provider.model.domain.PlaylistItem
 import com.apm.trackify.provider.model.domain.TrackItem
-import com.apm.trackify.provider.repository.enum.Duration
+import com.apm.trackify.provider.repository.denum.Duration
 
 interface SpotifyRepository {
 
