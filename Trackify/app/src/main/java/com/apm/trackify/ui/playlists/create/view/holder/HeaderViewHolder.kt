@@ -8,5 +8,6 @@ class HeaderViewHolder(
 ) : RecyclerView.ViewHolder(binding.root) {
 
     val nameEditText = binding.name
+    val durationSpinner = binding.timeSpinner
     val searchButton = binding.search
 }

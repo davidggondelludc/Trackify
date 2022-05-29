@@ -40,8 +40,8 @@
         android:id="@+id/timeSpinner"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:entries="@array/duration_list"
         android:layout_marginEnd="@dimen/playlists_create_spinner_padding"
-        android:spinnerMode="dropdown"
         app:layout_constraintBottom_toBottomOf="@+id/playlistDurationText"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="@+id/playlistDurationText" />

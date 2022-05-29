@@ -38,22 +38,25 @@ class PlaylistCreateViewModel @Inject constructor(
     private var tracklist = mutableListOf<TrackItem>()
 
     fun generateTracklist(duration: Duration) {
-        loading.value = true
-        viewModelScope.launch {
-            try {
-                tracklist = spotifyRepository.generateTracklist(duration).toMutableList()
-                tracks.value = tracklist.toList()
-                loading.value = false
-            } catch (e: HttpException) {
-                error.value = R.string.error
-            } catch (e: IOException) {
-                error.value = R.string.internet
+        if (tracklist.isEmpty() || playlist.duration != duration) {
+            playlist.duration = duration
+            loading.value = true
+            viewModelScope.launch {
+                try {
+                    tracklist = spotifyRepository.generateTracklist(duration).toMutableList()
+                    tracks.value = tracklist.toList()
+                    loading.value = false
+                } catch (e: HttpException) {
+                    error.value = R.string.error
+                } catch (e: IOException) {
+                    error.value = R.string.internet
+                }
             }
         }
     }
 
     fun add(trackItem: TrackItem) {
-        tracklist.add(trackItem)
+        tracklist.add(0, trackItem)
         tracks.value = tracklist.toList()
     }
 

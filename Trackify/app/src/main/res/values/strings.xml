@@ -74,6 +74,13 @@
     <string name="share_route_text">I have been doing a route with Trackify</string>
     <string name="view_playlist">View playlist</string>
 
+    <!-- arrays -->
+    <string-array name="duration_list">
+        <item>Short</item>
+        <item>Medium</item>
+        <item>Long</item>
+    </string-array>
+
     <!-- plurals -->
     <plurals name="playlists">
         <item quantity="one">%d playlist</item>
