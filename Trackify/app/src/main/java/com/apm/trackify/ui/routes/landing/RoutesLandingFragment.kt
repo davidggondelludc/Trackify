@@ -87,7 +87,7 @@ class RoutesLandingFragment : Fragment(), OnMapReadyCallback {
     override fun onMapReady(googleMap: GoogleMap) {
         val heightpx = resources.getDimension(R.dimen.user_mapview_height).toPx.toInt()
         mapUtil = MapsUtil(googleMap, context, resources.displayMetrics.widthPixels, heightpx)
-        mapUtil.setDefaultSettings()
+        mapUtil.setCustomSettings()
 
         getLastLocation()
     }
