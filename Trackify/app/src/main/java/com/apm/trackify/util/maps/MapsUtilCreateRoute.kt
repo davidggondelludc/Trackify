@@ -2,9 +2,15 @@ package com.apm.trackify.util.maps
 
 import android.annotation.SuppressLint
 import android.content.Context
+import android.content.Context.VIBRATOR_SERVICE
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
+import android.os.Build
+import android.os.VibrationEffect
+import android.os.Vibrator
+import android.os.VibratorManager
 import android.widget.Toast
+import androidx.annotation.RequiresApi
 import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
@@ -35,19 +41,40 @@ class MapsUtilCreateRoute(
     )
     private val markersCreated = mutableListOf<Marker>()
 
+    val vibrator = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
+        val vibratorManager =
+            context?.getSystemService(Context.VIBRATOR_MANAGER_SERVICE) as VibratorManager
+        vibratorManager.defaultVibrator
+    } else {
+        @Suppress("DEPRECATION")
+        context?.getSystemService(VIBRATOR_SERVICE) as Vibrator
+    }
+
     fun setDefaultSettings() {
         map.mapType = GoogleMap.MAP_TYPE_NORMAL
         map.uiSettings.setAllGesturesEnabled(true)
-        map.uiSettings.isZoomControlsEnabled = true
         map.isBuildingsEnabled = false
         map.isTrafficEnabled = false
         map.setOnMapClickListener(this)
-
         map.setOnMarkerDragListener(object : OnMarkerDragListener {
+            @SuppressLint("MissingPermission")
             override fun onMarkerDragStart(marker: Marker) {
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
+                    vibrator.vibrate(VibrationEffect.createPredefined(VibrationEffect.EFFECT_HEAVY_CLICK))
+                } else {
+                    @Suppress("DEPRECATION")
+                    vibrator.vibrate(100)
+                }
             }
 
+            @SuppressLint("MissingPermission")
             override fun onMarkerDragEnd(marker: Marker) {
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
+                    vibrator.vibrate(VibrationEffect.createPredefined(VibrationEffect.EFFECT_HEAVY_CLICK))
+                } else {
+                    @Suppress("DEPRECATION")
+                    vibrator.vibrate(100)
+                }
             }
 
             override fun onMarkerDrag(marker: Marker) {
@@ -98,7 +125,7 @@ class MapsUtilCreateRoute(
         }
 
     }
-
+    
     @SuppressLint("MissingPermission")
     fun setUpMap(fusedLocationProviderClient: FusedLocationProviderClient) {
         if (context != null) {
