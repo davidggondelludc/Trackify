@@ -34,10 +34,6 @@ android {
             applicationIdSuffix ".debug"
         }
         release {
-            // Enables code shrinking, obfuscation and optimization for release build type
-            minifyEnabled true
-            shrinkResources true
-
             // Includes the default ProGuard rules files that are packaged with the Android Gradle
             // plugin
             proguardFiles(

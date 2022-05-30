@@ -13,9 +13,9 @@ class UserFollowingViewModel : ViewModel() {
 
     init {
         mutableUsers.clear()
-        firebaseService.findFollowingUsers("usuario") {
+        firebaseService.findFollowingUsers("usuario", {
             mutableUsers.add(it)
             users.value = mutableUsers.toList()
-        }
+        }, {})
     }
 }

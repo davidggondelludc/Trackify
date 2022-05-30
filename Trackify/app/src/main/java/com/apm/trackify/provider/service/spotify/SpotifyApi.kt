@@ -61,11 +61,6 @@ interface SpotifyApi {
         @Query("type") type: String = "track"
     ): Result<SearchResponse>
 
-    @GET("users/{user_id}")
-    suspend fun getUserInfo(
-        @Path("user_id") userId: String
-    ): Response<Owner>
-
     @GET("playlists/{playlist_id}")
     suspend fun getPlaylistById(
         @Path("playlist_id") playlistId: String

@@ -7,11 +7,13 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
+import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.apm.trackify.R
 import com.apm.trackify.databinding.UserSharedRoutesFragmentBinding
 import com.apm.trackify.provider.service.spotify.SpotifyApi
+import com.apm.trackify.ui.playlists.details.PlaylistTracksFragmentArgs
 import com.apm.trackify.ui.user.landing.sharedRoutes.view.adapter.UserSharedRouteAdapter
 import com.apm.trackify.ui.user.landing.sharedRoutes.view.model.UserSharedRoutesViewModel
 import com.apm.trackify.util.extension.toPx
@@ -27,6 +29,7 @@ import javax.inject.Inject
 @AndroidEntryPoint
 class UserSharedRoutesFragment : Fragment(), OnMapReadyCallback {
 
+    private val args: PlaylistTracksFragmentArgs by navArgs()
     private val viewModel: UserSharedRoutesViewModel by viewModels()
 
     @Inject

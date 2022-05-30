@@ -25,6 +25,7 @@ class FirebaseService {
                 val documentSnap = task.result
                 if (documentSnap.exists()) {
                     Log.d(TAG, "Document already exists")
+                    onSuccess()
                 } else {
                     db.collection("users").document(userName)
                         .set(user).addOnSuccessListener { onSuccess() }
@@ -162,23 +163,33 @@ class FirebaseService {
             }
     }
 
-    fun getUser(userName: String, onSuccess: (UserItem) -> Unit) {
+    fun getUser(userName: String, onSuccess: (UserItem) -> Unit, onFailure: () -> Unit) {
 
         db.collection("users").document(userName).get().addOnSuccessListener { document ->
-            val following = document.data?.get("following") as List<DocumentReference>
-            val routes = document.data?.get("routes") as List<DocumentReference>
-            onSuccess(
-                UserItem(
-                    document.id,
-                    following.map { it.toString() },
-                    routes.map { it.toString() },
-                    document.data?.get("followers") as Long
+            if (document.data == null) {
+                onFailure()
+            } else {
+                val following = document.data?.get("following") as List<DocumentReference>
+                val routes = document.data?.get("routes") as List<DocumentReference>
+                onSuccess(
+                    UserItem(
+                        document.id,
+                        following.map { it.toString() },
+                        routes.map { it.toString() },
+                        document.data?.get("followers") as Long
+                    )
                 )
-            )
+            }
+        }.addOnFailureListener {
+            onFailure()
         }
     }
 
-    fun findFollowingUsers(userName: String, forEachUser: (UserItem) -> Unit) {
+    fun findFollowingUsers(
+        userName: String,
+        forEachUser: (UserItem) -> Unit,
+        onFailure: () -> Unit
+    ) {
         var docList: MutableList<DocumentReference> = ArrayList()
         var userList: MutableList<UserItem> = ArrayList()
 
@@ -186,7 +197,7 @@ class FirebaseService {
             .addOnSuccessListener { myDocument ->
                 val data = myDocument.data
                 for (doc in (data?.get("following") as MutableList<DocumentReference>)) {
-                    getUser(doc.id, forEachUser)
+                    getUser(doc.id, forEachUser, onFailure)
                 }
             }
     }

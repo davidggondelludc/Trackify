@@ -29,6 +29,7 @@
     <string name="recently_added">Recently added</string>
     <string name="custom">Custom</string>
     <string name="error">Something went wrong</string>
+    <string name="userNameNotFound">Could not find username</string>
     <string name="internet">No internet connection</string>
     <string name="preview_url">Preview unavailable for this track</string>
 
