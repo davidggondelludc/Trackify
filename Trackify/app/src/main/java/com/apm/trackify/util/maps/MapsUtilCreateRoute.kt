@@ -1,19 +1,19 @@
 package com.apm.trackify.util.maps
 
-import android.Manifest
 import android.annotation.SuppressLint
 import android.content.Context
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import android.widget.Toast
-import androidx.activity.result.contract.ActivityResultContracts
 import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
+import com.google.android.gms.maps.GoogleMap.OnMarkerDragListener
 import com.google.android.gms.maps.model.BitmapDescriptorFactory
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.Marker
 import com.google.android.gms.maps.model.MarkerOptions
+
 
 class MapsUtilCreateRoute(
     private var map: GoogleMap,
@@ -33,7 +33,7 @@ class MapsUtilCreateRoute(
         "ocho",
         "nueve"
     )
-    private val markersCreated = mutableListOf<LatLng>()
+    private val markersCreated = mutableListOf<Marker>()
 
     fun setDefaultSettings() {
         map.mapType = GoogleMap.MAP_TYPE_NORMAL
@@ -42,10 +42,23 @@ class MapsUtilCreateRoute(
         map.isBuildingsEnabled = false
         map.isTrafficEnabled = false
         map.setOnMapClickListener(this)
+
+        map.setOnMarkerDragListener(object : OnMarkerDragListener {
+            override fun onMarkerDragStart(marker: Marker) {
+            }
+
+            override fun onMarkerDragEnd(marker: Marker) {
+            }
+
+            override fun onMarkerDrag(marker: Marker) {
+            }
+        })
     }
 
     fun getAllMarkers(): MutableList<LatLng> {
-        return markersCreated
+        val coordinatesList = mutableListOf<LatLng>()
+        markersCreated.forEach{coordinatesList.add(it.position)}
+        return coordinatesList
     }
 
     fun clearMarkers() {
@@ -70,15 +83,15 @@ class MapsUtilCreateRoute(
         val marker: MarkerOptions = MarkerOptions().position(coordinates)
             .icon(resizeMapIcons(iconName, 64, 64, context)?.let {
                 BitmapDescriptorFactory.fromBitmap(it)
-            })
-        map.addMarker(marker)
+            }).draggable(true)
+
+        map.addMarker(marker)?.let { markersCreated.add(it) }
     }
 
     override fun onMapClick(coordinates: LatLng) {
         if (context != null) {
             if (markersCreated.size < 9) {
-                markersCreated.add(coordinates)
-                createMarker(coordinates, context, icons[markersCreated.count() - 1])
+                createMarker(coordinates, context, icons[markersCreated.count()])
             } else {
                 Toast.makeText(this.context, "No more markers available", Toast.LENGTH_SHORT).show()
             }
@@ -89,7 +102,6 @@ class MapsUtilCreateRoute(
     @SuppressLint("MissingPermission")
     fun setUpMap(fusedLocationProviderClient: FusedLocationProviderClient) {
         if (context != null) {
-
             map.isMyLocationEnabled = true
             fusedLocationProviderClient.lastLocation.addOnSuccessListener { location ->
                 if (location != null) {
