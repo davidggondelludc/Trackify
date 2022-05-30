@@ -59,9 +59,6 @@ class MainActivity : AppCompatActivity() {
     private fun checkNetworkConnection() {
         netCon = NetworkConnection(application)
 
-        val title = SpannableString("Internet Connection Alert")
-        title.setSpan(AlignmentSpan.Standard(Layout.Alignment.ALIGN_CENTER), 0, title.length, 0)
-
         val dialogView = layoutInflater.inflate(R.layout.network_custom_dialog, null)
 
         val dialog: AlertDialog = AlertDialog.Builder(this)
@@ -70,7 +67,7 @@ class MainActivity : AppCompatActivity() {
 
         val retryBtn = dialogView.findViewById<Button>(R.id.btnTryCustomDialog)
         retryBtn.setOnClickListener {
-            netCon.manualCheck()
+            netCon.manualCheck(this)
         }
 
         val closeBtn = dialogView.findViewById<Button>(R.id.btnCloseCustomDialog)

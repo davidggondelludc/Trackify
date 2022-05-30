@@ -34,9 +34,10 @@
 
     <!-- internet alert dialog -->
     <string name="alert_title">Internet Connection Alert</string>
-    <string name="alert_body">Please, check your Internet connection</string>
+    <string name="alert_body">Please, check your internet connection</string>
     <string name="alert_close">Close</string>
     <string name="alert_retry">Retry</string>
+    <string name="alert_bad_retry">Sorry, no internet connection detected. Please, try again.</string>
 
 
     <!-- bottom menu -->

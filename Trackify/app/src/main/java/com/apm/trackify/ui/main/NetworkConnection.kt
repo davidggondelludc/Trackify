@@ -8,8 +8,10 @@ import android.net.Network
 import android.net.NetworkCapabilities
 import android.net.NetworkRequest
 import android.os.Build
+import android.widget.Toast
 import androidx.annotation.RequiresApi
 import androidx.lifecycle.LiveData
+import com.apm.trackify.R
 
 class NetworkConnection(private val connectivityManager: ConnectivityManager) :
     LiveData<Boolean>() {
@@ -47,7 +49,7 @@ class NetworkConnection(private val connectivityManager: ConnectivityManager) :
 
     @SuppressLint("MissingPermission")
     @RequiresApi(Build.VERSION_CODES.LOLLIPOP)
-    fun manualCheck() {
+    fun manualCheck(context: Context) {
        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
            val network = connectivityManager.activeNetwork
            if (network != null) {
@@ -65,13 +67,16 @@ class NetworkConnection(private val connectivityManager: ConnectivityManager) :
                        }
                        else -> {
                            postValue(false)
+                           Toast.makeText(context, R.string.alert_bad_retry, Toast.LENGTH_SHORT).show()
                        }
                    }
                } else {
                    postValue(false)
+                   Toast.makeText(context, R.string.alert_bad_retry, Toast.LENGTH_SHORT).show()
                }
            } else {
                postValue(false)
+               Toast.makeText(context, R.string.alert_bad_retry, Toast.LENGTH_SHORT).show()
            }
        }
     }

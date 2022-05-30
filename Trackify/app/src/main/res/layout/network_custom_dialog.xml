@@ -33,6 +33,7 @@
         android:textSize="@dimen/dialog_body" />
 
     <View
+        android:layout_marginTop="@dimen/dialog_margin"
         android:layout_width="match_parent"
         android:layout_height="1dp"
         android:background="@color/green_blue_crayola" />
@@ -49,6 +50,8 @@
             android:layout_height="wrap_content"
             android:layout_marginVertical="@dimen/dialog_margin"
             android:layout_marginRight="@dimen/dialog_horizontal_margin"
+            android:backgroundTint="@color/error"
+            android:textColor="#FFFFFF"
             android:text="@string/alert_close" />
         <com.google.android.material.button.MaterialButton
             android:id="@+id/btnTryCustomDialog"
