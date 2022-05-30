@@ -37,7 +37,6 @@ class PlaylistRouteAdapter (
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PlaylistRouteViewHolder {
         val inflater = LayoutInflater.from(parent.context)
         val binding = RoutesPlaylistsItemBinding.inflate(inflater, parent, false)
-
         return PlaylistRouteViewHolder(binding)
     }
 
@@ -48,7 +47,6 @@ class PlaylistRouteAdapter (
 
         CoroutineScope(Dispatchers.IO).launch {
             val response = mySpotifyApi.getPlaylistById(route.playlistId)
-
             withContext(Dispatchers.Main) {
                 if (response.isSuccessful) {
                     val playlist = response.body()?.toPlaylistItem()
@@ -69,6 +67,4 @@ class PlaylistRouteAdapter (
             draw(route.coordinates)
         }
     }
-
-
 }

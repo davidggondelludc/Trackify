@@ -8,6 +8,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.core.view.size
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.MutableLiveData
@@ -63,7 +64,6 @@ class RoutesLandingFragment : Fragment(), OnMapReadyCallback {
             true
         }
         binding.mapView.getFragment<SupportMapFragment>().getMapAsync(this)
-
         setupRecyclerView(binding.rvPlaylistRoutes)
     }
 
