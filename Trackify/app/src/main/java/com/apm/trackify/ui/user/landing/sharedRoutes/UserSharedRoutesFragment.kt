@@ -46,7 +46,7 @@ class UserSharedRoutesFragment : Fragment(), OnMapReadyCallback {
 
         setupRecyclerView(binding.rvSharedRouteItems)
 
-        val properties: Properties = Properties()
+        val properties = Properties()
         val mapViewBundle: Bundle? =
             savedInstanceState?.getBundle(properties.getProperty("MAPS_API_KEY"))
         mapView = binding.mapViewFragment

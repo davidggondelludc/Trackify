@@ -17,6 +17,7 @@ import com.apm.trackify.ui.user.landing.UserLandingFragmentDirections
 import com.apm.trackify.ui.user.landing.sharedRoutes.view.holder.UserSharedRouteViewHolder
 import com.apm.trackify.util.CoverUtil
 import com.apm.trackify.util.extension.toastError
+import com.apm.trackify.util.extension.toastSuccess
 import com.google.android.gms.maps.model.LatLng
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -26,15 +27,13 @@ import kotlinx.coroutines.withContext
 class UserSharedRouteAdapter(
     reload: () -> Unit,
     spotifyApi: SpotifyApi,
-    navController: NavController,
+    private val navController: NavController,
     mapsDraw: (List<LatLng>) -> Unit
-) :
-    ListAdapter<RouteItem, UserSharedRouteViewHolder>(RouteItemDiffUtil()) {
+) : ListAdapter<RouteItem, UserSharedRouteViewHolder>(RouteItemDiffUtil()) {
 
-    private val myreload = reload
+    private val myReload = reload
     private val firebaseService = FirebaseService()
     private val mySpotifyApi = spotifyApi
-    private val navController = navController
     private val draw = mapsDraw
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): UserSharedRouteViewHolder {
@@ -104,11 +103,12 @@ class UserSharedRouteAdapter(
                         firebaseService.deleteRoute(
                             route.id,
                             {
-                                view.context.toastError("Route deleted")
-                                myreload()
+                                view.context.toastSuccess(R.string.route_delete_success)
+                                myReload()
                             },
-                            { view.context.toastError("Could not delete route") })
-
+                            {
+                                view.context.toastError(R.string.route_delete_error)
+                            })
                         true
                     }
                     else -> false

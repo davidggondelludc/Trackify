@@ -26,6 +26,7 @@
     <string name="title">Title</string>
     <string name="artist">Artist</string>
     <string name="duration">Duration</string>
+    <string name="sign_off">Sign off</string>
     <string name="recently_added">Recently added</string>
     <string name="custom">Custom</string>
     <string name="error">Something went wrong</string>
@@ -73,6 +74,8 @@
     <string name="share_route_title">Sharing route</string>
     <string name="share_route_text">I have been doing a route with Trackify</string>
     <string name="view_playlist">View playlist</string>
+    <string name="route_delete_success">Route deleted</string>
+    <string name="route_delete_error">Could not delete route</string>
 
     <!-- arrays -->
     <string-array name="duration_list">
