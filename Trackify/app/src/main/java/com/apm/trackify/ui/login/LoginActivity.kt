@@ -3,7 +3,6 @@ package com.apm.trackify.ui.login
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.os.Bundle
-import android.view.ViewTreeObserver
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
@@ -24,25 +23,13 @@ class LoginActivity : AppCompatActivity() {
         const val AUTH_TOKEN_REQUEST_CODE = 0x10
     }
 
-    private var isReady = false
-
     override fun onCreate(savedInstanceState: Bundle?) {
         // Handle the splash screen transition and must be called before super.onCreate()
         installSplashScreen()
 
         super.onCreate(savedInstanceState)
+
         val binding = LoginActivityBinding.inflate(layoutInflater)
-        binding.login.viewTreeObserver.addOnPreDrawListener(
-            object : ViewTreeObserver.OnPreDrawListener {
-                override fun onPreDraw(): Boolean {
-                    // Check if the initial data is ready
-                    return if (isReady) {
-                        binding.login.viewTreeObserver.removeOnPreDrawListener(this)
-                        true
-                    } else false
-                }
-            }
-        )
         setContentView(binding.root)
 
         val request =
@@ -61,12 +48,8 @@ class LoginActivity : AppCompatActivity() {
                 )
                 .build()
         AuthorizationClient.openLoginActivity(this, AUTH_TOKEN_REQUEST_CODE, request)
-        binding.login.setOnClickListener {
-            AuthorizationClient.openLoginActivity(this, AUTH_TOKEN_REQUEST_CODE, request)
-        }
 
         checkLocationPermission()
-
     }
 
     @Deprecated("Deprecated in Java")
@@ -86,11 +69,13 @@ class LoginActivity : AppCompatActivity() {
                 val intent = Intent(this, MainActivity::class.java)
                 MainApplication.TOKEN = response.accessToken
                 startActivity(intent)
-                finish()
             }
-            isReady = true
         }
+        finish()
+    }
 
+    override fun onBackPressed() {
+        finish()
     }
 
     private fun checkLocationPermission() {
