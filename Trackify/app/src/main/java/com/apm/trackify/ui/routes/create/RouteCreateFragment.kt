@@ -56,17 +56,22 @@ class RouteCreateFragment : Fragment(), OnMapReadyCallback {
 
         setupToolbar(binding.toolbar)
         binding.toolbar.setOnMenuItemClickListener {
+            val userName = viewModel.user.value?.id ?: ""
             val playlistRoutesAdapter: PlaylistRoutesAdapter =
                 binding.rvUserPlaylistsInRoute.adapter as PlaylistRoutesAdapter
+
             numberPlaylistSelected = playlistRoutesAdapter.getSelectedPosition()
-            if (mapUtil.getAllMarkers().size > 1 && numberPlaylistSelected != -1 && binding.routeName.text.toString()
-                    .isNotEmpty()
-            ) {
+
+            if (userName.isNotEmpty()
+                && mapUtil.getAllMarkers().size > 1
+                && numberPlaylistSelected != -1
+                && binding.routeName.text.toString().isNotEmpty())
+            {
                 val routeName: String = binding.routeName.text.toString().trim()
                 when (it.itemId) {
                     R.id.createRoute -> {
                         firebaseService.createNewRoute(
-                            "usuario",
+                            userName,
                             routeName,
                             mapUtil.getAllMarkers(),
                             getUrlPlaylist(numberPlaylistSelected).split("/").last(),
@@ -91,6 +96,8 @@ class RouteCreateFragment : Fragment(), OnMapReadyCallback {
                 Toast.makeText(context, "Introduce the name of the route", Toast.LENGTH_SHORT).show()
             } else if (numberPlaylistSelected == -1) {
                 Toast.makeText(context, "Select one playlist", Toast.LENGTH_SHORT).show()
+            } else {
+                Toast.makeText(context, "An error have occurred, please try again later", Toast.LENGTH_SHORT).show()
             }
             true
         }
@@ -147,5 +154,4 @@ class RouteCreateFragment : Fragment(), OnMapReadyCallback {
     private fun getUrlPlaylist(position: Int): String {
         return viewModel.playlists.value?.get(position)?.playlistUri ?: ""
     }
-
 }
