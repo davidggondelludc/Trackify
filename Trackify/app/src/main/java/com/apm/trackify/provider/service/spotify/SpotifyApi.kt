@@ -19,6 +19,11 @@ interface SpotifyApi {
     @GET("me")
     suspend fun getMeUser(): Result<User>
 
+    @GET("users/{id}")
+    suspend fun getUserById(
+        @Path("id") id: String
+    ): Result<User>
+
     @GET("me/playlists")
     suspend fun getMePlaylists(): Result<MePlaylistsResponse>
 

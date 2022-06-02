@@ -27,6 +27,14 @@ import javax.inject.Inject
 @AndroidEntryPoint
 class UserSharedRoutesFragment : Fragment(), OnMapReadyCallback {
 
+    companion object {
+        fun newInstance(userName: String) = UserSharedRoutesFragment().apply {
+            arguments = Bundle().apply {
+                putString("userName", userName)
+            }
+        }
+    }
+
     private val viewModel: UserSharedRoutesViewModel by viewModels()
 
     @Inject
@@ -52,14 +60,17 @@ class UserSharedRoutesFragment : Fragment(), OnMapReadyCallback {
         mapView = binding.mapViewFragment
         mapView.onCreate(mapViewBundle)
         mapView.getMapAsync(this)
-        viewModel.findRoutes()
+
+        val userName = arguments?.getString("userName") ?: "usuario"
+        viewModel.findRoutes(userName)
     }
 
     private fun setupRecyclerView(recyclerView: RecyclerView) {
         val navController = findNavController()
+        val userName = arguments?.getString("userName") ?: "usuario"
         val routeAdapter =
             UserSharedRouteAdapter(
-                { viewModel.findRoutes() },
+                { viewModel.findRoutes(userName) },
                 spotifyApi,
                 navController,
                 { coordinates: List<LatLng> -> mapUtil.drawRouteAndSetOnClick(coordinates) }

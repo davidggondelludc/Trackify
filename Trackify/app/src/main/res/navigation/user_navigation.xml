@@ -8,10 +8,22 @@
     <fragment
         android:id="@+id/user_fragment"
         android:name="com.apm.trackify.ui.user.landing.UserLandingFragment"
-        tools:layout="@layout/user_landing_fragment" >
+        tools:layout="@layout/user_landing_fragment">
         <action
             android:id="@+id/action_user_fragment_to_playlist_tracks_fragment"
             app:destination="@id/playlist_tracks_fragment" />
+        <action
+            android:id="@+id/action_user_fragment_to_user_following_profile_fragment"
+            app:destination="@id/user_following_profile_fragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/user_following_profile_fragment"
+        android:name="com.apm.trackify.ui.user.followingProfile.FollowingProfileFragment"
+        tools:layout="@layout/user_following_profile_fragment">
+        <argument
+            android:name="userId"
+            app:argType="string" />
     </fragment>
 
     <fragment
