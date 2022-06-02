@@ -28,7 +28,6 @@ class MapsUtil(var map: GoogleMap, val context: Context?, val width: Int, val he
     )
 
     fun setDefaultSettings() {
-
         map.mapType = GoogleMap.MAP_TYPE_NORMAL
         map.uiSettings.setAllGesturesEnabled(false)
         map.uiSettings.isZoomControlsEnabled = false
@@ -36,7 +35,16 @@ class MapsUtil(var map: GoogleMap, val context: Context?, val width: Int, val he
         map.isTrafficEnabled = false
         map.setOnMapClickListener(this)
         map.setOnMarkerClickListener(this)
+    }
 
+    fun setCustomSettings() {
+        map.mapType = GoogleMap.MAP_TYPE_NORMAL
+        map.uiSettings.setAllGesturesEnabled(true)
+        map.uiSettings.isZoomControlsEnabled = true
+        map.isBuildingsEnabled = false
+        map.isTrafficEnabled = false
+        map.setOnMapClickListener(this)
+        map.setOnMarkerClickListener(this)
     }
 
     fun drawRouteAndSetOnClick(coordinates: List<LatLng>) {
