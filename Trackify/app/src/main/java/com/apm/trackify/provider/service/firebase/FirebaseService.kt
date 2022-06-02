@@ -61,16 +61,23 @@ class FirebaseService {
             .addOnFailureListener { onFailure() }
     }
 
-    private fun checkFollowed(
+    fun checkFollowed(
         userName: String,
         followedUserName: String,
         onResult: (Boolean) -> Unit
     ) {
-        var following: MutableList<String> = ArrayList()
+        var following: MutableList<DocumentReference> = ArrayList()
 
         db.collection("users").document(userName).get().addOnSuccessListener { document ->
-            following = document.data?.getValue("following") as MutableList<String>
-            onResult(following.contains((followedUserName)))
+            var check = false
+            following = document.data?.getValue("following") as MutableList<DocumentReference>
+            for (document: DocumentReference in following) {
+                if (document.path == "users/${followedUserName}") {
+                    check = true
+                    break
+                }
+            }
+            onResult(check)
         }
     }
 
@@ -97,6 +104,7 @@ class FirebaseService {
                     FieldValue.increment(1)
                 )
                 batch.commit().addOnSuccessListener { onSuccess() }
+                    .addOnFailureListener { onFailure() }
             } else {
                 onFailure()
             }
@@ -190,9 +198,6 @@ class FirebaseService {
         forEachUser: (UserItem) -> Unit,
         onFailure: () -> Unit
     ) {
-        var docList: MutableList<DocumentReference> = ArrayList()
-        var userList: MutableList<UserItem> = ArrayList()
-
         db.collection("users").document(userName).get()
             .addOnSuccessListener { myDocument ->
                 val data = myDocument.data

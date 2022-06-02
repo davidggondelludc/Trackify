@@ -15,6 +15,14 @@ import com.apm.trackify.util.extension.toastError
 
 class UserFollowingFragment : Fragment() {
 
+    companion object {
+        fun newInstance(userName: String) = UserFollowingFragment().apply {
+            arguments = Bundle().apply {
+                putString("userName", userName)
+            }
+        }
+    }
+
     private val viewModel: UserFollowingViewModel by viewModels()
 
     override fun onCreateView(
@@ -31,6 +39,9 @@ class UserFollowingFragment : Fragment() {
         }
 
         setupRecyclerView(binding.rvUsersFollowing)
+
+        val userName = arguments?.getString("userName") ?: "usuario"
+        viewModel.findFollowingUsers(userName)
     }
 
     private fun setupRecyclerView(recyclerView: RecyclerView) {

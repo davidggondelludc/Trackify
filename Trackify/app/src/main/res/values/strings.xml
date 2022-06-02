@@ -30,6 +30,9 @@
     <string name="custom">Custom</string>
     <string name="error">Something went wrong</string>
     <string name="userNameNotFound">Could not find username</string>
+    <string name="followersNotFound">Could not find followers</string>
+    <string name="couldNotFollow">Could not follow user</string>
+    <string name="couldNotUnfollow">Could not unfollow user</string>
     <string name="internet">No internet connection</string>
     <string name="preview_url">Preview unavailable for this track</string>
 
@@ -73,6 +76,10 @@
     <string name="share_route_title">Sharing route</string>
     <string name="share_route_text">I have been doing a route with Trackify</string>
     <string name="view_playlist">View playlist</string>
+
+    <!-- user profile -->
+    <string name="follow">Follow</string>
+    <string name="unfollow">Unfollow</string>
 
     <!-- plurals -->
     <plurals name="playlists">

@@ -7,13 +7,11 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
-import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.apm.trackify.R
 import com.apm.trackify.databinding.UserSharedRoutesFragmentBinding
 import com.apm.trackify.provider.service.spotify.SpotifyApi
-import com.apm.trackify.ui.playlists.details.PlaylistTracksFragmentArgs
 import com.apm.trackify.ui.user.landing.sharedRoutes.view.adapter.UserSharedRouteAdapter
 import com.apm.trackify.ui.user.landing.sharedRoutes.view.model.UserSharedRoutesViewModel
 import com.apm.trackify.util.extension.toPx
@@ -29,7 +27,14 @@ import javax.inject.Inject
 @AndroidEntryPoint
 class UserSharedRoutesFragment : Fragment(), OnMapReadyCallback {
 
-    private val args: PlaylistTracksFragmentArgs by navArgs()
+    companion object {
+        fun newInstance(userName: String) = UserSharedRoutesFragment().apply {
+            arguments = Bundle().apply {
+                putString("userName", userName)
+            }
+        }
+    }
+
     private val viewModel: UserSharedRoutesViewModel by viewModels()
 
     @Inject
@@ -55,14 +60,17 @@ class UserSharedRoutesFragment : Fragment(), OnMapReadyCallback {
         mapView = binding.mapViewFragment
         mapView.onCreate(mapViewBundle)
         mapView.getMapAsync(this)
-        viewModel.findRoutes()
+
+        val userName = arguments?.getString("userName") ?: "usuario"
+        viewModel.findRoutes(userName)
     }
 
     private fun setupRecyclerView(recyclerView: RecyclerView) {
         val navController = findNavController()
+        val userName = arguments?.getString("userName") ?: "usuario"
         val routeAdapter =
             UserSharedRouteAdapter(
-                { viewModel.findRoutes() },
+                { viewModel.findRoutes(userName) },
                 spotifyApi,
                 navController,
                 { coordinates: List<LatLng> -> mapUtil.drawRouteAndSetOnClick(coordinates) }

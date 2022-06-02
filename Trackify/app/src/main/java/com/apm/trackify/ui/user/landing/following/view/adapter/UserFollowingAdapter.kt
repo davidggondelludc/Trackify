@@ -2,14 +2,15 @@ package com.apm.trackify.ui.user.landing.following.view.adapter
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.navigation.findNavController
 import androidx.recyclerview.widget.ListAdapter
 import com.apm.trackify.R
 import com.apm.trackify.databinding.UserFollowingItemBinding
 import com.apm.trackify.provider.model.diff.UserItemDiffUtil
 import com.apm.trackify.provider.model.domain.UserItem
+import com.apm.trackify.ui.user.landing.UserLandingFragmentDirections
 import com.apm.trackify.ui.user.landing.following.view.holder.UserFollowingViewHolder
 import com.apm.trackify.util.CoverUtil
-import com.apm.trackify.util.extension.toastError
 
 class UserFollowingAdapter() : ListAdapter<UserItem, UserFollowingViewHolder>(UserItemDiffUtil()) {
 
@@ -33,7 +34,12 @@ class UserFollowingAdapter() : ListAdapter<UserItem, UserFollowingViewHolder>(Us
         holder.sharedPlaylistsTextView.text = "${user.routes.size} shared playlists"
 
         holder.itemView.setOnClickListener {
-            it.context.toastError("Go to user profile")
+            val navController = it.findNavController()
+            val action =
+                UserLandingFragmentDirections.actionUserFragmentToUserFollowingProfileFragment(
+                    user.userName
+                )
+            navController.navigate(action)
         }
     }
 }

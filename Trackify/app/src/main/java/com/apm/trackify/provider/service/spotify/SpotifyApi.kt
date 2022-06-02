@@ -1,6 +1,5 @@
 package com.apm.trackify.provider.service.spotify
 
-import com.apm.trackify.provider.service.spotify.data.Owner
 import com.apm.trackify.provider.service.spotify.data.Playlist
 import com.apm.trackify.provider.service.spotify.data.User
 import com.apm.trackify.provider.service.spotify.data.request.PlaylistRequest
@@ -18,6 +17,11 @@ interface SpotifyApi {
 
     @GET("me")
     suspend fun getMeUser(): Result<User>
+
+    @GET("users/{id}")
+    suspend fun getUserById(
+        @Path("id") id: String
+    ): Result<User>
 
     @GET("me/playlists")
     suspend fun getMePlaylists(): Result<MePlaylistsResponse>

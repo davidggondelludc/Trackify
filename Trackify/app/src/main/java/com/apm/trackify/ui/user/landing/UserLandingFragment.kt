@@ -36,7 +36,8 @@ class UserLandingFragment : Fragment() {
     }
 
     private fun setupViewPager(binding: UserLandingFragmentBinding) {
-        val adapter = TabLayoutPagerAdapter(this, binding.tabLayout?.tabCount ?: 0)
+        val adapter =
+            TabLayoutPagerAdapter(this, binding.tabLayout?.tabCount ?: 0, viewModel.userName)
 
         binding.viewPager2?.adapter = adapter
         binding.viewPager2?.registerOnPageChangeCallback(object :
@@ -61,11 +62,11 @@ class UserLandingFragment : Fragment() {
     private fun setupObservers(binding: UserLandingFragmentBinding) {
         viewModel.userName.observe(viewLifecycleOwner) {
             binding.userName.text = it.toString()
+            setupViewPager(binding)
         }
         viewModel.userFollowers.observe(viewLifecycleOwner) {
             binding.userFollowers.text =
                 resources.getQuantityString(R.plurals.followers, it.toInt(), it.toInt())
-
         }
         viewModel.error.observe(viewLifecycleOwner) {
             context?.toastError(it)

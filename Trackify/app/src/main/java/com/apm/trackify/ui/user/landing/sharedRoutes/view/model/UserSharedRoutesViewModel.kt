@@ -11,9 +11,9 @@ class UserSharedRoutesViewModel : ViewModel() {
     var mutableRoutes = mutableListOf<RouteItem>()
     private var firebaseService = FirebaseService()
 
-    fun findRoutes() {
+    fun findRoutes(userName: String) {
         mutableRoutes.clear()
-        firebaseService.findRoutesByUsername("usuario") {
+        firebaseService.findRoutesByUsername(userName) {
             mutableRoutes.add(it)
             routes.value = mutableRoutes.toList()
         }
