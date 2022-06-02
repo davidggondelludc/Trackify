@@ -57,8 +57,26 @@ class FirebaseService {
     }
 
     fun deleteRoute(routeId: String, onSuccess: () -> Unit, onFailure: () -> Unit) {
-        db.collection("routes").document(routeId).delete().addOnSuccessListener { onSuccess() }
-            .addOnFailureListener { onFailure() }
+
+        db.collection("routes").document(routeId).get().addOnSuccessListener {
+            val batch: WriteBatch = db.batch()
+            val route = db.collection("routes").document(routeId)
+            val user = db.document("users/${it.data?.get("creator")}")
+
+            batch.update(
+                user, "routes",
+                FieldValue.arrayRemove(route)
+            )
+            batch.delete(route)
+
+            batch.commit().addOnSuccessListener {
+                onSuccess()
+            }.addOnFailureListener {
+                onFailure()
+            }
+        }.addOnFailureListener {
+            onFailure()
+        }
     }
 
     fun checkFollowed(
@@ -142,7 +160,11 @@ class FirebaseService {
 
     }
 
-    fun findRoutesByUsername(userName: String, forEachRoute: (RouteItem) -> Unit) {
+    fun findRoutesByUsername(
+        userName: String,
+        forEachRoute: (RouteItem) -> Unit,
+        onFailure: () -> Unit
+    ) {
 
         db.collection("routes").whereEqualTo("creator", userName).get()
             .addOnSuccessListener { documents ->
@@ -168,6 +190,8 @@ class FirebaseService {
                         )
                     )
                 }
+            }.addOnFailureListener {
+                onFailure()
             }
     }
 
@@ -206,6 +230,8 @@ class FirebaseService {
                         getUser(doc.id, forEachUser, onFailure)
                     }
                 }
+            }.addOnFailureListener {
+                onFailure()
             }
     }
 

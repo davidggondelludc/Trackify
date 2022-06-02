@@ -55,7 +55,6 @@ class UserSharedRouteAdapter(
             )
         )
         holder.nameTextView.text = route.title
-        holder.followersTextView.text = route.creator
 
         holder.itemView.setOnClickListener {
             draw(route.coordinates)
