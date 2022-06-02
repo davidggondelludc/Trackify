@@ -9,7 +9,9 @@ import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
-class LoginActivityViewModel @Inject constructor(private val spotifyApi: SpotifyApi): ViewModel() {
+class LoginActivityViewModel @Inject constructor(
+    private val spotifyApi: SpotifyApi
+) : ViewModel() {
 
     private val firebaseService = FirebaseService()
 
@@ -18,7 +20,7 @@ class LoginActivityViewModel @Inject constructor(private val spotifyApi: Spotify
             spotifyApi.getMeUser().onSuccess {
                 firebaseService.createNewUser(it.id, {
                     onSuccess()
-                },{
+                }, {
                     onFailure()
                 })
             }.onFailure {
