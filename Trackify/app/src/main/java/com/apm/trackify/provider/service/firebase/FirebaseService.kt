@@ -200,26 +200,32 @@ class FirebaseService {
     ) {
         db.collection("users").document(userName).get()
             .addOnSuccessListener { myDocument ->
-                val data = myDocument.data
-                for (doc in (data?.get("following") as MutableList<DocumentReference>)) {
-                    getUser(doc.id, forEachUser, onFailure)
+                val data = myDocument.data?.get("following")
+                if (data != null) {
+                    for (doc in data as MutableList<DocumentReference>) {
+                        getUser(doc.id, forEachUser, onFailure)
+                    }
                 }
             }
     }
 
-    fun findRoutesByUserCoord(latitude: Double, longitude: Double, forEachRoute: (RouteItem) -> Unit) {
+    fun findRoutesByUserCoord(
+        latitude: Double,
+        longitude: Double,
+        forEachRoute: (RouteItem) -> Unit
+    ) {
 
         val latThreshold = 0.050
         val longThreshold = 0.025
 
         db.collection("routes")
-            .whereGreaterThanOrEqualTo("firstLat", latitude-latThreshold)
-            .whereLessThanOrEqualTo("firstLat", latitude+latThreshold)
+            .whereGreaterThanOrEqualTo("firstLat", latitude - latThreshold)
+            .whereLessThanOrEqualTo("firstLat", latitude + latThreshold)
             .get()
             .addOnSuccessListener { documents ->
                 for (document in documents) {
                     val firstLong = document.data["firstLong"] as Double
-                    if (firstLong >= longitude-latThreshold && firstLong <= longitude+longThreshold){
+                    if (firstLong >= longitude - latThreshold && firstLong <= longitude + longThreshold) {
                         val coords = document.data["coordinates"] as List<HashMap<String, Double>>
                         val newCoords = ArrayList<LatLng>()
                         for (coord in coords) {
