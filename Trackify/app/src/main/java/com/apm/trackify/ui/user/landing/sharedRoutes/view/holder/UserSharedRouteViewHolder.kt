@@ -10,7 +10,6 @@ class UserSharedRouteViewHolder(
 
     val coverImageView = binding.cover
     val nameTextView = binding.name
-    val followersTextView = binding.followers
     val moreButton = binding.more
 
     init {

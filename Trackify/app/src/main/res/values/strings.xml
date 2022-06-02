@@ -1,9 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <!-- TODO: organize this strings -->
-    <string name="form_duration">Playlist duration:</string>
-    <string name="form_title">Playlist Title</string>
-    <string name="form_selected_songs">Current selected songs</string>
     <string name="form_song_search">Search your song</string>
     <string name="form_min">min</string>
     <string name="form_min_input">30</string>
@@ -34,11 +31,20 @@
     <string name="followersNotFound">Could not find followers</string>
     <string name="couldNotFollow">Could not follow user</string>
     <string name="couldNotUnfollow">Could not unfollow user</string>
+    <string name="couldNotFindRoutes">Could not find any routes</string>
     <string name="internet">No internet connection</string>
     <string name="preview_url">Preview unavailable for this track</string>
 
     <!-- login -->
     <string name="login">Login with Spotify</string>
+
+    <!-- internet alert dialog -->
+    <string name="alert_title">Internet Connection Alert</string>
+    <string name="alert_body">Please, check your internet connection</string>
+    <string name="alert_close">Close</string>
+    <string name="alert_retry">Retry</string>
+    <string name="alert_bad_retry">Sorry, no internet connection detected. Please, try again.</string>
+
 
     <!-- bottom menu -->
     <string name="playlists_menu">Playlists</string>
@@ -50,6 +56,9 @@
 
     <!-- playlist create landing -->
     <string name="save_button_description">Save playlist button</string>
+    <string name="form_duration">Playlist duration:</string>
+    <string name="form_title">Playlist Title</string>
+    <string name="form_selected_songs">Current selected songs</string>
     <string name="playlist_save_toast">Playlist created</string>
 
     <!-- playlist search landing -->
@@ -72,13 +81,13 @@
     <string name="playlist_to_share_title">Playlist to be shared</string>
     <string name="route_name">Route name</string>
     <string name="create_route_description">Tap in the map to add up to 9 markers</string>
-    <string name="delete_markers">Delete markers</string>
+    <string name="clear_markers">Clear</string>
     <string name="create_route_title">Create route and select a playlist</string>
 
 
     <!-- user landing -->
     <string name="share_route_title">Sharing route</string>
-    <string name="share_route_text">I have been doing a route with Trackify</string>
+    <string name="share_route_text">Check this route on Trackify</string>
     <string name="view_playlist">View playlist</string>
     <string name="route_delete_success">Route deleted</string>
     <string name="route_delete_error">Could not delete route</string>

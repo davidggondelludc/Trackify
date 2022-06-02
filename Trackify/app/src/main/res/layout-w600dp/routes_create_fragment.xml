@@ -15,7 +15,7 @@
             android:id="@+id/toolbar"
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
-            app:menu="@menu/toolbar_routes_create" >
+            app:menu="@menu/toolbar_routes_create">
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
@@ -57,13 +57,12 @@
         app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior">
 
 
-
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rvUserPlaylistsInRoute"
             android:layout_width="0dp"
             android:layout_height="0dp"
-            android:padding="8dp"
             android:choiceMode="singleChoice"
+            android:padding="8dp"
             app:layout_behavior="@string/appbar_scrolling_view_behavior"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
@@ -120,7 +119,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:padding="8dp"
-            android:text="@string/delete_markers"
+            android:text="@string/clear_markers"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@+id/route_name"
             app:layout_constraintTop_toTopOf="parent" />

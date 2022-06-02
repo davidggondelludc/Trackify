@@ -15,6 +15,7 @@ import com.apm.trackify.provider.service.spotify.SpotifyApi
 import com.apm.trackify.ui.user.landing.sharedRoutes.view.adapter.UserSharedRouteAdapter
 import com.apm.trackify.ui.user.landing.sharedRoutes.view.model.UserSharedRoutesViewModel
 import com.apm.trackify.util.extension.toPx
+import com.apm.trackify.util.extension.toastError
 import com.apm.trackify.util.maps.MapsUtil
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.MapView
@@ -81,6 +82,12 @@ class UserSharedRoutesFragment : Fragment(), OnMapReadyCallback {
 
         recyclerView.adapter = routeAdapter
         recyclerView.layoutManager = LinearLayoutManager(context)
+    }
+
+    private fun setUpObservers(binding: UserSharedRoutesFragmentBinding) {
+        viewModel.error.observe(viewLifecycleOwner) {
+            context?.toastError(it)
+        }
     }
 
     override fun onMapReady(googleMap: GoogleMap) {
