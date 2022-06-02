@@ -20,11 +20,11 @@ android {
 
         // This number is used only to determine whether one version is more recent than another,
         // with higher numbers indicating more recent versions
-        versionCode 4
+        versionCode 5
 
         // A string used as the version number shown to users. The value is a string so that you
         // can describe the app version as a <major>.<minor>.<point> string
-        versionName "0.4.0"
+        versionName "0.5.0"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
@@ -34,10 +34,6 @@ android {
             applicationIdSuffix ".debug"
         }
         release {
-            // Enables code shrinking, obfuscation and optimization for release build type
-            minifyEnabled true
-            shrinkResources true
-
             // Includes the default ProGuard rules files that are packaged with the Android Gradle
             // plugin
             proguardFiles(

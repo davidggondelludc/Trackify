@@ -1,19 +1,25 @@
 package com.apm.trackify.util.maps
 
-import android.Manifest
 import android.annotation.SuppressLint
 import android.content.Context
+import android.content.Context.VIBRATOR_SERVICE
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
+import android.os.Build
+import android.os.VibrationEffect
+import android.os.Vibrator
+import android.os.VibratorManager
 import android.widget.Toast
-import androidx.activity.result.contract.ActivityResultContracts
+import androidx.annotation.RequiresApi
 import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
+import com.google.android.gms.maps.GoogleMap.OnMarkerDragListener
 import com.google.android.gms.maps.model.BitmapDescriptorFactory
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.Marker
 import com.google.android.gms.maps.model.MarkerOptions
+
 
 class MapsUtilCreateRoute(
     private var map: GoogleMap,
@@ -33,7 +39,16 @@ class MapsUtilCreateRoute(
         "ocho",
         "nueve"
     )
-    private val markersCreated = mutableListOf<LatLng>()
+    private val markersCreated = mutableListOf<Marker>()
+
+    val vibrator = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
+        val vibratorManager =
+            context?.getSystemService(Context.VIBRATOR_MANAGER_SERVICE) as VibratorManager
+        vibratorManager.defaultVibrator
+    } else {
+        @Suppress("DEPRECATION")
+        context?.getSystemService(VIBRATOR_SERVICE) as Vibrator
+    }
 
     fun setDefaultSettings() {
         map.mapType = GoogleMap.MAP_TYPE_NORMAL
@@ -42,10 +57,36 @@ class MapsUtilCreateRoute(
         map.isBuildingsEnabled = false
         map.isTrafficEnabled = false
         map.setOnMapClickListener(this)
+        map.setOnMarkerDragListener(object : OnMarkerDragListener {
+            @SuppressLint("MissingPermission")
+            override fun onMarkerDragStart(marker: Marker) {
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
+                    vibrator.vibrate(VibrationEffect.createPredefined(VibrationEffect.EFFECT_HEAVY_CLICK))
+                } else {
+                    @Suppress("DEPRECATION")
+                    vibrator.vibrate(100)
+                }
+            }
+
+            @SuppressLint("MissingPermission")
+            override fun onMarkerDragEnd(marker: Marker) {
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
+                    vibrator.vibrate(VibrationEffect.createPredefined(VibrationEffect.EFFECT_HEAVY_CLICK))
+                } else {
+                    @Suppress("DEPRECATION")
+                    vibrator.vibrate(100)
+                }
+            }
+
+            override fun onMarkerDrag(marker: Marker) {
+            }
+        })
     }
 
     fun getAllMarkers(): MutableList<LatLng> {
-        return markersCreated
+        val coordinatesList = mutableListOf<LatLng>()
+        markersCreated.forEach{coordinatesList.add(it.position)}
+        return coordinatesList
     }
 
     fun clearMarkers() {
@@ -70,26 +111,25 @@ class MapsUtilCreateRoute(
         val marker: MarkerOptions = MarkerOptions().position(coordinates)
             .icon(resizeMapIcons(iconName, 64, 64, context)?.let {
                 BitmapDescriptorFactory.fromBitmap(it)
-            })
-        map.addMarker(marker)
+            }).draggable(true)
+
+        map.addMarker(marker)?.let { markersCreated.add(it) }
     }
 
     override fun onMapClick(coordinates: LatLng) {
         if (context != null) {
             if (markersCreated.size < 9) {
-                markersCreated.add(coordinates)
-                createMarker(coordinates, context, icons[markersCreated.count() - 1])
+                createMarker(coordinates, context, icons[markersCreated.count()])
             } else {
                 Toast.makeText(this.context, "No more markers available", Toast.LENGTH_SHORT).show()
             }
         }
 
     }
-
+    
     @SuppressLint("MissingPermission")
     fun setUpMap(fusedLocationProviderClient: FusedLocationProviderClient) {
         if (context != null) {
-
             map.isMyLocationEnabled = true
             fusedLocationProviderClient.lastLocation.addOnSuccessListener { location ->
                 if (location != null) {

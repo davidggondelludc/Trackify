@@ -2,7 +2,7 @@ package com.apm.trackify.provider.repository
 
 import com.apm.trackify.provider.model.domain.PlaylistItem
 import com.apm.trackify.provider.model.domain.TrackItem
-import com.apm.trackify.provider.repository.enum.Duration
+import com.apm.trackify.provider.repository.data.Duration
 import com.apm.trackify.provider.service.spotify.SpotifyApi
 import com.apm.trackify.provider.service.spotify.data.Track
 import com.apm.trackify.provider.service.spotify.data.request.PlaylistRequest
@@ -15,6 +15,8 @@ import kotlin.math.abs
 class SpotifyRepositoryImpl @Inject constructor(
     private val spotifyApi: SpotifyApi
 ) : SpotifyRepository {
+
+    
 
     override suspend fun generateTracklist(duration: Duration): List<TrackItem> {
         val tracklist = mutableListOf<Track>()

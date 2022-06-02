@@ -56,39 +56,48 @@ class RouteCreateFragment : Fragment(), OnMapReadyCallback {
 
         setupToolbar(binding.toolbar)
         binding.toolbar.setOnMenuItemClickListener {
-            if (mapUtil.getAllMarkers().size > 1) {
-                val playlistRoutesAdapter: PlaylistRoutesAdapter =
-                    binding.rvUserPlaylistsInRoute.adapter as PlaylistRoutesAdapter
-                numberPlaylistSelected = playlistRoutesAdapter.getSelectedPosition()
-                if (numberPlaylistSelected != -1) {
-                    val routeName: String = binding.routeName.text.toString().trim()
-                    when (it.itemId) {
-                        R.id.createRoute -> {
-                            firebaseService.createNewRoute(
-                                "usuario",
-                                routeName,
-                                mapUtil.getAllMarkers(),
-                                getUrlPlaylist(numberPlaylistSelected).split("/").last(),
-                                {},
-                                {})
-                            val navController = findNavController()
-                            navController.navigateUp()
-                            Toast.makeText(
-                                this.context,
-                                "Route created successfully!",
-                                Toast.LENGTH_SHORT
-                            ).show()
-                        }
+            val userName = viewModel.user.value?.id ?: ""
+            val playlistRoutesAdapter: PlaylistRoutesAdapter =
+                binding.rvUserPlaylistsInRoute.adapter as PlaylistRoutesAdapter
+
+            numberPlaylistSelected = playlistRoutesAdapter.getSelectedPosition()
+
+            if (userName.isNotEmpty()
+                && mapUtil.getAllMarkers().size > 1
+                && numberPlaylistSelected != -1
+                && binding.routeName.text.toString().isNotEmpty())
+            {
+                val routeName: String = binding.routeName.text.toString().trim()
+                when (it.itemId) {
+                    R.id.createRoute -> {
+                        firebaseService.createNewRoute(
+                            userName,
+                            routeName,
+                            mapUtil.getAllMarkers(),
+                            getUrlPlaylist(numberPlaylistSelected).split("/").last(),
+                            {},
+                            {})
+                        val navController = findNavController()
+                        navController.navigateUp()
+                        Toast.makeText(
+                            this.context,
+                            "Route created successfully!",
+                            Toast.LENGTH_SHORT
+                        ).show()
                     }
-                } else {
-                    Toast.makeText(context, "Select one playlist", Toast.LENGTH_SHORT).show()
                 }
-            } else {
+            } else if (mapUtil.getAllMarkers().size <= 1) {
                 Toast.makeText(
                     context,
                     "Introduce at least 2 markers in the map",
                     Toast.LENGTH_SHORT
                 ).show()
+            } else if (binding.routeName.text.toString().isEmpty()) {
+                Toast.makeText(context, "Introduce the name of the route", Toast.LENGTH_SHORT).show()
+            } else if (numberPlaylistSelected == -1) {
+                Toast.makeText(context, "Select one playlist", Toast.LENGTH_SHORT).show()
+            } else {
+                Toast.makeText(context, "An error have occurred, please try again later", Toast.LENGTH_SHORT).show()
             }
             true
         }
@@ -145,5 +154,4 @@ class RouteCreateFragment : Fragment(), OnMapReadyCallback {
     private fun getUrlPlaylist(position: Int): String {
         return viewModel.playlists.value?.get(position)?.playlistUri ?: ""
     }
-
 }

@@ -16,7 +16,7 @@ data class Track(
     val uri: String
 ) {
 
-    fun toTrackItem(addedAt: String = "0000-00-00T00:00:00Z"): TrackItem =
+    fun toTrackItem(addedAt: String = ""): TrackItem =
         TrackItem(
             id,
             uri,
@@ -26,6 +26,9 @@ data class Track(
             explicit,
             duration_ms,
             preview_url,
-            SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss'Z'", Locale.US).parse(addedAt)!!
+            if (addedAt == "") Date() else SimpleDateFormat(
+                "yyyy-MM-dd'T'HH:mm:ss'Z'",
+                Locale.US
+            ).parse(addedAt)!!
         )
 }

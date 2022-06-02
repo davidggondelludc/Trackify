@@ -10,7 +10,8 @@ import com.apm.trackify.provider.model.domain.PlaylistItem
 import com.apm.trackify.ui.routes.create.view.holder.PlaylistRoutesViewHolder
 import com.apm.trackify.util.extension.loadFromURI
 
-class PlaylistRoutesAdapter : ListAdapter<PlaylistItem, PlaylistRoutesViewHolder> (PlaylistItemDiffUtil()) {
+class PlaylistRoutesAdapter :
+    ListAdapter<PlaylistItem, PlaylistRoutesViewHolder>(PlaylistItemDiffUtil()) {
 
     private var selectedPosition = -1
 
@@ -35,9 +36,7 @@ class PlaylistRoutesAdapter : ListAdapter<PlaylistItem, PlaylistRoutesViewHolder
         }
     }
 
-    fun getSelectedPosition (): Int {
+    fun getSelectedPosition(): Int {
         return selectedPosition
     }
-
-
 }

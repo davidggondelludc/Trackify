@@ -7,11 +7,10 @@ import android.view.View
 import android.view.ViewGroup
 import android.view.inputmethod.EditorInfo
 import android.view.inputmethod.InputMethodManager
-import android.widget.ProgressBar
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
 import com.apm.trackify.databinding.PlaylistsCreateSearchFragmentBinding
 import com.apm.trackify.provider.service.media.MediaServiceLifecycle
 import com.apm.trackify.ui.playlists.create.search.view.adapter.TrackAddAdapter
@@ -26,8 +25,8 @@ class PlaylistCreateSearchFragment : Fragment() {
 
     @Inject
     lateinit var mediaServiceLifecycle: MediaServiceLifecycle
-    private val createViewModel: PlaylistCreateViewModel by viewModels()
     private val viewModel: PlaylistCreateSearchViewModel by viewModels()
+    private val sharedViewModel: PlaylistCreateViewModel by activityViewModels()
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -41,35 +40,36 @@ class PlaylistCreateSearchFragment : Fragment() {
         val binding = PlaylistsCreateSearchFragmentBinding.bind(view)
 
         setupToolbar(binding.toolbar)
-        setupRecyclerView(binding.rvSearchedSongs, binding.searchProgressBar)
 
-        binding.search.setOnEditorActionListener { textView, i, _ ->
-            when (i) {
-                EditorInfo.IME_ACTION_SEARCH -> {
-                    binding.searchProgressBar.visibility = View.VISIBLE
-                    viewModel.searchTracks(textView.text.toString())
-                    hideKeyboard()
-                    true
-                }
-                else -> false
-            }
-        }
-    }
+        val addTrackAdapter = TrackAddAdapter(sharedViewModel, mediaServiceLifecycle)
 
-    private fun setupRecyclerView(recyclerView: RecyclerView, searchProgressBar: ProgressBar) {
-        val addTrackAdapter = TrackAddAdapter(createViewModel, mediaServiceLifecycle)
         viewModel.tracks.observe(viewLifecycleOwner) {
-            searchProgressBar.visibility = View.GONE
+            binding.searchProgressBar.visibility = View.GONE
             addTrackAdapter.submitList(it)
         }
 
-        recyclerView.adapter = addTrackAdapter
-        recyclerView.layoutManager = LinearLayoutManager(context)
+        binding.rvSearchedSongs.adapter = addTrackAdapter
+        binding.rvSearchedSongs.layoutManager = LinearLayoutManager(context)
+
+        binding.search.setOnEditorActionListener { textView, i, _ ->
+            if (textView.text.isNotEmpty()) {
+                when (i) {
+                    EditorInfo.IME_ACTION_SEARCH -> {
+                        binding.searchProgressBar.visibility = View.VISIBLE
+                        viewModel.searchTracks(textView.text.toString())
+                        hideKeyboard()
+                        true
+                    }
+                    else -> false
+                }
+            } else false
+        }
     }
 
     private fun hideKeyboard() {
-        val imm = context?.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
-        imm.hideSoftInputFromWindow(view?.windowToken, 0)
-        view?.clearFocus()
+        val imm =
+            requireContext().getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+        imm.hideSoftInputFromWindow(requireView().windowToken, 0)
+        requireView().clearFocus()
     }
 }

@@ -1,11 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
 
     <EditText
-        android:id="@+id/playlistTitleField"
+        android:id="@+id/name"
         style="@style/Widget.AppCompat.AutoCompleteTextView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -26,52 +27,41 @@
         android:id="@+id/playlistDurationText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginVertical="@dimen/playlists_create_duration_padding"
         android:paddingVertical="@dimen/playlists_create_layout_vertical_padding"
+        android:layout_marginHorizontal="@dimen/playlists_create_layout_horizontal_padding"
         android:text="@string/form_duration"
         android:textColor="@android:color/white"
         android:textSize="@dimen/playlists_create_text_size"
-        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/timeSpinner"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintHorizontal_chainStyle="packed"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/playlistTitleField" />
+        app:layout_constraintTop_toBottomOf="@id/name" />
 
-    <EditText
-        android:id="@+id/playlistDurationField"
+    <Spinner
+        android:id="@+id/timeSpinner"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:hint="@string/form_min_input"
-        android:importantForAutofill="no"
-        android:inputType="number"
-        android:minHeight="48dp"
-        android:paddingHorizontal="@dimen/playlists_create_layout_horizontal_padding"
-        android:textAlignment="center"
-        android:textColor="@android:color/white"
-        android:textSize="@dimen/playlists_create_text_size"
+        android:entries="@array/duration_list"
+        android:layout_marginEnd="@dimen/playlists_create_spinner_padding"
+        app:layout_constraintBottom_toBottomOf="@+id/playlistDurationText"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/playlistDurationText" />
-
-    <TextView
-        android:id="@+id/minText"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/form_min"
-        android:textColor="@android:color/white"
-        android:textSize="@dimen/playlists_create_text_size"
-        app:layout_constraintBottom_toBottomOf="@+id/playlistDurationField"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@id/playlistDurationField"
-        app:layout_constraintTop_toBottomOf="@id/playlistDurationText" />
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/playlistDurationText"
+        app:layout_constraintTop_toTopOf="@+id/playlistDurationText" />
 
     <View
         android:id="@+id/divider"
         android:layout_width="match_parent"
         android:layout_height="1dp"
-        android:layout_marginVertical="@dimen/playlists_create_layout_vertical_padding"
+        android:layout_marginBottom="@dimen/playlists_create_divider"
         android:background="?android:attr/listDivider"
         android:backgroundTint="@color/golden_poppy"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/playlistDurationField" />
+        app:layout_constraintTop_toBottomOf="@+id/playlistDurationText" />
 
     <TextView
         android:id="@+id/currentSongsText"

@@ -1,4 +1,4 @@
-package com.apm.trackify.provider.repository.enum
+package com.apm.trackify.provider.repository.data
 
 enum class Duration(val tracks: Int) {
     SHORT(20),

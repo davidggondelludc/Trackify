@@ -1,19 +1,30 @@
 package com.apm.trackify.ui.user.landing
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
 import androidx.viewpager2.widget.ViewPager2
+import com.apm.trackify.R
 import com.apm.trackify.databinding.UserLandingFragmentBinding
 import com.apm.trackify.provider.service.firebase.FirebaseService
+import com.apm.trackify.ui.login.LoginActivity
+import com.apm.trackify.ui.main.MainApplication
+import com.apm.trackify.ui.user.landing.view.model.UserLandingViewModel
 import com.apm.trackify.util.extension.setupToolbar
+import com.apm.trackify.util.extension.toggleVisibility
+import com.apm.trackify.util.extension.toastError
 import com.google.android.material.tabs.TabLayout
+import com.spotify.sdk.android.auth.AuthorizationClient
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class UserLandingFragment : Fragment() {
 
-    private val firebaseService: FirebaseService = FirebaseService()
+    private val viewModel: UserLandingViewModel by viewModels()
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -24,16 +35,30 @@ class UserLandingFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         val binding = UserLandingFragmentBinding.bind(view)
 
+        binding.toolbar.setOnMenuItemClickListener {
+            when (it.itemId) {
+                R.id.signOff -> {
+                    MainApplication.TOKEN = null
+                    AuthorizationClient.clearCookies(requireContext())
+                    val intent = Intent(requireContext(), LoginActivity::class.java)
+                    startActivity(intent)
+                    requireActivity().finish()
+                    binding.loading?.toggleVisibility(visible = true, gone = false)
+                    binding.toolbar.toggleVisibility(visible = false, gone = true)
+                    binding.container?.toggleVisibility(visible = false, gone = false)
+                }
+            }
+            true
+        }
         setupToolbar(binding.toolbar)
-        val widthDp = resources.displayMetrics.widthPixels / resources.displayMetrics.density
-        //if (widthDp < 600) {
+        println(viewModel.toString())
         setupViewPager(binding)
-        //}
-        setupUserName(binding, "usuario")
+        setupObservers(binding)
     }
 
     private fun setupViewPager(binding: UserLandingFragmentBinding) {
-        val adapter = TabLayoutPagerAdapter(this, binding.tabLayout?.tabCount ?: 0)
+        val adapter =
+            TabLayoutPagerAdapter(this, binding.tabLayout?.tabCount ?: 0, viewModel.userName)
 
         binding.viewPager2?.adapter = adapter
         binding.viewPager2?.registerOnPageChangeCallback(object :
@@ -55,11 +80,17 @@ class UserLandingFragment : Fragment() {
         })
     }
 
-    fun setupUserName(binding: UserLandingFragmentBinding, userName: String) {
-
-        val foundUser = firebaseService.getUser(userName) { user ->
-            binding.userName.text = user.userName
-            binding.userFollowers.text = "${user.followers.toString()} Followers"
+    private fun setupObservers(binding: UserLandingFragmentBinding) {
+        viewModel.userName.observe(viewLifecycleOwner) {
+            binding.userName.text = it.toString()
+            setupViewPager(binding)
+        }
+        viewModel.userFollowers.observe(viewLifecycleOwner) {
+            binding.userFollowers.text =
+                resources.getQuantityString(R.plurals.followers, it.toInt(), it.toInt())
+        }
+        viewModel.error.observe(viewLifecycleOwner) {
+            context?.toastError(it)
         }
     }
 }

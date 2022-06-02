@@ -4,9 +4,11 @@ import androidx.recyclerview.widget.RecyclerView
 import com.apm.trackify.databinding.UserFollowingItemBinding
 import com.apm.trackify.util.extension.scaleOnTouch
 
-class UserFollowingViewHolder(val binding: UserFollowingItemBinding) :
-    RecyclerView.ViewHolder(binding.root) {
+class UserFollowingViewHolder(
+    val binding: UserFollowingItemBinding
+) : RecyclerView.ViewHolder(binding.root) {
 
+    val avatarTextView = binding.avatar
     val nameTextView = binding.name
     val sharedPlaylistsTextView = binding.sharedPlaylists
 

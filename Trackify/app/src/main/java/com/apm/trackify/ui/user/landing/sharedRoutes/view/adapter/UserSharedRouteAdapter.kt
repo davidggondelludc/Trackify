@@ -9,32 +9,32 @@ import androidx.navigation.NavController
 import androidx.recyclerview.widget.ListAdapter
 import com.apm.trackify.R
 import com.apm.trackify.databinding.UserSharedRouteItemBinding
-import com.apm.trackify.ui.user.landing.UserLandingFragmentDirections
 import com.apm.trackify.provider.model.diff.RouteItemDiffUtil
 import com.apm.trackify.provider.model.domain.RouteItem
 import com.apm.trackify.provider.service.firebase.FirebaseService
 import com.apm.trackify.provider.service.spotify.SpotifyApi
+import com.apm.trackify.ui.user.landing.UserLandingFragmentDirections
 import com.apm.trackify.ui.user.landing.sharedRoutes.view.holder.UserSharedRouteViewHolder
 import com.apm.trackify.util.CoverUtil
+import com.apm.trackify.util.extension.toastError
+import com.apm.trackify.util.extension.toastSuccess
+import com.apm.trackify.util.maps.MapsUtil
 import com.google.android.gms.maps.model.LatLng
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
-import com.apm.trackify.util.extension.toastError
 
 class UserSharedRouteAdapter(
     reload: () -> Unit,
     spotifyApi: SpotifyApi,
-    navController: NavController,
+    private val navController: NavController,
     mapsDraw: (List<LatLng>) -> Unit
-) :
-    ListAdapter<RouteItem, UserSharedRouteViewHolder>(RouteItemDiffUtil()) {
+) : ListAdapter<RouteItem, UserSharedRouteViewHolder>(RouteItemDiffUtil()) {
 
-    private val myreload = reload
+    private val myReload = reload
     private val firebaseService = FirebaseService()
     private val mySpotifyApi = spotifyApi
-    private val navController = navController
     private val draw = mapsDraw
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): UserSharedRouteViewHolder {
@@ -55,7 +55,6 @@ class UserSharedRouteAdapter(
             )
         )
         holder.nameTextView.text = route.title
-        holder.followersTextView.text = route.creator
 
         holder.itemView.setOnClickListener {
             draw(route.coordinates)
@@ -89,7 +88,11 @@ class UserSharedRouteAdapter(
                         val intent = Intent(Intent.ACTION_SEND).apply {
                             putExtra(
                                 Intent.EXTRA_TEXT,
-                                view.resources.getText(R.string.share_route_text)
+                                "${view.resources.getText(R.string.share_route_text)} ${
+                                    MapsUtil.getRouteURL(
+                                        route.coordinates
+                                    )
+                                }"
                             )
                             type = "text/plain"
                         }
@@ -104,11 +107,12 @@ class UserSharedRouteAdapter(
                         firebaseService.deleteRoute(
                             route.id,
                             {
-                                view.context.toastError("Route deleted")
-                                myreload()
+                                view.context.toastSuccess(R.string.route_delete_success)
+                                myReload()
                             },
-                            { view.context.toastError("Could not delete route") })
-
+                            {
+                                view.context.toastError(R.string.route_delete_error)
+                            })
                         true
                     }
                     else -> false

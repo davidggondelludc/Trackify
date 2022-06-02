@@ -22,6 +22,12 @@
     <!-- route -->
     <dimen name="route_cover_padding">10dp</dimen>
 
+    <!-- internet alert dialog -->
+    <dimen name="dialog_title">20dp</dimen>
+    <dimen name="dialog_body">16dp</dimen>
+    <dimen name="dialog_margin">16dp</dimen>
+    <dimen name="dialog_horizontal_margin">54dp</dimen>
+
     <!-- playlists create layout -->
     <dimen name="playlists_create_layout_padding">16dp</dimen>
     <dimen name="playlists_create_search_layout_padding_bottom">16dp</dimen>
@@ -29,6 +35,9 @@
     <dimen name="playlists_create_layout_horizontal_padding">24dp</dimen>
     <dimen name="playlists_create_layout_vertical_padding">16dp</dimen>
     <dimen name="playlists_create_text_size">18sp</dimen>
+    <dimen name="playlists_create_divider">32dp</dimen>
+    <dimen name="playlists_create_duration_padding">24dp</dimen>
+    <dimen name="playlists_create_spinner_padding">32dp</dimen>
 
     <!-- playlists landing layout -->
     <dimen name="playlists_landing_layout_padding">16dp</dimen>
@@ -38,7 +47,7 @@
     <dimen name="playlists_landing_text_size_subtitle">14sp</dimen>
 
     <!-- users landing layout -->
-    <dimen name="user_username_title">20dp</dimen>
+    <dimen name="user_username_title">20sp</dimen>
     <dimen name="user_username_followers">12dp</dimen>
     <dimen name="user_mapview_height">200dp</dimen>
 </resources>

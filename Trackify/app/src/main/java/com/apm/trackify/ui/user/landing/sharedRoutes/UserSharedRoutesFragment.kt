@@ -15,6 +15,7 @@ import com.apm.trackify.provider.service.spotify.SpotifyApi
 import com.apm.trackify.ui.user.landing.sharedRoutes.view.adapter.UserSharedRouteAdapter
 import com.apm.trackify.ui.user.landing.sharedRoutes.view.model.UserSharedRoutesViewModel
 import com.apm.trackify.util.extension.toPx
+import com.apm.trackify.util.extension.toastError
 import com.apm.trackify.util.maps.MapsUtil
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.MapView
@@ -26,6 +27,14 @@ import javax.inject.Inject
 
 @AndroidEntryPoint
 class UserSharedRoutesFragment : Fragment(), OnMapReadyCallback {
+
+    companion object {
+        fun newInstance(userName: String) = UserSharedRoutesFragment().apply {
+            arguments = Bundle().apply {
+                putString("userName", userName)
+            }
+        }
+    }
 
     private val viewModel: UserSharedRoutesViewModel by viewModels()
 
@@ -46,20 +55,23 @@ class UserSharedRoutesFragment : Fragment(), OnMapReadyCallback {
 
         setupRecyclerView(binding.rvSharedRouteItems)
 
-        val properties: Properties = Properties()
+        val properties = Properties()
         val mapViewBundle: Bundle? =
             savedInstanceState?.getBundle(properties.getProperty("MAPS_API_KEY"))
         mapView = binding.mapViewFragment
         mapView.onCreate(mapViewBundle)
         mapView.getMapAsync(this)
-        viewModel.findRoutes()
+
+        val userName = arguments?.getString("userName") ?: "usuario"
+        viewModel.findRoutes(userName)
     }
 
     private fun setupRecyclerView(recyclerView: RecyclerView) {
         val navController = findNavController()
+        val userName = arguments?.getString("userName") ?: "usuario"
         val routeAdapter =
             UserSharedRouteAdapter(
-                { viewModel.findRoutes() },
+                { viewModel.findRoutes(userName) },
                 spotifyApi,
                 navController,
                 { coordinates: List<LatLng> -> mapUtil.drawRouteAndSetOnClick(coordinates) }
@@ -70,6 +82,12 @@ class UserSharedRoutesFragment : Fragment(), OnMapReadyCallback {
 
         recyclerView.adapter = routeAdapter
         recyclerView.layoutManager = LinearLayoutManager(context)
+    }
+
+    private fun setUpObservers(binding: UserSharedRoutesFragmentBinding) {
+        viewModel.error.observe(viewLifecycleOwner) {
+            context?.toastError(it)
+        }
     }
 
     override fun onMapReady(googleMap: GoogleMap) {

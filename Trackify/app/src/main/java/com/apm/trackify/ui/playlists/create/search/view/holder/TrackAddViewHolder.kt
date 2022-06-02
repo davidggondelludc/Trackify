@@ -4,8 +4,9 @@ import androidx.recyclerview.widget.RecyclerView
 import com.apm.trackify.databinding.PlaylistsTrackAddItemBinding
 import com.apm.trackify.util.extension.scaleOnTouch
 
-class TrackAddViewHolder(val binding: PlaylistsTrackAddItemBinding) :
-    RecyclerView.ViewHolder(binding.root) {
+class TrackAddViewHolder(
+    val binding: PlaylistsTrackAddItemBinding
+) : RecyclerView.ViewHolder(binding.root) {
 
     val coverImageView = binding.cover
     val nameTextView = binding.name

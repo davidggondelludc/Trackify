@@ -4,11 +4,10 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.apm.trackify.R
-import com.apm.trackify.provider.model.MockProvider
-import com.apm.trackify.provider.model.domain.PlaylistItem
+import com.apm.trackify.provider.model.domain.PlaylistRequestItem
 import com.apm.trackify.provider.model.domain.TrackItem
 import com.apm.trackify.provider.repository.SpotifyRepository
-import com.apm.trackify.provider.repository.enum.Duration
+import com.apm.trackify.provider.repository.data.Duration
 import com.apm.trackify.provider.service.media.MediaServiceLifecycle
 import com.apm.trackify.util.extension.swap
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -31,32 +30,33 @@ class PlaylistCreateViewModel @Inject constructor(
     private val spotifyRepository: SpotifyRepository,
 ) : ViewModel() {
 
+    val loading = MutableLiveData<Boolean>()
     val error = MutableLiveData<Int>()
-    val playlist = MutableLiveData<PlaylistItem>()
+    val playlist = PlaylistRequestItem()
     val tracks = MutableLiveData<List<TrackItem>>()
 
     private var tracklist = mutableListOf<TrackItem>()
 
-    init {
-        playlist.value = MockProvider.playlist
-        generateTracklist(Duration.SHORT)
-    }
-
     fun generateTracklist(duration: Duration) {
-        viewModelScope.launch {
-            try {
-                tracklist = spotifyRepository.generateTracklist(duration).toMutableList()
-                tracks.value = tracklist.toList()
-            } catch (e: HttpException) {
-                error.value = R.string.error
-            } catch (e: IOException) {
-                error.value = R.string.internet
+        if (tracklist.isEmpty() || playlist.duration != duration) {
+            playlist.duration = duration
+            loading.value = true
+            viewModelScope.launch {
+                try {
+                    tracklist = spotifyRepository.generateTracklist(duration).toMutableList()
+                    tracks.value = tracklist.toList()
+                    loading.value = false
+                } catch (e: HttpException) {
+                    error.value = R.string.error
+                } catch (e: IOException) {
+                    error.value = R.string.internet
+                }
             }
         }
     }
 
     fun add(trackItem: TrackItem) {
-        tracklist.add(trackItem)
+        tracklist.add(0, trackItem)
         tracks.value = tracklist.toList()
     }
 
@@ -72,10 +72,12 @@ class PlaylistCreateViewModel @Inject constructor(
     }
 
     fun savePlaylist(execute: () -> Unit) {
+        loading.value = true
         viewModelScope.launch {
             try {
-                spotifyRepository.createPlaylist("", tracklist)
+                spotifyRepository.createPlaylist(playlist.name, tracklist)
                 execute()
+                loading.value = false
             } catch (e: HttpException) {
                 error.value = R.string.error
             } catch (e: IOException) {

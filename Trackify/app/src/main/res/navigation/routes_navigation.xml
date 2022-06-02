@@ -23,6 +23,22 @@
             app:exitAnim="@anim/fade_out"
             app:popEnterAnim="@anim/fade_in"
             app:popExitAnim="@anim/fade_out" />
+        <action
+            android:id="@+id/action_routes_fragment_to_user_following_profile_fragment"
+            app:destination="@id/user_following_profile_fragment"
+            app:enterAnim="@anim/fade_in"
+            app:exitAnim="@anim/fade_out"
+            app:popEnterAnim="@anim/fade_in"
+            app:popExitAnim="@anim/fade_out" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/user_following_profile_fragment"
+        android:name="com.apm.trackify.ui.user.followingProfile.FollowingProfileFragment"
+        tools:layout="@layout/user_following_profile_fragment">
+        <argument
+            android:name="userId"
+            app:argType="string" />
     </fragment>
 
     <fragment
