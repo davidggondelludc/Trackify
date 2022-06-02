@@ -69,6 +69,8 @@
     <string name="route_name">Route name</string>
     <string name="create_route_description">Tap in the map to add up to 9 markers</string>
     <string name="delete_markers">Delete markers</string>
+    <string name="create_route_title">Create route and select a playlist</string>
+
 
     <!-- user landing -->
     <string name="share_route_title">Sharing route</string>
