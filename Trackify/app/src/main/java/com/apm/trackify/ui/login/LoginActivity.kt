@@ -3,7 +3,6 @@ package com.apm.trackify.ui.login
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.os.Bundle
-import android.view.ViewTreeObserver
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
@@ -27,7 +26,6 @@ class LoginActivity : AppCompatActivity() {
         const val AUTH_TOKEN_REQUEST_CODE = 0x10
     }
 
-    private var isReady = false
     private val viewModel: LoginActivityViewModel by viewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -57,7 +55,6 @@ class LoginActivity : AppCompatActivity() {
         AuthorizationClient.openLoginActivity(this, AUTH_TOKEN_REQUEST_CODE, request)
 
         checkLocationPermission()
-
     }
 
     @Deprecated("Deprecated in Java")
@@ -79,14 +76,13 @@ class LoginActivity : AppCompatActivity() {
                 viewModel.checkUserCreated({
                     val mainActivityIntent = Intent(this, MainActivity::class.java)
                     startActivity(mainActivityIntent)
-                    finish()
                 }, {
                     val loginActivityIntent = Intent(this, LoginActivity::class.java)
                     startActivity(loginActivityIntent)
-                    finish()
                 })
             }
         }
+        finish()
     }
 
     override fun onBackPressed() {
