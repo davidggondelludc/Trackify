@@ -53,6 +53,7 @@ class MapsUtilCreateRoute(
     fun setDefaultSettings() {
         map.mapType = GoogleMap.MAP_TYPE_NORMAL
         map.uiSettings.setAllGesturesEnabled(true)
+        map.uiSettings.isZoomControlsEnabled = true
         map.isBuildingsEnabled = false
         map.isTrafficEnabled = false
         map.setOnMapClickListener(this)

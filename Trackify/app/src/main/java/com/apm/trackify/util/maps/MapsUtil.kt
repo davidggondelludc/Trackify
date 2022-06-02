@@ -27,6 +27,26 @@ class MapsUtil(var map: GoogleMap, val context: Context?, val width: Int, val he
         "nueve"
     )
 
+    companion object {
+        fun getRouteURL(coordinates: List<LatLng>): String {
+            if (coordinates.size >= 2) {
+                var auxUrl = "https://www.google.com/maps/dir/?api=1&"
+                auxUrl += "origin=" + coordinates[0].latitude + "," + coordinates[0].longitude + "&"
+                val waypoints = coordinates.subList(1, coordinates.size - 1)
+                auxUrl += "waypoints="
+                waypoints.forEachIndexed { index, it ->
+                    auxUrl += it.latitude.toString() + "," + it.longitude.toString()
+                    if (index != waypoints.size - 1) {
+                        auxUrl += "|"
+                    }
+                }
+                auxUrl += "&destination=" + coordinates[coordinates.size - 1].latitude + "," + coordinates[coordinates.size - 1].longitude + "&travelmode=walking"
+                return auxUrl
+            }
+            return ""
+        }
+    }
+
     fun setDefaultSettings() {
         map.mapType = GoogleMap.MAP_TYPE_NORMAL
         map.uiSettings.setAllGesturesEnabled(false)
@@ -50,18 +70,7 @@ class MapsUtil(var map: GoogleMap, val context: Context?, val width: Int, val he
     fun drawRouteAndSetOnClick(coordinates: List<LatLng>) {
         if (coordinates.size >= 2) {
             drawRoute(coordinates)
-            var auxUrl = "https://www.google.com/maps/dir/?api=1&"
-            auxUrl += "origin=" + coordinates[0].latitude + "," + coordinates[0].longitude + "&"
-            val waypoints = coordinates.subList(1, coordinates.size - 1)
-            auxUrl += "waypoints="
-            waypoints.forEachIndexed { index, it ->
-                auxUrl += it.latitude.toString() + "," + it.longitude.toString()
-                if (index != waypoints.size - 1) {
-                    auxUrl += "|"
-                }
-            }
-            auxUrl += "&destination=" + coordinates[coordinates.size - 1].latitude + "," + coordinates[coordinates.size - 1].longitude + "&travelmode=walking"
-            mapsRouteUrl = auxUrl
+            mapsRouteUrl = getRouteURL(coordinates)
             map.setOnMapClickListener(this)
         }
     }

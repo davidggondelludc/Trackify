@@ -12,6 +12,7 @@ class PlaylistRouteViewHolder(
     val nameTextView = binding.name
     val ownerTextView = binding.owner
     val more = binding.more1
+    val profile = binding.btnSeeProfile
 
     init {
         scaleOnTouch()

@@ -18,6 +18,7 @@ import com.apm.trackify.ui.user.landing.sharedRoutes.view.holder.UserSharedRoute
 import com.apm.trackify.util.CoverUtil
 import com.apm.trackify.util.extension.toastError
 import com.apm.trackify.util.extension.toastSuccess
+import com.apm.trackify.util.maps.MapsUtil
 import com.google.android.gms.maps.model.LatLng
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -88,7 +89,11 @@ class UserSharedRouteAdapter(
                         val intent = Intent(Intent.ACTION_SEND).apply {
                             putExtra(
                                 Intent.EXTRA_TEXT,
-                                view.resources.getText(R.string.share_route_text)
+                                "${view.resources.getText(R.string.share_route_text)} ${
+                                    MapsUtil.getRouteURL(
+                                        route.coordinates
+                                    )
+                                }"
                             )
                             type = "text/plain"
                         }
