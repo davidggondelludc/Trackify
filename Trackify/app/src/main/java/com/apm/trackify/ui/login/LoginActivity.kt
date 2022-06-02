@@ -76,13 +76,18 @@ class LoginActivity : AppCompatActivity() {
                 viewModel.checkUserCreated({
                     val mainActivityIntent = Intent(this, MainActivity::class.java)
                     startActivity(mainActivityIntent)
+                    finish()
                 }, {
                     val loginActivityIntent = Intent(this, LoginActivity::class.java)
                     startActivity(loginActivityIntent)
+                    finish()
                 })
+            } else {
+                finish()
             }
+        } else {
+            finish()
         }
-        finish()
     }
 
     override fun onBackPressed() {
