@@ -10,13 +10,13 @@ import androidx.fragment.app.viewModels
 import androidx.viewpager2.widget.ViewPager2
 import com.apm.trackify.R
 import com.apm.trackify.databinding.UserLandingFragmentBinding
-import com.apm.trackify.provider.service.firebase.FirebaseService
 import com.apm.trackify.ui.login.LoginActivity
 import com.apm.trackify.ui.main.MainApplication
+import com.apm.trackify.ui.user.landing.qr.QRBottomSheet
 import com.apm.trackify.ui.user.landing.view.model.UserLandingViewModel
 import com.apm.trackify.util.extension.setupToolbar
-import com.apm.trackify.util.extension.toggleVisibility
 import com.apm.trackify.util.extension.toastError
+import com.apm.trackify.util.extension.toggleVisibility
 import com.google.android.material.tabs.TabLayout
 import com.spotify.sdk.android.auth.AuthorizationClient
 import dagger.hilt.android.AndroidEntryPoint
@@ -37,6 +37,16 @@ class UserLandingFragment : Fragment() {
 
         binding.toolbar.setOnMenuItemClickListener {
             when (it.itemId) {
+                R.id.qr -> {
+                    if (viewModel.userId != null) {
+                        val bottomSheet = QRBottomSheet().apply {
+                            arguments = Bundle().apply {
+                                putString("user", viewModel.userId)
+                            }
+                        }
+                        bottomSheet.show(requireActivity().supportFragmentManager, "QR")
+                    }
+                }
                 R.id.signOff -> {
                     MainApplication.TOKEN = null
                     AuthorizationClient.clearCookies(requireContext())
