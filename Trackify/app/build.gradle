@@ -20,7 +20,7 @@ android {
 
         // This number is used only to determine whether one version is more recent than another,
         // with higher numbers indicating more recent versions
-        versionCode 5
+        versionCode 6
 
         // A string used as the version number shown to users. The value is a string so that you
         // can describe the app version as a <major>.<minor>.<point> string
