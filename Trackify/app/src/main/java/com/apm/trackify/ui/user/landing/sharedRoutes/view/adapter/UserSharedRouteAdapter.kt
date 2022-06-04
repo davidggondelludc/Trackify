@@ -16,6 +16,7 @@ import com.apm.trackify.provider.service.spotify.SpotifyApi
 import com.apm.trackify.ui.user.landing.UserLandingFragmentDirections
 import com.apm.trackify.ui.user.landing.sharedRoutes.view.holder.UserSharedRouteViewHolder
 import com.apm.trackify.util.CoverUtil
+import com.apm.trackify.util.extension.loadFromURI
 import com.apm.trackify.util.extension.toastError
 import com.apm.trackify.util.extension.toastSuccess
 import com.apm.trackify.util.maps.MapsUtil
@@ -60,6 +61,19 @@ class UserSharedRouteAdapter(
             draw(route.coordinates)
         }
 
+        CoroutineScope(Dispatchers.IO).launch {
+            val response = mySpotifyApi.getPlaylistById(route.playlistId)
+            withContext(Dispatchers.Main) {
+                if (response.isSuccessful) {
+                    val playlist = response.body()?.toPlaylistItem()
+                    if (playlist != null) {
+                        val image = playlist.imageUri
+                        holder.coverImageView.loadFromURI(image, R.drawable.placeholder_playlist)
+                    }
+                }
+            }
+        }
+
         holder.moreButton.setOnClickListener { view ->
             val popupMenu = PopupMenu(view.context, holder.moreButton)
             popupMenu.menuInflater.inflate(R.menu.popup_route_menu, popupMenu.menu)
@@ -88,11 +102,11 @@ class UserSharedRouteAdapter(
                         val intent = Intent(Intent.ACTION_SEND).apply {
                             putExtra(
                                 Intent.EXTRA_TEXT,
-                                "${view.resources.getText(R.string.share_route_text)} ${
+                                "${view.resources.getText(R.string.share_route_text)}\nRoute: ${
                                     MapsUtil.getRouteURL(
                                         route.coordinates
                                     )
-                                }"
+                                }\nPlaylist: https://open.spotify.com/playlist/${route.playlistId}"
                             )
                             type = "text/plain"
                         }

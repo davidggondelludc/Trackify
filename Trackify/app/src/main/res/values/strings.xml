@@ -32,6 +32,8 @@
     <string name="couldNotFollow">Could not follow user</string>
     <string name="couldNotUnfollow">Could not unfollow user</string>
     <string name="couldNotFindRoutes">Could not find any routes</string>
+    <string name="couldNotFindLocation">No Location Detected. Make sure permissions are granted and location is on</string>
+
     <string name="internet">No internet connection</string>
     <string name="preview_url">Preview unavailable for this track</string>
 
@@ -86,7 +88,7 @@
 
     <!-- user landing -->
     <string name="share_route_title">Sharing route</string>
-    <string name="share_route_text">Check this route on Trackify</string>
+    <string name="share_route_text">Check the playlist on this route from #Trackify</string>
     <string name="view_playlist">View playlist</string>
     <string name="route_delete_success">Route deleted</string>
     <string name="route_delete_error">Could not delete route</string>

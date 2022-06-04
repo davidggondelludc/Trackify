@@ -10,13 +10,17 @@ import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.apm.trackify.databinding.UserFollowingFragmentBinding
+import com.apm.trackify.provider.service.spotify.SpotifyApi
 import com.apm.trackify.ui.user.landing.UserLandingFragmentDirections
 import com.apm.trackify.ui.user.landing.following.view.adapter.UserFollowingAdapter
 import com.apm.trackify.ui.user.landing.following.view.model.UserFollowingViewModel
 import com.journeyapps.barcodescanner.ScanContract
 import com.journeyapps.barcodescanner.ScanIntentResult
 import com.journeyapps.barcodescanner.ScanOptions
+import dagger.hilt.android.AndroidEntryPoint
+import javax.inject.Inject
 
+@AndroidEntryPoint
 class UserFollowingFragment : Fragment() {
 
     companion object {
@@ -27,6 +31,8 @@ class UserFollowingFragment : Fragment() {
         }
     }
 
+    @Inject
+    lateinit var spotifyApi: SpotifyApi
     private val viewModel: UserFollowingViewModel by viewModels()
 
     private val barcodeLauncher =
@@ -64,7 +70,7 @@ class UserFollowingFragment : Fragment() {
     }
 
     private fun setupRecyclerView(recyclerView: RecyclerView) {
-        val userFollowingAdapter = UserFollowingAdapter()
+        val userFollowingAdapter = UserFollowingAdapter(spotifyApi)
         viewModel.users.observe(viewLifecycleOwner) {
             userFollowingAdapter.submitList(it)
         }

@@ -7,23 +7,18 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
-import androidx.core.view.size
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.viewModels
-import androidx.lifecycle.MutableLiveData
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.apm.trackify.R
 import com.apm.trackify.databinding.RoutesLandingFragmentBinding
-import com.apm.trackify.provider.model.domain.RouteItem
-import com.apm.trackify.provider.service.firebase.FirebaseService
 import com.apm.trackify.provider.service.spotify.SpotifyApi
 import com.apm.trackify.ui.routes.landing.view.adapter.PlaylistRouteAdapter
 import com.apm.trackify.ui.routes.landing.view.model.RoutesLandingViewModel
 import com.apm.trackify.util.extension.setupToolbar
 import com.apm.trackify.util.extension.toPx
+import com.apm.trackify.util.extension.toastError
 import com.apm.trackify.util.maps.MapsUtil
 import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.location.LocationServices
@@ -69,8 +64,8 @@ class RoutesLandingFragment : Fragment(), OnMapReadyCallback {
 
     @SuppressLint("MissingPermission")
     private fun setupRecyclerView(recyclerView: RecyclerView) {
-        val playlistRoutesAdapter = PlaylistRouteAdapter(spotifyApi) {
-            coordinates: List<LatLng> -> mapUtil.drawRouteAndSetOnClick(coordinates)
+        val playlistRoutesAdapter = PlaylistRouteAdapter(spotifyApi) { coordinates: List<LatLng> ->
+            mapUtil.drawRouteAndSetOnClick(coordinates)
         }
 
         fusedLocationClient.lastLocation
@@ -85,9 +80,7 @@ class RoutesLandingFragment : Fragment(), OnMapReadyCallback {
                     recyclerView.layoutManager = LinearLayoutManager(context)
                 } else {
                     Log.w(TAG, "getLastLocation:exception", taskLocation.exception)
-                    Toast.makeText(requireContext(),
-                        "No Location Detected. Make sure permissions are granted",
-                        Toast.LENGTH_SHORT).show()
+                    context?.toastError(R.string.couldNotFindLocation)
                     val navController = findNavController()
                     navController.navigateUp()
                 }
@@ -108,9 +101,7 @@ class RoutesLandingFragment : Fragment(), OnMapReadyCallback {
                     mapUtil.createUserMarker(userCoordinate)
                 } else {
                     Log.w(TAG, "getLastLocation:exception", taskLocation.exception)
-                    Toast.makeText(requireContext(),
-                        "No Location Detected. Make sure permissions are granted",
-                        Toast.LENGTH_SHORT).show()
+                    context?.toastError(R.string.couldNotFindLocation)
                     val navController = findNavController()
                     navController.navigateUp()
                 }

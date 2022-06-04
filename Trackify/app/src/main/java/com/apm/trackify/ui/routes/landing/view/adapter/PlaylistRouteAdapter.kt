@@ -38,6 +38,9 @@ class PlaylistRouteAdapter(
         holder.ownerTextView.text = route.creator
 
         CoroutineScope(Dispatchers.IO).launch {
+            mySpotifyApi.getUserById(route.creator).onSuccess {
+                holder.ownerTextView.text = it.display_name
+            }
             val response = mySpotifyApi.getPlaylistById(route.playlistId)
             withContext(Dispatchers.Main) {
                 if (response.isSuccessful) {
