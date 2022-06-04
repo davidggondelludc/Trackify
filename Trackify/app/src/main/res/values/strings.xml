@@ -87,6 +87,13 @@
     <string name="create_route_description">Tap in the map to add up to 9 markers</string>
     <string name="clear_markers">Clear</string>
     <string name="create_route_title">Create route and select a playlist</string>
+    <string name="create_route_markers_error">Introduce at least 2 markers in the map</string>
+    <string name="create_route_name_error">Introduce the name of the route</string>
+    <string name="create_route_playlist_selection_error">Select one playlist</string>
+    <string name="create_route_unknown_error">An error have occurred, please try again later</string>Route created successfully!
+    <string name="create_route_success">Route created successfully!</string>
+    <string name="create_route_location_error">No Location Detected. Make sure permissions are granted and location is enabled</string>
+
 
     <!-- user landing -->
     <string name="share_route_title">Sharing route</string>

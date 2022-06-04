@@ -22,6 +22,7 @@ import com.apm.trackify.ui.routes.create.view.model.RoutesCreateViewModel
 import com.apm.trackify.util.extension.setupToolbar
 import com.apm.trackify.util.extension.toPx
 import com.apm.trackify.util.extension.toastError
+import com.apm.trackify.util.extension.toastSuccess
 import com.apm.trackify.util.maps.MapsUtilCreateRoute
 import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.location.LocationServices
@@ -79,25 +80,17 @@ class RouteCreateFragment : Fragment(), OnMapReadyCallback {
                             {})
                         val navController = findNavController()
                         navController.navigateUp()
-                        Toast.makeText(
-                            this.context,
-                            "Route created successfully!",
-                            Toast.LENGTH_SHORT
-                        ).show()
+                        context?.toastSuccess(R.string.create_route_success)
                     }
                 }
             } else if (mapUtil.getAllMarkers().size <= 1) {
-                Toast.makeText(
-                    context,
-                    "Introduce at least 2 markers in the map",
-                    Toast.LENGTH_SHORT
-                ).show()
+                context?.toastError(R.string.create_route_markers_error)
             } else if (binding.routeName.text.toString().isEmpty()) {
-                Toast.makeText(context, "Introduce the name of the route", Toast.LENGTH_SHORT).show()
+                context?.toastError(R.string.create_route_name_error)
             } else if (numberPlaylistSelected == -1) {
-                Toast.makeText(context, "Select one playlist", Toast.LENGTH_SHORT).show()
+                context?.toastError(R.string.create_route_playlist_selection_error)
             } else {
-                Toast.makeText(context, "An error have occurred, please try again later", Toast.LENGTH_SHORT).show()
+                context?.toastError(R.string.create_route_unknown_error)
             }
             true
         }
@@ -140,11 +133,7 @@ class RouteCreateFragment : Fragment(), OnMapReadyCallback {
                     mapUtil.setUpMap(fusedLocationClient)
                 } else {
                     Log.w(ContentValues.TAG, "getLastLocation:exception", taskLocation.exception)
-                    Toast.makeText(
-                        requireContext(),
-                        "No Location Detected. Make sure permissions are granted",
-                        Toast.LENGTH_SHORT
-                    ).show()
+                    context?.toastError(R.string.create_route_location_error)
                     val navController = findNavController()
                     navController.navigateUp()
                 }
