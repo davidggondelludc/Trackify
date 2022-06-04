@@ -10,24 +10,32 @@ import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.apm.trackify.databinding.UserFollowingFragmentBinding
+import com.apm.trackify.provider.service.spotify.SpotifyApi
 import com.apm.trackify.ui.user.landing.UserLandingFragmentDirections
 import com.apm.trackify.ui.user.landing.following.view.adapter.UserFollowingAdapter
 import com.apm.trackify.ui.user.landing.following.view.model.UserFollowingViewModel
+import com.apm.trackify.util.extension.toastError
 import com.journeyapps.barcodescanner.ScanContract
 import com.journeyapps.barcodescanner.ScanIntentResult
 import com.journeyapps.barcodescanner.ScanOptions
+import dagger.hilt.android.AndroidEntryPoint
+import javax.inject.Inject
 
+@AndroidEntryPoint
 class UserFollowingFragment : Fragment() {
 
     companion object {
-        fun newInstance(userName: String) = UserFollowingFragment().apply {
+        fun newInstance(userId: String) = UserFollowingFragment().apply {
             arguments = Bundle().apply {
-                putString("userName", userName)
+                putString("userId", userId)
             }
         }
     }
 
+    @Inject
+    lateinit var spotifyApi: SpotifyApi
     private val viewModel: UserFollowingViewModel by viewModels()
+    private var showedError = false
 
     private val barcodeLauncher =
         registerForActivityResult(ScanContract()) { result: ScanIntentResult ->
@@ -50,6 +58,7 @@ class UserFollowingFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         val binding = UserFollowingFragmentBinding.bind(view)
 
+        viewModel.error.value = null
         binding.btnReadUserQr.setOnClickListener {
             barcodeLauncher.launch(ScanOptions().apply {
                 setDesiredBarcodeFormats(ScanOptions.QR_CODE)
@@ -59,17 +68,27 @@ class UserFollowingFragment : Fragment() {
 
         setupRecyclerView(binding.rvUsersFollowing)
 
-        val userName = arguments?.getString("userName") ?: "usuario"
-        viewModel.findFollowingUsers(userName)
+        setupObservers()
+        val userId = arguments?.getString("userId") ?: ""
+        viewModel.findFollowingUsers(userId)
     }
 
     private fun setupRecyclerView(recyclerView: RecyclerView) {
-        val userFollowingAdapter = UserFollowingAdapter()
+        val userFollowingAdapter = UserFollowingAdapter(spotifyApi)
         viewModel.users.observe(viewLifecycleOwner) {
             userFollowingAdapter.submitList(it)
         }
 
         recyclerView.adapter = userFollowingAdapter
         recyclerView.layoutManager = LinearLayoutManager(context)
+    }
+
+    private fun setupObservers() {
+        viewModel.error.observe(viewLifecycleOwner) {
+            if (!showedError && viewModel.error.value != null) {
+                context?.toastError(it)
+                showedError = true
+            }
+        }
     }
 }
