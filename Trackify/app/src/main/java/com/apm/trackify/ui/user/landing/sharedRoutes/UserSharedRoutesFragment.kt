@@ -53,8 +53,6 @@ class UserSharedRoutesFragment : Fragment(), OnMapReadyCallback {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         binding = UserSharedRoutesFragmentBinding.bind(view)
 
-        setupRecyclerView(binding.rvSharedRouteItems)
-
         val properties = Properties()
         val mapViewBundle: Bundle? =
             savedInstanceState?.getBundle(properties.getProperty("MAPS_API_KEY"))
@@ -62,8 +60,6 @@ class UserSharedRoutesFragment : Fragment(), OnMapReadyCallback {
         mapView.onCreate(mapViewBundle)
         mapView.getMapAsync(this)
 
-        val userName = arguments?.getString("userName") ?: "usuario"
-        viewModel.findRoutes(userName)
     }
 
     private fun setupRecyclerView(recyclerView: RecyclerView) {
@@ -94,6 +90,10 @@ class UserSharedRoutesFragment : Fragment(), OnMapReadyCallback {
         val heightpx = resources.getDimension(R.dimen.user_mapview_height).toPx.toInt()
         mapUtil = MapsUtil(googleMap, context, resources.displayMetrics.widthPixels, heightpx)
         mapUtil.setDefaultSettings()
+
+        setupRecyclerView(binding.rvSharedRouteItems)
+        val userName = arguments?.getString("userName") ?: "usuario"
+        viewModel.findRoutes(userName)
     }
 
     override fun onResume() {
