@@ -29,13 +29,15 @@ import javax.inject.Inject
 class UserSharedRoutesFragment : Fragment(), OnMapReadyCallback {
 
     companion object {
-        fun newInstance(userId: String) = UserSharedRoutesFragment().apply {
+        fun newInstance(userId: String, me: Boolean) = UserSharedRoutesFragment().apply {
             arguments = Bundle().apply {
                 putString("userId", userId)
+                putBoolean("me", me)
             }
         }
     }
 
+    private var showedError = false
     private val viewModel: UserSharedRoutesViewModel by viewModels()
 
     @Inject
@@ -53,6 +55,7 @@ class UserSharedRoutesFragment : Fragment(), OnMapReadyCallback {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         binding = UserSharedRoutesFragmentBinding.bind(view)
 
+        viewModel.error.value = null
         val properties = Properties()
         val mapViewBundle: Bundle? =
             savedInstanceState?.getBundle(properties.getProperty("MAPS_API_KEY"))
@@ -80,7 +83,8 @@ class UserSharedRoutesFragment : Fragment(), OnMapReadyCallback {
                     } catch (ex: Exception) {
                         context?.toastError(R.string.couldNotDrawRoute)
                     }
-                }
+                },
+                arguments?.getBoolean("me") ?: false
             )
         viewModel.routes.observe(viewLifecycleOwner) {
             routeAdapter.submitList(it)
@@ -92,7 +96,10 @@ class UserSharedRoutesFragment : Fragment(), OnMapReadyCallback {
 
     private fun setUpObservers(binding: UserSharedRoutesFragmentBinding) {
         viewModel.error.observe(viewLifecycleOwner) {
-            context?.toastError(it)
+            if (!showedError && viewModel.error.value != null) {
+                context?.toastError(it)
+                showedError = true
+            }
         }
     }
 

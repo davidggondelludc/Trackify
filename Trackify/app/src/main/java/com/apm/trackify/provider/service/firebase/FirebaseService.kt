@@ -168,27 +168,32 @@ class FirebaseService {
         if (userId != "") {
             db.collection("routes").whereEqualTo("creator", userId).get()
                 .addOnSuccessListener { documents ->
-                    for (document in documents) {
-                        val coords = document.data["coordinates"] as List<HashMap<String, Double>>
-                        val newCoords = ArrayList<LatLng>()
-                        for (coord in coords) {
-                            val lat = coord["latitude"]
-                            val long = coord["longitude"]
-                            if (lat != null && long != null) {
-                                newCoords.add(LatLng(lat, long))
+                    if (!documents.isEmpty) {
+                        for (document in documents) {
+                            val coords =
+                                document.data["coordinates"] as List<HashMap<String, Double>>
+                            val newCoords = ArrayList<LatLng>()
+                            for (coord in coords) {
+                                val lat = coord["latitude"]
+                                val long = coord["longitude"]
+                                if (lat != null && long != null) {
+                                    newCoords.add(LatLng(lat, long))
+                                }
                             }
-                        }
-                        forEachRoute(
-                            RouteItem(
-                                document.id,
-                                document.data["name"] as String,
-                                document.data["playlistId"] as String,
-                                document.data["firstLat"] as Double,
-                                document.data["firstLong"] as Double,
-                                newCoords,
-                                document.data["creator"] as String
+                            forEachRoute(
+                                RouteItem(
+                                    document.id,
+                                    document.data["name"] as String,
+                                    document.data["playlistId"] as String,
+                                    document.data["firstLat"] as Double,
+                                    document.data["firstLong"] as Double,
+                                    newCoords,
+                                    document.data["creator"] as String
+                                )
                             )
-                        )
+                        }
+                    } else {
+                        onFailure()
                     }
                 }.addOnFailureListener {
                     onFailure()
@@ -229,8 +234,13 @@ class FirebaseService {
                 .addOnSuccessListener { myDocument ->
                     val data = myDocument.data?.get("following")
                     if (data != null) {
-                        for (doc in data as MutableList<DocumentReference>) {
-                            getUser(doc.id, forEachUser, onFailure)
+                        val docs = data as MutableList<DocumentReference>
+                        if (docs.isNotEmpty()) {
+                            for (doc in docs) {
+                                getUser(doc.id, forEachUser, onFailure)
+                            }
+                        } else {
+                            onFailure()
                         }
                     }
                 }.addOnFailureListener {

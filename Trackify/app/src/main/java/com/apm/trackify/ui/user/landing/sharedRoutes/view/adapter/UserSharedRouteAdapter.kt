@@ -27,16 +27,14 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 
 class UserSharedRouteAdapter(
-    reload: () -> Unit,
-    spotifyApi: SpotifyApi,
+    private val reload: () -> Unit,
+    private val spotifyApi: SpotifyApi,
     private val navController: NavController,
-    mapsDraw: (List<LatLng>) -> Unit
+    private val mapsDraw: (List<LatLng>) -> Unit,
+    private val me: Boolean
 ) : ListAdapter<RouteItem, UserSharedRouteViewHolder>(RouteItemDiffUtil()) {
 
-    private val myReload = reload
     private val firebaseService = FirebaseService()
-    private val mySpotifyApi = spotifyApi
-    private val draw = mapsDraw
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): UserSharedRouteViewHolder {
         val inflater = LayoutInflater.from(parent.context)
@@ -58,11 +56,11 @@ class UserSharedRouteAdapter(
         holder.nameTextView.text = route.title
 
         holder.itemView.setOnClickListener {
-            draw(route.coordinates)
+            mapsDraw(route.coordinates)
         }
 
         CoroutineScope(Dispatchers.IO).launch {
-            val response = mySpotifyApi.getPlaylistById(route.playlistId)
+            val response = spotifyApi.getPlaylistById(route.playlistId)
             withContext(Dispatchers.Main) {
                 if (response.isSuccessful) {
                     val playlist = response.body()?.toPlaylistItem()
@@ -76,12 +74,17 @@ class UserSharedRouteAdapter(
 
         holder.moreButton.setOnClickListener { view ->
             val popupMenu = PopupMenu(view.context, holder.moreButton)
-            popupMenu.menuInflater.inflate(R.menu.popup_route_menu, popupMenu.menu)
+            if (me) {
+                popupMenu.menuInflater.inflate(R.menu.popup_route_menu, popupMenu.menu)
+            } else {
+                popupMenu.menuInflater.inflate(R.menu.popup_route_menu_without_delete, popupMenu.menu)
+            }
+
             popupMenu.setOnMenuItemClickListener {
                 when (it.itemId) {
                     R.id.viewPlaylist -> {
                         CoroutineScope(Dispatchers.IO).launch {
-                            val response = mySpotifyApi.getPlaylistById(route.playlistId)
+                            val response = spotifyApi.getPlaylistById(route.playlistId)
 
                             withContext(Dispatchers.Main) {
                                 if (response.isSuccessful) {
@@ -118,15 +121,17 @@ class UserSharedRouteAdapter(
                         true
                     }
                     R.id.delete -> {
-                        firebaseService.deleteRoute(
-                            route.id,
-                            {
-                                view.context.toastSuccess(R.string.route_delete_success)
-                                myReload()
-                            },
-                            {
-                                view.context.toastError(R.string.route_delete_error)
-                            })
+                        if (me) {
+                            firebaseService.deleteRoute(
+                                route.id,
+                                {
+                                    view.context.toastSuccess(R.string.route_delete_success)
+                                    reload()
+                                },
+                                {
+                                    view.context.toastError(R.string.route_delete_error)
+                                })
+                        }
                         true
                     }
                     else -> false

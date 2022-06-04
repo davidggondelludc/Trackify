@@ -33,6 +33,7 @@
     <string name="couldNotUnfollow">Could not unfollow user</string>
     <string name="couldNotFindRoutes">Could not find any routes</string>
     <string name="couldNotDrawRoute">Could not draw the route on the map</string>
+    <string name="couldNotFindFollowingUsers">Could not find any following users</string>
     <string name="couldNotFindLocation">No Location Detected. Make sure permissions are granted and location is on</string>
 
     <string name="internet">No internet connection</string>

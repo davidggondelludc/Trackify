@@ -64,19 +64,12 @@ class UserLandingFragment : Fragment() {
             true
         }
         setupToolbar(binding.toolbar)
-        val tabletSize = resources.getBoolean(R.bool.isTablet)
-        if (tabletSize) {
-            setUpFragments("")
-        } else {
-            setupViewPager(binding)
-        }
-
         setupObservers(binding)
     }
 
     private fun setUpFragments(userId: String) {
         val fragmentTransaction = childFragmentManager.beginTransaction()
-        val sharedRoutesFragment = UserSharedRoutesFragment.newInstance(userId)
+        val sharedRoutesFragment = UserSharedRoutesFragment.newInstance(userId, false)
         val userFollowingFragment = UserFollowingFragment.newInstance(userId)
         fragmentTransaction.add(R.id.userSharedRoutesFragmentTablet, sharedRoutesFragment)
         fragmentTransaction.add(R.id.userFollowingFragmentTablet, userFollowingFragment)

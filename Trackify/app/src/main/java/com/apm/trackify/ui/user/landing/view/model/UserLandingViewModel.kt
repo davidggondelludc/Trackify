@@ -24,7 +24,9 @@ class UserLandingViewModel @Inject constructor(
     init {
         viewModelScope.launch {
             spotifyApi.getMeUser().onSuccess {
-                userId.value = it.id
+                if (userId.value != it.id) {
+                    userId.value = it.id
+                }
                 firebaseService.getUser(it.id, { user ->
                     userName.value = it.display_name
                     userFollowers.value = user.followers

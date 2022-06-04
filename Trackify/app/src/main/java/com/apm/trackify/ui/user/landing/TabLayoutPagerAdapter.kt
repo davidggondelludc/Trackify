@@ -20,9 +20,9 @@ class TabLayoutPagerAdapter(
     override fun createFragment(position: Int): Fragment {
         val userId = myUserId.value ?: ""
         return when (position) {
-            0 -> UserSharedRoutesFragment.newInstance(userId)
+            0 -> UserSharedRoutesFragment.newInstance(userId, true)
             1 -> UserFollowingFragment.newInstance(userId)
-            else -> UserSharedRoutesFragment.newInstance(userId)
+            else -> UserSharedRoutesFragment.newInstance(userId, true)
         }
     }
 }
