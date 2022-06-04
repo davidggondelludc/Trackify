@@ -8,6 +8,7 @@ class UserSharedRouteViewHolder(
     val binding: UserSharedRouteItemBinding
 ) : RecyclerView.ViewHolder(binding.root) {
 
+    val icon = binding.selected
     val coverImageView = binding.cover
     val nameTextView = binding.name
     val moreButton = binding.more

@@ -2,6 +2,7 @@ package com.apm.trackify.ui.user.landing.sharedRoutes.view.adapter
 
 import android.content.Intent
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
 import android.widget.PopupMenu
 import androidx.core.content.ContextCompat.startActivity
@@ -35,6 +36,8 @@ class UserSharedRouteAdapter(
 ) : ListAdapter<RouteItem, UserSharedRouteViewHolder>(RouteItemDiffUtil()) {
 
     private val firebaseService = FirebaseService()
+    private var selectedPosition = 0
+    private lateinit var imageMap: MutableMap<Int, String>
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): UserSharedRouteViewHolder {
         val inflater = LayoutInflater.from(parent.context)
@@ -43,8 +46,36 @@ class UserSharedRouteAdapter(
         return UserSharedRouteViewHolder(binding)
     }
 
+    override fun onCurrentListChanged(
+        previousList: MutableList<RouteItem>,
+        currentList: MutableList<RouteItem>
+    ) {
+        imageMap = mutableMapOf()
+        currentList.forEachIndexed { count, it ->
+            selectedPosition = 0
+            if (count == 0) {
+                mapsDraw(it.coordinates)
+            }
+            CoroutineScope(Dispatchers.IO).launch {
+                val response = spotifyApi.getPlaylistById(it.playlistId)
+                withContext(Dispatchers.Main) {
+                    if (response.isSuccessful) {
+                        val playlist = response.body()?.toPlaylistItem()
+                        if (playlist != null) {
+                            val image = playlist.imageUri
+                            imageMap[count] = image
+                            notifyItemChanged(count)
+                        }
+                    }
+                }
+            }
+        }
+        super.onCurrentListChanged(previousList, currentList)
+    }
+
     override fun onBindViewHolder(holder: UserSharedRouteViewHolder, position: Int) {
         val route = getItem(position)
+
 
         holder.coverImageView.setImageDrawable(
             CoverUtil.getDrawable(
@@ -53,23 +84,26 @@ class UserSharedRouteAdapter(
                 route.title.hashCode()
             )
         )
+        holder.icon.setImageDrawable(holder.itemView.context.getDrawable(R.drawable.ic_star_four_points))
+
         holder.nameTextView.text = route.title
+        if (selectedPosition == position) {
+            holder.icon.visibility = View.VISIBLE
+        } else {
+            holder.icon.visibility = View.GONE
+        }
 
         holder.itemView.setOnClickListener {
             mapsDraw(route.coordinates)
+            selectedPosition = holder.bindingAdapterPosition
+            notifyDataSetChanged()
         }
 
-        CoroutineScope(Dispatchers.IO).launch {
-            val response = spotifyApi.getPlaylistById(route.playlistId)
-            withContext(Dispatchers.Main) {
-                if (response.isSuccessful) {
-                    val playlist = response.body()?.toPlaylistItem()
-                    if (playlist != null) {
-                        val image = playlist.imageUri
-                        holder.coverImageView.loadFromURI(image, R.drawable.placeholder_playlist)
-                    }
-                }
-            }
+        imageMap[position]?.let {
+            holder.coverImageView.loadFromURI(
+                it,
+                R.drawable.placeholder_playlist
+            )
         }
 
         holder.moreButton.setOnClickListener { view ->
@@ -77,7 +111,10 @@ class UserSharedRouteAdapter(
             if (me) {
                 popupMenu.menuInflater.inflate(R.menu.popup_route_menu, popupMenu.menu)
             } else {
-                popupMenu.menuInflater.inflate(R.menu.popup_route_menu_without_delete, popupMenu.menu)
+                popupMenu.menuInflater.inflate(
+                    R.menu.popup_route_menu_without_delete,
+                    popupMenu.menu
+                )
             }
 
             popupMenu.setOnMenuItemClickListener {
