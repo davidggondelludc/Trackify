@@ -20,9 +20,9 @@ import com.journeyapps.barcodescanner.ScanOptions
 class UserFollowingFragment : Fragment() {
 
     companion object {
-        fun newInstance(userName: String) = UserFollowingFragment().apply {
+        fun newInstance(userId: String) = UserFollowingFragment().apply {
             arguments = Bundle().apply {
-                putString("userName", userName)
+                putString("userId", userId)
             }
         }
     }
@@ -59,8 +59,8 @@ class UserFollowingFragment : Fragment() {
 
         setupRecyclerView(binding.rvUsersFollowing)
 
-        val userName = arguments?.getString("userName") ?: "usuario"
-        viewModel.findFollowingUsers(userName)
+        val userId = arguments?.getString("userId") ?: ""
+        viewModel.findFollowingUsers(userId)
     }
 
     private fun setupRecyclerView(recyclerView: RecyclerView) {

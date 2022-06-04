@@ -41,7 +41,7 @@ class UserLandingFragment : Fragment() {
                     if (viewModel.userId != null) {
                         val bottomSheet = QRBottomSheet().apply {
                             arguments = Bundle().apply {
-                                putString("user", viewModel.userId)
+                                putString("user", viewModel.userId.value)
                             }
                         }
                         bottomSheet.show(requireActivity().supportFragmentManager, "QR")
@@ -61,14 +61,13 @@ class UserLandingFragment : Fragment() {
             true
         }
         setupToolbar(binding.toolbar)
-        println(viewModel.toString())
         setupViewPager(binding)
         setupObservers(binding)
     }
 
     private fun setupViewPager(binding: UserLandingFragmentBinding) {
         val adapter =
-            TabLayoutPagerAdapter(this, binding.tabLayout?.tabCount ?: 0, viewModel.userName)
+            TabLayoutPagerAdapter(this, binding.tabLayout?.tabCount ?: 0, viewModel.userId)
 
         binding.viewPager2?.adapter = adapter
         binding.viewPager2?.registerOnPageChangeCallback(object :
@@ -91,9 +90,11 @@ class UserLandingFragment : Fragment() {
     }
 
     private fun setupObservers(binding: UserLandingFragmentBinding) {
+        viewModel.userId.observe(viewLifecycleOwner) {
+            setupViewPager(binding)
+        }
         viewModel.userName.observe(viewLifecycleOwner) {
             binding.userName.text = it.toString()
-            setupViewPager(binding)
         }
         viewModel.userFollowers.observe(viewLifecycleOwner) {
             binding.userFollowers.text =
