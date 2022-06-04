@@ -11,9 +11,9 @@ class UserFollowingViewModel : ViewModel() {
     var mutableUsers = mutableListOf<UserItem>()
     private var firebaseService = FirebaseService()
 
-    fun findFollowingUsers(userName: String) {
+    fun findFollowingUsers(userId: String) {
         mutableUsers.clear()
-        firebaseService.findFollowingUsers(userName, {
+        firebaseService.findFollowingUsers(userId, {
             mutableUsers.add(it)
             users.value = mutableUsers.toList()
         }, {})

@@ -12,7 +12,9 @@ import com.apm.trackify.R
 import com.apm.trackify.databinding.UserLandingFragmentBinding
 import com.apm.trackify.ui.login.LoginActivity
 import com.apm.trackify.ui.main.MainApplication
+import com.apm.trackify.ui.user.landing.following.UserFollowingFragment
 import com.apm.trackify.ui.user.landing.qr.QRBottomSheet
+import com.apm.trackify.ui.user.landing.sharedRoutes.UserSharedRoutesFragment
 import com.apm.trackify.ui.user.landing.view.model.UserLandingViewModel
 import com.apm.trackify.util.extension.setupToolbar
 import com.apm.trackify.util.extension.toastError
@@ -20,6 +22,7 @@ import com.apm.trackify.util.extension.toggleVisibility
 import com.google.android.material.tabs.TabLayout
 import com.spotify.sdk.android.auth.AuthorizationClient
 import dagger.hilt.android.AndroidEntryPoint
+
 
 @AndroidEntryPoint
 class UserLandingFragment : Fragment() {
@@ -61,8 +64,23 @@ class UserLandingFragment : Fragment() {
             true
         }
         setupToolbar(binding.toolbar)
-        setupViewPager(binding)
+        val tabletSize = resources.getBoolean(R.bool.isTablet)
+        if (tabletSize) {
+            setUpFragments("")
+        } else {
+            setupViewPager(binding)
+        }
+
         setupObservers(binding)
+    }
+
+    private fun setUpFragments(userId: String) {
+        val fragmentTransaction = childFragmentManager.beginTransaction()
+        val sharedRoutesFragment = UserSharedRoutesFragment.newInstance(userId)
+        val userFollowingFragment = UserFollowingFragment.newInstance(userId)
+        fragmentTransaction.add(R.id.userSharedRoutesFragmentTablet, sharedRoutesFragment)
+        fragmentTransaction.add(R.id.userFollowingFragmentTablet, userFollowingFragment)
+        fragmentTransaction.commit()
     }
 
     private fun setupViewPager(binding: UserLandingFragmentBinding) {
@@ -91,7 +109,12 @@ class UserLandingFragment : Fragment() {
 
     private fun setupObservers(binding: UserLandingFragmentBinding) {
         viewModel.userId.observe(viewLifecycleOwner) {
-            setupViewPager(binding)
+            val tabletSize = resources.getBoolean(R.bool.isTablet)
+            if (tabletSize) {
+                setUpFragments(it)
+            } else {
+                setupViewPager(binding)
+            }
         }
         viewModel.userName.observe(viewLifecycleOwner) {
             binding.userName.text = it.toString()

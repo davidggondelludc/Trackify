@@ -165,55 +165,57 @@ class FirebaseService {
         forEachRoute: (RouteItem) -> Unit,
         onFailure: () -> Unit
     ) {
-
-        db.collection("routes").whereEqualTo("creator", userId).get()
-            .addOnSuccessListener { documents ->
-                for (document in documents) {
-                    val coords = document.data["coordinates"] as List<HashMap<String, Double>>
-                    val newCoords = ArrayList<LatLng>()
-                    for (coord in coords) {
-                        val lat = coord["latitude"]
-                        val long = coord["longitude"]
-                        if (lat != null && long != null) {
-                            newCoords.add(LatLng(lat, long))
+        if (userId != "") {
+            db.collection("routes").whereEqualTo("creator", userId).get()
+                .addOnSuccessListener { documents ->
+                    for (document in documents) {
+                        val coords = document.data["coordinates"] as List<HashMap<String, Double>>
+                        val newCoords = ArrayList<LatLng>()
+                        for (coord in coords) {
+                            val lat = coord["latitude"]
+                            val long = coord["longitude"]
+                            if (lat != null && long != null) {
+                                newCoords.add(LatLng(lat, long))
+                            }
                         }
+                        forEachRoute(
+                            RouteItem(
+                                document.id,
+                                document.data["name"] as String,
+                                document.data["playlistId"] as String,
+                                document.data["firstLat"] as Double,
+                                document.data["firstLong"] as Double,
+                                newCoords,
+                                document.data["creator"] as String
+                            )
+                        )
                     }
-                    forEachRoute(
-                        RouteItem(
+                }.addOnFailureListener {
+                    onFailure()
+                }
+        }
+    }
+
+    fun getUser(userId: String, onSuccess: (UserItem) -> Unit, onFailure: () -> Unit) {
+        if (userId != "") {
+            db.collection("users").document(userId).get().addOnSuccessListener { document ->
+                if (document.data == null) {
+                    onFailure()
+                } else {
+                    val following = document.data?.get("following") as List<DocumentReference>
+                    val routes = document.data?.get("routes") as List<DocumentReference>
+                    onSuccess(
+                        UserItem(
                             document.id,
-                            document.data["name"] as String,
-                            document.data["playlistId"] as String,
-                            document.data["firstLat"] as Double,
-                            document.data["firstLong"] as Double,
-                            newCoords,
-                            document.data["creator"] as String
+                            following.map { it.toString() },
+                            routes.map { it.toString() },
+                            document.data?.get("followers") as Long
                         )
                     )
                 }
             }.addOnFailureListener {
                 onFailure()
             }
-    }
-
-    fun getUser(userId: String, onSuccess: (UserItem) -> Unit, onFailure: () -> Unit) {
-
-        db.collection("users").document(userId).get().addOnSuccessListener { document ->
-            if (document.data == null) {
-                onFailure()
-            } else {
-                val following = document.data?.get("following") as List<DocumentReference>
-                val routes = document.data?.get("routes") as List<DocumentReference>
-                onSuccess(
-                    UserItem(
-                        document.id,
-                        following.map { it.toString() },
-                        routes.map { it.toString() },
-                        document.data?.get("followers") as Long
-                    )
-                )
-            }
-        }.addOnFailureListener {
-            onFailure()
         }
     }
 
@@ -222,17 +224,19 @@ class FirebaseService {
         forEachUser: (UserItem) -> Unit,
         onFailure: () -> Unit
     ) {
-        db.collection("users").document(userId).get()
-            .addOnSuccessListener { myDocument ->
-                val data = myDocument.data?.get("following")
-                if (data != null) {
-                    for (doc in data as MutableList<DocumentReference>) {
-                        getUser(doc.id, forEachUser, onFailure)
+        if (userId != "") {
+            db.collection("users").document(userId).get()
+                .addOnSuccessListener { myDocument ->
+                    val data = myDocument.data?.get("following")
+                    if (data != null) {
+                        for (doc in data as MutableList<DocumentReference>) {
+                            getUser(doc.id, forEachUser, onFailure)
+                        }
                     }
+                }.addOnFailureListener {
+                    onFailure()
                 }
-            }.addOnFailureListener {
-                onFailure()
-            }
+        }
     }
 
     fun findRoutesByUserCoord(

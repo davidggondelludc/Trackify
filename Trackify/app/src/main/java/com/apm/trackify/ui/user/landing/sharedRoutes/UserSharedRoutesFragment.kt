@@ -61,6 +61,9 @@ class UserSharedRoutesFragment : Fragment(), OnMapReadyCallback {
         mapView.getMapAsync(this)
 
         setUpObservers(binding)
+        setupRecyclerView(binding.rvSharedRouteItems)
+        val userName = arguments?.getString("userId") ?: ""
+        viewModel.findRoutes(userName)
     }
 
     private fun setupRecyclerView(recyclerView: RecyclerView) {
@@ -71,7 +74,13 @@ class UserSharedRoutesFragment : Fragment(), OnMapReadyCallback {
                 { viewModel.findRoutes(userId) },
                 spotifyApi,
                 navController,
-                { coordinates: List<LatLng> -> mapUtil.drawRouteAndSetOnClick(coordinates) }
+                { coordinates: List<LatLng> ->
+                    try {
+                        mapUtil.drawRouteAndSetOnClick(coordinates)
+                    } catch (ex: Exception) {
+                        context?.toastError(R.string.couldNotDrawRoute)
+                    }
+                }
             )
         viewModel.routes.observe(viewLifecycleOwner) {
             routeAdapter.submitList(it)
@@ -91,10 +100,6 @@ class UserSharedRoutesFragment : Fragment(), OnMapReadyCallback {
         val heightpx = resources.getDimension(R.dimen.user_mapview_height).toPx.toInt()
         mapUtil = MapsUtil(googleMap, context, resources.displayMetrics.widthPixels, heightpx)
         mapUtil.setDefaultSettings()
-
-        setupRecyclerView(binding.rvSharedRouteItems)
-        val userName = arguments?.getString("userId") ?: ""
-        viewModel.findRoutes(userName)
     }
 
     override fun onResume() {
