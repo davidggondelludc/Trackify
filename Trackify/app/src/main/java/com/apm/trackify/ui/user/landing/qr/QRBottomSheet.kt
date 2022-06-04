@@ -7,6 +7,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.apm.trackify.databinding.QrBottomSheetBinding
+import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.google.zxing.BarcodeFormat
 import com.google.zxing.qrcode.QRCodeWriter
@@ -32,5 +33,13 @@ class QRBottomSheet : BottomSheetDialogFragment() {
             }
         }
         binding.qr.setImageBitmap(bitmap)
+    }
+
+    override fun onStart() {
+        super.onStart()
+
+        // This forces the sheet to appear at max height even on landscape
+        val behavior = BottomSheetBehavior.from(requireView().parent as View)
+        behavior.state = BottomSheetBehavior.STATE_EXPANDED
     }
 }
