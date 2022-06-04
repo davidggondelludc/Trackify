@@ -250,6 +250,7 @@ class FirebaseService {
     }
 
     fun findRoutesByUserCoord(
+        creator: String,
         latitude: Double,
         longitude: Double,
         forEachRoute: (RouteItem) -> Unit
@@ -258,6 +259,8 @@ class FirebaseService {
         val latThreshold = 0.050
         val longThreshold = 0.025
 
+        Log.d("CREADOR", creator)
+
         db.collection("routes")
             .whereGreaterThanOrEqualTo("firstLat", latitude - latThreshold)
             .whereLessThanOrEqualTo("firstLat", latitude + latThreshold)
@@ -265,7 +268,10 @@ class FirebaseService {
             .addOnSuccessListener { documents ->
                 for (document in documents) {
                     val firstLong = document.data["firstLong"] as Double
-                    if (firstLong >= longitude - latThreshold && firstLong <= longitude + longThreshold) {
+                    val docCreator = document.data["creator"] as String
+                    if (firstLong >= longitude - latThreshold
+                        && firstLong <= longitude + longThreshold
+                        && creator != docCreator) {
                         val coords = document.data["coordinates"] as List<HashMap<String, Double>>
                         val newCoords = ArrayList<LatLng>()
                         for (coord in coords) {

@@ -72,7 +72,8 @@ class RoutesLandingFragment : Fragment(), OnMapReadyCallback {
             .addOnCompleteListener { taskLocation ->
                 if (taskLocation.isSuccessful && taskLocation.result != null) {
                     val location = taskLocation.result
-                    val viewModel = RoutesLandingViewModel(location.latitude, location.longitude)
+                    val viewModel =
+                        RoutesLandingViewModel(spotifyApi, location.latitude, location.longitude)
                     viewModel.routes.observe(viewLifecycleOwner) {
                         playlistRoutesAdapter.submitList(it)
                     }
