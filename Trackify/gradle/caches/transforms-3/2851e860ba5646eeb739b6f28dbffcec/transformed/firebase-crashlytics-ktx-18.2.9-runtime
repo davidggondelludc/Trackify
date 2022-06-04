@@ -1,0 +1,4 @@
+com.google.firebase.crashlytics.ktx.BuildConfig
+com.google.firebase.crashlytics.ktx.FirebaseCrashlyticsKt
+com.google.firebase.crashlytics.ktx.FirebaseCrashlyticsKtxRegistrar
+com.google.firebase.crashlytics.ktx.KeyValueBuilder

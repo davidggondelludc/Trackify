@@ -12,6 +12,7 @@ import androidx.core.view.size
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.viewModelScope
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -20,6 +21,7 @@ import com.apm.trackify.databinding.RoutesLandingFragmentBinding
 import com.apm.trackify.provider.model.domain.RouteItem
 import com.apm.trackify.provider.service.firebase.FirebaseService
 import com.apm.trackify.provider.service.spotify.SpotifyApi
+import com.apm.trackify.provider.service.spotify.data.User
 import com.apm.trackify.ui.routes.landing.view.adapter.PlaylistRouteAdapter
 import com.apm.trackify.ui.routes.landing.view.model.RoutesLandingViewModel
 import com.apm.trackify.util.extension.setupToolbar
@@ -32,6 +34,8 @@ import com.google.android.gms.maps.OnMapReadyCallback
 import com.google.android.gms.maps.SupportMapFragment
 import com.google.android.gms.maps.model.LatLng
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.launch
+import retrofit2.HttpException
 import javax.inject.Inject
 
 @AndroidEntryPoint
@@ -41,6 +45,7 @@ class RoutesLandingFragment : Fragment(), OnMapReadyCallback {
     lateinit var spotifyApi: SpotifyApi
     private lateinit var mapUtil: MapsUtil
     private lateinit var fusedLocationClient: FusedLocationProviderClient
+    val user = MutableLiveData<User>()
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -77,7 +82,7 @@ class RoutesLandingFragment : Fragment(), OnMapReadyCallback {
             .addOnCompleteListener { taskLocation ->
                 if (taskLocation.isSuccessful && taskLocation.result != null) {
                     val location = taskLocation.result
-                    val viewModel = RoutesLandingViewModel(location.latitude, location.longitude)
+                    val viewModel = RoutesLandingViewModel(spotifyApi, location.latitude, location.longitude)
                     viewModel.routes.observe(viewLifecycleOwner) {
                         playlistRoutesAdapter.submitList(it)
                     }
