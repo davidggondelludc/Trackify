@@ -10,5 +10,6 @@ data class PlaylistItem(
     val imageUri: String,
     val name: String,
     val owner: String,
-    val totalTracks: Int
+    val totalTracks: Int,
+    val public: Boolean
 ) : Parcelable
