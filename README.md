@@ -16,7 +16,7 @@
 </div>
 <div align="center">
 
-[![Watch the video](images/video.PNG)]([https://youtu.be/T-D1KVIuvjA](https://youtu.be/k14EpDJbZnQ))
+[![Watch the video](images/video.PNG)]([https://youtu.be/T-D1KVIuvjA](https://youtu.be/k14EpDJbZnQ)
 
 </div>
 
