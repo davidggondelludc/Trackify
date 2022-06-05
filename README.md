@@ -14,6 +14,12 @@
     <a href="https://github.com/davidggondelludc/Trackify/wiki"><strong>Explora la documentación »</strong></a>
   </p>
 </div>
+<div align="center">
+
+[![Watch the video](images/video.PNG)]([https://youtu.be/T-D1KVIuvjA](https://youtu.be/k14EpDJbZnQ))
+
+</div>
+
 
 ## 🔌 Instalación y uso
 * Registrar la aplicación en Spotify
