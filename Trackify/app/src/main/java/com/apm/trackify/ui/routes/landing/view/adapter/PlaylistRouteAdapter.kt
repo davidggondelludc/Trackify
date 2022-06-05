@@ -111,7 +111,7 @@ class PlaylistRouteAdapter(
             val navController = it.findNavController()
             val action =
                 RoutesLandingFragmentDirections.actionRoutesFragmentToUserFollowingProfileFragment(
-                    route.creator
+                    route.creator, "routes"
                 )
             navController.navigate(action)
         }

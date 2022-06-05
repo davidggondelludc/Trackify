@@ -56,7 +56,7 @@ class UserFollowingAdapter(spotifyApi: SpotifyApi) :
             val navController = it.findNavController()
             val action =
                 UserLandingFragmentDirections.actionUserFragmentToUserFollowingProfileFragment(
-                    user.userName
+                    user.userName, "users"
                 )
             navController.navigate(action)
         }

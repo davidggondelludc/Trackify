@@ -69,7 +69,7 @@ class UserLandingFragment : Fragment() {
 
     private fun setUpFragments(userId: String) {
         val fragmentTransaction = childFragmentManager.beginTransaction()
-        val sharedRoutesFragment = UserSharedRoutesFragment.newInstance(userId, false)
+        val sharedRoutesFragment = UserSharedRoutesFragment.newInstance(userId, "users", false)
         val userFollowingFragment = UserFollowingFragment.newInstance(userId)
         fragmentTransaction.add(R.id.userSharedRoutesFragmentTablet, sharedRoutesFragment)
         fragmentTransaction.add(R.id.userFollowingFragmentTablet, userFollowingFragment)
