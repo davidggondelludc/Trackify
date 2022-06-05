@@ -15,9 +15,11 @@ class ParallaxListener(
 
         recyclerView.findViewHolderForAdapterPosition(0)?.apply {
             val binding = PlaylistsTrackHeaderItemBinding.bind(itemView)
-            val diff = binding.cover.height - abs(binding.wrapper.height - binding.root.bottom)
+            if (binding.wrapper != null) {
+                val diff = binding.cover.height - abs(binding.wrapper.height - binding.root.bottom)
 
-            binding.cover.translationY = diff.toFloat() * parallax
+                binding.cover.translationY = diff.toFloat() * parallax
+            }
         }
     }
 }

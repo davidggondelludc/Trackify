@@ -27,7 +27,8 @@ class RoutesCreateViewModel @Inject constructor(
     init {
         viewModelScope.launch {
             try {
-                playlists.value = spotifyRepository.getMePlaylists()
+                val publicPlaylists = spotifyRepository.getMePlaylists().filter { it.public }
+                playlists.value = publicPlaylists
                 user.value = spotifyApi.getMeUser().getOrNull()
             } catch (e: HttpException) {
                 error.value = R.string.error

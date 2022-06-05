@@ -30,7 +30,7 @@ class FollowingProfileFragment : Fragment() {
         val binding = UserFollowingProfileFragmentBinding.bind(view)
 
         val fragmentTransaction = childFragmentManager.beginTransaction()
-        val sharedRoutesFragment = UserSharedRoutesFragment.newInstance(args.userId)
+        val sharedRoutesFragment = UserSharedRoutesFragment.newInstance(args.userId, args.location,false)
         fragmentTransaction.add(R.id.sharedRoutesProfileFragmentContainer, sharedRoutesFragment)
         fragmentTransaction.commit()
 

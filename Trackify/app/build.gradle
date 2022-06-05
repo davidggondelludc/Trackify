@@ -20,11 +20,11 @@ android {
 
         // This number is used only to determine whether one version is more recent than another,
         // with higher numbers indicating more recent versions
-        versionCode 6
+        versionCode 7
 
         // A string used as the version number shown to users. The value is a string so that you
         // can describe the app version as a <major>.<minor>.<point> string
-        versionName "0.5.0"
+        versionName "1.0.0"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
@@ -80,6 +80,9 @@ ext {
     retrofit_version = "2.9.0"
     glide_version = "4.13.1"
 
+    zxing_version = "4.3.0"
+    zxing_core_version = "3.4.1"
+
     spotify_version = "1.2.5"
     firebase_version = "29.3.1"
     firestore_version = "24.1.1"
@@ -124,6 +127,9 @@ dependencies {
 
     implementation "com.github.bumptech.glide:glide:$glide_version"
     annotationProcessor "com.github.bumptech.glide:compiler:$glide_version"
+
+    implementation "com.google.zxing:core:$zxing_core_version"
+    implementation("com.journeyapps:zxing-android-embedded:$zxing_version") { transitive = false }
 
     //noinspection GradleDependency
     implementation "com.spotify.android:auth:$spotify_version"

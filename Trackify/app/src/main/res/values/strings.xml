@@ -32,6 +32,10 @@
     <string name="couldNotFollow">Could not follow user</string>
     <string name="couldNotUnfollow">Could not unfollow user</string>
     <string name="couldNotFindRoutes">Could not find any routes</string>
+    <string name="couldNotDrawRoute">Could not draw the route on the map</string>
+    <string name="couldNotFindFollowingUsers">Could not find any following users</string>
+    <string name="couldNotFindLocation">No Location Detected. Make sure permissions are granted and location is on.</string>
+
     <string name="internet">No internet connection</string>
     <string name="preview_url">Preview unavailable for this track</string>
 
@@ -83,14 +87,26 @@
     <string name="create_route_description">Tap in the map to add up to 9 markers</string>
     <string name="clear_markers">Clear</string>
     <string name="create_route_title">Create route and select a playlist</string>
+    <string name="create_route_markers_error">Introduce at least 2 markers in the map</string>
+    <string name="create_route_name_error">Introduce the name of the route</string>
+    <string name="create_route_playlist_selection_error">Select one playlist</string>
+    <string name="create_route_unknown_error">An error have occurred, please try again later</string>Route created successfully!
+    <string name="create_route_success">Route created successfully!</string>
+    <string name="create_route_location_error">No Location Detected. Make sure permissions are granted and location is enabled</string>
 
 
     <!-- user landing -->
     <string name="share_route_title">Sharing route</string>
-    <string name="share_route_text">Check this route on Trackify</string>
+    <string name="share_route_text">Check the playlist on this route from #Trackify</string>
     <string name="view_playlist">View playlist</string>
     <string name="route_delete_success">Route deleted</string>
     <string name="route_delete_error">Could not delete route</string>
+
+    <!-- user profile -->
+    <string name="follow">Follow</string>
+    <string name="unfollow">Unfollow</string>
+    <string name="qr_code">QR code</string>
+    <string name="scan_qr">Scan QR</string>
 
     <!-- arrays -->
     <string-array name="duration_list">
@@ -98,10 +114,6 @@
         <item>Medium</item>
         <item>Long</item>
     </string-array>
-
-    <!-- user profile -->
-    <string name="follow">Follow</string>
-    <string name="unfollow">Unfollow</string>
 
     <!-- plurals -->
     <plurals name="playlists">

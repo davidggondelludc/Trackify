@@ -13,7 +13,6 @@ import com.apm.trackify.R
 import com.apm.trackify.databinding.PlaylistsLandingFragmentBinding
 import com.apm.trackify.ui.playlists.landing.view.adapter.PlaylistAdapter
 import com.apm.trackify.ui.playlists.landing.view.model.PlaylistsLandingViewModel
-import com.apm.trackify.util.ScreenUtils
 import com.apm.trackify.util.extension.setupToolbar
 import com.apm.trackify.util.extension.toastError
 import dagger.hilt.android.AndroidEntryPoint
@@ -49,13 +48,7 @@ class PlaylistsLandingFragment : Fragment() {
             binding.swipeRefresh.isRefreshing = true
         }
 
-        val screenUtils = ScreenUtils()
-        val screenWidth = screenUtils.getScreenWidth()
-
-        var span = 2
-        if (screenWidth > 1800) {
-            span = 4
-        }
+        val span = resources.getInteger(R.integer.span)
 
         val playlistsAdapter = PlaylistAdapter()
 

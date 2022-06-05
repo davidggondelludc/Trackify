@@ -9,20 +9,19 @@ import com.apm.trackify.ui.user.landing.sharedRoutes.UserSharedRoutesFragment
 class TabLayoutPagerAdapter(
     fragment: Fragment,
     private val tabCount: Int,
-    userName: MutableLiveData<String>
+    private val userId: MutableLiveData<String>
 ) :
     FragmentStateAdapter(fragment) {
 
-    private val myUserName = userName
 
     override fun getItemCount(): Int = tabCount
 
     override fun createFragment(position: Int): Fragment {
-        val userName = myUserName.value ?: "usuario"
+        val userId = userId.value ?: ""
         return when (position) {
-            0 -> UserSharedRoutesFragment.newInstance(userName)
-            1 -> UserFollowingFragment.newInstance(userName)
-            else -> UserSharedRoutesFragment.newInstance(userName)
+            0 -> UserSharedRoutesFragment.newInstance(userId, "users", true)
+            1 -> UserFollowingFragment.newInstance(userId)
+            else -> UserSharedRoutesFragment.newInstance(userId, "users", true)
         }
     }
 }

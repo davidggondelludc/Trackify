@@ -13,6 +13,7 @@ import com.google.android.gms.maps.model.*
 class MapsUtil(var map: GoogleMap, val context: Context?, val width: Int, val height: Int) :
     GoogleMap.OnMarkerClickListener,
     GoogleMap.OnMapClickListener {
+
     private val offset = 0.003
     private var mapsRouteUrl = ""
     private val icons = listOf(

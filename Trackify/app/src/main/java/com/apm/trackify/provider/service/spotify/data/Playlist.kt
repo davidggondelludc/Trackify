@@ -9,7 +9,8 @@ data class Playlist(
     val images: List<Image>,
     val name: String,
     val owner: Owner,
-    val tracks: PlaylistTracksResponse
+    val tracks: PlaylistTracksResponse,
+    val public: Boolean
 ) {
 
     fun toPlaylistItem(): PlaylistItem {
@@ -19,7 +20,8 @@ data class Playlist(
             if (images.isEmpty()) "" else images.first().url,
             name,
             owner.display_name,
-            tracks.total
+            tracks.total,
+            public
         )
     }
 }

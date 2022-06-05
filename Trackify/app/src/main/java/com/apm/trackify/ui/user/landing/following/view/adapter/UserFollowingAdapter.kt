@@ -8,11 +8,20 @@ import com.apm.trackify.R
 import com.apm.trackify.databinding.UserFollowingItemBinding
 import com.apm.trackify.provider.model.diff.UserItemDiffUtil
 import com.apm.trackify.provider.model.domain.UserItem
+import com.apm.trackify.provider.service.spotify.SpotifyApi
 import com.apm.trackify.ui.user.landing.UserLandingFragmentDirections
 import com.apm.trackify.ui.user.landing.following.view.holder.UserFollowingViewHolder
 import com.apm.trackify.util.CoverUtil
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 
-class UserFollowingAdapter() : ListAdapter<UserItem, UserFollowingViewHolder>(UserItemDiffUtil()) {
+
+class UserFollowingAdapter(spotifyApi: SpotifyApi) :
+    ListAdapter<UserItem, UserFollowingViewHolder>(UserItemDiffUtil()) {
+
+    val spotifyApi = spotifyApi
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): UserFollowingViewHolder {
         val inflater = LayoutInflater.from(parent.context)
@@ -33,11 +42,21 @@ class UserFollowingAdapter() : ListAdapter<UserItem, UserFollowingViewHolder>(Us
         holder.nameTextView.text = user.userName
         holder.sharedPlaylistsTextView.text = "${user.routes.size} shared playlists"
 
+        CoroutineScope(Dispatchers.IO).launch {
+            val response = spotifyApi.getUserById(user.userName)
+            withContext(Dispatchers.Main) {
+                response.onSuccess {
+                    holder.avatarTextView.text = it.display_name.first().uppercase()
+                    holder.nameTextView.text = it.display_name
+                }
+            }
+        }
+
         holder.itemView.setOnClickListener {
             val navController = it.findNavController()
             val action =
                 UserLandingFragmentDirections.actionUserFragmentToUserFollowingProfileFragment(
-                    user.userName
+                    user.userName, "users"
                 )
             navController.navigate(action)
         }

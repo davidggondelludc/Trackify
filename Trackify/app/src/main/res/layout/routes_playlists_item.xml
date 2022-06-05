@@ -5,18 +5,29 @@
     android:id="@+id/content"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:paddingStart="@dimen/screen_margin_horizontal"
+    android:paddingStart="8dp"
     android:paddingEnd="@dimen/screen_margin_horizontal">
+
+    <com.google.android.material.imageview.ShapeableImageView
+        android:id="@+id/selected"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:tint="@color/golden_poppy"
+        tools:srcCompat="@drawable/placeholder_selected_star" />
 
     <com.google.android.material.imageview.ShapeableImageView
         android:id="@+id/cover"
         android:layout_width="@dimen/default_icon_size"
         android:layout_height="@dimen/default_icon_size"
+        android:layout_marginLeft="8dp"
         android:layout_marginTop="@dimen/track_cover_margin"
         android:layout_marginBottom="@dimen/track_cover_margin"
         android:contentDescription="@string/track_cover_description"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/selected"
         app:layout_constraintTop_toTopOf="parent"
         app:shapeAppearanceOverlay="@style/ShapeAppearanceOverlay.App.CornerSize10Percent"
         tools:srcCompat="@drawable/placeholder_track" />

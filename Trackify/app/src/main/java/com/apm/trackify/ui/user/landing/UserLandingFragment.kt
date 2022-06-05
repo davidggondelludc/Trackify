@@ -10,16 +10,19 @@ import androidx.fragment.app.viewModels
 import androidx.viewpager2.widget.ViewPager2
 import com.apm.trackify.R
 import com.apm.trackify.databinding.UserLandingFragmentBinding
-import com.apm.trackify.provider.service.firebase.FirebaseService
 import com.apm.trackify.ui.login.LoginActivity
 import com.apm.trackify.ui.main.MainApplication
+import com.apm.trackify.ui.user.landing.following.UserFollowingFragment
+import com.apm.trackify.ui.user.landing.qr.QRBottomSheet
+import com.apm.trackify.ui.user.landing.sharedRoutes.UserSharedRoutesFragment
 import com.apm.trackify.ui.user.landing.view.model.UserLandingViewModel
 import com.apm.trackify.util.extension.setupToolbar
-import com.apm.trackify.util.extension.toggleVisibility
 import com.apm.trackify.util.extension.toastError
+import com.apm.trackify.util.extension.toggleVisibility
 import com.google.android.material.tabs.TabLayout
 import com.spotify.sdk.android.auth.AuthorizationClient
 import dagger.hilt.android.AndroidEntryPoint
+
 
 @AndroidEntryPoint
 class UserLandingFragment : Fragment() {
@@ -37,6 +40,16 @@ class UserLandingFragment : Fragment() {
 
         binding.toolbar.setOnMenuItemClickListener {
             when (it.itemId) {
+                R.id.qr -> {
+                    if (viewModel.userId != null) {
+                        val bottomSheet = QRBottomSheet().apply {
+                            arguments = Bundle().apply {
+                                putString("user", viewModel.userId.value)
+                            }
+                        }
+                        bottomSheet.show(requireActivity().supportFragmentManager, "QR")
+                    }
+                }
                 R.id.signOff -> {
                     MainApplication.TOKEN = null
                     AuthorizationClient.clearCookies(requireContext())
@@ -51,14 +64,21 @@ class UserLandingFragment : Fragment() {
             true
         }
         setupToolbar(binding.toolbar)
-        println(viewModel.toString())
-        setupViewPager(binding)
         setupObservers(binding)
+    }
+
+    private fun setUpFragments(userId: String) {
+        val fragmentTransaction = childFragmentManager.beginTransaction()
+        val sharedRoutesFragment = UserSharedRoutesFragment.newInstance(userId, "users", false)
+        val userFollowingFragment = UserFollowingFragment.newInstance(userId)
+        fragmentTransaction.add(R.id.userSharedRoutesFragmentTablet, sharedRoutesFragment)
+        fragmentTransaction.add(R.id.userFollowingFragmentTablet, userFollowingFragment)
+        fragmentTransaction.commit()
     }
 
     private fun setupViewPager(binding: UserLandingFragmentBinding) {
         val adapter =
-            TabLayoutPagerAdapter(this, binding.tabLayout?.tabCount ?: 0, viewModel.userName)
+            TabLayoutPagerAdapter(this, binding.tabLayout?.tabCount ?: 0, viewModel.userId)
 
         binding.viewPager2?.adapter = adapter
         binding.viewPager2?.registerOnPageChangeCallback(object :
@@ -81,9 +101,16 @@ class UserLandingFragment : Fragment() {
     }
 
     private fun setupObservers(binding: UserLandingFragmentBinding) {
+        viewModel.userId.observe(viewLifecycleOwner) {
+            val tabletSize = resources.getBoolean(R.bool.isTablet)
+            if (tabletSize) {
+                setUpFragments(it)
+            } else {
+                setupViewPager(binding)
+            }
+        }
         viewModel.userName.observe(viewLifecycleOwner) {
             binding.userName.text = it.toString()
-            setupViewPager(binding)
         }
         viewModel.userFollowers.observe(viewLifecycleOwner) {
             binding.userFollowers.text =

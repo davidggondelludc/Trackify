@@ -16,6 +16,7 @@ class UserLandingViewModel @Inject constructor(
 ) : ViewModel() {
 
     private var firebaseService = FirebaseService()
+    var userId = MutableLiveData<String>()
     val userName = MutableLiveData<String>()
     val userFollowers = MutableLiveData<Long>()
     val error = MutableLiveData<Int>()
@@ -23,11 +24,13 @@ class UserLandingViewModel @Inject constructor(
     init {
         viewModelScope.launch {
             spotifyApi.getMeUser().onSuccess {
-                firebaseService.getUser(it.id,
-                    { user ->
-                        userName.value = it.display_name
-                        userFollowers.value = user.followers
-                    }, { error.value = R.string.userNameNotFound })
+                if (userId.value != it.id) {
+                    userId.value = it.id
+                }
+                firebaseService.getUser(it.id, { user ->
+                    userName.value = it.display_name
+                    userFollowers.value = user.followers
+                }, { error.value = R.string.userNameNotFound })
             }.onFailure {
                 error.value = R.string.userNameNotFound
             }
