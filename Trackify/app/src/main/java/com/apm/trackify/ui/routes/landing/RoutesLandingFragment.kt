@@ -70,20 +70,28 @@ class RoutesLandingFragment : Fragment(), OnMapReadyCallback {
 
         fusedLocationClient.lastLocation
             .addOnCompleteListener { taskLocation ->
-                if (taskLocation.isSuccessful && taskLocation.result != null) {
-                    val location = taskLocation.result
-                    val viewModel =
-                        RoutesLandingViewModel(spotifyApi, location.latitude, location.longitude)
-                    viewModel.routes.observe(viewLifecycleOwner) {
-                        playlistRoutesAdapter.submitList(it)
+                taskLocation.addOnSuccessListener {
+                    if (taskLocation.result != null) {
+                        val location = taskLocation.result
+                        val viewModel =
+                            RoutesLandingViewModel(
+                                spotifyApi,
+                                location.latitude,
+                                location.longitude
+                            )
+                        viewModel.routes.observe(viewLifecycleOwner) {
+                            playlistRoutesAdapter.submitList(it)
+                        }
+                        recyclerView.adapter = playlistRoutesAdapter
+                        recyclerView.layoutManager = LinearLayoutManager(context)
                     }
-                    recyclerView.adapter = playlistRoutesAdapter
-                    recyclerView.layoutManager = LinearLayoutManager(context)
-                } else {
-                    Log.w(TAG, "getLastLocation:exception", taskLocation.exception)
-                    context?.toastError(R.string.couldNotFindLocation)
-                    val navController = findNavController()
-                    navController.navigateUp()
+                    taskLocation.addOnFailureListener {
+                        Log.w(TAG, "getLastLocation:exception", taskLocation.exception)
+                        context?.toastError(R.string.couldNotFindLocation)
+                        val navController = findNavController()
+                        navController.navigateUp()
+                    }
+
                 }
             }
     }
