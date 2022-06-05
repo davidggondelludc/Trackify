@@ -15,6 +15,7 @@ import com.apm.trackify.util.CoverUtil
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 
 
 class UserFollowingAdapter(spotifyApi: SpotifyApi) :
@@ -42,9 +43,12 @@ class UserFollowingAdapter(spotifyApi: SpotifyApi) :
         holder.sharedPlaylistsTextView.text = "${user.routes.size} shared playlists"
 
         CoroutineScope(Dispatchers.IO).launch {
-            spotifyApi.getUserById(user.userName).onSuccess {
-                holder.avatarTextView.text = it.display_name.first().uppercase()
-                holder.nameTextView.text = it.display_name
+            val response = spotifyApi.getUserById(user.userName)
+            withContext(Dispatchers.Main) {
+                response.onSuccess {
+                    holder.avatarTextView.text = it.display_name.first().uppercase()
+                    holder.nameTextView.text = it.display_name
+                }
             }
         }
 
