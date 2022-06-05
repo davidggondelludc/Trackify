@@ -29,12 +29,14 @@ import javax.inject.Inject
 class UserSharedRoutesFragment : Fragment(), OnMapReadyCallback {
 
     companion object {
-        fun newInstance(userId: String, me: Boolean) = UserSharedRoutesFragment().apply {
-            arguments = Bundle().apply {
-                putString("userId", userId)
-                putBoolean("me", me)
+        fun newInstance(userId: String, location: String, me: Boolean) =
+            UserSharedRoutesFragment().apply {
+                arguments = Bundle().apply {
+                    putString("userId", userId)
+                    putString("location", location)
+                    putBoolean("me", me)
+                }
             }
-        }
     }
 
     private var showedError = false
@@ -84,7 +86,9 @@ class UserSharedRoutesFragment : Fragment(), OnMapReadyCallback {
                         context?.toastError(R.string.couldNotDrawRoute)
                     }
                 },
+                arguments?.getString("location") ?: "",
                 arguments?.getBoolean("me") ?: false
+
             )
         viewModel.routes.observe(viewLifecycleOwner) {
             routeAdapter.submitList(it)

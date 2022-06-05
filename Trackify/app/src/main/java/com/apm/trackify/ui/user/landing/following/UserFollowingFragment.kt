@@ -43,7 +43,7 @@ class UserFollowingFragment : Fragment() {
                 val navController = findNavController()
                 val action =
                     UserLandingFragmentDirections.actionUserFragmentToUserFollowingProfileFragment(
-                        result.contents
+                        result.contents, "users"
                     )
                 navController.navigate(action)
             }

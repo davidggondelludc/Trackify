@@ -14,6 +14,7 @@ import com.apm.trackify.provider.model.diff.RouteItemDiffUtil
 import com.apm.trackify.provider.model.domain.RouteItem
 import com.apm.trackify.provider.service.firebase.FirebaseService
 import com.apm.trackify.provider.service.spotify.SpotifyApi
+import com.apm.trackify.ui.routes.landing.RoutesLandingFragmentDirections
 import com.apm.trackify.ui.user.landing.UserLandingFragmentDirections
 import com.apm.trackify.ui.user.landing.sharedRoutes.view.holder.UserSharedRouteViewHolder
 import com.apm.trackify.util.CoverUtil
@@ -32,6 +33,7 @@ class UserSharedRouteAdapter(
     private val spotifyApi: SpotifyApi,
     private val navController: NavController,
     private val mapsDraw: (List<LatLng>) -> Unit,
+    private val location: String,
     private val me: Boolean
 ) : ListAdapter<RouteItem, UserSharedRouteViewHolder>(RouteItemDiffUtil()) {
 
@@ -127,11 +129,21 @@ class UserSharedRouteAdapter(
                                 if (response.isSuccessful) {
                                     val playlist = response.body()?.toPlaylistItem()
                                     if (playlist != null) {
-                                        val action =
+
+                                        val routesAction =
+                                            RoutesLandingFragmentDirections.toPlaylistTrackFragment(
+                                                playlist
+                                            )
+                                        val usersAction =
                                             UserLandingFragmentDirections.actionUserFragmentToPlaylistTracksFragment(
                                                 playlist
                                             )
-                                        navController.navigate(action)
+                                        if (location == "users") {
+                                            navController.navigate(usersAction)
+                                        } else if (location == "routes") {
+                                            navController.navigate(routesAction)
+                                        }
+
                                     }
                                 }
                             }
